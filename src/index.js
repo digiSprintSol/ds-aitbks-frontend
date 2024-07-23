@@ -10,11 +10,14 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import "./index.css";
+import RootProvider from "./Context/rootProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RootProvider>
+      <RouterProvider router={router} />
+    </RootProvider>
   </React.StrictMode>
 );
 
