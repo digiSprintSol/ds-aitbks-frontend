@@ -1,19 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
+import loadable from "@loadable/component";
 import Home from "./pages/Home";
-import AccountantView from "./pages/AccountantView";
-import CommitteeView from "./pages/CommitteeView";
-import Acknowledge from "./pages/Acknowledge";
-import Login from "./pages/Login";
-import Payment from "./pages/Payment";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import PresidentView from "./pages/PresidentView";
-import RegistrationOne from "./pages/RegistrationOne";
-import RegistrationTwo from "./pages/RegistrationTwo";
-import RegistrationThree from "./pages/RegistrationThree";
-import UploadAnnouncement from "./pages/UploadAnnouncement";
-import UploadEvent from "./pages/UploadEvent";
-import UploadGallery from "./pages/UploadGallery";
-import UserView from "./pages/UserView";
+
+const AccountantView = loadable(() => import("./pages/AccountantView"));
+const CommitteeView = loadable(() => import("./pages/CommitteeView"));
+const Acknowledge = loadable(() => import("./pages/Acknowledge"));
+const Login = loadable(() => import("./pages/Login"));
+const Payment = loadable(() => import("./pages/Payment"));
+const PaymentSuccess = loadable(() => import("./pages/PaymentSuccess"));
+const PresidentView = loadable(() => import("./pages/PresidentView"));
+const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
+const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
+const RegistrationThree = loadable(() => import("./pages/RegistrationThree"));
+const UploadAnnouncement = loadable(() => import("./pages/UploadAnnouncement"));
+const UploadEvent = loadable(() => import("./pages/UploadEvent"));
+const UploadGallery = loadable(() => import("./pages/UploadGallery"));
+const UserView = loadable(() => import("./pages/UserView"));
 
 export const router = createBrowserRouter([
   {
