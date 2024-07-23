@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "formulahendry.auto-close-tag",
+    "steoates.autoimport",
+    "esbenp.prettier-vscode",
+    "pkief.material-icon-theme",
+    "wix.vscode-import-cost",
+    "eamodio.gitlens",
+    "dsznajder.es7-react-js-snippets"
+  ]
+}
