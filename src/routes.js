@@ -1,6 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import loadable from "@loadable/component";
 import Home from "./pages/Home";
+import HomeLayout from "./layouts/HomeLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import PaymentLayout from "./layouts/PaymentLayout";
+import PresidentLayout from "./layouts/PresidentLayout";
 
 const AccountantView = loadable(() => import("./pages/AccountantView"));
 const CommitteeView = loadable(() => import("./pages/CommitteeView"));
@@ -18,65 +22,97 @@ const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
 
 export const router = createBrowserRouter([
+  // Default view
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/accountant-view",
-    element: <AccountantView />,
-  },
-  {
-    path: "/committee-view",
-    element: <CommitteeView />,
-  },
-  {
-    path: "/acknowledge",
-    element: <Acknowledge />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/payment",
-    element: <Payment />,
-  },
-  {
-    path: "/payment-success",
-    element: <PaymentSuccess />,
-  },
-  {
-    path: "/president-view",
-    element: <PresidentView />,
-  },
-  {
-    path: "/registration-one",
-    element: <RegistrationOne />,
+    element: <HomeLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+    ],
   },
 
+  // Auth view
   {
-    path: "/registration-two",
-    element: <RegistrationTwo />,
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/auth/login",
+        element: <Login />,
+      },
+      {
+        path: "/auth/registration-one",
+        element: <RegistrationOne />,
+      },
+
+      {
+        path: "/auth/registration-two",
+        element: <RegistrationTwo />,
+      },
+      {
+        path: "/auth/registration-three",
+        element: <RegistrationThree />,
+      },
+    ],
   },
+
+  // Payment view
   {
-    path: "/registration-three",
-    element: <RegistrationThree />,
+    path: "/",
+    element: <PaymentLayout />,
+    children: [
+      {
+        path: "/payment",
+        element: <Payment />,
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
+      },
+    ],
   },
+
+  // president view
+
   {
-    path: "/upload-announcement",
-    element: <UploadAnnouncement />,
-  },
-  {
-    path: "/upload-event",
-    element: <UploadEvent />,
-  },
-  {
-    path: "/upload-gallery",
-    element: <UploadGallery />,
-  },
-  {
-    path: "/user-view",
-    element: <UserView />,
+    path: "/",
+    element: <PresidentLayout />,
+    children: [
+      {
+        path: "/accountant-view",
+        element: <AccountantView />,
+      },
+      {
+        path: "/committee-view",
+        element: <CommitteeView />,
+      },
+      {
+        path: "/acknowledge",
+        element: <Acknowledge />,
+      },
+      {
+        path: "/president-view",
+        element: <PresidentView />,
+      },
+      {
+        path: "/upload-announcement",
+        element: <UploadAnnouncement />,
+      },
+      {
+        path: "/upload-event",
+        element: <UploadEvent />,
+      },
+      {
+        path: "/upload-gallery",
+        element: <UploadGallery />,
+      },
+      {
+        path: "/user-view",
+        element: <UserView />,
+      },
+    ],
   },
 ]);
