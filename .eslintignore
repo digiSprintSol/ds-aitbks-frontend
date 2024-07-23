@@ -1,0 +1,14 @@
+build
+coverage
+dist
+node_modules/
+pnpm-lock.yaml
+.pnpm
+dist/
+*.html
+*.md
+*.css
+*.json
+*.test.js
+# services/
+test-report.xml
