@@ -12,7 +12,8 @@ function Home() {
   // console.log("theme", { data, loading, error });
   if (error) return <h1>Error .....</h1>;
   if (loading) return <h1>loading .....</h1>;
-  return <div>Home ,{JSON.stringify(data, null, 2)}</div>;
+  console.log(JSON.stringify(data, null, 2));
+  return <div>Home</div>;
 }
 
 export default Home;

@@ -1,0 +1,10 @@
+.box {
+    height: auto;
+    width: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-Items: center;
+    background-color: #dbfaef;
+    border-radius: 20px;
+}
