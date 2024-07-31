@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/iframe-has-title */
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -12,7 +11,7 @@ function Index() {
     <>
       <div className={styles.footer}>
         <img
-          src={`${process.env.PUBLIC_URL}/assets/images/footer.png`}
+          src="/assets/images/footer.png"
           alt="footer_bg"
           className={styles.footer_img}
         />
@@ -71,6 +70,7 @@ function Index() {
                 </Typography>
                 <div style={{ width: "100%", marginLeft: "80px" }}>
                   <iframe
+                    title="Google Maps Location"
                     style={{
                       width: "100%",
                       height: "100px",
@@ -84,7 +84,6 @@ function Index() {
                     <a href="https://www.gps.ie/">gps systems</a>
                   </iframe>
                 </div>
-                {/* <img src='/location.png' alt='location' className={styles.location} /> */}
               </div>
             </Grid>
             <Grid item sm={1} />

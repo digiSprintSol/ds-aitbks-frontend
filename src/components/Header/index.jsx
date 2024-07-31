@@ -6,22 +6,18 @@ import Button from "../Button";
 function Index() {
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    navigate("/auth/login");
-  };
-
   return (
     <div className={styles.header}>
       <div className={styles.right}>
         <Link to="/">
           <img
-            src={`${process.env.PUBLIC_URL}/assets/images/community_logo.png`}
+            src="/assets/images/community_logo.png"
             alt="logo"
             className={styles.logo}
           />
         </Link>
         <img
-          src={`${process.env.PUBLIC_URL}/assets/images/community_title.png`}
+          src="/assets/images/community_title.png"
           alt="title"
           className={styles.title}
         />
@@ -39,8 +35,13 @@ function Index() {
         <Link to="/" className={styles.link}>
           Contact
         </Link>
-        <Button className={styles.btn}>Register</Button>
-        <Button className={styles.btn} onClick={handleLoginClick}>
+        <Button
+          className={styles.btn}
+          onClick={() => navigate("/auth/registration-one")}
+        >
+          Register
+        </Button>
+        <Button className={styles.btn} onClick={() => navigate("/auth/login")}>
           Login
         </Button>
       </div>
