@@ -11,8 +11,12 @@ const CommitteeView = loadable(() => import("./pages/CommitteeView"));
 const Acknowledge = loadable(() => import("./pages/Acknowledge"));
 const Login = loadable(() => import("./pages/Login"));
 const Payment = loadable(() => import("./pages/Payment"));
+const UploadReceipt = loadable(() => import("./pages/UploadReceipt"));
 const PaymentSuccess = loadable(() => import("./pages/PaymentSuccess"));
 const PresidentView = loadable(() => import("./pages/PresidentView"));
+const PresidentUser = loadable(() => import("./pages/PresidentUser"));
+const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
+const UserNav = loadable(() => import("./pages/UserNav"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
 const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
 const RegistrationThree = loadable(() => import("./pages/RegistrationThree"));
@@ -69,6 +73,10 @@ export const router = createBrowserRouter([
         element: <Payment />,
       },
       {
+        path: "/upload-receipt",
+        element: <UploadReceipt />,
+      },
+      {
         path: "/payment-success",
         element: <PaymentSuccess />,
       },
@@ -96,6 +104,18 @@ export const router = createBrowserRouter([
       {
         path: "/president-view",
         element: <PresidentView />,
+      },
+      {
+        path: "/president-user",
+        element: <PresidentUser />,
+      },
+      {
+        path: "/president-crud",
+        element: <PresidentCRUD />,
+      },
+      {
+        path: "/user-nav",
+        element: <UserNav />,
       },
       {
         path: "/upload-announcement",
