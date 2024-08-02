@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React from "react";
+import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { RootContext } from "./rootContext";
+import { initialState } from "../Lib/constants";
 
 function RootProvider({ children }) {
-  return (
-    <RootContext.Provider value={{ name: "test" }}>
-      {children}
-    </RootContext.Provider>
-  );
+  const [data, setData] = useState(initialState);
+  const values = useMemo(() => ({
+    data,
+    setData,
+  }));
+  return <RootContext.Provider value={values}>{children}</RootContext.Provider>;
 }
 
 RootProvider.propTypes = {
