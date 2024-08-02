@@ -14,7 +14,7 @@ const Payment = loadable(() => import("./pages/Payment"));
 const UploadReceipt = loadable(() => import("./pages/UploadReceipt"));
 const PaymentSuccess = loadable(() => import("./pages/PaymentSuccess"));
 const PresidentView = loadable(() => import("./pages/PresidentView"));
-const PresidentUser = loadable(() => import("./pages/PresidentUser"));
+// const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
 const UserNav = loadable(() => import("./pages/UserNav"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
@@ -104,10 +104,6 @@ export const router = createBrowserRouter([
       {
         path: "/president-view",
         element: <PresidentView />,
-      },
-      {
-        path: "/president-user",
-        element: <PresidentUser />,
       },
       {
         path: "/president-crud",
