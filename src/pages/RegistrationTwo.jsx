@@ -1,12 +1,8 @@
 import React from "react";
-import PresidentModal from "../components/Modal/presidentModal";
+// import PresidentModal from "../components/Modal/presidentModal";
 
 function RegistrationTwo() {
-  return (
-    <div>
-      <PresidentModal />
-    </div>
-  );
+  return <div>{/* <PresidentModal /> */}</div>;
 }
 
 export default RegistrationTwo;

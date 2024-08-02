@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import { Box, Divider, Stack, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import loginSchema from "../../../validations/loginSchema";
+// import loginSchema from "../../../validations/loginSchema";
 
 function Login() {
   const formik = useFormik({
@@ -10,7 +10,7 @@ function Login() {
       username: "",
       password: "",
     },
-    loginSchema,
+    // loginSchema,
     onSubmit: (values) => {
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 2));
