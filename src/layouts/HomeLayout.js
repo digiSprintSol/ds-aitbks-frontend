@@ -5,13 +5,13 @@ import Footer from "../components/Footer";
 
 function HomeLayout() {
   return (
-    <div>
+    <>
       <Header />
       <div>
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
