@@ -1,0 +1,40 @@
+.presidentviewhead {
+    display: flex;
+    margin-left: 15%;
+    margin-bottom: 2%;
+}
+
+.presidentviewhead>:nth-child(1) {
+    margin-right: 20px;
+}
+
+.presidentviewhead>:nth-child(2) {
+    margin-right: 20px;
+}
+
+.presidentviewhead>:nth-child(3) {
+    margin-right: 20px;
+}
+
+.presidentviewhead>:nth-child(4) {
+    margin-right: 20px;
+}
+
+.presidentviewnav {
+    display: flex;
+    box-shadow: 0px 2px 2px gray;
+    align-items: center;
+    padding: 0px 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.presidentviewnav:hover {
+    background-color: #23A380;
+    color: white;
+}
+
+
+.presidentviewnav>:nth-child(1) {
+    margin-right: 15px;
+}
