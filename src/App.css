@@ -47,17 +47,17 @@
   width: 60%;
   margin-top: 0;
   position: absolute;
-  top:60%;
+  top:75%;
 }
 
 .firstpara{
   position: absolute;
-  transform: translate(0,-9vw);
+  top:107%;
 }
 
 .secondpart{
   margin-bottom: 4vw;
-  padding: 2vw;
+  padding:0vw 2vw;
 }
 
 .grid-container{
@@ -173,7 +173,7 @@
   width: 22vw;
   padding: 5px;
   font-size: 2vw;
-  text-align: left;
+  /* text-align: left; */
 }
 
 .fifthpartinsidetwo>:nth-child(2)>:nth-child(2) {
@@ -212,7 +212,7 @@
 }
 
 .sixthpart>:nth-child(2){
-  font-size: 400%;
+  font-size: 4vw;
   border: 3px solid transparent;
   width: 90%;
   margin-top: 0px;
@@ -230,7 +230,7 @@
 
 .sixthpartinside>:nth-child(2){
   position: absolute;
-  transform: translate(90%,-25%);
+  transform: translate(100%,-25%);
 }
 
 .helpsupportbutton{

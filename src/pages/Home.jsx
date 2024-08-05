@@ -143,6 +143,34 @@ function Home() {
     rectangle6,
   ];
 
+  const marqueedata = [
+    {
+      name: "Gopala krishna m",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Narendra Babu N",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Ravinder Chaluvadi",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Harikrishna Pothula",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "S.Ramana Rao",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+  ];
+
   return (
     <div className="homepage">
       {/* <Header /> */}
@@ -190,7 +218,7 @@ function Home() {
           <img src={logo} alt="logo" height="60%" width="60%" />
         </div>
         <h1 className="firstparaheading">
-          All India Telaga Balija Kapu Sangam
+          All India Telaga Balija Kapu Sangham
         </h1>
         <p className="firstpara">
           The Andhra Pradesh Telaga, Balija Kapu Sangham (for short “the
@@ -218,7 +246,15 @@ function Home() {
 
       {/* 2nd part ------------------------------------------------------------------------------ */}
       <div className="secondpart">
-        <h1>Committee Members</h1>
+        <h1
+          style={{
+            color: "#144047",
+            fontSize: "4vw",
+            transform: "translate(0,-2vw)",
+          }}
+        >
+          Office Bearers
+        </h1>
         <div className="grid-container">
           {cmdata.map((item) => (
             <div className="item1">
@@ -262,7 +298,9 @@ function Home() {
 
       {/* 3rd part ------------------------------------------------------------- */}
       <div>
-        <h1>Central Committee Members</h1>
+        <h1 style={{ color: "#144047", fontSize: "4vw", marginLeft: "2vw" }}>
+          Central Committee Members
+        </h1>
         <div className="grid-container" style={{ padding: "0 8vw" }}>
           {ccmdata.map((item) => (
             <div className="item1">
@@ -334,66 +372,22 @@ function Home() {
         <div className="fifthpartinside">
           <h1>What People are Talking About us</h1>
           <Marquee className="marqueefeedback">
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Gopala krishna m</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
+            {marqueedata.map((item) => (
+              <div className="fifthpartinsidetwo">
+                <img src={userIcon} alt="user_icon" height="50%" width="16%" />
+                <div>
+                  <h1>{item.name}</h1>
+                  <p>{item.tag}</p>
+                  <p>{item.info}</p>
+                </div>
+                <img
+                  src={quoteIcon}
+                  alt="quote_icon"
+                  height="40%"
+                  width="15%"
+                />
               </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Narendra Babu N</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Ravinder Chaluvadi</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Harikrishna Pothula</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>S.Ramana Rao</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
+            ))}
           </Marquee>
         </div>
         <Button
@@ -413,10 +407,12 @@ function Home() {
       {/* 6th part ---------------------------------------------------------------------------------------- */}
       <div className="sixthpart">
         <h1>We’re here to support our people</h1>
-        <h1>Helping for the people and support Kapu community</h1>
+        <h1>
+          Helping for the people and support Kapu community and under previlaged
+        </h1>
         <div className="sixthpartinside">
           <img src={image3} alt="image3" height="25%" width="35%" />
-          <img src={threecircles} alt="threecirlces" height="90%" width="50%" />
+          <img src={threecircles} alt="threecirlces" height="90%" width="45%" />
         </div>
         <Button
           variant="contained"

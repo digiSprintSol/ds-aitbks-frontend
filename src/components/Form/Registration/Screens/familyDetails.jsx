@@ -10,6 +10,7 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  // Stack,
 } from "@mui/material";
 import {
   gender as genders,
@@ -21,6 +22,7 @@ import { useRootContext } from "../../../../Hooks/useRootContext";
 
 function familyDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
+  const exp = [1];
 
   const formik = useFormik({
     initialValues: {
@@ -55,6 +57,13 @@ function familyDetails({ setActiveStep }) {
         childGender: values.childGender,
       }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < data.noOfChildren; i++) {
+        // eslint-disable-next-line no-unused-expressions
+        exp.push(i);
+      }
+      console.log(exp);
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 2));
     },
@@ -225,7 +234,7 @@ function familyDetails({ setActiveStep }) {
             }
           />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             // select
@@ -245,62 +254,73 @@ function familyDetails({ setActiveStep }) {
             }
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            id="nameOfChild"
-            name="nameOfChild"
-            label="Name Of Child"
-            type="string"
-            value={formik.values.nameOfChild}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.nameOfChild && Boolean(formik.errors.nameOfChild)
-            }
-            helperText={formik.touched.nameOfChild && formik.errors.nameOfChild}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <TextField
-            fullWidth
-            id="ageOfChild"
-            name="ageOfChild"
-            label="ageOfChild"
-            type="number"
-            value={formik.values.ageOfChild}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.ageOfChild && Boolean(formik.errors.ageOfChild)
-            }
-            helperText={formik.touched.ageOfChild && formik.errors.ageOfChild}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel id="childGender-select-label">ChildGender</InputLabel>
-            <Select
-              labelId="childGender-select-label"
-              id="childGender-select"
-              value={formik.values.childGender}
-              name="childGender"
-              label="childGender"
-              onChange={formik.handleChange}
-            >
-              {genders.map((gen) => (
-                <MenuItem key={gen.label} value={gen.label}>
-                  {gen.label}
-                </MenuItem>
-              ))}
-            </Select>
-            {formik.touched.childGender && formik.errors.childGender && (
-              <FormHelperText sx={{ color: "red" }}>
-                {formik.errors.childGender}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
+        {exp.map((item) => (
+          <div key={item}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="nameOfChild"
+                name="nameOfChild"
+                label="Name Of Child"
+                type="string"
+                value={formik.values.nameOfChild}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.nameOfChild &&
+                  Boolean(formik.errors.nameOfChild)
+                }
+                helperText={
+                  formik.touched.nameOfChild && formik.errors.nameOfChild
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="ageOfChild"
+                name="ageOfChild"
+                label="ageOfChild"
+                type="number"
+                value={formik.values.ageOfChild}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.ageOfChild && Boolean(formik.errors.ageOfChild)
+                }
+                helperText={
+                  formik.touched.ageOfChild && formik.errors.ageOfChild
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="childGender-select-label">
+                  ChildGender
+                </InputLabel>
+                <Select
+                  labelId="childGender-select-label"
+                  id="childGender-select"
+                  value={formik.values.childGender}
+                  name="childGender"
+                  label="childGender"
+                  onChange={formik.handleChange}
+                >
+                  {genders.map((gen) => (
+                    <MenuItem key={gen.label} value={gen.label}>
+                      {gen.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {formik.touched.childGender && formik.errors.childGender && (
+                  <FormHelperText sx={{ color: "red" }}>
+                    {formik.errors.childGender}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+          </div>
+        ))}
         {/* <Grid item xs={6}>
         <TextField
           fullWidth

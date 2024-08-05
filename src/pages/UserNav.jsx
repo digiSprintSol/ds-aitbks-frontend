@@ -121,7 +121,7 @@ const steps = [
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [activecount, setActivecount] = React.useState(1);
+  const [activecount, setActivecount] = React.useState(5);
   // eslint-disable-next-line consistent-return
   const display = (active) => {
     // eslint-disable-next-line default-case
