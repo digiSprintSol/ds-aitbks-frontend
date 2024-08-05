@@ -8,6 +8,7 @@ function index({ className, children, ...props }) {
         {...props}
         variant="contained"
         sx={{
+          fontFamily: "ProximaBold",
           backgroundColor: "#23A380",
           "&:hover": {
             backgroundColor: "#1F735B",

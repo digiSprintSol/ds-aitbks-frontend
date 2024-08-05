@@ -8,10 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-import Button from "@mui/material/Button";
 // import Stack from "@mui/material/Stack";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import PresidentModal from "../components/Modal/presidentModal";
 
 const useStyles = makeStyles({
   committeetable: {
@@ -85,18 +85,15 @@ function PresidentUser() {
                 <TableCell align="middle">{row.phone}</TableCell>
                 <TableCell align="middle">{row.email}</TableCell>
                 <TableCell align="middle">
-                  <Button
+                  {/* <Button
                     variant="contained"
                     disableElevation
-                    sx={{
-                      backgroundColor: "#F1C21B",
-                      width: "14vw",
-                      borderRadius: "15px",
-                      height: "2vw",
-                    }}
+                   
                   >
-                    View Full Details
-                  </Button>
+                    
+          
+                  </Button> */}
+                  <PresidentModal />
                 </TableCell>
               </TableRow>
             ))}

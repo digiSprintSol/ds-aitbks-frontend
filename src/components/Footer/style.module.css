@@ -28,6 +28,7 @@
         }
     
         .footer_text {
+            font-family:'ProximaRegular';;
             position: relative;
             z-index: 2;
             color: white;

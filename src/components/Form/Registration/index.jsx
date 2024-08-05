@@ -62,7 +62,11 @@ function RegistrationOne() {
       </Stepper>
       <Typography
         variant="h4"
-        style={{ marginTop: "30px", textAlign: "center", fontWeight: "bold" }}
+        style={{
+          marginTop: "30px",
+          textAlign: "center",
+          fontFamily: "Proximabold",
+        }}
       >
         Request for Membership Application
       </Typography>
@@ -79,6 +83,7 @@ function RegistrationOne() {
           <Typography
             variant="h5"
             style={{
+              fontFamily: "ProximaBold",
               color: "#1B7DA6",
               textAlign: "center",
               fontWeight: "bold",
@@ -101,7 +106,12 @@ function RegistrationOne() {
               ""
             ) : (
               <Button
-                style={{ backgroundColor: "#1B7DA6", color: "white" }}
+                style={{
+                  backgroundColor: "#1B7DA6",
+                  color: "white",
+                  marginTop: "0px",
+                  transform: "translate(0,-6vw)",
+                }}
                 onClick={handleBack}
                 disabled={activeStep === 0}
               >

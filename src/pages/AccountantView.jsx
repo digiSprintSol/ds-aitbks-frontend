@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import React from "react";
+// import { useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,10 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-import Button from "@mui/material/Button";
-// import Stack from "@mui/material/Stack";
+// import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import Acknowledge from "./Acknowledge";
 
 const useStyles = makeStyles({
   committeetable: {
@@ -27,7 +27,7 @@ function PresidentView() {
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
-  const range = [];
+  // const navigate = useNavigate();
   const classes = useStyles();
   const rowsperpage = 3;
 
@@ -35,25 +35,36 @@ function PresidentView() {
     setCurrentpage(value);
   };
 
+  // const handleViewDetails = () => {
+  //   navigate('/acknowledge');
+  // };
+
+  //  const handleClickOpen = () => {
+  //    setOpen(true);
+  //  };
+
   useEffect(() => {
+    const range = [];
     range.push((currentpage - 1) * rowsperpage + 1);
     range.push(currentpage * rowsperpage);
 
     if (data) {
       const partdata = data.filter(
-        // eslint-disable-next-line array-callback-return
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
     }
-  }, [currentpage]);
+  }, [currentpage, data]);
 
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
 
   return (
     <div>
-      <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
+      <TableContainer
+        sx={{ width: "95%", margin: "30px auto" }}
+        component={Paper}
+      >
         <Table
           sx={{ minWidth: 650 }}
           className={classes.committeetable}
@@ -87,7 +98,7 @@ function PresidentView() {
                 <TableCell align="middle">{row.phone}</TableCell>
                 <TableCell align="middle">{row.email}</TableCell>
                 <TableCell align="middle">
-                  <Button
+                  {/* <Button
                     variant="contained"
                     disableElevation
                     sx={{
@@ -96,9 +107,11 @@ function PresidentView() {
                       borderRadius: "15px",
                       height: "2vw",
                     }}
+                    // onClick={() => handleViewDetails(row.id)}
                   >
                     View Full Details
-                  </Button>
+                  </Button> */}
+                  <Acknowledge />
                 </TableCell>
               </TableRow>
             ))}

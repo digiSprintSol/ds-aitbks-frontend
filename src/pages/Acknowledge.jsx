@@ -34,7 +34,7 @@ function Acknowledge() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
+        VIEW FULL DETAILS
       </Button>
       <BootstrapDialog
         onClose={handleClose}
