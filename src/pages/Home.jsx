@@ -265,11 +265,12 @@ function Home() {
                   border: "2px solid transparent",
                   width: "15vw",
                   marginLeft: "3vw",
+                  fontFamily: "ProximaSemibold",
                 }}
               >
                 {item.heading}
               </h4>
-              <p>{item.para}</p>
+              <p style={{ fontFamily: "ProximaRegular" }}>{item.para}</p>
             </div>
           ))}
         </div>
@@ -323,38 +324,38 @@ function Home() {
       {/* 4th part --------------------------------------------------------------------------- */}
       <div className="fourthpart">
         <img src={image1} alt="tracedimage" width="95%" />
-        <h1>Change Everything</h1>
-        <h1>We’re here to help us</h1>
-        <p>
+        <h1 style={{ fontFamily: "ProximaBold" }}>Change Everything</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>We’re here to help us</h1>
+        <p style={{ fontFamily: "ProximaRegular" }}>
           All these years we were helped our community in different aspects.
           Conducted multiple events for the community upliftment.
         </p>
         <div className="fourthpartinside">
           <div>
             <img src={group1} alt="group" />
-            <h1>Cultural Events</h1>
-            <p>
+            <h1 style={{ fontFamily: "ProximaBold" }}>Cultural Events</h1>
+            <p style={{ fontFamily: "ProximaRegular" }}>
               When nothing Prevents our to we like best, every pleasure to be.
             </p>
           </div>
           <div>
             <img src={group2} alt="group" />
-            <h1>Scholarships</h1>
-            <p>
+            <h1 style={{ fontFamily: "ProximaBold" }}>Scholarships</h1>
+            <p style={{ fontFamily: "ProximaRegular" }}>
               When nothing Prevents our to we like best, every pleasure to be.
             </p>
           </div>
           <div>
             <img src={group3} alt="group" />
-            <h1>Vana Bhojanalu</h1>
-            <p>
+            <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
+            <p style={{ fontFamily: "ProximaRegular" }}>
               When nothing Prevents our to we like best, every pleasure to be.
             </p>
           </div>
           <div>
             <img src={group4} alt="group" />
-            <h1>Parinaya Vedika</h1>
-            <p>
+            <h1 style={{ fontFamily: "ProximaBold" }}>Parinaya Vedika</h1>
+            <p style={{ fontFamily: "ProximaRegular" }}>
               When nothing Prevents our to we like best, every pleasure to be.
             </p>
           </div>
@@ -368,9 +369,11 @@ function Home() {
           alt="backgroundimage"
           className="feedbackimagebackground"
         />
-        <h1>Yours Feedbacks</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>Yours Feedbacks</h1>
         <div className="fifthpartinside">
-          <h1>What People are Talking About us</h1>
+          <h1 style={{ fontFamily: "ProximaBold" }}>
+            What People are Talking About us
+          </h1>
           <Marquee className="marqueefeedback">
             {marqueedata.map((item) => (
               <div className="fifthpartinsidetwo">
@@ -433,7 +436,7 @@ function Home() {
       {/* 7th part -------------------------------------------------------------------------------------------- */}
       <div className="seventhpart">
         <img src={image5} alt="tracedimage" />
-        <h1>Gallery</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>Gallery</h1>
         <div className="gallerycontainer">
           {gallery.map((item) => (
             <div className="galleryitem1">
@@ -459,8 +462,10 @@ function Home() {
       {/* 8th part ------------------------------------------------------------------------------------------------- */}
       <div className="eighthpart">
         <img src={image6} alt="tracedimage" height="40%" width="45%" />
-        <h1>Let’s support us to help us</h1>
-        <h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>
+          Let’s support us to help us
+        </h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>
           Join your hands with us for a better life and future for our
           community.
         </h1>

@@ -157,9 +157,17 @@ function identity({ setActiveStep }) {
           />
         </Grid>
       </Grid>
-      <Button variant="contained" type="submit">
-        Next
-      </Button>
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "20px",
+        }}
+      >
+        <Button variant="contained" type="submit">
+          Next
+        </Button>
+      </Grid>
     </form>
   );
 }

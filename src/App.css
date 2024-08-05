@@ -43,6 +43,7 @@
 
 .firstparaheading{
   font-size: 5vw;
+  font-family: ProximaBold;
   border: 2px solid transparent;
   width: 60%;
   margin-top: 0;
@@ -51,6 +52,7 @@
 }
 
 .firstpara{
+  font-family: ProximaReular;
   position: absolute;
   top:107%;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import {
   Grid,
@@ -10,6 +10,7 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  // Stack,
 } from "@mui/material";
 import {
   gender as genders,
@@ -59,6 +60,16 @@ function familyDetails({ setActiveStep }) {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const exp = [];
+  useEffect(() => {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < data.noOfChildren; i++) {
+      // eslint-disable-next-line no-unused-expressions
+      exp.push[i];
+    }
+    console.log(exp, data.noOfChildren);
+  }, [data.noOfChildren]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -119,7 +130,7 @@ function familyDetails({ setActiveStep }) {
             fullWidth
             id="spouseAge"
             name="spouseAge"
-            label="spouseAge"
+            label="Spouse Age"
             type="number"
             value={formik.values.spouseAge}
             onChange={formik.handleChange}
@@ -136,7 +147,7 @@ function familyDetails({ setActiveStep }) {
               id="gender-select"
               value={formik.values.spouseGender}
               name="spouseGender"
-              label="spouseGender"
+              label="Spouse Gender"
               onChange={formik.handleChange}
             >
               {genders.map((gen) => (
@@ -155,14 +166,14 @@ function familyDetails({ setActiveStep }) {
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="spouseProfession-select-label">
-              spouseProfession
+              Spouse Profession
             </InputLabel>
             <Select
               labelId="spouseProfession-select-label"
               id="spouseProfession-select"
               value={formik.values.spouseProfession}
               name="spouseProfession"
-              label="spouseProfession"
+              label="Spouse Profession"
               onChange={formik.handleChange}
             >
               {professions.map((pro) => (
@@ -182,14 +193,14 @@ function familyDetails({ setActiveStep }) {
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="spouseEducation-select-label">
-              spouseEducation
+              Spouse Education
             </InputLabel>
             <Select
               labelId="spouseEducation-select-label"
               id="education-select"
               value={formik.values.spouseEducation}
               name="spouseEducation"
-              label="spouseEducation"
+              label="Spouse Education"
               onChange={formik.handleChange}
             >
               {educations.map((edu) => (
@@ -225,6 +236,7 @@ function familyDetails({ setActiveStep }) {
             }
           />
         </Grid>
+        {/* ----------------------------------------- */}
         <Grid item xs={7}>
           <TextField
             fullWidth
@@ -266,7 +278,7 @@ function familyDetails({ setActiveStep }) {
             fullWidth
             id="ageOfChild"
             name="ageOfChild"
-            label="ageOfChild"
+            label="Age Of Child"
             type="number"
             value={formik.values.ageOfChild}
             onChange={formik.handleChange}
@@ -279,13 +291,13 @@ function familyDetails({ setActiveStep }) {
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
-            <InputLabel id="childGender-select-label">ChildGender</InputLabel>
+            <InputLabel id="childGender-select-label">Child Gender</InputLabel>
             <Select
               labelId="childGender-select-label"
               id="childGender-select"
               value={formik.values.childGender}
               name="childGender"
-              label="childGender"
+              label="Child Gender"
               onChange={formik.handleChange}
             >
               {genders.map((gen) => (
@@ -301,54 +313,87 @@ function familyDetails({ setActiveStep }) {
             )}
           </FormControl>
         </Grid>
-        {/* <Grid item xs={6}>
-        <TextField
-          fullWidth
-          id="nameOfChild"
-          name="nameOfChild"
-          label="Name Of Child"
-          type="nameOfChild"
-          value={formik.values.nameOfChild}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={
-            formik.touched.nameOfChild && Boolean(formik.errors.nameOfChild)
-          }
-          helperText={formik.touched.nameOfChild && formik.errors.nameOfChild}
-        />
+        {/* {exp.map(() => (
+          <Stack>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="nameOfChild"
+                name="nameOfChild"
+                label="Name Of Child"
+                type="string"
+                value={formik.values.nameOfChild}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.nameOfChild &&
+                  Boolean(formik.errors.nameOfChild)
+                }
+                helperText={
+                  formik.touched.nameOfChild && formik.errors.nameOfChild
+                }
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                fullWidth
+                id="ageOfChild"
+                name="ageOfChild"
+                label="Age Of Child"
+                type="number"
+                value={formik.values.ageOfChild}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.ageOfChild && Boolean(formik.errors.ageOfChild)
+                }
+                helperText={
+                  formik.touched.ageOfChild && formik.errors.ageOfChild
+                }
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel id="childGender-select-label">
+                  Child Gender
+                </InputLabel>
+                <Select
+                  labelId="childGender-select-label"
+                  id="childGender-select"
+                  value={formik.values.childGender}
+                  name="childGender"
+                  label="Child Gender"
+                  onChange={formik.handleChange}
+                >
+                  {genders.map((gen) => (
+                    <MenuItem key={gen.label} value={gen.label}>
+                      {gen.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {formik.touched.childGender && formik.errors.childGender && (
+                  <FormHelperText sx={{ color: "red" }}>
+                    {formik.errors.childGender}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+          </Stack>
+        ))} */}
+
+        {/* -------------------------------------------------------- */}
       </Grid>
-      <Grid item xs={2}>
-        <TextField
-          fullWidth
-          id="age"
-          name="age"
-          label="Age"
-          type="age"
-          value={formik.values.age}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.age && Boolean(formik.errors.age)}
-          helperText={formik.touched.age && formik.errors.age}
-        />
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "20px",
+        }}
+      >
+        <Button variant="contained" type="submit">
+          Next
+        </Button>
       </Grid>
-      <Grid item xs={4}>
-        <Select
-          fullWidth
-          labelId="gender-select-label"
-          id="gender-select"
-          value={gender}
-          label="Gender"
-          onChange={handleGenderChange}
-        >
-          {genders.map((gen) => (
-            <MenuItem value={gen.label}>{gen.label}</MenuItem>
-          ))}
-        </Select>
-      </Grid> */}
-      </Grid>
-      <Button variant="contained" type="submit">
-        Next
-      </Button>
     </form>
   );
 }
