@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-import Button from "@mui/material/Button";
+
 // import Stack from "@mui/material/Stack";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
@@ -21,17 +21,6 @@ const useStyles = makeStyles({
 });
 
 function CommitteeView() {
-  // function createData(name, calories, fat, carbs, protein, okay) {
-  //   return { name, calories, fat, carbs, protein, okay};
-  // }
-
-  // const rows = [
-  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0,3),
-  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3,3),
-  //   createData('Eclair', 262, 16.0, 24, 6.0,3),
-  //   createData('Cupcake', 305, 3.7, 67, 4.3,3),
-  //   createData('Gingerbread', 356, 16.0, 49, 3.9,3),
-  // ];
   const { data, loading, error } = useCustomFetch(
     "https://jsonplaceholder.typicode.com/users",
     "get"
@@ -41,14 +30,6 @@ function CommitteeView() {
   const [customdata, setCustomdata] = useState([]);
   const range = [];
   const classes = useStyles();
-  // if (data) {
-  //   setCustomdata(
-  //     data.filter(
-  //       // eslint-disable-next-line array-callback-return
-  //       (row) => row.id >= range[0] && row.id <= range[1]
-  //     )
-  //   )
-  // }
 
   const rowsperpage = 3;
 
@@ -56,9 +37,6 @@ function CommitteeView() {
     setCurrentpage(value);
   };
 
-  // const changeHandler = (e) => {
-  //   setRowsperpage(e.target.value)
-  // }
   useEffect(() => {
     range.push((currentpage - 1) * rowsperpage + 1);
     range.push(currentpage * rowsperpage);
@@ -77,7 +55,10 @@ function CommitteeView() {
 
   return (
     <div>
-      <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
+      <TableContainer
+        sx={{ width: "95%", margin: "30px auto" }}
+        component={Paper}
+      >
         <Table
           sx={{ minWidth: 650 }}
           className={classes.committeetable}
@@ -111,7 +92,7 @@ function CommitteeView() {
                 <TableCell align="middle">{row.phone}</TableCell>
                 <TableCell align="middle">{row.email}</TableCell>
                 <TableCell align="middle">
-                  <Button
+                  {/* <Button
                     variant="contained"
                     disableElevation
                     sx={{
@@ -122,7 +103,8 @@ function CommitteeView() {
                     }}
                   >
                     View Full Details
-                  </Button>
+                  </Button> */}
+                  <CommitteePopup />
                 </TableCell>
               </TableRow>
             ))}
@@ -155,7 +137,6 @@ function CommitteeView() {
       />
       <br />
       <hr />
-      <CommitteePopup />
     </div>
   );
 }

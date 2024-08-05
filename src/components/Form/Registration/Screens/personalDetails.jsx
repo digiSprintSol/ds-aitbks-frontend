@@ -106,7 +106,7 @@ function personalDetails({ setActiveStep }) {
             fullWidth
             id="lastName"
             name="lastName"
-            label="lastName"
+            label="Last Name"
             type="lastName"
             value={formik.values.lastName}
             onChange={formik.handleChange}
@@ -120,7 +120,7 @@ function personalDetails({ setActiveStep }) {
             fullWidth
             id="dob"
             name="dob"
-            label="dd/mm/yyyy"
+            label="DD/MM/YYYY"
             type="dob"
             value={formik.values.dob}
             onChange={formik.handleChange}
@@ -217,7 +217,7 @@ function personalDetails({ setActiveStep }) {
               id="education-select"
               value={formik.values.education}
               name="education"
-              label="education"
+              label="Education"
               onChange={formik.handleChange}
             >
               {educations.map((edu) => (
@@ -241,7 +241,7 @@ function personalDetails({ setActiveStep }) {
             fullWidth
             id="address"
             name="address"
-            label="address"
+            label="House No./ Apartment Name"
             type="address"
             value={formik.values.address}
             onChange={formik.handleChange}
@@ -286,7 +286,7 @@ function personalDetails({ setActiveStep }) {
               id="state-select"
               value={formik.values.state}
               name="state"
-              label="state"
+              label="State"
               onChange={formik.handleChange}
             >
               {states.map((sta) => (
@@ -310,7 +310,7 @@ function personalDetails({ setActiveStep }) {
               id="country-select"
               value={formik.values.country}
               name="country"
-              label="country"
+              label="Country"
               onChange={formik.handleChange}
             >
               {countries.map((coun) => (
@@ -327,9 +327,17 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
       </Grid>
-      <Button variant="contained" type="submit">
-        Next
-      </Button>
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "20px",
+        }}
+      >
+        <Button variant="contained" type="submit">
+          Next
+        </Button>
+      </Grid>
     </form>
   );
 }

@@ -39,6 +39,9 @@ function Index() {
                 <Link to="/" className={styles.link}>
                   Copyright Policy
                 </Link>
+                <Link to="/" className={styles.link}>
+                  Privacy Policy
+                </Link>
               </div>
             </Grid>
             <Grid item sm={3}>
