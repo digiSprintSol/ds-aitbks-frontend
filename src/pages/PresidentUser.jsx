@@ -27,7 +27,6 @@ function PresidentUser() {
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
-  const range = [];
   const classes = useStyles();
   const rowsperpage = 5;
 
@@ -36,17 +35,18 @@ function PresidentUser() {
   };
 
   useEffect(() => {
-    range.push((currentpage - 1) * rowsperpage + 1);
-    range.push(currentpage * rowsperpage);
+    const range = [
+      (currentpage - 1) * rowsperpage + 1,
+      currentpage * rowsperpage,
+    ];
 
     if (data) {
       const partdata = data.filter(
-        // eslint-disable-next-line array-callback-return
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
     }
-  }, [currentpage]);
+  }, [currentpage, data]);
 
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
