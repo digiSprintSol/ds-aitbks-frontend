@@ -42,22 +42,28 @@ function familyDetails({ setActiveStep }) {
     onSubmit: (values) => {
       setData((prevData) => ({
         ...prevData,
-        fatherName: values.fatherName,
-        motherName: values.motherName,
-        spouseName: values.spouseName,
-        spouseAge: values.spouseAge,
-        spouseGender: values.spouseGender,
-        spouseProfession: values.spouseProfession,
-        spouseEducation: values.spouseEducation,
-        nativeAddress: values.nativeAddress,
-        noOfChildren: values.noOfChildren,
-        nameOfChild: values.nameOfChild,
-        ageOfChild: values.ageOfChild,
-        childGender: values.childGender,
+        familyDetails: {
+          fatherName: values.fatherName,
+          motherName: values.motherName,
+          spouseName: values.spouseName,
+          spouseOccupation: values.spouseProfession,
+          spouseAge: values.spouseAge,
+          spouseGender: values.spouseGender,
+          spouseEducation: values.spouseEducation,
+          nativeAddress: values.nativeAddress,
+          noOfChildren: values.noOfChildren,
+          children: [
+            {
+              name: values.nameOfChild,
+              childAge: values.ageOfChild,
+              childGender: values.childGender,
+            },
+          ],
+        },
       }));
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(data, null, 2));
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     },
   });
 
@@ -303,7 +309,6 @@ function familyDetails({ setActiveStep }) {
             )}
           </FormControl>
         </Grid>
-        {/* -------------------------------------------------------- */}
       </Grid>
       <Grid
         sx={{

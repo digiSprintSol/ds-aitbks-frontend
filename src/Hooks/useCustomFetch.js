@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { instance } from "../https";
 
-const useCustomFetch = (url, method, payload = {}) => {
+const useCustomFetch = (url, method = "get", payload = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

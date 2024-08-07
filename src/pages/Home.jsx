@@ -215,7 +215,6 @@ function Home() {
 
   return (
     <div className="homepage">
-      {/* <Header /> */}
       <Marquee className="marquee">
         अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है।
       </Marquee>

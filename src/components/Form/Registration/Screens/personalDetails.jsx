@@ -1,4 +1,4 @@
-import React from "react";
+// import React, { useState } from "react";
 import { useFormik } from "formik";
 import {
   Button,
@@ -23,6 +23,7 @@ import { useRootContext } from "../../../../Hooks/useRootContext";
 
 function personalDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
+  // const [storeAddress, setStoreAddress] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -53,17 +54,22 @@ function personalDetails({ setActiveStep }) {
         gender: values.gender,
         education: values.education,
         profession: values.profession,
-        address: values.address,
-        address2: values.address2,
-        pincode: values.pincode,
-        state: values.state,
-        country: values.country,
+        address: [
+          {
+            address1: values.address,
+            address2: values.address2,
+            pincode: values.pincode,
+            state: values.state,
+            country: values.country,
+          },
+        ],
       });
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2));
     },
   });
+  // eslint-disable-next-line no-console
+  console.log(JSON.stringify(data, null, 2), "input");
 
   return (
     <form onSubmit={formik.handleSubmit}>
