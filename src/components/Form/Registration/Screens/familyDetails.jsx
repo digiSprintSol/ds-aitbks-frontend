@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import {
   Grid,
@@ -66,18 +66,6 @@ function familyDetails({ setActiveStep }) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     },
   });
-
-  const exp = [];
-  useEffect(() => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < data.noOfChildren; i++) {
-      // eslint-disable-next-line no-unused-expressions
-      exp.push[i];
-    }
-    // console.log(exp, data.noOfChildren);
-  }, [data.noOfChildren]);
-  // eslint-disable-next-line no-console
-  console.log(data, "###########");
 
   return (
     <form onSubmit={formik.handleSubmit}>

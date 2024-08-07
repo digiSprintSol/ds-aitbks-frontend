@@ -30,9 +30,9 @@ function personalDetails({ setActiveStep }) {
       firstName: data.firstName || "",
       middleName: data.middleName || "",
       lastName: data.lastName || "",
-      dob: data.dob || "",
-      mobileNumber: data.mobileNumber || "",
-      email: data.email || "",
+      dateOfBirth: data.dateOfBirth || "",
+      phoneNumber: data.phoneNumber || "",
+      emailAddress: data.emailAddress || "",
       gender: data.gender || "",
       profession: data.profession || "",
       education: data.education || "",
@@ -48,9 +48,9 @@ function personalDetails({ setActiveStep }) {
         firstName: values.firstName,
         middleName: values.middleName,
         lastName: values.lastName,
-        dob: values.dob,
-        mobileNumber: values.mobileNumber,
-        email: values.email,
+        dateOfBirth: values.dateOfBirth,
+        phoneNumber: values.mobileNumber,
+        emaemailAddressil: values.emailAddress,
         gender: values.gender,
         education: values.education,
         profession: values.profession,
@@ -124,47 +124,51 @@ function personalDetails({ setActiveStep }) {
         <Grid item xs={2}>
           <TextField
             fullWidth
-            id="dob"
-            name="dob"
+            id="dateOfBirth"
+            name="dateOfBirth"
             label="DD/MM/YYYY"
             type="dob"
-            value={formik.values.dob}
+            value={formik.values.dateOfBirth}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.dob && Boolean(formik.errors.dob)}
-            helperText={formik.touched.dob && formik.errors.dob}
+            error={
+              formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)
+            }
+            helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
           />
         </Grid>
         <Grid item xs={4}>
           <TextField
             fullWidth
-            id="mobileNumber"
-            name="mobileNumber"
+            id="phoneNumber"
+            name="phoneNumber"
             label="Mobile No"
-            type="mobileNumber"
-            value={formik.values.mobileNumber}
+            type="number"
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.mobileNumber && Boolean(formik.errors.mobileNumber)
+              formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
             }
-            helperText={
-              formik.touched.mobileNumber && formik.errors.mobileNumber
-            }
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
-            id="email"
-            name="email"
+            id="emailAddress"
+            name="emailAddress"
             label="Email ID"
             type="email"
-            value={formik.values.email}
+            value={formik.values.emailAddress}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
+            error={
+              formik.touched.emailAddress && Boolean(formik.errors.emailAddress)
+            }
+            helperText={
+              formik.touched.emailAddress && formik.errors.emailAddress
+            }
           />
         </Grid>
         <Grid item xs={2}>
