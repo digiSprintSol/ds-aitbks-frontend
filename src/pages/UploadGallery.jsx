@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { Grid, TextField } from "@mui/material";
+import Button from "../components/Button";
 import upload from "./images/upload.png";
 import upload2 from "./images/upload2.png";
 import "../App.css";
@@ -20,7 +22,7 @@ function UploadGallery() {
 
   return (
     <div className="uploadeventhead">
-      <h1>Upload a Image</h1>
+      <h1 style={{ fontFamily: "ProximaBold" }}>Upload a Image</h1>
       <div {...getRootProps()}>
         <img src={upload} alt="uploadbutton" />
         <input {...getInputProps()} />
@@ -41,8 +43,10 @@ function UploadGallery() {
           className="uploadimageclass"
         /> */}
         <br />
-        <span className="uploadeventspanclass">
-          {" "}
+        <span
+          style={{ fontFamily: "ProximaRegular" }}
+          className="uploadeventspanclass"
+        >
           Please upload your in JPEG or PNG format Only.
         </span>
         <br />
@@ -52,23 +56,34 @@ function UploadGallery() {
       </div>
 
       {/* --------------------------------------------------- */}
-      <h1>Image Details</h1>
-      <input type="text" placeholder="Title" className="uploadeventinput1" />
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Description"
-        className="uploadeventinput2"
-      />
-      <br />
-      <br />
-      <button type="button" className="uploadeventbuttonclass">
-        <div>
-          <span>Upload </span>
-          <img src={upload2} alt="smallupload" height="15vw" width="15vw" />
-        </div>
-      </button>
+      <h1 style={{ fontFamily: "ProximaSemiBold" }}>Image Details</h1>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            type="text"
+            placeholder="Title"
+            className="uploadeventinput1"
+            sx={{ backgroundColor: "white" }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            type="text"
+            placeholder="Description"
+            className="uploadeventinput2"
+            sx={{ backgroundColor: "white" }}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ marginLeft: "500px", marginTop: "20px" }}>
+          <Button type="button" className="uploadeventbuttonclass">
+            <div>
+              <span>Upload </span>
+              <img src={upload2} alt="smallupload" height="15vw" width="15vw" />
+            </div>
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

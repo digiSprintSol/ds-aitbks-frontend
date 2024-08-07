@@ -61,21 +61,36 @@ function PresidentUser() {
         >
           <TableHead className={classes.committeetable}>
             <TableRow sx={{ textAlign: "center" }}>
-              <TableCell align="middle" className={classes.committeetable}>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
                 Name of the Applicant
               </TableCell>
-              <TableCell align="middle">Date of Birth</TableCell>
-              <TableCell align="middle">Phone number</TableCell>
-              <TableCell align="middle">Email Id</TableCell>
-              <TableCell align="middle">Status of Committee</TableCell>
-              <TableCell>Details</TableCell>
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+                Date of Birth
+              </TableCell>
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+                Phone number
+              </TableCell>
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+                Email Id
+              </TableCell>
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+                Status of Committee
+              </TableCell>
+              <TableCell sx={{ fontFamily: "ProximaBold" }}>Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {customdata.map((row) => (
               <TableRow
                 key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  fontFamily: "ProximaRegular",
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
               >
                 <TableCell component="th" scope="row">
                   {row.name}

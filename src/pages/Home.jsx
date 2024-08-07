@@ -217,7 +217,7 @@ function Home() {
     <div className="homepage">
       {/* <Header /> */}
       <Marquee className="marquee">
-        Welcome to All India Telaga Kapu Balija Sangam.
+        अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है।
       </Marquee>
       {/* <div>
         <Box sx={{ flexGrow: 10}}>
@@ -406,7 +406,7 @@ function Home() {
         <div className="fourthpartinside">
           {help.map((item) => (
             <div style={{ textAlign: "center" }}>
-              <img src={item.image} alt="group" />
+              <img src={item.image} alt="group" height="60%" width="70%" />
               <h1 style={{ fontFamily: "ProximaSemibold" }}>{item.heading}</h1>
             </div>
           ))}

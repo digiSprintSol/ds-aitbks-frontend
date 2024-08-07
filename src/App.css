@@ -124,9 +124,9 @@
 }
 
 .fourthpartinside{
-  margin-left: 3vw;
   display: grid;
   grid-template-columns: auto auto auto auto;
+  gap:0px 2vw;
 }
 
 .fifthpart{
@@ -306,7 +306,6 @@
 .uploadeventhead{
   background-color: #D4E9DA;
   padding: 20px;
-  padding-bottom:100px;
 }
 
 .uploadeventspanclass{
@@ -371,12 +370,9 @@
 .uploadeventbuttonclass {
   background-color: #23A380;
   color: white;
-  padding:15px 7vw;
   width: 20%;
   border: none;
   border-radius: 10px;
-  position: absolute;
-  transform: translate(38vw, 0);
   box-shadow: 0px 0px 6px gray;
 }
 

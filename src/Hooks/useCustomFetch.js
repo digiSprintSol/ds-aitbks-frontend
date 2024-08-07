@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { instance } from "../https";
 
-const useCustomFetch = (url, method = "get") => {
+const useCustomFetch = (url, method, payload = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const useCustomFetch = (url, method = "get") => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await instance[method](url);
+        const response = await instance[method](url, payload);
         setData(response.data);
       } catch (err) {
         setError(err);
