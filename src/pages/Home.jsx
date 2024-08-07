@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import "../App.css";
 import Marquee from "react-fast-marquee";
-import sixty from "./images/sixty.png";
+// import fap from "./images/fap.png";
 import logo from "./images/logo.png";
 import cm1 from "./images/cm1.png";
 import cm2 from "./images/cm2.png";
@@ -27,7 +27,7 @@ import group5 from "./images/group5.png";
 import group6 from "./images/group6.png";
 import group7 from "./images/group7.png";
 import group8 from "./images/group8.png";
-
+import sixty from "./images/sixty.png";
 import userIcon from "./images/userIcon.png";
 import quoteIcon from "./images/quoteIcon.png";
 import image1 from "./images/image1.png";
@@ -143,11 +143,81 @@ function Home() {
     rectangle6,
   ];
 
+  const marqueedata = [
+    {
+      name: "Gopala krishna m",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Narendra Babu N",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Ravinder Chaluvadi",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "Harikrishna Pothula",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+    {
+      name: "S.Ramana Rao",
+      tag: "IAS",
+      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+    },
+  ];
+
+  const help = [
+    {
+      image: group1,
+      heading: "Cultural Events",
+    },
+    {
+      image: group2,
+      heading: "Scholarships",
+    },
+    {
+      image: group3,
+      heading: "Awards",
+    },
+    {
+      image: group4,
+      heading: "Parinaya Vedika",
+    },
+  ];
+
+  const count = [
+    {
+      image: group5,
+      heading: "4850+",
+      para: "Total Events",
+    },
+    {
+      image: group6,
+      heading: "3686+",
+      para: "Raised Funds",
+    },
+    {
+      image: group7,
+      heading: "480+",
+      para: "Scholarships",
+    },
+    {
+      image: group8,
+      heading: "2068+",
+      para: "Happy Members",
+    },
+  ];
+
   return (
     <div className="homepage">
       {/* <Header /> */}
       <Marquee className="marquee">
-        Welcome to All India Telaga Kapu Balija Sangam.
+        अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है।
       </Marquee>
       {/* <div>
         <Box sx={{ flexGrow: 10}}>
@@ -187,10 +257,10 @@ function Home() {
           <h1>Welcome</h1>
           <img src={sixty} alt="sixty" height="20%" width="20%" />
           <h5>Years in Community Service</h5>
-          <img src={logo} alt="logo" height="60%" width="60%" />
+          <img src={logo} alt="logo" height="35%" width="35%" />
         </div>
         <h1 className="firstparaheading">
-          All India Telaga Balija Kapu Sangam
+          All India Telaga Balija Kapu Sangham
         </h1>
         <p className="firstpara">
           The Andhra Pradesh Telaga, Balija Kapu Sangham (for short “the
@@ -218,7 +288,16 @@ function Home() {
 
       {/* 2nd part ------------------------------------------------------------------------------ */}
       <div className="secondpart">
-        <h1 style={{ fontFamily: "ProximaBold" }}>Office Bearers</h1>
+        <h1
+          style={{
+            color: "#144047",
+            fontSize: "4vw",
+            transform: "translate(0,-2vw)",
+            fontFamily: "ProximaBold",
+          }}
+        >
+          Office Bearers
+        </h1>
         <div className="grid-container">
           {cmdata.map((item) => (
             <div className="item1">
@@ -229,7 +308,7 @@ function Home() {
                   border: "2px solid transparent",
                   width: "15vw",
                   marginLeft: "3vw",
-                  fontFamily: "ProximaSemibold",
+                  fontFamily: "ProximaBold",
                 }}
               >
                 {item.heading}
@@ -242,7 +321,7 @@ function Home() {
         {/* ---------------------------------------------------------------------------- */}
         <div className="grid-container2">
           {cmdata2.map((item) => (
-            <div className="item2">
+            <div className="item1">
               <img src={item.photo} alt="cm" height="50%" width="50%" />
               <hr />
               <h4
@@ -250,11 +329,12 @@ function Home() {
                   border: "2px solid transparent",
                   width: "12vw",
                   marginLeft: "5vw",
+                  fontFamily: "ProximaBold",
                 }}
               >
                 {item.heading}
               </h4>
-              <p>{item.para}</p>
+              <p style={{ fontFamily: "ProximaRegular" }}>{item.para}</p>
             </div>
           ))}
         </div>
@@ -263,7 +343,16 @@ function Home() {
 
       {/* 3rd part ------------------------------------------------------------- */}
       <div>
-        <h1 style={{ fontFamily: "ProximaBold" }}>Central Committee Members</h1>
+        <h1
+          style={{
+            color: "#144047",
+            fontSize: "4vw",
+            marginLeft: "2vw",
+            fontFamily: "ProximaBold",
+          }}
+        >
+          Central Committee Members
+        </h1>
         <div className="grid-container" style={{ padding: "0 8vw" }}>
           {ccmdata.map((item) => (
             <div className="item1">
@@ -274,6 +363,28 @@ function Home() {
                   border: "2px solid transparent",
                   width: "12vw",
                   marginLeft: "3vw",
+                  fontFamily: "ProximaBold",
+                }}
+              >
+                {item.heading}
+              </h4>
+            </div>
+          ))}
+        </div>
+        <br />
+        {/* --------------------------------------------------------------------- */}
+        <div className="grid-container3">
+          {cmdata2.map((item) => (
+            <div className="item1">
+              <img src={item.photo} alt="cm" />
+              <hr />
+              <h4
+                style={{
+                  border: "2px solid transparent",
+                  width: "12vw",
+                  marginLeft: "5vw",
+                  fontFamily: "ProximaBold",
+                  transform: "translate(-1.5vw,0)",
                 }}
               >
                 {item.heading}
@@ -286,41 +397,19 @@ function Home() {
       {/* 4th part --------------------------------------------------------------------------- */}
       <div className="fourthpart">
         <img src={image1} alt="tracedimage" width="95%" />
-        <h1 style={{ fontFamily: "ProximaBold" }}>Change Everything</h1>
+        <h1 style={{ fontFamily: "ProximaSemibold" }}>Change Everything</h1>
         <h1 style={{ fontFamily: "ProximaBold" }}>We’re here to help us</h1>
         <p style={{ fontFamily: "ProximaRegular" }}>
           All these years we were helped our community in different aspects.
           Conducted multiple events for the community upliftment.
         </p>
         <div className="fourthpartinside">
-          <div>
-            <img src={group1} alt="group" />
-            <h1 style={{ fontFamily: "ProximaBold" }}>Cultural Events</h1>
-            <p style={{ fontFamily: "ProximaRegular" }}>
-              When nothing Prevents our to we like best, every pleasure to be.
-            </p>
-          </div>
-          <div>
-            <img src={group2} alt="group" />
-            <h1 style={{ fontFamily: "ProximaBold" }}>Scholarships</h1>
-            <p style={{ fontFamily: "ProximaRegular" }}>
-              When nothing Prevents our to we like best, every pleasure to be.
-            </p>
-          </div>
-          <div>
-            <img src={group3} alt="group" />
-            <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
-            <p style={{ fontFamily: "ProximaRegular" }}>
-              When nothing Prevents our to we like best, every pleasure to be.
-            </p>
-          </div>
-          <div>
-            <img src={group4} alt="group" />
-            <h1 style={{ fontFamily: "ProximaBold" }}>Parinaya Vedika</h1>
-            <p style={{ fontFamily: "ProximaRegular" }}>
-              When nothing Prevents our to we like best, every pleasure to be.
-            </p>
-          </div>
+          {help.map((item) => (
+            <div style={{ textAlign: "center" }}>
+              <img src={item.image} alt="group" height="60%" width="70%" />
+              <h1 style={{ fontFamily: "ProximaSemibold" }}>{item.heading}</h1>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -337,66 +426,22 @@ function Home() {
             What People are Talking About us
           </h1>
           <Marquee className="marqueefeedback">
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Gopala krishna m</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
+            {marqueedata.map((item) => (
+              <div className="fifthpartinsidetwo">
+                <img src={userIcon} alt="user_icon" height="50%" width="16%" />
+                <div>
+                  <h1 style={{ fontFamily: "ProximaBold" }}>{item.name}</h1>
+                  <p style={{ fontFamily: "ProximaRegular" }}>{item.tag}</p>
+                  <p style={{ fontFamily: "ProximaRegular" }}>{item.info}</p>
+                </div>
+                <img
+                  src={quoteIcon}
+                  alt="quote_icon"
+                  height="40%"
+                  width="15%"
+                />
               </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Narendra Babu N</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Ravinder Chaluvadi</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>Harikrishna Pothula</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
-            <div className="fifthpartinsidetwo">
-              <img src={userIcon} alt="user_icon" height="50%" width="16%" />
-              <div>
-                <h1>S.Ramana Rao</h1>
-                <p>IAS</p>
-                <p>
-                  AITBK is Doing Extremely very well. working very well for the
-                  community Empowerment.
-                </p>
-              </div>
-              <img src={quoteIcon} alt="quote_icon" height="40%" width="15%" />
-            </div>
+            ))}
           </Marquee>
         </div>
         <Button
@@ -415,15 +460,15 @@ function Home() {
 
       {/* 6th part ---------------------------------------------------------------------------------------- */}
       <div className="sixthpart">
-        <h1 style={{ fontFamily: "ProximaBold" }}>
+        <h1 style={{ fontFamily: "ProximaSemibold" }}>
           We’re here to support our people
         </h1>
         <h1 style={{ fontFamily: "ProximaBold" }}>
-          Helping for the people and support Kapu community
+          Helping for the people and support Kapu community and under previlaged
         </h1>
         <div className="sixthpartinside">
           <img src={image3} alt="image3" height="25%" width="35%" />
-          <img src={threecircles} alt="threecirlces" height="90%" width="50%" />
+          <img src={threecircles} alt="threecirlces" height="90%" width="45%" />
         </div>
         <Button
           variant="contained"
@@ -467,37 +512,16 @@ function Home() {
         </Button>
       </div>
 
-      {/* 8th part ------------------------------------------------------------------------------------------------- */}
-      <div className="eighthpart">
-        <img src={image6} alt="tracedimage" height="40%" width="45%" />
-        <h1 style={{ fontFamily: "ProximaBold" }}>
-          Let’s support us to help us
-        </h1>
-        <h1 style={{ fontFamily: "ProximaBold" }}>
-          Join your hands with us for a better life and future for our
-          community.
-        </h1>
-        <div className="eighthpartinside">
-          <div>
-            <img src={group5} alt="group" />
-            <h1>4850+</h1>
-            <p>Total Events</p>
-          </div>
-          <div>
-            <img src={group6} alt="group" />
-            <h1>3686+</h1>
-            <p>Raised Funds</p>
-          </div>
-          <div>
-            <img src={group7} alt="group" />
-            <h1>480+</h1>
-            <p>Scholarships</p>
-          </div>
-          <div>
-            <img src={group8} alt="group" />
-            <h1>2068+</h1>
-            <p>Happy Members</p>
-          </div>
+      {/* 7-2th part -------------------------------------------------------------------------------------------- */}
+      <div className="seventhpart">
+        <img src={image5} alt="tracedimage" />
+        <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
+        <div className="gallerycontainer">
+          {gallery.map((item) => (
+            <div className="galleryitem1">
+              <img src={item} alt="grouppicture" height="95%" width="95%" />
+            </div>
+          ))}
         </div>
         <Button
           variant="contained"
@@ -505,7 +529,41 @@ function Home() {
           sx={{
             backgroundColor: "#23A380",
             marginLeft: "5vw",
-            width: "15%",
+            width: "20%",
+            borderRadius: "15px",
+            marginTop: "5%",
+          }}
+        >
+          VIEW MORE PHOTOS
+        </Button>
+      </div>
+
+      {/* 8th part ------------------------------------------------------------------------------------------------- */}
+      <div className="eighthpart">
+        <img src={image6} alt="tracedimage" height="40%" width="45%" />
+        <h1 style={{ fontFamily: "ProximaSemibold" }}>
+          Let’s support us to help us
+        </h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>
+          Join your hands with us for a better life and future for our
+          community.
+        </h1>
+        <div className="eighthpartinside">
+          {count.map((item) => (
+            <div>
+              <img src={item.image} alt="group" />
+              <h1 style={{ fontFamily: "ProximaBold" }}>{item.heading}</h1>
+              <p style={{ fontFamily: "ProximaRegular" }}>{item.para}</p>
+            </div>
+          ))}
+        </div>
+        <Button
+          variant="contained"
+          disableElevation
+          sx={{
+            backgroundColor: "#23A380",
+            marginLeft: "5vw",
+            width: "12%",
             borderRadius: "15px",
             marginBottom: "5%",
           }}

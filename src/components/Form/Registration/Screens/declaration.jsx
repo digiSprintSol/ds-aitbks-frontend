@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -12,22 +12,43 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useRootContext } from "../../../../Hooks/useRootContext";
+import { postRequest } from "../../../../HTTP_POST/api";
 
 function Declaration() {
   const { data, setData } = useRootContext();
+  // eslint-disable-next-line no-unused-vars
+  const [response, setResponse] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState(null);
+  const [fullName, setFullName] = useState("");
 
   const formik = useFormik({
     initialValues: {
       membershipType: "",
     },
     // validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setData((prevData) => ({
         ...prevData,
         membershipType: values.membershipType,
       }));
+      setFullName(data.firstName.concat(data.middleName, data.lastName));
+      delete data.firstName;
+      delete data.middleName;
+      delete data.lastName;
+      setData(...data, fullName);
+
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(data, null, 2));
+      // alert(JSON.stringify(data, null, 2));
+      try {
+        const result = await postRequest(
+          "http://localhost:1369/user/register",
+          { key: data }
+        );
+        setResponse(result);
+      } catch (err) {
+        setError(err.message);
+      }
     },
   });
 

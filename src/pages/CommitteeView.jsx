@@ -10,45 +10,37 @@ import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 
 // import Stack from "@mui/material/Stack";
-import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import CommitteePopup from "./CommitteePopup";
 
-const useStyles = makeStyles({
-  committeetable: {
-    fontSize: "1vw",
-  },
-});
-
 function CommitteeView() {
   const { data, loading, error } = useCustomFetch(
-    "https://jsonplaceholder.typicode.com/users",
+    `http://localhost:1369/user/getAllUsers`,
     "get"
   );
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
-  const range = [];
-  const classes = useStyles();
 
-  const rowsperpage = 3;
+  const rowsperpage = 5;
 
   const handleChange = (event, value) => {
     setCurrentpage(value);
   };
 
   useEffect(() => {
-    range.push((currentpage - 1) * rowsperpage + 1);
-    range.push(currentpage * rowsperpage);
+    const range = [
+      (currentpage - 1) * rowsperpage + 1,
+      currentpage * rowsperpage,
+    ];
 
     if (data) {
       const partdata = data.filter(
-        // eslint-disable-next-line array-callback-return
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
     }
-  }, [currentpage]);
+  }, [currentpage, data]);
 
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
@@ -59,16 +51,10 @@ function CommitteeView() {
         sx={{ width: "95%", margin: "30px auto" }}
         component={Paper}
       >
-        <Table
-          sx={{ minWidth: 650 }}
-          className={classes.committeetable}
-          aria-label="simple table"
-        >
-          <TableHead className={classes.committeetable}>
-            <TableRow sx={{ textAlign: "center" }}>
-              <TableCell align="middle" className={classes.committeetable}>
-                Name of the Applicant
-              </TableCell>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
+              <TableCell align="middle">Name of the Applicant</TableCell>
               <TableCell align="middle">
                 Date of Application Submitted
               </TableCell>
@@ -82,7 +68,9 @@ function CommitteeView() {
             {customdata.map((row) => (
               <TableRow
                 key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
               >
                 <TableCell component="th" scope="row">
                   {row.name}
