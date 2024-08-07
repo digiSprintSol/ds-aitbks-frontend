@@ -145,7 +145,6 @@ function Home() {
 
   return (
     <div className="homepage">
-      {/* <Header /> */}
       <Marquee className="marquee">
         Welcome to All India Telaga Kapu Balija Sangam.
       </Marquee>
