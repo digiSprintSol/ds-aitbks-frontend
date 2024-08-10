@@ -42,6 +42,7 @@ import rectangle3 from "./images/Rectangle3.png";
 import rectangle4 from "./images/Rectangle4.png";
 import rectangle5 from "./images/Rectangle5.png";
 import rectangle6 from "./images/Rectangle6.png";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 // import { styled } from '@mui/material/styles';
 // import Box from '@mui/material/Box';
@@ -58,6 +59,28 @@ function Home() {
   //   textAlign: 'center',
   //   color: theme.palette.text.secondary,
   // }));
+
+  // const [announcements, setAnnouncements] = useState([]);
+
+  const { data, loading, error } = useCustomFetch(
+    "http://localhost:1369/getAllAnnouncements",
+    "get"
+  );
+
+  //  const getAnnouncements = () => {
+  //    try {
+  //      const data = useCustomFetch("http://localhost:1369/getAnnouncements", "get");
+  //      setAnnouncements(data);
+  //      console.log(announcements);
+  //    } catch (error) {
+  //      console.error("Error fetching announcements:", error);
+  //    }
+  //  };
+
+  //   useEffect(() => {
+  //     console.log(data[0].announcementTitle, data[0].announcementDescription);
+  //  }, []);
+
   const cmdata = [
     {
       photo: cm1,
@@ -213,10 +236,15 @@ function Home() {
     },
   ];
 
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <div className="homepage">
       <Marquee className="marquee">
-        अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है।
+        {/* अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है। */}
+        {data[0].announcementTitle} &nbsp;|&nbsp;
+        {data[0].announcementDescription}
       </Marquee>
       {/* <div>
         <Box sx={{ flexGrow: 10}}>

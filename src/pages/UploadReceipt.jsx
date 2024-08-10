@@ -1,124 +1,298 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import upload from "./images/upload.png";
-import upload2 from "./images/upload2.png";
-import "../App.css";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
+import Button from "../components/Button";
+import { postRequest } from "../HTTP_POST/api";
 
-function UploadReceipt() {
-  const [files, setFiles] = useState(null);
-  const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    setFiles(URL.createObjectURL(acceptedFiles[0]));
-  }, []);
+function UploadGallery() {
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [isDragOver, setIsDragOver] = useState(false);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
 
-  // const changeHandler = (e) => {
-  //   // console.log(e.target.files)
-  //   setFiles(URL.createObjectURL(e.target.files[0]))
-  // }
+    const filePreview = URL.createObjectURL(selectedFile);
+    setPreview(filePreview);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      const filePreview = URL.createObjectURL(droppedFile);
+      setPreview(filePreview);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragOver(false);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      imagesForHomePage: null,
+    },
+    // validationSchema: postValidationSchema,
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      formData.append("imagesForHomePage", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const response = await postRequest(
+          `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
+          formData,
+          {
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data, "response");
+      } catch (err) {
+        // console.log(err.message, "error");
+      }
+    },
+  });
 
   return (
-    <div className="uploadeventhead">
-      <h1>{null}</h1>
-      <div {...getRootProps()}>
-        <img src={upload} alt="uploadbutton" />
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p className="uploadeventptag">Drop the files here ...</p>
-        ) : (
-          <p className="uploadeventptag">Drag & drop the file here</p>
-        )}
-        <span className="uploadeventspanclass">or</span>
-        <br />
-        <br />
-        <button type="button" className="uploadimagebutton">
-          Browse your system
-        </button>
-        {/* <input
-          type="file"
-          onChange={changeHandler}
-          className="uploadimageclass"
-        /> */}
-        <br />
-        <span className="uploadeventspanclass">
-          {" "}
-          Please upload your in JPEG or PNG format Only.
-        </span>
-        <br />
-        {files && (
-          <img src={files} height="200px" width="200px" alt="uploaded_image" />
-        )}
-      </div>
-
-      {/* --------------------------------------------------- */}
-      <h1>Please Fill the Details Below</h1>
-      <form>
-        <div className="uploadreceiptform">
-          <label htmlFor="input1">
-            Full Name
-            <br />
-            <input
-              type="text"
-              id="input1"
-              placeholder="Name"
-              className="uploadeventinput"
-              style={{ width: "20vw" }}
+    <form onSubmit={formik.handleSubmit}>
+      <Box
+        sx={{
+          backgroundColor: "#D4E9DA",
+          padding: 5,
+          margin: "10px auto",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{ fontFamily: "ProximaBold", mb: 2 }}
+                variant="h4"
+              >
+                Upload Receipt
+              </Typography>
+              <Box
+                sx={{
+                  backgroundColor: "white",
+                  padding: "20px",
+                  borderRadius: "30px",
+                  margin: "10px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                  overflow: "hidden",
+                  height: "450px",
+                  width: "100%",
+                  border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
+                  textAlign: "center",
+                  flexDirection: "column",
+                }}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    color: isDragOver ? "#1976d2" : "#666",
+                    mb: 2,
+                  }}
+                >
+                  Drag & Drop your image here
+                </Typography>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="fileInput">
+                  <IconButton
+                    component="span"
+                    sx={{
+                      backgroundColor: "#1976d2",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "#1565c0",
+                      },
+                    }}
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    color: isDragOver ? "#1976d2" : "#666",
+                    mt: 2,
+                  }}
+                >
+                  or click to select
+                </Typography>
+                {preview && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backgroundImage: `url(${preview})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      borderRadius: "30px",
+                      opacity: 0.5,
+                    }}
+                  />
+                )}
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h5">
+              Please Fill the Details Below
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              label="fullName"
+              id="fullName"
+              name="fullName"
+              type="string"
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+              helperText={formik.touched.fullName && formik.errors.fullName}
             />
-          </label>
-          <label htmlFor="input2">
-            Mobile Number
-            <br />
-            <input type="number" id="input2" className="uploadeventinput" />
-          </label>
-          <label htmlFor="input3">
-            Date of Payment
-            <br />
-            <input type="date" id="input3" className="uploadeventinput" />
-          </label>
-          <label htmlFor="input4">
-            E-mail ID
-            <br />
-            <input
-              type="text"
-              id="input4"
-              placeholder="Email ID"
-              className="uploadeventinput"
-              style={{ width: "20vw" }}
+          </Grid>
+          <Grid item xs={2}>
+            <TextField
+              fullWidth
+              id="  "
+              name="dateOfPayment"
+              // label="dateOfPayment"
+              type="date"
+              value={formik.values.dateOfPayment}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.dateOfPayment &&
+                Boolean(formik.errors.dateOfPayment)
+              }
+              helperText={
+                formik.touched.dateOfPayment && formik.errors.dateOfPayment
+              }
             />
-          </label>
-        </div>
-        <br />
-        <label htmlFor="input5" style={{ marginLeft: "43%" }}>
-          Transaction ID
-          <br />
-          <input
-            type="number"
-            id="input5"
-            className="uploadeventinput"
-            placeholder="ID No."
-            style={{ width: "25%", marginLeft: "35%" }}
-          />
-        </label>
-      </form>
-
-      <p style={{ marginLeft: "28%" }}>
-        Please note : Enter the 12 Digit number (
-        <b style={{ color: "#B61A1A" }}>Transaction ID OR UTR Number </b> )
-      </p>
-      <h4 style={{ marginLeft: "38%" }}>
-        Note : Maximum upload file size:
-        <span style={{ color: "#B61A1A" }}>10 MB.</span>
-      </h4>
-
-      <button type="button" className="uploadeventbuttonclass">
-        <div>
-          <span>Upload </span>
-          <img src={upload2} alt="smallupload" height="15vw" width="15vw" />
-        </div>
-      </button>
-    </div>
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              fullWidth
+              id="phoneNumber"
+              name="phoneNumber"
+              label="phoneNumber"
+              type="number"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+              }
+              helperText={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              }
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              fullWidth
+              id="emailAddress"
+              name="emailAddress"
+              label="emailAddress"
+              type="email"
+              value={formik.values.emailAddress}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.emailAddress &&
+                Boolean(formik.errors.emailAddress)
+              }
+              helperText={
+                formik.touched.emailAddress && formik.errors.emailAddress
+              }
+            />
+          </Grid>
+          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              fullWidth
+              id="transactionId"
+              name="transactionId"
+              label="Transaction ID"
+              type="string"
+              value={formik.values.transactionId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.transactionId &&
+                Boolean(formik.errors.transactionId)
+              }
+              helperText={
+                formik.touched.transactionId && formik.errors.transactionId
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography
+              sx={{
+                fontWeight: "ProximaRegular",
+              }}
+              variant="body1"
+            >
+              Please Note: Enter the 12 digit number - Transaction ID or UTR
+              Number
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+              }}
+            >
+              <Button variant="contained" type="submit">
+                Upload
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </form>
   );
 }
 
-export default UploadReceipt;
+export default UploadGallery;
