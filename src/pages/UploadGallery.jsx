@@ -1,90 +1,231 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Grid, TextField } from "@mui/material";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
-import upload from "./images/upload.png";
-import upload2 from "./images/upload2.png";
-import "../App.css";
+import { postRequest } from "../HTTP_POST/api";
 
 function UploadGallery() {
-  const [files, setFiles] = useState(null);
-  const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    setFiles(URL.createObjectURL(acceptedFiles[0]));
-  }, []);
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [isDragOver, setIsDragOver] = useState(false);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
 
-  // const changeHandler = (e) => {
-  //   // console.log(e.target.files)
-  //   setFiles(URL.createObjectURL(e.target.files[0]))
-  // }
+    const filePreview = URL.createObjectURL(selectedFile);
+    setPreview(filePreview);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      const filePreview = URL.createObjectURL(droppedFile);
+      setPreview(filePreview);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragOver(false);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      imagesForHomePage: null,
+    },
+    // validationSchema: postValidationSchema,
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      formData.append("imagesForHomePage", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const response = await postRequest(
+          `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
+          formData,
+          {
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // console.log(response.data, "response");
+      } catch (err) {
+        // console.log(err.message, "error");
+      }
+    },
+  });
 
   return (
-    <div className="uploadeventhead">
-      <h1 style={{ fontFamily: "ProximaBold" }}>Upload a Image</h1>
-      <div {...getRootProps()}>
-        <img src={upload} alt="uploadbutton" />
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p className="uploadeventptag">Drop the files here ...</p>
-        ) : (
-          <p className="uploadeventptag">Drag & drop the file here</p>
-        )}
-        <span className="uploadeventspanclass">or</span>
-        <br />
-        <br />
-        <button type="button" className="uploadimagebutton">
-          Browse your system
-        </button>
-        {/* <input
-          type="file"
-          onChange={changeHandler}
-          className="uploadimageclass"
-        /> */}
-        <br />
-        <span
-          style={{ fontFamily: "ProximaRegular" }}
-          className="uploadeventspanclass"
-        >
-          Please upload your in JPEG or PNG format Only.
-        </span>
-        <br />
-        {files && (
-          <img src={files} height="200px" width="200px" alt="uploaded_image" />
-        )}
-      </div>
-
-      {/* --------------------------------------------------- */}
-      <h1 style={{ fontFamily: "ProximaSemiBold" }}>Image Details</h1>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            type="text"
-            placeholder="Title"
-            className="uploadeventinput1"
-            sx={{ backgroundColor: "white" }}
-          />
+    <form onSubmit={formik.handleSubmit}>
+      <Box
+        sx={{
+          backgroundColor: "#D4E9DA",
+          padding: 5,
+          margin: "10px auto",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{ fontFamily: "ProximaBold", mb: 2 }}
+                variant="h4"
+              >
+                Upload Gallery
+              </Typography>
+              <Box
+                sx={{
+                  backgroundColor: "white",
+                  padding: "20px",
+                  borderRadius: "30px",
+                  margin: "10px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                  overflow: "hidden",
+                  height: "400px",
+                  width: "100%",
+                  border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
+                  textAlign: "center",
+                  flexDirection: "column",
+                }}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    color: isDragOver ? "#1976d2" : "#666",
+                    mb: 2,
+                  }}
+                >
+                  Drag & Drop your image here
+                </Typography>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="fileInput">
+                  <IconButton
+                    component="span"
+                    sx={{
+                      backgroundColor: "#1976d2",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "#1565c0",
+                      },
+                    }}
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    color: isDragOver ? "#1976d2" : "#666",
+                    mt: 2,
+                  }}
+                >
+                  or click to select
+                </Typography>
+                {preview && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backgroundImage: `url(${preview})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      borderRadius: "30px",
+                      opacity: 0.5,
+                    }}
+                  />
+                )}
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h5">
+              Image Details
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Title"
+              id="title"
+              name="title"
+              type="string"
+              value={formik.values.title}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.title && Boolean(formik.errors.title)}
+              helperText={formik.touched.title && formik.errors.title}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              id="description"
+              name="description"
+              label="Description"
+              type="string"
+              multiline
+              rows={4}
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.description && Boolean(formik.errors.description)
+              }
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 3,
+              }}
+            >
+              <Button variant="contained" type="submit">
+                Upload
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            type="text"
-            placeholder="Description"
-            className="uploadeventinput2"
-            sx={{ backgroundColor: "white" }}
-          />
-        </Grid>
-        <Grid item xs={12} sx={{ marginLeft: "500px", marginTop: "20px" }}>
-          <Button type="button" className="uploadeventbuttonclass">
-            <div>
-              <span>Upload </span>
-              <img src={upload2} alt="smallupload" height="15vw" width="15vw" />
-            </div>
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
+      </Box>
+    </form>
   );
 }
 

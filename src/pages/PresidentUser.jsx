@@ -15,17 +15,18 @@ import PresidentModal from "../components/Modal/presidentModal";
 
 const useStyles = makeStyles({
   committeetable: {
-    fontSize: "1vw",
+    fontSize: "1.3vw",
   },
 });
 
 function PresidentUser() {
   const { data, loading, error } = useCustomFetch(
-    "https://jsonplaceholder.typicode.com/users",
+    "http://localhost:1369/user/getAllUsers",
     "get"
   );
 
   const [currentpage, setCurrentpage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [customdata, setCustomdata] = useState([]);
   const classes = useStyles();
   const rowsperpage = 5;
@@ -35,15 +36,14 @@ function PresidentUser() {
   };
 
   useEffect(() => {
-    const range = [
-      (currentpage - 1) * rowsperpage + 1,
-      currentpage * rowsperpage,
-    ];
-
     if (data) {
-      const partdata = data.filter(
-        (row) => row.id >= range[0] && row.id <= range[1]
-      );
+      const partdata = [];
+      const exp =
+        rowsperpage > data.content.length ? data.content.length : rowsperpage;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < exp; i++) {
+        partdata.push(data.content[i]);
+      }
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
@@ -54,12 +54,8 @@ function PresidentUser() {
   return (
     <div>
       <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
-        <Table
-          sx={{ minWidth: 650 }}
-          className={classes.committeetable}
-          aria-label="simple table"
-        >
-          <TableHead className={classes.committeetable}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
             <TableRow sx={{ textAlign: "center" }}>
               <TableCell
                 align="middle"
@@ -68,19 +64,41 @@ function PresidentUser() {
               >
                 Name of the Applicant
               </TableCell>
-              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
                 Date of Birth
               </TableCell>
-              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
                 Phone number
               </TableCell>
-              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
                 Email Id
               </TableCell>
-              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
                 Status of Committee
               </TableCell>
-              <TableCell sx={{ fontFamily: "ProximaBold" }}>Details</TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Details
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -93,20 +111,18 @@ function PresidentUser() {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.username}</TableCell>
-                <TableCell align="middle">{row.address.zipcode}</TableCell>
-                <TableCell align="middle">{row.phone}</TableCell>
-                <TableCell align="middle">{row.email}</TableCell>
+                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.phoneNumber}</TableCell>
+                <TableCell align="middle">{row.emailAddress}</TableCell>
+                <TableCell align="middle">{row.status}</TableCell>
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"
                     disableElevation
                    
                   >
-                    
-          
                   </Button> */}
                   <PresidentModal />
                 </TableCell>
@@ -120,15 +136,15 @@ function PresidentUser() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.length ? (
-          <span>{data.length}</span>
+        {currentpage * rowsperpage > data.content.length ? (
+          <span>{data.content.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.length} entries
+        of {data.content.length} entries
       </span>
       <Pagination
-        count={Math.ceil(data.length / rowsperpage)}
+        count={Math.ceil(data.content.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

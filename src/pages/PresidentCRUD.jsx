@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -18,13 +19,16 @@ import useCustomFetch from "../Hooks/useCustomFetch";
 
 function PresidentCRUD() {
   const { data, loading, error } = useCustomFetch(
-    "https://jsonplaceholder.typicode.com/users",
+    "http://localhost:1369/getAll",
     "get"
   );
+
+  // console.log(data, "data");
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
   const rowsperpage = 5;
+  // console.log(customdata, "customdata");
 
   const handleChange = (event, value) => {
     setCurrentpage(value);
@@ -62,7 +66,7 @@ function PresidentCRUD() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customdata.map((row) => (
+            {data.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -71,7 +75,7 @@ function PresidentCRUD() {
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.phone}</TableCell>
-                <TableCell align="center">{row.address.zipcode}</TableCell>
+                <TableCell align="center">{row.add}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
                 <TableCell align="center">{row.name}</TableCell>
                 <TableCell align="center">

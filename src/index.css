@@ -55,6 +55,9 @@ body {
   font-family:'ProximaThin';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  overflow-x: hidden;
+
 }
 
 code {

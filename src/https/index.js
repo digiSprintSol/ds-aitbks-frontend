@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const { REACT_APP_TOKEN, REACT_APP_FAKE_API } = process.env;
+const { REACT_APP_FAKE_API, REACT_APP_TOKEN } = process.env;
 
 // Set config defaults when creating the instance
 const instance = axios.create({
   baseURL: REACT_APP_FAKE_API,
 });
 // Alter defaults after instance has been created
-instance.defaults.headers.common.token = REACT_APP_TOKEN;
+instance.defaults.headers.common.Token = `Bearer ${REACT_APP_TOKEN}`;
 
 // Add a request interceptor
 instance.interceptors.request.use(

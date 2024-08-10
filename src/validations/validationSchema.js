@@ -4,15 +4,15 @@ const validationSchema = yup.object({
   firstName: yup.string("Enter your first name").required("is required"),
   middleName: yup.string("Enter your middle name").required("is required"),
   lastName: yup.string("Enter your last name").required("is required"),
-  dob: yup
+  dateOfBirth: yup
     .date("Enter your date of birth")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
     .required("Required"),
-  mobileNumber: yup
+  phoneNumber: yup
     .string()
     .matches(/^[0-9]{10}$/, "must be exactly 10 digits")
     .required("Please enter your phone number"),
-  email: yup
+  emailAddress: yup
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
