@@ -33,7 +33,18 @@ function Acknowledge() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        sx={{
+          backgroundColor: "#F1C21B",
+          color: "white",
+          width: "14vw",
+          borderRadius: "15px",
+          height: "2vw",
+          border: "none",
+        }}
+      >
         VIEW FULL DETAILS
       </Button>
       <BootstrapDialog

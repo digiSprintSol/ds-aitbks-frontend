@@ -1,4 +1,6 @@
+/* eslint-disable no-debugger */
 export const postRequest = async (url, data, headers = {}) => {
+  // debugger;
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await fetch(url, {
