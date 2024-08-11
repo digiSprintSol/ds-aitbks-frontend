@@ -8,12 +8,12 @@ import "../App.css";
 function Payment() {
   return (
     <div className="paymenthead">
-      <h1>Payment Form</h1>
-      <p>
+      <h1 style={{ fontFamily: "ProximaBold" }}>Payment Form</h1>
+      <p style={{ fontFamily: "ProximaSemibold" }}>
         You can also make online Payment using mobile apps like Google Pay,
         Paytm. BHIM or PhonePe
       </p>
-      <h1>Steps to Pay for Membership</h1>
+      <h1 style={{ fontFamily: "ProximaBold" }}>Steps to Pay for Membership</h1>
       <div>
         <h3 className="paymentsteps">Open your UPI Enabled APP</h3>
         <img
@@ -47,11 +47,15 @@ function Payment() {
           width="40px"
           className="paymentsteps"
         />
-        <h3>Upload Transaction Details</h3>
+        <h3 style={{ fontFamily: "ProximaBold" }}>
+          Upload Transaction Details
+        </h3>
       </div>
       <br />
       <img src={qrcode} alt="qrcode" height="30%" width="30%" />
-      <p>Scan and pay with any BHIM UPI app</p>
+      <p style={{ fontFamily: "ProximaRegular" }}>
+        Scan and pay with any BHIM UPI app
+      </p>
       <img
         src={phonepe}
         alt="qrcode"

@@ -1,8 +1,10 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import "../App.css";
 import Marquee from "react-fast-marquee";
 // import fap from "./images/fap.png";
+
 import logo from "./images/logo.png";
 import cm1 from "./images/cm1.png";
 import cm2 from "./images/cm2.png";
@@ -45,7 +47,7 @@ import rectangle6 from "./images/Rectangle6.png";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 // import { styled } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
+
 // import Paper from '@mui/material/Paper';
 // import Grid from '@mui/material/Grid';
 
@@ -279,6 +281,10 @@ function Home() {
           </div>
         </div>
       </div> */}
+
+      <Box sx={{ backgroundColor: "#e0e0e0", width: "100%", height: "40vw" }}>
+        {null}
+      </Box>
       <div className="firstpart">
         <div className="welcomeclass">
           <h1>Welcome</h1>
@@ -516,7 +522,7 @@ function Home() {
       {/* 7th part -------------------------------------------------------------------------------------------- */}
       <div className="seventhpart">
         <img src={image5} alt="tracedimage" />
-        <h1 style={{ fontFamily: "ProximaBold" }}>Gallery</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
         <div className="gallerycontainer">
           {gallery.map((item) => (
             <div className="galleryitem1">
@@ -538,11 +544,11 @@ function Home() {
           VIEW MORE PHOTOS
         </Button>
       </div>
-
       {/* 7-2th part -------------------------------------------------------------------------------------------- */}
+
       <div className="seventhpart">
         <img src={image5} alt="tracedimage" />
-        <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>Gallery</h1>
         <div className="gallerycontainer">
           {gallery.map((item) => (
             <div className="galleryitem1">
