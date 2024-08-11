@@ -31,7 +31,7 @@ function identity({ setActiveStep }) {
       }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(data, null, 2));
     },
   });
   return (

@@ -10,11 +10,18 @@ import {
   Divider,
   RadioGroup,
 } from "@mui/material";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function RegistrationThree() {
   const [isPartOfCommunity, setIsPartOfCommunity] = useState("");
   const [communityName, setCommunityName] = useState("");
   const [errors, setErrors] = useState({});
+
+  // eslint-disable-next-line no-unused-vars
+  const { data, loading, error } = useCustomFetch(
+    "http://localhost:1369/user/getAllUsers",
+    "get"
+  );
 
   const validateForm = () => {
     const validationErrors = {};
@@ -49,6 +56,9 @@ function RegistrationThree() {
     }
   }, [isPartOfCommunity]);
 
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <Box
       style={{
@@ -73,23 +83,10 @@ function RegistrationThree() {
         <Grid item xs={12}>
           <Typography>Full Name</Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <TextField
-            label="First Name"
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            label="Middle Name"
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            label="Last Name"
+            // value={data.content}
+            // aria-readonly
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
           />

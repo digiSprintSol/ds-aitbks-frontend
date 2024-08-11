@@ -44,11 +44,12 @@ function personalDetails({ setActiveStep }) {
     },
     validationSchema,
     onSubmit: (values) => {
-      setData({
-        firstName: values.firstName,
-        middleName: values.middleName,
-        lastName: values.lastName,
-        dateOfBirth: values.dateOfBirth,
+      const payload = {
+        // firstName: values.firstName,
+        // middleName: values.middleName,
+        // lastName: values.lastName,
+        fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
+        dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.mobileNumber,
         emaemailAddressil: values.emailAddress,
         gender: values.gender,
@@ -63,9 +64,9 @@ function personalDetails({ setActiveStep }) {
             country: values.country,
           },
         ],
-      });
+      };
+      setData(payload);
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      // eslint-disable-next-line no-alert
     },
   });
   // eslint-disable-next-line no-console
@@ -126,8 +127,8 @@ function personalDetails({ setActiveStep }) {
             fullWidth
             id="dateOfBirth"
             name="dateOfBirth"
-            label="DD/MM/YYYY"
-            type="dob"
+            // label="DD/MM/YYYY"
+            type="date"
             value={formik.values.dateOfBirth}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

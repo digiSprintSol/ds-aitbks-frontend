@@ -243,8 +243,13 @@ function Home() {
     <div className="homepage">
       <Marquee className="marquee">
         {/* अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है। */}
-        {data[0].announcementTitle} &nbsp;|&nbsp;
-        {data[0].announcementDescription}
+        {/* {data[0].announcementTitle} &nbsp;|&nbsp;
+        {data[0].announcementDescription} */}
+        {data.map((d) => (
+          <span style={{ paddingRight: "40px" }} key={d.announcementTitle}>
+            {d.announcementTitle} | {d.announcementDescription}
+          </span>
+        ))}
       </Marquee>
       {/* <div>
         <Box sx={{ flexGrow: 10}}>
