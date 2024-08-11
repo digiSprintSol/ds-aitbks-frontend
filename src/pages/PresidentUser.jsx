@@ -20,10 +20,18 @@ const useStyles = makeStyles({
 });
 
 function PresidentUser() {
-  const { data, loading, error } = useCustomFetch(
-    "http://localhost:1369/user/getAllUsers",
-    "get"
-  );
+  // const { data, loading, error } = useCustomFetch(
+  //   "http://localhost:1369/user/getAllUsers",
+  //   "get"
+  // );
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:1369/user/getAllUsers`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
 
   const [currentpage, setCurrentpage] = useState(1);
   // eslint-disable-next-line no-unused-vars

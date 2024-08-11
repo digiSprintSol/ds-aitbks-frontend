@@ -10,11 +10,28 @@ import {
   Divider,
   RadioGroup,
 } from "@mui/material";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function RegistrationThree() {
   const [isPartOfCommunity, setIsPartOfCommunity] = useState("");
   const [communityName, setCommunityName] = useState("");
   const [errors, setErrors] = useState({});
+
+  // eslint-disable-next-line no-unused-vars
+  // const { data, loading, error } = useCustomFetch(
+  //   "http://localhost:1369/user/getAllUsers",
+  //   "get"
+  // );
+
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  // eslint-disable-next-line no-unused-vars
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:1369/user/getAllUsers`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
 
   const validateForm = () => {
     const validationErrors = {};
@@ -49,6 +66,9 @@ function RegistrationThree() {
     }
   }, [isPartOfCommunity]);
 
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <Box
       style={{
@@ -73,23 +93,10 @@ function RegistrationThree() {
         <Grid item xs={12}>
           <Typography>Full Name</Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <TextField
-            label="First Name"
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            label="Middle Name"
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            label="Last Name"
+            // value={data.content}
+            // aria-readonly
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
           />

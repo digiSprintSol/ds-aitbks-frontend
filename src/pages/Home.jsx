@@ -64,10 +64,19 @@ function Home() {
 
   // const [announcements, setAnnouncements] = useState([]);
 
-  const { data, loading, error } = useCustomFetch(
-    "http://localhost:1369/getAllAnnouncements",
-    "get"
-  );
+  // const { data, loading, error } = useCustomFetch(
+  //   "http://localhost:1369/getAllAnnouncements",
+  //   "get"
+  // );
+
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:1369/getAllAnnouncements`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
 
   //  const getAnnouncements = () => {
   //    try {
@@ -245,8 +254,13 @@ function Home() {
     <div className="homepage">
       <Marquee className="marquee">
         {/* अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है। */}
-        {data[0].announcementTitle} &nbsp;|&nbsp;
-        {data[0].announcementDescription}
+        {/* {data[0].announcementTitle} &nbsp;|&nbsp;
+        {data[0].announcementDescription} */}
+        {data.map((d) => (
+          <span style={{ paddingRight: "40px" }} key={d.announcementTitle}>
+            {d.announcementTitle} | {d.announcementDescription}
+          </span>
+        ))}
       </Marquee>
       {/* <div>
         <Box sx={{ flexGrow: 10}}>

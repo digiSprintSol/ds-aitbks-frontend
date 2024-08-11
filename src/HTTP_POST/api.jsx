@@ -10,7 +10,6 @@ export const postRequest = async (url, data, headers = {}) => {
   try {
     const response = await axios.post(url, data, {
       headers: {
-        // "Content-Type": "multipart/form-data",
         "Content-Type": "application/json",
         Token: `Bearer ${token}`,
         ...headers,

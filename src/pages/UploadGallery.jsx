@@ -55,9 +55,7 @@ function UploadGallery() {
           `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
           formData,
           {
-            headers: {
-              // "Content-Type": "multipart/form-data",
-            },
+            "Content-Type": "multipart/form-data",
           }
         );
         // console.log(response.data, "response");
