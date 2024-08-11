@@ -14,10 +14,14 @@ import useCustomFetch from "../Hooks/useCustomFetch";
 import CommitteePopup from "./CommitteePopup";
 
 function CommitteeView() {
-  const { data, loading, error } = useCustomFetch(
-    `http://localhost:1369/user/getAllUsers`,
-    "get"
-  );
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:1369/user/getAllUsers`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
@@ -29,15 +33,14 @@ function CommitteeView() {
   };
 
   useEffect(() => {
-    const range = [
-      (currentpage - 1) * rowsperpage + 1,
-      currentpage * rowsperpage,
-    ];
-
     if (data) {
-      const partdata = data.filter(
-        (row) => row.id >= range[0] && row.id <= range[1]
-      );
+      const partdata = [];
+      const exp =
+        rowsperpage > data.content.length ? data.content.length : rowsperpage;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < exp; i++) {
+        partdata.push(data.content[i]);
+      }
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
@@ -73,12 +76,12 @@ function CommitteeView() {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.username}</TableCell>
-                <TableCell align="middle">{row.address.zipcode}</TableCell>
-                <TableCell align="middle">{row.phone}</TableCell>
-                <TableCell align="middle">{row.email}</TableCell>
+                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.phoneNumber}</TableCell>
+                <TableCell align="middle">{row.emailAddress}</TableCell>
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"
@@ -92,7 +95,7 @@ function CommitteeView() {
                   >
                     View Full Details
                   </Button> */}
-                  <CommitteePopup />
+                  <CommitteePopup row={row} />
                 </TableCell>
               </TableRow>
             ))}
@@ -104,19 +107,19 @@ function CommitteeView() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.length ? (
-          <span>{data.length}</span>
+        {currentpage * rowsperpage > data.content.length ? (
+          <span>{data.content.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.length} entries
+        of {data.content.length} entries
       </span>
       {/* <span style={{ position: "absolute", transform: "Translate(50vw,-1vw)" }}>
         Display
         <input type="number" value={rowsperpage} onChange={changeHandler} />
       </span> */}
       <Pagination
-        count={Math.ceil(data.length / rowsperpage)}
+        count={Math.ceil(data.content.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

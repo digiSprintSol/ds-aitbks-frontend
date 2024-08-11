@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {
   Box,
@@ -9,19 +10,72 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
+import { postRequest } from "../../../HTTP_POST/api";
 
 function Login() {
+  // eslint-disable-next-line no-unused-vars
+  const [data, setData] = useState({});
+  const [token, setToken] = useState({});
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    onSubmit: (values) => {
+
+    onSubmit: async (values) => {
       // eslint-disable-next-line no-alert
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      try {
+        const response = await postRequest(
+          "http://localhost:1369/login",
+          values
+        );
+        const res = await postRequest(
+          "http://localhost:1369/loginWithToken",
+          {},
+          {
+            Token: `Bearer ${response?.token}`,
+          }
+        );
+        setToken(response?.token);
+        setData(res);
+      } catch (err) {
+        console.log(err.message, "okay");
+      }
     },
   });
 
+  // const siva=async()=>{
+  //   try {
+  //       const response = await postRequest(
+  //         "http://localhost:1369/login",
+  //         token.token);
+  //       console.log(response, "sathwik");
+
+  //     } catch (err) {
+  //       console.log(err.message, "okay");
+  //     }
+  // }
+
+  // useEffect(async() => {
+  //   siva()
+  // },[token])
+
+  useEffect(() => {
+    if (data.president) {
+      navigate("/president-view");
+    }
+    if (data.commitee) {
+      navigate("/committee-view");
+    }
+    if (data.accountant) {
+      navigate("/accountant-view");
+    }
+    if (data.user) {
+      navigate("/user-nav", { state: { token } });
+    }
+  }, [data]);
   return (
     <Box
       display="flex"
@@ -56,6 +110,7 @@ function Login() {
                 id="username"
                 name="username"
                 label="Username"
+                // type="string"
                 value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

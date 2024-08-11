@@ -21,11 +21,12 @@ const useStyles = makeStyles({
 
 function PresidentView() {
   const { data, loading, error } = useCustomFetch(
-    "https://jsonplaceholder.typicode.com/users",
+    "http://localhost:1369/user/getAllUsers",
     "get"
   );
 
   const [currentpage, setCurrentpage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [customdata, setCustomdata] = useState([]);
   // const navigate = useNavigate();
   const classes = useStyles();
@@ -49,7 +50,7 @@ function PresidentView() {
     range.push(currentpage * rowsperpage);
 
     if (data) {
-      const partdata = data.filter(
+      const partdata = data.content.filter(
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
@@ -85,18 +86,18 @@ function PresidentView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customdata.map((row) => (
+            {data.content.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.username}</TableCell>
-                <TableCell align="middle">{row.address.zipcode}</TableCell>
-                <TableCell align="middle">{row.phone}</TableCell>
-                <TableCell align="middle">{row.email}</TableCell>
+                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.phoneNumber}</TableCell>
+                <TableCell align="middle">{row.emailAddress}</TableCell>
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"
@@ -123,16 +124,16 @@ function PresidentView() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.length ? (
-          <span>{data.length}</span>
+        {currentpage * rowsperpage > data.content.length ? (
+          <span>{data.content.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.length} entries
+        of {data.content.length} entries
       </span>
 
       <Pagination
-        count={Math.ceil(data.length / rowsperpage)}
+        count={Math.ceil(data.content.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

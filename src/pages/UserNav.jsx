@@ -1,5 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
-import * as React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -11,7 +13,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
-
+// import useCustomFetch from "../Hooks/useCustomFetch";
 import Displayone from "./UserNav/Displayone";
 import Displaytwo from "./UserNav/Displaytwo";
 import Displaythree from "./UserNav/Displaythree";
@@ -19,6 +21,7 @@ import Displayfour from "./UserNav/Displayfour";
 import Displayfive from "./UserNav/Displayfive";
 import Displaysix from "./UserNav/Displaysix";
 import Displayseven from "./UserNav/Displayseven";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -120,8 +123,18 @@ const steps = [
 ];
 
 function App() {
+  const [activecount, setActivecount] = React.useState(-1);
+  const location = useLocation();
+  const token = `Bearer ${location.state.token}`;
   // eslint-disable-next-line no-unused-vars
-  const [activecount, setActivecount] = React.useState(0);
+  const { data, loading, error } = useCustomFetch({
+    url: "http://localhost:1369/user/progressBar",
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
   // eslint-disable-next-line consistent-return
   const display = (active) => {
     // eslint-disable-next-line default-case
@@ -142,6 +155,35 @@ function App() {
         return <Displayseven />;
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      let count = 0;
+      let ifthree = 0;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < Object.keys(data).length; i++) {
+        if (i !== 0 && i !== 3 && i !== 4) {
+          if (data[i] === true) {
+            count += 1;
+          }
+        }
+        if (i === 3) {
+          if (data[i] === true) {
+            ifthree = 1;
+          }
+        }
+        if (i === 4) {
+          if (data[i] === true && ifthree === 1) {
+            count += 1;
+          }
+        }
+      }
+      setActivecount(count + 1);
+    }
+  }, [data]);
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <Stack sx={{ width: "100%" }}>
       <Stepper
