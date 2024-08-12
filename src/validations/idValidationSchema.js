@@ -7,23 +7,24 @@ const idValidationSchema = Yup.object({
   voterId: Yup.string()
     .required("Voter ID is required")
     .matches(/^[A-Z]{3}[0-9]{7}$/, "Invalid Voter ID format"),
-  presentOccupation: Yup.string().required("Present occupation is required"),
-  introduction: Yup.string()
+  occupation: Yup.string().required("Present occupation is required"),
+  brieflyTellAboutYourself: Yup.string()
     .required("Introduction is required")
     .test(
       "max-words",
       "Introduction must be 50 words or less",
       (value) => value && value.split(" ").length <= 50
     ),
-  description: Yup.string()
+  reasonToJoinAITBKS: Yup.string()
     .required("Description is required")
     .test(
       "max-words",
       "Description must be 200 words or less",
       (value) => value && value.split(" ").length <= 200
     ),
-  // referenceOne: Yup.string().required("Reference one is required"),
-  // referenceTwo: Yup.string().required("Reference two is required"),
+  category: Yup.string("Enter your category").required("is required"),
+  reference1: Yup.string().required("Reference one is required"),
+  reference2: Yup.string().required("Reference two is required"),
 });
 
 export default idValidationSchema;

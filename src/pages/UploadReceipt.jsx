@@ -38,7 +38,8 @@ function UploadGallery() {
   const handleDragLeave = () => {
     setIsDragOver(false);
   };
-
+  const token =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InJtb25zaHUwMEBnbWFpbC5jb20iLCJ1c2VySWQiOiJ1c2VyMDA5IiwidHlwZSI6InN0cmluZyIsImFjY2VzcyI6WyJVU0VSIl0sImlhdCI6MTcyMzQ2MTE1NiwiZXhwIjoxNzIzNDY0NzU2fQ.Ax-V2cF85nXnUwsVlsWUa2j1yQ-c2xhlI-CTgDzF3aQ";
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -48,16 +49,15 @@ function UploadGallery() {
     // validationSchema: postValidationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append("imagesForHomePage", file);
+      formData.append("transcationRecepit", file);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
+          `http://localhost:1369/user/uploadTranscationReceipt?transcationId=${values.transactionId}`,
           formData,
           {
-            headers: {
-              // "Content-Type": "multipart/form-data",
-            },
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           }
         );
         // console.log(response.data, "response");
@@ -76,7 +76,7 @@ function UploadGallery() {
           margin: "10px auto",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box
               sx={{
@@ -177,9 +177,28 @@ function UploadGallery() {
             </Typography>
           </Grid>
           <Grid item xs={4}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Full Name
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Date Of Payment
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Phone Number
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Email ID
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
             <TextField
               fullWidth
-              label="fullName"
               id="fullName"
               name="fullName"
               type="string"
@@ -214,7 +233,6 @@ function UploadGallery() {
               fullWidth
               id="phoneNumber"
               name="phoneNumber"
-              label="phoneNumber"
               type="number"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
@@ -232,7 +250,6 @@ function UploadGallery() {
               fullWidth
               id="emailAddress"
               name="emailAddress"
-              label="emailAddress"
               type="email"
               value={formik.values.emailAddress}
               onChange={formik.handleChange}
@@ -246,12 +263,16 @@ function UploadGallery() {
               }
             />
           </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Transaction ID
+            </Typography>
+          </Grid>
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
             <TextField
               fullWidth
               id="transactionId"
               name="transactionId"
-              label="Transaction ID"
               type="string"
               value={formik.values.transactionId}
               onChange={formik.handleChange}
