@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const { REACT_APP_FAKE_API, REACT_APP_TOKEN } = process.env;
+const { REACT_APP_API, REACT_APP_TOKEN } = process.env;
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-  baseURL: REACT_APP_FAKE_API,
+  baseURL: REACT_APP_API,
 });
 // Alter defaults after instance has been created
 instance.defaults.headers.common.Token = `Bearer ${REACT_APP_TOKEN}`;

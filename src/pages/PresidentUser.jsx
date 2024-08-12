@@ -24,6 +24,7 @@ function PresidentUser() {
   //   "http://localhost:1369/user/getAllUsers",
   //   "get"
   // );
+  // eslint-disable-next-line no-unused-vars
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
   const { data, loading, error } = useCustomFetch({
     url: `http://localhost:1369/user/getAllUsers`,
@@ -132,7 +133,7 @@ function PresidentUser() {
                    
                   >
                   </Button> */}
-                  <PresidentModal />
+                  <PresidentModal row={row} />
                 </TableCell>
               </TableRow>
             ))}

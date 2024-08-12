@@ -41,7 +41,7 @@ function Login() {
         setToken(response?.token);
         setData(res);
       } catch (err) {
-        console.log(err.message, "okay");
+        // console.log(err.message, "okay");
       }
     },
   });

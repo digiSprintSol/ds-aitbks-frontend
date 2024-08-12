@@ -20,10 +20,18 @@ const useStyles = makeStyles({
 });
 
 function PresidentView() {
-  const { data, loading, error } = useCustomFetch(
-    "http://localhost:1369/user/getAllUsers",
-    "get"
-  );
+  // const { data, loading, error } = useCustomFetch(
+  //   "http://localhost:1369/user/getAllUsers",
+  //   "get"
+  // );
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:1369/user/accountantFirstView`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
 
   const [currentpage, setCurrentpage] = useState(1);
   // eslint-disable-next-line no-unused-vars
@@ -50,7 +58,7 @@ function PresidentView() {
     range.push(currentpage * rowsperpage);
 
     if (data) {
-      const partdata = data.content.filter(
+      const partdata = data.filter(
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
@@ -86,7 +94,7 @@ function PresidentView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.content.map((row) => (
+            {data.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -112,7 +120,7 @@ function PresidentView() {
                   >
                     View Full Details
                   </Button> */}
-                  <Acknowledge />
+                  <Acknowledge row={row} />
                 </TableCell>
               </TableRow>
             ))}
@@ -124,16 +132,16 @@ function PresidentView() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.content.length ? (
-          <span>{data.content.length}</span>
+        {currentpage * rowsperpage > data.length ? (
+          <span>{data.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.content.length} entries
+        of {data.length} entries
       </span>
 
       <Pagination
-        count={Math.ceil(data.content.length / rowsperpage)}
+        count={Math.ceil(data.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}
