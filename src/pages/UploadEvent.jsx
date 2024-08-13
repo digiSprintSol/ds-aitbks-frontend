@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { Grid, TextField } from "@mui/material";
 import { Formik, useFormik } from "formik";
@@ -11,9 +12,9 @@ import { postRequest } from "../HTTP_POST/api";
 
 function UploadGallery() {
   const [filePreview, setFilePreview] = useState(null);
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8";
-
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const onDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
@@ -40,7 +41,7 @@ function UploadGallery() {
 
         // eslint-disable-next-line no-unused-vars
         const result = await postRequest(
-          "http://localhost:1369/uploadEventsImages",
+          `${REACT_APP_FAKE_API}/uploadEventsImages`,
           formData,
           {
             Token: `Bearer ${token}`,

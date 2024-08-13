@@ -17,6 +17,7 @@ import {
   education as educations,
   states,
   country as countries,
+  addressType,
 } from "../../../../Lib/constants";
 import validationSchema from "../../../../validations/validationSchema";
 import { useRootContext } from "../../../../Hooks/useRootContext";
@@ -27,6 +28,7 @@ function personalDetails({ setActiveStep }) {
 
   const formik = useFormik({
     initialValues: {
+      // profilePic: data.profilePic || "",
       firstName: data.firstName || "",
       middleName: data.middleName || "",
       lastName: data.lastName || "",
@@ -36,9 +38,11 @@ function personalDetails({ setActiveStep }) {
       gender: data.gender || "",
       profession: data.profession || "",
       education: data.education || "",
-      address: data.address || "",
-      address2: data.address2 || "",
-      pincode: data.pincode || "",
+      addressType: data.addressType || "",
+      addressLine1: data.addressLine1 || "",
+      addressLine2: data.addressLine2 || "",
+      postalCode: data.postalCode || "",
+      city: data.city || "",
       state: data.state || "",
       country: data.country || "",
     },
@@ -48,18 +52,21 @@ function personalDetails({ setActiveStep }) {
         // firstName: values.firstName,
         // middleName: values.middleName,
         // lastName: values.lastName,
+        // profilePic: values.profilePic,
         fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
-        phoneNumber: values.mobileNumber,
-        emaemailAddressil: values.emailAddress,
+        phoneNumber: values.phoneNumber,
+        emailAddress: values.emailAddress,
         gender: values.gender,
         education: values.education,
         profession: values.profession,
         address: [
           {
-            address1: values.address,
-            address2: values.address2,
-            pincode: values.pincode,
+            addressType: values.addressType,
+            addressLine1: values.addressLine1,
+            addressLine2: values.addressLine2,
+            postalCode: values.postalCode,
+            city: values.city,
             state: values.state,
             country: values.country,
           },
@@ -75,6 +82,49 @@ function personalDetails({ setActiveStep }) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
+        {/* <Grid item xs={3}>
+          <Typography variant="h6" sx={{ marginTop: "30px" }}>
+            Upload Passport Photo:
+          </Typography>
+        </Grid> */}
+        {/* <Grid item xs={12} sx={{ marginTop: "30px" }}>
+          <input
+            type="file"
+            id="profilePic"
+            value={formik.values.profilePic}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <input
+            type="file"
+            id="profilePic"
+            name="profilePic"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(event) => {
+              formik.setFieldValue("profilePic", event.currentTarget.files[0]);
+            }}
+            onBlur={formik.handleBlur}
+          />
+          <label
+            htmlFor="profilePic"
+            style={{
+              fontFamily: "ProximaBold",
+              border: "1px solid",
+              borderRadius: "5px",
+              padding: "10px 20px",
+              backgroundColor: "#1B7DA6",
+              color: "white",
+            }}
+          >
+            {formik.values.profilePic
+              ? formik.values.profilePic.name
+              : "Upload Profile Picture"}
+          </label>
+          {formik.errors.profilePic && formik.touched.profilePic && (
+            <div className="error">{formik.errors.profilePic}</div>
+          )}
+        </Grid> */}
         <Grid item xs={12}>
           <Typography variant="subtitle1">Full Name</Typography>
         </Grid>
@@ -245,51 +295,98 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1">Permanent Address</Typography>
+          <Typography variant="subtitle1">Address</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl fullWidth>
+            <InputLabel id="gender-select-label">Type of Address</InputLabel>
+            <Select
+              labelId="addressType"
+              id="addressType"
+              value={formik.values.addressType}
+              name="addressType"
+              onChange={formik.handleChange}
+            >
+              {addressType.map((add) => (
+                <MenuItem key={add.label} value={add.label}>
+                  {add.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {formik.touched.addressType && formik.errors.genaddressTypeder && (
+              <FormHelperText sx={{ color: "red" }}>
+                {formik.errors.addressType}
+              </FormHelperText>
+            )}
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="address"
-            name="address"
-            label="House No./ Apartment Name"
-            type="address"
-            value={formik.values.address}
+            id="addressLine1"
+            name="addressLine1"
+            label="Address Line 1"
+            type="string"
+            value={formik.values.addressLine1}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.address && Boolean(formik.errors.address)}
-            helperText={formik.touched.address && formik.errors.address}
+            error={
+              formik.touched.addressLine1 && Boolean(formik.errors.addressLine1)
+            }
+            helperText={
+              formik.touched.addressLine1 && formik.errors.addressLine1
+            }
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="address2"
-            name="address2"
-            label="Street Name / Sector / Colony / Block"
-            type="address2"
-            value={formik.values.address2}
+            id="addressLine2"
+            name="addressLine2"
+            label="Address Line 2"
+            type="string"
+            value={formik.values.addressLine2}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.address2 && Boolean(formik.errors.address2)}
-            helperText={formik.touched.address2 && formik.errors.address2}
+            error={
+              formik.touched.addressLine2 && Boolean(formik.errors.addressLine2)
+            }
+            helperText={
+              formik.touched.addressLine2 && formik.errors.addressLine2
+            }
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <TextField
+            fullWidth
+            id="postalCode"
+            name="postalCode"
+            label="Pin Code"
+            type="string"
+            value={formik.values.postalCode}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.postalCode && Boolean(formik.errors.postalCode)
+            }
+            helperText={formik.touched.postalCode && formik.errors.postalCode}
           />
         </Grid>
         <Grid item xs={3}>
           <TextField
             fullWidth
-            id="pincode"
-            name="pincode"
-            label="Pin Code"
+            id="city"
+            name="city"
+            label="City"
             type="string"
-            value={formik.values.pincode}
+            value={formik.values.city}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.pincode && Boolean(formik.errors.pincode)}
-            helperText={formik.touched.pincode && formik.errors.pincode}
+            error={formik.touched.city && Boolean(formik.errors.city)}
+            helperText={formik.touched.city && formik.errors.city}
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={3}>
           <FormControl fullWidth>
             <InputLabel id="state-select-label">State</InputLabel>
             <Select

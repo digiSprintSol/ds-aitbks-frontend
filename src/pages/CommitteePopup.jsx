@@ -26,7 +26,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CommitteePopup({ row }) {
+export default function CommitteePopup({ row, token }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -40,32 +40,31 @@ export default function CommitteePopup({ row }) {
   const accepted = { statusOfApproval: "accepted" };
   const rejected = { statusOfApproval: "rejected" };
   const waiting = { statusOfApproval: "waiting" };
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6ImNvbW1pdHRlZUB4eXouY29tIiwidXNlcklkIjoiNjZiODk5NWIwNDVhYmRlZWExOTQyZmVmIiwidHlwZSI6ImNvbW1pdHRlZSIsImFjY2VzcyI6WyJDT01NSVRFRSJdLCJpYXQiOjE3MjMzNzQyODYsImV4cCI6MTcyMzM3Nzg4Nn0.Thb75DyQLanQT2LUD0XK_ASK1j5LsU6wo_KEur0MElQ";
   const changeHandler = (e) => {
     setData({ remarks: e.target.value });
   };
 
   React.useEffect(() => {
-    // eslint-disable-next-line prefer-const
-    let message = document.getElementById("errordisplay");
-    // message.innerHTML = "{null}";
-    try {
-      const exp = data.charCodeAt(0);
-      if (!((exp >= 48 && exp <= 57) || !exp)) {
-        // eslint-disable-next-line no-throw-literal
-        throw "enter only number";
+    if (data) {
+      const message = document.getElementById("errordisplay");
+      message.innerHTML = "message:";
+      try {
+        const exp = data.remarks.charCodeAt(0);
+        if (!(exp >= 97 && exp <= 122)) {
+          // eslint-disable-next-line no-throw-literal
+          throw "enter only alphabets";
+        }
+      } catch (err) {
+        message.innerHTML = "message:".concat(err);
       }
-    } catch (err) {
-      message.innerHTML = "okay".concat(err);
     }
-  });
-
+  }, [data]);
+  const { REACT_APP_FAKE_API } = process.env;
   const post = async () => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
-        `http://localhost:1369/user/approval/${row.userId}`,
+        `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
         data,
         {
           Token: `Bearer ${token}`,
@@ -111,6 +110,7 @@ export default function CommitteePopup({ row }) {
           borderRadius: "15px",
           height: "2vw",
           border: "none",
+          fontSize: "12px",
         }}
       >
         View Full Details
@@ -436,72 +436,9 @@ export default function CommitteePopup({ row }) {
                   onChange={changeHandler}
                 />
                 <p id="errordisplay" style={{ color: "red" }}>
-                  error
+                  message:
                 </p>
               </Grid>
-              {/* <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Accepted"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Rejected"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Waiting"
-                />
-              </Grid> */}
-              {/* <Grid item xs={12}>
-                <Divider />
-                <Grid item xs={12}>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: "#1B7DA6",
-                      fontWeight: "bold",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "40px",
-                    }}
-                  >
-                    President Comments
-                  </Typography>
-                  <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-                </Grid>
-                <Grid container spacing={1} justifyContent="center">
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Trustee"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Patron"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Life Member"
-                    />
-                  </Grid>
-                </Grid>
-              </Grid> */}
               <DialogActions sx={{ margin: "50px auto" }}>
                 <Button
                   variant="contained"
@@ -550,4 +487,5 @@ export default function CommitteePopup({ row }) {
 
 CommitteePopup.propTypes = {
   row: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired,
 };

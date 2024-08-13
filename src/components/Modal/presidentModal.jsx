@@ -14,6 +14,7 @@ import {
   IconButton,
   Radio,
   RadioGroup,
+  Stack,
   TextField,
   Typography,
   styled,
@@ -36,7 +37,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function PresidentModal({ row }) {
+export default function PresidentModal({ row, token }) {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState("");
   const [radioValue, setRadioValue] = useState("");
@@ -57,6 +58,7 @@ export default function PresidentModal({ row }) {
     setRadioValue(event.target.value);
   };
 
+  const { REACT_APP_FAKE_API } = process.env;
   const handleSubmit = () => {
     if (!comments) {
       alert("Please enter your comments");
@@ -71,13 +73,12 @@ export default function PresidentModal({ row }) {
     console.log("Selected Membership:", radioValue);
     return true;
   };
-  const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InByZXNpZGVudEB4eXouY29tIiwidXNlcklkIjoiNjZiNzA3NTVkYTc1MmMxZmQ5MjUxYzEzIiwidHlwZSI6IlByZXNpZGVudDEyMyIsImFjY2VzcyI6WyJQUkVTSURFTlQiXSwiaWF0IjoxNzIzNDU2MTMzLCJleHAiOjE3MjM0NTk3MzN9.sx0cjposs4qFqse4PPpbI6RGycDNVq1nEND-5l5L6qw`;
 
   const post = async () => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
-        `http://localhost:1369/user/approval/${row.userId}`,
+        `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
         data,
         {
           Token: `Bearer ${token}`,
@@ -116,6 +117,7 @@ export default function PresidentModal({ row }) {
           borderRadius: "15px",
           height: "2vw",
           border: "none",
+          fontSize: "12px",
         }}
       >
         View Full Details
@@ -442,27 +444,100 @@ export default function PresidentModal({ row }) {
                   aria-readonly
                 />
               </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="accepted"
-                  control={<Radio />}
-                  label="Accepted"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="rejected"
-                  control={<Radio />}
-                  label="Rejected"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="waiting"
-                  control={<Radio />}
-                  label="Waiting"
-                />
-              </Grid>
+
+              {/* ------------------------------------------------------------ committeee status checking */}
+              {row.status === "accepted" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.status === "rejected" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.status === "waiting" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {/* ------------------------------------------------------------------------------------- */}
+
               <Grid item xs={12}>
                 <Divider />
                 <Grid item xs={12}>
@@ -565,4 +640,5 @@ export default function PresidentModal({ row }) {
 
 PresidentModal.propTypes = {
   row: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired,
 };

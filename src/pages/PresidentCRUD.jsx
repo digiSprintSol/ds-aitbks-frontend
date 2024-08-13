@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -22,9 +23,11 @@ function PresidentCRUD() {
   //   "http://localhost:1369/getAll",
   //   "get"
   // );
-  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `http://localhost:1369/getAll`,
+    url: `${REACT_APP_FAKE_API}/getAll`,
     method: "GET",
     headers: {
       Token: token,

@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Box, Grid, TextField } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -13,13 +14,14 @@ const AnnouncementSchema = Yup.object().shape({
 });
 
 function UploadAnnouncement() {
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8";
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
-        "http://localhost:1369/postingAnnouncements",
+        `${REACT_APP_FAKE_API}/postingAnnouncements`,
         values,
         {
           Token: `Bearer ${token}`,

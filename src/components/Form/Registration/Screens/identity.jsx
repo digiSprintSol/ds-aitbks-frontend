@@ -1,8 +1,19 @@
 import React from "react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import idValidationSchema from "../../../../validations/idValidationSchema";
 import { useRootContext } from "../../../../Hooks/useRootContext";
+import { category } from "../../../../Lib/constants";
 
 function identity({ setActiveStep }) {
   const { data, setData } = useRootContext();
@@ -11,11 +22,12 @@ function identity({ setActiveStep }) {
     initialValues: {
       aadharNumber: data.aadharNumber || "",
       voterId: data.voterId || "",
-      introduction: data.introduction || "",
-      description: data.description || "",
-      presentOccupation: data.presentOccupation || "",
-      referenceOne: data.referenceOne || "",
-      referenceTwo: data.referenceTwo || "",
+      brieflyTellAboutYourself: data.brieflyTellAboutYourself || "",
+      reasonToJoinAITBKS: data.reasonToJoinAITBKS || "",
+      category: data.category || "",
+      occupation: data.occupation || "",
+      reference1: data.reference1 || "",
+      reference2: data.reference2 || "",
     },
     validationSchema: idValidationSchema,
     onSubmit: (values) => {
@@ -23,11 +35,12 @@ function identity({ setActiveStep }) {
         ...prevData,
         aadharNumber: values.aadharNumber,
         voterId: values.voterId,
-        introduction: values.introduction,
-        description: values.description,
-        presentOccupation: values.presentOccupation,
-        referenceOne: values.referenceOne,
-        referenceTwo: values.referenceTwo,
+        brieflyTellAboutYourself: values.brieflyTellAboutYourself,
+        reasonToJoinAITBKS: values.reasonToJoinAITBKS,
+        category: values.category,
+        occupation: values.occupation,
+        reference1: values.reference1,
+        reference2: values.reference2,
       }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       // eslint-disable-next-line no-alert
@@ -43,7 +56,7 @@ function identity({ setActiveStep }) {
         <Grid item xs={6}>
           <TextField
             fullWidth
-            label="aadharNumber"
+            label="Aadhar Number"
             id="aadharNumber"
             name="aadharNumber"
             type="number"
@@ -61,7 +74,7 @@ function identity({ setActiveStep }) {
         <Grid item xs={6}>
           <TextField
             fullWidth
-            label="voterId"
+            label="Voter ID"
             id="voterId"
             name="voterId"
             type="string"
@@ -72,88 +85,116 @@ function identity({ setActiveStep }) {
             helperText={formik.touched.voterId && formik.errors.voterId}
           />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={4}>
+          <FormControl fullWidth>
+            <InputLabel id="category">Category</InputLabel>
+            <Select
+              labelId="category"
+              id="category"
+              value={formik.values.category}
+              name="category"
+              label="category"
+              onChange={formik.handleChange}
+            >
+              {category.map((cat) => (
+                <MenuItem key={cat.label} value={cat.label}>
+                  {cat.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {formik.touched.category && formik.errors.category && (
+              <FormHelperText sx={{ color: "red" }}>
+                {formik.errors.category}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Grid>
+        <Grid item xs={8}>
           <TextField
             fullWidth
-            id="presentOccupation"
-            name="presentOccupation"
-            label="presentOccupation"
+            id="occupation"
+            name="occupation"
+            label="Present Occupation"
             type="string"
-            value={formik.values.presentOccupation}
+            value={formik.values.occupation}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.presentOccupation &&
-              Boolean(formik.errors.presentOccupation)
+              formik.touched.occupation && Boolean(formik.errors.occupation)
             }
-            helperText={
-              formik.touched.presentOccupation &&
-              formik.errors.presentOccupation
-            }
+            helperText={formik.touched.occupation && formik.errors.occupation}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="introduction"
-            name="introduction"
+            id="brieflyTellAboutYourself"
+            name="brieflyTellAboutYourself"
             label="Tell us about yourself"
             type="string"
-            value={formik.values.introduction}
+            value={formik.values.brieflyTellAboutYourself}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.introduction && Boolean(formik.errors.introduction)
+              formik.touched.brieflyTellAboutYourself &&
+              Boolean(formik.errors.brieflyTellAboutYourself)
             }
             helperText={
-              formik.touched.introduction && formik.errors.introduction
+              formik.touched.brieflyTellAboutYourself &&
+              formik.errors.brieflyTellAboutYourself
             }
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
-            id="description"
-            name="description"
+            id="reasonToJoinAITBKS"
+            name="reasonToJoinAITBKS"
             label="Why do you want to join AITBKS"
             type="string"
-            value={formik.values.description}
+            value={formik.values.reasonToJoinAITBKS}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.description && Boolean(formik.errors.description)
+              formik.touched.reasonToJoinAITBKS &&
+              Boolean(formik.errors.reasonToJoinAITBKS)
             }
-            helperText={formik.touched.description && formik.errors.description}
+            helperText={
+              formik.touched.reasonToJoinAITBKS &&
+              formik.errors.reasonToJoinAITBKS
+            }
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            label="Reference 01 (Existing Members)"
-            type="select"
             fullWidth
-            options={[
-              { label: "Member 1" },
-              { label: "Member 2" },
-              { label: "Member 3" },
-              { label: "Member 4" },
-              { label: "Member 5" },
-              { label: "Member 6" },
-            ]}
+            id="reference1"
+            name="reference1"
+            label="Reference 1 (Existing Members)"
+            type="string"
+            value={formik.values.reference1}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.reference1 && Boolean(formik.errors.reference1)
+            }
+            helperText={formik.touched.reference1 && formik.errors.reference1}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            label="Reference 02 (Referred By)"
-            type="select"
             fullWidth
-            options={[
-              { label: "Member 1" },
-              { label: "Member 2" },
-              { label: "Member 3" },
-              { label: "Member 4" },
-              { label: "Member 5" },
-              { label: "Member 6" },
-            ]}
+            id="reference2"
+            name="reference2"
+            label="Reference 2"
+            type="string"
+            value={formik.values.reference2}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.touched.reference2 && Boolean(formik.errors.reference2)
+            }
+            helperText={formik.touched.reference2 && formik.errors.reference2}
           />
         </Grid>
       </Grid>

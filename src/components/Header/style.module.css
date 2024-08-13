@@ -3,6 +3,8 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     background-image: linear-gradient(to right, #199071, #1B7DA6);
+    padding: 0 10px;
+    padding-top: 5px;
 }
 
 .right {
@@ -11,13 +13,13 @@
 }
 
 .logo {
-    width: 150px;
-    height: 110px;
+    width: 12vw;
+    height: 10vw;
 }
 
 .title {
-    width: 380px;
-    height: 30px;
+    width: 72%;
+    height: 3vw;
 }
 
 .left {

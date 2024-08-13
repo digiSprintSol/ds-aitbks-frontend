@@ -1,7 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -125,13 +124,14 @@ const steps = [
 function App() {
   const [activecount, setActivecount] = React.useState(-1);
   const location = useLocation();
-  const token = `Bearer ${location.state.token}`;
+  const token = `${location.state.token}`;
   // eslint-disable-next-line no-unused-vars
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: "http://localhost:1369/user/progressBar",
+    url: `${REACT_APP_FAKE_API}/user/progressBar`,
     method: "GET",
     headers: {
-      Token: token,
+      Token: `Bearer ${token}`,
     },
   });
 
@@ -146,9 +146,9 @@ function App() {
       case 2:
         return <Displaythree />;
       case 3:
-        return <Displayfour />;
+        return <Displayfour token={token} />;
       case 4:
-        return <Displayfive />;
+        return <Displayfive token={token} />;
       case 5:
         return <Displaysix />;
       case 6:
@@ -160,27 +160,47 @@ function App() {
     if (data) {
       let count = 0;
       let ifthree = 0;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < Object.keys(data).length; i++) {
-        if (i !== 0 && i !== 3 && i !== 4) {
-          if (data[i] === true) {
+      let ifsix = 0;
+      const keys = Object.keys(data);
+
+      keys.forEach((key, index) => {
+        if (
+          index !== 0 &&
+          index !== 3 &&
+          index !== 4 &&
+          index !== 7 &&
+          index !== 8
+        ) {
+          if (data[key] === true) {
             count += 1;
           }
         }
-        if (i === 3) {
-          if (data[i] === true) {
+        if (index === 3) {
+          if (data[key] === true) {
             ifthree = 1;
           }
         }
-        if (i === 4) {
-          if (data[i] === true && ifthree === 1) {
+        if (index === 4) {
+          if (data[key] === true && ifthree === 1) {
+            count += 2;
+          }
+        }
+        if (index === 6) {
+          if (data[key] === true) {
+            ifsix = 1;
+          }
+        }
+        if (index === 7) {
+          if (data[key] === true && ifsix === 1) {
             count += 1;
           }
         }
-      }
-      setActivecount(count + 1);
+      });
+      //  console.log(count,"aaaaaaaaaa")
+      setActivecount(count - 1);
     }
-  }, [data]);
+  }, [data, activecount]);
+
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
 

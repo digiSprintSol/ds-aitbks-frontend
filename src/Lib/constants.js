@@ -105,6 +105,18 @@ export const initialState = {
   membershipType: "",
 };
 
+export const addressType = [
+  { label: "Office " },
+  { label: "Permanent" },
+  { label: "Current" },
+];
+
+export const category = [
+  { label: "Telega " },
+  { label: "Balija" },
+  { label: "Kapu" },
+];
+
 export const registrationData = {
   userId: "user0013",
   profilePic: "https://example.com/profilepic.jpg",

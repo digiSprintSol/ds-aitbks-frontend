@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -39,6 +40,10 @@ function UploadGallery() {
     setIsDragOver(false);
   };
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -48,22 +53,22 @@ function UploadGallery() {
     // validationSchema: postValidationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append("imagesForHomePage", file);
+      formData.append("transcationRecepit", file);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
+          `${REACT_APP_FAKE_API}/user/uploadTranscationReceipt?transcationId=${values.transactionId}`,
           formData,
           {
-            headers: {
-              // "Content-Type": "multipart/form-data",
-            },
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           }
         );
         // console.log(response.data, "response");
       } catch (err) {
         // console.log(err.message, "error");
       }
+      navigate("/payment-success");
     },
   });
 
@@ -76,7 +81,7 @@ function UploadGallery() {
           margin: "10px auto",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box
               sx={{
@@ -177,9 +182,28 @@ function UploadGallery() {
             </Typography>
           </Grid>
           <Grid item xs={4}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Full Name
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Date Of Payment
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Phone Number
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Email ID
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
             <TextField
               fullWidth
-              label="fullName"
               id="fullName"
               name="fullName"
               type="string"
@@ -214,7 +238,6 @@ function UploadGallery() {
               fullWidth
               id="phoneNumber"
               name="phoneNumber"
-              label="phoneNumber"
               type="number"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
@@ -232,7 +255,6 @@ function UploadGallery() {
               fullWidth
               id="emailAddress"
               name="emailAddress"
-              label="emailAddress"
               type="email"
               value={formik.values.emailAddress}
               onChange={formik.handleChange}
@@ -246,12 +268,16 @@ function UploadGallery() {
               }
             />
           </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Transaction ID
+            </Typography>
+          </Grid>
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
             <TextField
               fullWidth
               id="transactionId"
               name="transactionId"
-              label="Transaction ID"
               type="string"
               value={formik.values.transactionId}
               onChange={formik.handleChange}

@@ -17,6 +17,7 @@ function Login() {
   const [data, setData] = useState({});
   const [token, setToken] = useState({});
   const navigate = useNavigate();
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -28,11 +29,11 @@ function Login() {
       // alert(JSON.stringify(values, null, 2));
       try {
         const response = await postRequest(
-          "http://localhost:1369/login",
+          `${REACT_APP_FAKE_API}/login`,
           values
         );
         const res = await postRequest(
-          "http://localhost:1369/loginWithToken",
+          `${REACT_APP_FAKE_API}/loginWithToken`,
           {},
           {
             Token: `Bearer ${response?.token}`,
@@ -64,13 +65,13 @@ function Login() {
 
   useEffect(() => {
     if (data.president) {
-      navigate("/president-view");
+      navigate("/president-view", { state: { token } });
     }
     if (data.commitee) {
-      navigate("/committee-view");
+      navigate("/committee-view", { state: { token } });
     }
     if (data.accountant) {
-      navigate("/accountant-view");
+      navigate("/accountant-view", { state: { token } });
     }
     if (data.user) {
       navigate("/user-nav", { state: { token } });

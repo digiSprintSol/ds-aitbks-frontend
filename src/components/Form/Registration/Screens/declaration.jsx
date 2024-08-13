@@ -13,14 +13,26 @@ import {
 import { useFormik } from "formik";
 import { useRootContext } from "../../../../Hooks/useRootContext";
 import { instance } from "../../../../https";
-import { registrationData } from "../../../../Lib/constants";
+// import { registrationData } from "../../../../Lib/constants";
 
 function Declaration() {
   const { data: finalData, setData } = useRootContext();
   // eslint-disable-next-line no-unused-vars
   const fetchData = async (url, payload) => {
     try {
-      const response = await instance.post(url, registrationData);
+      const response = await instance.post(url, {
+        ...finalData,
+        profilePic: "https://example.com/profilepic.jpg",
+        // reference2: "Ms. Laura Brown",
+        // brieflyTellAboutYourself:
+        //   "I am a dedicated software engineer with over 10 years of experience in the tech industry. I am passionate about coding and problem-solving.",
+        // occupation: "Software Engineer",
+        // category: "Professional",
+        // reference1: "Dr. Alan Smith",
+        requestForMembershipApplicationFromDeclaration: true,
+        // reasonToJoinAITBKS:
+        //   "I am interested in joining AITBKS to connect with like-minded professionals and contribute to the community's growth.",
+      });
       // eslint-disable-next-line no-console
       console.log(response.data);
     } catch (err) {
@@ -32,6 +44,7 @@ function Declaration() {
     }
   };
 
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       membershipType: "",
@@ -44,7 +57,7 @@ function Declaration() {
       }));
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(finalData, null, 2));
-      fetchData("http://localhost:1369/user/register", finalData);
+      fetchData(`${REACT_APP_FAKE_API}/user/register`, finalData);
     },
   });
 

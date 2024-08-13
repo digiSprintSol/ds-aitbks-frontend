@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,12 +25,15 @@ function PresidentView() {
   //   "http://localhost:1369/user/getAllUsers",
   //   "get"
   // );
-  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  // eslint-disable-next-line no-unused-vars
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `http://localhost:1369/user/accountantFirstView`,
+    url: `${REACT_APP_FAKE_API}/user/accountantFirstView`,
     method: "GET",
     headers: {
-      Token: token,
+      Token: `Bearer ${token}`,
     },
   });
 
@@ -74,23 +78,25 @@ function PresidentView() {
         sx={{ width: "95%", margin: "30px auto" }}
         component={Paper}
       >
-        <Table
-          sx={{ minWidth: 650 }}
-          className={classes.committeetable}
-          aria-label="simple table"
-        >
-          <TableHead className={classes.committeetable}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
             <TableRow sx={{ textAlign: "center" }}>
               <TableCell align="middle" className={classes.committeetable}>
                 Name of the Applicant
               </TableCell>
-              <TableCell align="middle">
+              <TableCell align="middle" className={classes.committeetable}>
                 Date of Application Submitted
               </TableCell>
-              <TableCell align="middle">Date of Birth</TableCell>
-              <TableCell align="middle">Phone number</TableCell>
-              <TableCell align="middle">Email Id</TableCell>
-              <TableCell>Details</TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Date of Birth
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Phone number
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Email Id
+              </TableCell>
+              <TableCell className={classes.committeetable}>Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -120,7 +126,7 @@ function PresidentView() {
                   >
                     View Full Details
                   </Button> */}
-                  <Acknowledge row={row} />
+                  <Acknowledge row={row} token={token} />
                 </TableCell>
               </TableRow>
             ))}
