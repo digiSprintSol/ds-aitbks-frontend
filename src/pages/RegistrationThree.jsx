@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -25,14 +26,16 @@ function RegistrationThree() {
   //   "http://localhost:1369/user/getAllUsers",
   //   "get"
   // );
-
-  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InJtb25zaHUwMEBnbWFpbC5jb20iLCJ1c2VySWQiOiJ1c2VyMDA5IiwidHlwZSI6InN0cmluZyIsImFjY2VzcyI6WyJVU0VSIl0sImlhdCI6MTcyMzQ2NjkwMywiZXhwIjoxNzIzNDcwNTAzfQ.-S8xv3UlIqr08FSoOonC_aj4V4F0CLOPdiuTT8O_hW8`;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   // eslint-disable-next-line no-unused-vars
   const { data, loading, error } = useCustomFetch({
-    url: `http://localhost:1369/user/getSpecificUserDetails`,
+    url: `${REACT_APP_FAKE_API}/user/getSpecificUserDetails`,
     method: "GET",
     headers: {
-      Token: token,
+      Token: `Bearer ${token}`,
     },
   });
 
@@ -75,19 +78,20 @@ function RegistrationThree() {
         memberOfOtherCommunity: isPartOfCommunity,
         applicationForMembershipDeclaration: checked,
       };
-      console.log(payload);
+      // console.log(payload);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `http://localhost:1369/user/registrationThreeForm`,
+          `${REACT_APP_FAKE_API}/user/registrationThreeForm`,
           payload,
           {
-            Token: `${token}`,
+            Token: `Bearer ${token}`,
           }
         );
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
+      navigate("/payment");
     },
   });
 

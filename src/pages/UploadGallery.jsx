@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -39,8 +41,9 @@ function UploadGallery() {
     setIsDragOver(false);
   };
 
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8";
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -54,7 +57,7 @@ function UploadGallery() {
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `http://localhost:1369/uploadEventsImages?title=${values.title}&description=${values.description}`,
+          `${REACT_APP_FAKE_API}/uploadEventsImages?title=${values.title}&description=${values.description}`,
           formData,
           {
             Token: `Bearer ${token}`,

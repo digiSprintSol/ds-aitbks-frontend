@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -38,8 +39,11 @@ function UploadGallery() {
   const handleDragLeave = () => {
     setIsDragOver(false);
   };
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InJtb25zaHUwMEBnbWFpbC5jb20iLCJ1c2VySWQiOiJ1c2VyMDA5IiwidHlwZSI6InN0cmluZyIsImFjY2VzcyI6WyJVU0VSIl0sImlhdCI6MTcyMzQ2MTE1NiwiZXhwIjoxNzIzNDY0NzU2fQ.Ax-V2cF85nXnUwsVlsWUa2j1yQ-c2xhlI-CTgDzF3aQ";
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -53,7 +57,7 @@ function UploadGallery() {
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `http://localhost:1369/user/uploadTranscationReceipt?transcationId=${values.transactionId}`,
+          `${REACT_APP_FAKE_API}/user/uploadTranscationReceipt?transcationId=${values.transactionId}`,
           formData,
           {
             Token: `Bearer ${token}`,
@@ -64,6 +68,7 @@ function UploadGallery() {
       } catch (err) {
         // console.log(err.message, "error");
       }
+      navigate("/payment-success");
     },
   });
 

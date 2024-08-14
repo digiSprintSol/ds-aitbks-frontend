@@ -19,9 +19,9 @@ function PaymentSuccess() {
         Thank you for your timely payment. If you have any questions or need
         further assistance, feel free to reach out to our customer service team.
       </h5>
-      <button type="button" className="paymentsucessbutton">
+      {/* <button type="button" className="paymentsucessbutton">
         Upload Payment Receipt
-      </button>
+      </button> */}
     </div>
   );
 }

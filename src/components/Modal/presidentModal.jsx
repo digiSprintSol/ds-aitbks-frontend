@@ -14,11 +14,14 @@ import {
   IconButton,
   Radio,
   RadioGroup,
+  Stack,
   TextField,
   Typography,
   styled,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import PropTypes from "prop-types";
+import { postRequest } from "../../HTTP_POST/api";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -34,10 +37,11 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function PresidentModal() {
+export default function PresidentModal({ row, token }) {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState("");
   const [radioValue, setRadioValue] = useState("");
+  const [data, setData] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,6 +58,7 @@ export default function PresidentModal() {
     setRadioValue(event.target.value);
   };
 
+  const { REACT_APP_FAKE_API } = process.env;
   const handleSubmit = () => {
     if (!comments) {
       alert("Please enter your comments");
@@ -69,11 +74,34 @@ export default function PresidentModal() {
     return true;
   };
 
+  const post = async () => {
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const result = await postRequest(
+        `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
+        data,
+        {
+          Token: `Bearer ${token}`,
+        }
+      );
+      // console.log(result);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
+
   const handleButtonClick = (action) => {
     if (handleSubmit()) {
+      setData({
+        remarks: comments,
+        statusOfApproval: action,
+        membership: radioValue,
+      });
       // Perform the action-specific logic here
       console.log(action);
-      handleClose();
+      if (Object.keys(data).length === 3) {
+        post();
+      }
     }
   };
 
@@ -89,6 +117,7 @@ export default function PresidentModal() {
           borderRadius: "15px",
           height: "2vw",
           border: "none",
+          fontSize: "12px",
         }}
       >
         View Full Details
@@ -117,17 +146,30 @@ export default function PresidentModal() {
         <DialogContent dividers>
           <Box>
             <Grid container spacing={2}>
+              <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
               <Grid item xs={12}>
                 <Typography>Full Name</Typography>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12}>
                 <TextField
-                  label="First Name"
                   fullWidth
+                  value={row.fullName}
+                  aria-readonly
                   sx={{ backgroundColor: "#ffffff" }}
                 />
               </Grid>
-              <Grid item xs={4}>
+              {/* <Grid item xs={4}>
                 <TextField
                   label="Middle Name"
                   fullWidth
@@ -140,121 +182,246 @@ export default function PresidentModal() {
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={2}>
-                <Typography>DOB</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={4}>
-                <Typography>Mobile No.</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography>Email ID</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={2}>
-                <Typography>DOB</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={4}>
-                <Typography>Mobile No.</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography>Email ID</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={6}>
+                <Typography id="modal-modal-description">DOB</Typography>
                 <TextField
-                  label="First Name"
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.dateOfBirth}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <Typography id="modal-modal-description">Mobile No.</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.phoneNumber}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">Email ID</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.emailAddress}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Typography id="modal-modal-description">Gender</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.gender}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <Typography id="modal-modal-description">Profession</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.profession}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">Education</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.education}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">
+                  Father Name
+                </Typography>
+                <TextField
+                  value={row.familyDetails.fatherName}
+                  aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                 />
               </Grid>
               <Grid item xs={6}>
+                <Typography id="modal-modal-description">
+                  Mother Name
+                </Typography>
                 <TextField
-                  label="Middle Name"
+                  value={row.familyDetails.motherName}
+                  aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                 />
               </Grid>
               <Grid item xs={12}>
+                <Typography id="modal-modal-description">
+                  Present Address
+                </Typography>
                 <TextField
-                  label="Present Address"
+                  value={row.address[0].addressLine1.concat(
+                    ", ",
+                    row.address[0].addressLine2
+                  )}
+                  aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                 />
               </Grid>
               <Grid item xs={2}>
-                <Typography>DOB</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">Pin code</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.address[0].postalCode}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={4}>
-                <Typography>Mobile No.</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">State</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.address[0].state}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Email ID</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">Country</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.address[0].country}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={6}>
-                <Typography>No. of Children</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">
+                  No. of Children
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.familyDetails.childern}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={7}>
-                <Typography>Name</Typography>
+                <Typography id="modal-modal-description">Name</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.familyDetails.childern}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Typography id="modal-modal-description">Age</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.familyDetails.childern}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Typography id="modal-modal-description">Gender</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.familyDetails.childern}
+                  aria-readonly
+                />
+              </Grid>
+              {/* <Grid item xs={7}>
+                <Typography id="modal-modal-description">Name</Typography>
                 <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
               </Grid>
               <Grid item xs={2}>
-                <Typography>Age</Typography>
+                <Typography id="modal-modal-description">Age</Typography>
                 <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
               </Grid>
               <Grid item xs={3}>
-                <Typography>Gender</Typography>
+                <Typography id="modal-modal-description">Gender</Typography>
                 <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+              </Grid> */}
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">
+                  Aadhar Card
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.aadharCard}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">Voter ID</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.voterIdCard}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={7}>
-                <Typography>Name</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={2}>
-                <Typography>Age</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={3}>
-                <Typography>Gender</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">Community</Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.category}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Aadhar Card</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">
+                  Reference 01 (existing members)
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.reference1}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={6}>
-                <Typography>Voter ID</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={7}>
-                <Typography>Present Occupation</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography>Reference 01 (existing members)</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography>Reference 02 (referred by)</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">
+                  Reference 02 (referred by)
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.reference2}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={12}>
-                <Typography>Tell us about yourself</Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <Typography id="modal-modal-description">
+                  Tell us about yourself
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.brieflyTellAboutYourself}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={12}>
-                <Typography>
+                <Typography id="modal-modal-description">
                   Why do you want join All India Telega Balija Kapu Sangam?
                 </Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.reasonToJoinAITBKS}
+                  aria-readonly
+                />
               </Grid>
               <Grid item xs={12}>
                 <Typography
@@ -270,29 +437,107 @@ export default function PresidentModal() {
                 >
                   Committee Comments
                 </Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="accepted"
-                  control={<Radio />}
-                  label="Accepted"
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.committeeRemarksForApplicant}
+                  aria-readonly
                 />
               </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="rejected"
-                  control={<Radio />}
-                  label="Rejected"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="waiting"
-                  control={<Radio />}
-                  label="Waiting"
-                />
-              </Grid>
+
+              {/* ------------------------------------------------------------ committeee status checking */}
+              {row.status === "accepted" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.status === "rejected" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.status === "waiting" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {/* ------------------------------------------------------------------------------------- */}
+
               <Grid item xs={12}>
                 <Divider />
                 <Grid item xs={12}>
@@ -351,7 +596,7 @@ export default function PresidentModal() {
                 <Button
                   variant="contained"
                   autoFocus
-                  onClick={() => handleButtonClick("Accept")}
+                  onClick={() => handleButtonClick("accepted")}
                   sx={{
                     width: "130px",
                     borderRadius: "50px",
@@ -375,7 +620,7 @@ export default function PresidentModal() {
                 <Button
                   variant="contained"
                   autoFocus
-                  onClick={() => handleButtonClick("Decline")}
+                  onClick={() => handleButtonClick("rejected")}
                   sx={{
                     width: "130px",
                     borderRadius: "50px",
@@ -392,3 +637,8 @@ export default function PresidentModal() {
     </>
   );
 }
+
+PresidentModal.propTypes = {
+  row: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired,
+};

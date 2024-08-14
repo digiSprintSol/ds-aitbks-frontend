@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { Box, Grid, TextField } from "@mui/material";
 import PropTypes from "prop-types";
+import { postRequest } from "../HTTP_POST/api";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -25,7 +26,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CommitteePopup({ row }) {
+export default function CommitteePopup({ row, token }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -33,6 +34,68 @@ export default function CommitteePopup({ row }) {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [data, setData] = React.useState("");
+  const accepted = { statusOfApproval: "accepted" };
+  const rejected = { statusOfApproval: "rejected" };
+  const waiting = { statusOfApproval: "waiting" };
+  const changeHandler = (e) => {
+    setData({ remarks: e.target.value });
+  };
+
+  React.useEffect(() => {
+    if (data) {
+      const message = document.getElementById("errordisplay");
+      message.innerHTML = "message:";
+      try {
+        const exp = data.remarks.charCodeAt(0);
+        if (!(exp >= 97 && exp <= 122)) {
+          // eslint-disable-next-line no-throw-literal
+          throw "enter only alphabets";
+        }
+      } catch (err) {
+        message.innerHTML = "message:".concat(err);
+      }
+    }
+  }, [data]);
+  const { REACT_APP_FAKE_API } = process.env;
+  const post = async () => {
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const result = await postRequest(
+        `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
+        data,
+        {
+          Token: `Bearer ${token}`,
+        }
+      );
+      // console.log(result);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
+
+  const acceptButton = () => {
+    setData({ ...data, ...accepted, member: row.categoryOfMembership });
+    // console.log(data, "llllllllllllll");
+    if (Object.keys(data).length === 3) {
+      post();
+    }
+  };
+  const rejectButton = () => {
+    setData({ ...data, ...rejected, member: row.categoryOfMembership });
+    // console.log(data, "llllllllllllll");
+    if (Object.keys(data).length === 3) {
+      post();
+    }
+  };
+  const waitButton = () => {
+    setData({ ...data, ...waiting, member: row.categoryOfMembership });
+    // console.log(data,"llllllllllllll");
+    if (Object.keys(data).length === 3) {
+      post();
+    }
   };
 
   return (
@@ -47,6 +110,7 @@ export default function CommitteePopup({ row }) {
           borderRadius: "15px",
           height: "2vw",
           border: "none",
+          fontSize: "12px",
         }}
       >
         View Full Details
@@ -58,7 +122,7 @@ export default function CommitteePopup({ row }) {
         maxWidth="lg"
       >
         <DialogTitle sx={{ m: "0px auto", p: 2 }} id="customized-dialog-title">
-          Applicant details Approved By Committee
+          Applicant details
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -236,7 +300,7 @@ export default function CommitteePopup({ row }) {
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern.length}
+                  value={row.familyDetails.childern}
                   aria-readonly
                 />
               </Grid>
@@ -245,7 +309,7 @@ export default function CommitteePopup({ row }) {
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern[0].name}
+                  value={row.familyDetails.childern}
                   aria-readonly
                 />
               </Grid>
@@ -254,7 +318,7 @@ export default function CommitteePopup({ row }) {
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern[0].childAge}
+                  value={row.familyDetails.childern}
                   aria-readonly
                 />
               </Grid>
@@ -263,7 +327,7 @@ export default function CommitteePopup({ row }) {
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern[0].profession}
+                  value={row.familyDetails.childern}
                   aria-readonly
                 />
               </Grid>
@@ -366,76 +430,20 @@ export default function CommitteePopup({ row }) {
                 >
                   Committee Comments
                 </Typography>
-                <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-              </Grid>
-              {/* <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Accepted"
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  onChange={changeHandler}
                 />
+                <p id="errordisplay" style={{ color: "red" }}>
+                  message:
+                </p>
               </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Rejected"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormControlLabel
-                  value="end"
-                  control={<Radio />}
-                  label="Waiting"
-                />
-              </Grid> */}
-              {/* <Grid item xs={12}>
-                <Divider />
-                <Grid item xs={12}>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: "#1B7DA6",
-                      fontWeight: "bold",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "40px",
-                    }}
-                  >
-                    President Comments
-                  </Typography>
-                  <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />
-                </Grid>
-                <Grid container spacing={1} justifyContent="center">
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Trustee"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Patron"
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio />}
-                      label="Life Member"
-                    />
-                  </Grid>
-                </Grid>
-              </Grid> */}
               <DialogActions sx={{ margin: "50px auto" }}>
                 <Button
                   variant="contained"
                   autoFocus
-                  onClick={handleClose}
+                  onClick={acceptButton}
                   sx={{
                     width: "130px",
                     borderRadius: "50px",
@@ -447,7 +455,7 @@ export default function CommitteePopup({ row }) {
                 <Button
                   variant="contained"
                   autoFocus
-                  onClick={handleClose}
+                  onClick={waitButton}
                   sx={{
                     width: "130px",
                     borderRadius: "50px",
@@ -459,7 +467,7 @@ export default function CommitteePopup({ row }) {
                 <Button
                   variant="contained"
                   autoFocus
-                  onClick={handleClose}
+                  onClick={rejectButton}
                   sx={{
                     width: "130px",
                     borderRadius: "50px",
@@ -479,4 +487,5 @@ export default function CommitteePopup({ row }) {
 
 CommitteePopup.propTypes = {
   row: PropTypes.func.isRequired,
+  token: PropTypes.func.isRequired,
 };

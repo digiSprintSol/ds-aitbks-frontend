@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,10 +21,21 @@ const useStyles = makeStyles({
 });
 
 function PresidentView() {
-  const { data, loading, error } = useCustomFetch(
-    "http://localhost:1369/user/getAllUsers",
-    "get"
-  );
+  // const { data, loading, error } = useCustomFetch(
+  //   "http://localhost:1369/user/getAllUsers",
+  //   "get"
+  // );
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  // eslint-disable-next-line no-unused-vars
+  const { REACT_APP_FAKE_API } = process.env;
+  const { data, loading, error } = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/user/accountantFirstView`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${token}`,
+    },
+  });
 
   const [currentpage, setCurrentpage] = useState(1);
   // eslint-disable-next-line no-unused-vars
@@ -50,7 +62,7 @@ function PresidentView() {
     range.push(currentpage * rowsperpage);
 
     if (data) {
-      const partdata = data.content.filter(
+      const partdata = data.filter(
         (row) => row.id >= range[0] && row.id <= range[1]
       );
       setCustomdata(partdata);
@@ -66,27 +78,29 @@ function PresidentView() {
         sx={{ width: "95%", margin: "30px auto" }}
         component={Paper}
       >
-        <Table
-          sx={{ minWidth: 650 }}
-          className={classes.committeetable}
-          aria-label="simple table"
-        >
-          <TableHead className={classes.committeetable}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
             <TableRow sx={{ textAlign: "center" }}>
               <TableCell align="middle" className={classes.committeetable}>
                 Name of the Applicant
               </TableCell>
-              <TableCell align="middle">
+              <TableCell align="middle" className={classes.committeetable}>
                 Date of Application Submitted
               </TableCell>
-              <TableCell align="middle">Date of Birth</TableCell>
-              <TableCell align="middle">Phone number</TableCell>
-              <TableCell align="middle">Email Id</TableCell>
-              <TableCell>Details</TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Date of Birth
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Phone number
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Email Id
+              </TableCell>
+              <TableCell className={classes.committeetable}>Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.content.map((row) => (
+            {data.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -112,7 +126,7 @@ function PresidentView() {
                   >
                     View Full Details
                   </Button> */}
-                  <Acknowledge />
+                  <Acknowledge row={row} token={token} />
                 </TableCell>
               </TableRow>
             ))}
@@ -124,16 +138,16 @@ function PresidentView() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.content.length ? (
-          <span>{data.content.length}</span>
+        {currentpage * rowsperpage > data.length ? (
+          <span>{data.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.content.length} entries
+        of {data.length} entries
       </span>
 
       <Pagination
-        count={Math.ceil(data.content.length / rowsperpage)}
+        count={Math.ceil(data.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

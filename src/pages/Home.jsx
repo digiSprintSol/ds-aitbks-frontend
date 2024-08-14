@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import "../App.css";
 import Marquee from "react-fast-marquee";
+import MarketPlace from "../components/MarketPlace/search";
 // import fap from "./images/fap.png";
 
 import logo from "./images/logo.png";
@@ -70,8 +71,9 @@ function Home() {
   // );
 
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `http://localhost:1369/getAllAnnouncements`,
+    url: `${REACT_APP_FAKE_API}/getAllAnnouncements`,
     method: "GET",
     headers: {
       Token: token,
@@ -262,40 +264,6 @@ function Home() {
           </span>
         ))}
       </Marquee>
-      {/* <div>
-        <Box sx={{ flexGrow: 10}}>
-          <Grid container spacing={5}>
-            <Grid item xs={8}>
-              <Item>xs=8</Item>
-            </Grid>
-            <Grid item xs={4}>
-              <Item>xs=4</Item>
-            </Grid>
-            <Grid item xs={4}>
-              <Item>xs=4</Item>
-            </Grid>
-            <Grid item xs={8}>
-              <Item>xs=8</Item>
-            </Grid>
-          </Grid>
-        </Box>
-      </div>    */}
-      {/* <div>
-        <div className='grid-container'>
-          <div className='item1'><b>Welcome</b> <hr style={{color:'#41965B'}}/></div>
-          <div className='item2'>
-            <img src={sixty} height='120%' width='70%' alt="sixty" />
-            <p>Years in Community Service</p>
-          </div>
-          <div className='item3'><img src={logo} height='120%' width='120%' alt='logo'/></Stack>
-          <div className='item4'>{ null}</div>
-          <div className='item5'><h1>ALL INDIA TELAGA BALIJA KAPU SANGAM</h1></div>
-          <div className='item6'>
-            <p>The Andhra Pradesh Telaga, Balija Kapu Sangham (for short “the APTBKS”) was registered under the Societies Registration Act in 1959 to meet the needs and aspirations of members of the above communities in twin cities of Hyderabad & Secunderabad, Andhra Pradesh State, and elsewhere in the country and abroad. The aims and objectives of the Sangham are to promote, secure, and advance the Economic, Social, cultural, and educational activities of the community and to develop infrastructure facilities to achieve the above objectives. It also acts as a forum for providing a convenient meeting place to instill a greater sense of fellowship and networking among its members. The APTBKS is committed to fostering unity and cooperation among its members, encouraging participation in community development programs, and providing support for entrepreneurial initiatives. The Sangham seeks to empower its members through various capacity-building programs and training sessions, aimed at enhancing their skills and knowledge in diverse fields</p>
-          </div>
-        </div>
-      </div> */}
-
       <Box sx={{ backgroundColor: "#e0e0e0", width: "100%", height: "40vw" }}>
         {null}
       </Box>
@@ -328,6 +296,15 @@ function Home() {
           knowledge in diverse fields
         </p>
         <br />
+        <br />
+        <br />
+        <Button
+          variant="outlined"
+          sx={{ backgroundColor: "#23A380", color: "white" }}
+        >
+          {" "}
+          Learn more
+        </Button>
         <br />
         <br />
         <hr />
@@ -584,10 +561,11 @@ function Home() {
           VIEW MORE PHOTOS
         </Button>
       </div>
-
+      {/* --------------------------------------------------------------------------------------- */}
+      <MarketPlace />
       {/* 8th part ------------------------------------------------------------------------------------------------- */}
       <div className="eighthpart">
-        <img src={image6} alt="tracedimage" height="40%" width="45%" />
+        <img src={image6} alt="tracedimage" height="45%" width="48%" />
         <h1 style={{ fontFamily: "ProximaSemibold" }}>
           Let’s support us to help us
         </h1>

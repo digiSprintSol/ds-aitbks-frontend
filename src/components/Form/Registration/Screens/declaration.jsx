@@ -44,6 +44,7 @@ function Declaration() {
     }
   };
 
+  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       membershipType: "",
@@ -56,7 +57,7 @@ function Declaration() {
       }));
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(finalData, null, 2));
-      fetchData("http://localhost:1369/user/register", finalData);
+      fetchData(`${REACT_APP_FAKE_API}/user/register`, finalData);
     },
   });
 
