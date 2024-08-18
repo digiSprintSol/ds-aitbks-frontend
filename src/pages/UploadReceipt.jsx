@@ -49,11 +49,13 @@ function UploadGallery() {
       title: "",
       description: "",
       imagesForHomePage: null,
+      amountPaid: "",
     },
     // validationSchema: postValidationSchema,
     onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("transcationRecepit", file);
+      formData.append("amountPaid", values.amountPaid);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
@@ -268,9 +270,14 @@ function UploadGallery() {
               }
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
               Transaction ID
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Amount Paid
             </Typography>
           </Grid>
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
@@ -289,6 +296,21 @@ function UploadGallery() {
               helperText={
                 formik.touched.transactionId && formik.errors.transactionId
               }
+            />
+          </Grid>
+          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
+            <TextField
+              fullWidth
+              id="amountPaid"
+              name="amountPaid"
+              type="string"
+              value={formik.values.amountPaid}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.amountPaid && Boolean(formik.errors.amountPaid)
+              }
+              helperText={formik.touched.amountPaid && formik.errors.amountPaid}
             />
           </Grid>
           <Grid item xs={12}>

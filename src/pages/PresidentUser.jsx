@@ -51,10 +51,17 @@ function PresidentUser() {
     if (data) {
       const partdata = [];
       const exp =
-        rowsperpage > data.content.length ? data.content.length : rowsperpage;
+        // rowsperpage > data.content.length ? data.content.length : rowsperpage;
+        (currentpage - 1) * rowsperpage + rowsperpage > data.content.length
+          ? (currentpage - 1) * rowsperpage +
+            (rowsperpage -
+              ((currentpage - 1) * rowsperpage +
+                rowsperpage -
+                data.content.length))
+          : (currentpage - 1) * rowsperpage + rowsperpage;
       // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < exp; i++) {
-        partdata.push(data.content[i]);
+      for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
+        partdata.push(data.content[i - 1]);
       }
       setCustomdata(partdata);
     }

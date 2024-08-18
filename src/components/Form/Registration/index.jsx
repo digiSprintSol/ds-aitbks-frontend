@@ -47,6 +47,43 @@ function RegistrationOne() {
     }
   };
 
+  const backButton = () => {
+    if (activeStep === 0) {
+      return "";
+    }
+    if (activeStep === 3) {
+      return (
+        <Button
+          style={{
+            backgroundColor: "#1B7DA6",
+            color: "white",
+            marginTop: "0px",
+            transform: "translate(-38vw,-6.6vw)",
+          }}
+          onClick={handleBack}
+          disabled={activeStep === 0}
+        >
+          Back
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        style={{
+          backgroundColor: "#1B7DA6",
+          color: "white",
+          marginTop: "0px",
+          transform: "translate(0vw,-6.6vw)",
+        }}
+        onClick={handleBack}
+        disabled={activeStep === 0}
+      >
+        Back
+      </Button>
+    );
+  };
+
   return (
     <div>
       <Stepper
@@ -102,22 +139,7 @@ function RegistrationOne() {
               width: "100%",
             }}
           >
-            {activeStep === 0 ? (
-              ""
-            ) : (
-              <Button
-                style={{
-                  backgroundColor: "#1B7DA6",
-                  color: "white",
-                  marginTop: "0px",
-                  transform: "translate(0,-6vw)",
-                }}
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
-                Back
-              </Button>
-            )}
+            {backButton()}
           </div>
           {/* </form> */}
         </Box>

@@ -3,11 +3,12 @@ import * as yup from "yup";
 const validationSchema = yup.object({
   // profilePic: yup.mixed().required("File is required"),
   firstName: yup.string("Enter your first name").required("is required"),
-  middleName: yup.string("Enter your middle name").required("is required"),
+  middleName: yup.string("Enter your middle name"),
   lastName: yup.string("Enter your last name").required("is required"),
   dateOfBirth: yup
     .date("Enter your date of birth")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
+    // .max(new Date(Date.now() - 56), "You must be at least 18 years")
     .required("Required"),
   phoneNumber: yup
     .string()

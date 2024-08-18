@@ -1,12 +1,14 @@
 runtime: nodejs22
 service: aitbks
 env_variables:
-REACT_APP_BASE_URL: 'http://34.69.2.7:8082'
-handlers: 
-- url: /(.*\.(gif|png|jpg|css|js|ico|html|woff|woff2|ttf|svg|eot|mp4|webm|ogv))
-  static_files: dist/\1 
-  upload: dist/.*\.(gif|png|jpg|css|js|ico|html|woff|woff2|ttf|svg|eot|mp4|webm|ogv)$ 
-  secure: always 
-- url: /.*
-  script: auto 
-  secure: always
+  REACT_APP_FAKE_API: "http://34.69.2.7:8082"
+handlers:
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
+  # Catch all handler to index.html
+  - url: /.*
+    static_files: build/index.html
+    secure: always
+    redirect_http_response_code: 301
+    upload: build/(.*\..+)$

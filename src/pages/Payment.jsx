@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import next from "./images/next.png";
 import qrcode from "./images/qrcode.png";
 import phonepe from "./images/phonepe.png";
@@ -6,6 +7,12 @@ import arrow from "./images/arrow.png";
 import "../App.css";
 
 function Payment() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = `${location.state.token}`;
+  const submitHandler = () => {
+    navigate("/user-nav", { state: { token } });
+  };
   return (
     <div className="paymenthead">
       <h1 style={{ fontFamily: "ProximaBold" }}>Payment Form</h1>
@@ -64,12 +71,14 @@ function Payment() {
         style={{ marginBottom: "10%" }}
       />
       <br />
-      <button type="button" className="paymentbuttonclass">
-        <div>
-          <span>Next </span>
-          <img src={arrow} alt="smallupload" height="15vw" width="15vw" />
-        </div>
-      </button>
+      <form onSubmit={submitHandler}>
+        <button type="submit" className="paymentbuttonclass">
+          <div>
+            <div className="paymentbuttonclassinside">Go to Progress bar</div>
+            <img src={arrow} alt="smallupload" height="15vw" width="15vw" />
+          </div>
+        </button>
+      </form>
     </div>
   );
 }

@@ -14,14 +14,15 @@ import { useFormik } from "formik";
 import idValidationSchema from "../../../../validations/idValidationSchema";
 import { useRootContext } from "../../../../Hooks/useRootContext";
 import { category } from "../../../../Lib/constants";
+import useCustomFetch from "../../../../Hooks/useCustomFetch";
 
 function identity({ setActiveStep }) {
   const { data, setData } = useRootContext();
 
   const formik = useFormik({
     initialValues: {
-      aadharNumber: data.aadharNumber || "",
-      voterId: data.voterId || "",
+      aadharCard: data.aadharCard || "",
+      voterIdCard: data.voterIdCard || "",
       brieflyTellAboutYourself: data.brieflyTellAboutYourself || "",
       reasonToJoinAITBKS: data.reasonToJoinAITBKS || "",
       category: data.category || "",
@@ -33,8 +34,8 @@ function identity({ setActiveStep }) {
     onSubmit: (values) => {
       setData((prevData) => ({
         ...prevData,
-        aadharNumber: values.aadharNumber,
-        voterId: values.voterId,
+        aadharCard: values.aadharCard,
+        voterIdCard: values.voterIdCard,
         brieflyTellAboutYourself: values.brieflyTellAboutYourself,
         reasonToJoinAITBKS: values.reasonToJoinAITBKS,
         category: values.category,
@@ -43,10 +44,22 @@ function identity({ setActiveStep }) {
         reference2: values.reference2,
       }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(data, null, 2));
+      // // eslint-disable-next-line no-alert
+      // alert(JSON.stringify(data, null, 2));
     },
   });
+
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { REACT_APP_FAKE_API } = process.env;
+  // eslint-disable-next-line no-unused-vars
+  const info = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/user/membersForDropDown`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
@@ -57,32 +70,32 @@ function identity({ setActiveStep }) {
           <TextField
             fullWidth
             label="Aadhar Number"
-            id="aadharNumber"
-            name="aadharNumber"
+            id="aadharCard"
+            name="aadharCard"
             type="number"
-            value={formik.values.aadharNumber}
+            value={formik.values.aadharCard}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={
-              formik.touched.aadharNumber && Boolean(formik.errors.aadharNumber)
+              formik.touched.aadharCard && Boolean(formik.errors.aadharCard)
             }
-            helperText={
-              formik.touched.aadharNumber && formik.errors.aadharNumber
-            }
+            helperText={formik.touched.aadharCard && formik.errors.aadharCard}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
             label="Voter ID"
-            id="voterId"
-            name="voterId"
+            id="voterIdCard"
+            name="voterIdCard"
             type="string"
-            value={formik.values.voterId}
+            value={formik.values.voterIdCard}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.voterId && Boolean(formik.errors.voterId)}
-            helperText={formik.touched.voterId && formik.errors.voterId}
+            error={
+              formik.touched.voterIdCard && Boolean(formik.errors.voterIdCard)
+            }
+            helperText={formik.touched.voterIdCard && formik.errors.voterIdCard}
           />
         </Grid>
         <Grid item xs={4}>
@@ -165,7 +178,7 @@ function identity({ setActiveStep }) {
             }
           />
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField
             fullWidth
             id="reference1"
@@ -180,7 +193,35 @@ function identity({ setActiveStep }) {
             }
             helperText={formik.touched.reference1 && formik.errors.reference1}
           />
+        </Grid> */}
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <InputLabel id="reference1">
+              Reference 1 (Existing Members)
+            </InputLabel>
+            <Select
+              labelId="reference1"
+              id="reference1"
+              value={formik.values.reference1}
+              name="reference1"
+              label="Reference 1 (Existing Members)"
+              onChange={formik.handleChange}
+            >
+              {info.data &&
+                info.data.map((cat) => (
+                  <MenuItem key={cat} value={cat}>
+                    {cat}
+                  </MenuItem>
+                ))}
+            </Select>
+            {formik.touched.reference1 && formik.errors.reference1 && (
+              <FormHelperText sx={{ color: "red" }}>
+                {formik.errors.reference1}
+              </FormHelperText>
+            )}
+          </FormControl>
         </Grid>
+
         <Grid item xs={6}>
           <TextField
             fullWidth

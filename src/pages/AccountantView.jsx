@@ -69,7 +69,7 @@ function PresidentView() {
     }
   }, [currentpage, data]);
 
-  if (error) return <h1>Error..</h1>;
+  if (error) return <h1>No users to display</h1>;
   if (loading) return <h1>loading...</h1>;
 
   return (

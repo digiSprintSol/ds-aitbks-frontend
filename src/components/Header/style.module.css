@@ -13,13 +13,13 @@
 }
 
 .logo {
-    width: 12vw;
-    height: 10vw;
+    width: 11vw;
+    height: 9vw;
 }
 
 .title {
-    width: 72%;
-    height: 3vw;
+    width: 70%;
+    height: 2.5vw;
 }
 
 .left {
@@ -28,6 +28,7 @@
     align-items: center;
     gap: 20px;
     margin-right: 10px;
+    font-size: 1.3vw;
 }
 
 .link {

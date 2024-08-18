@@ -1,12 +1,14 @@
 import * as Yup from "yup";
 
 const idValidationSchema = Yup.object({
-  aadharNumber: Yup.string()
-    .required("Aadhar number is required")
-    .matches(/^\d{12}$/, "Aadhar number must be 12 digits"),
-  voterId: Yup.string()
-    .required("Voter ID is required")
-    .matches(/^[A-Z]{3}[0-9]{7}$/, "Invalid Voter ID format"),
+  aadharCard: Yup.string().matches(
+    /^\d{12}$/,
+    "Aadhar number must be 12 digits"
+  ),
+  voterIdCard: Yup.string().matches(
+    /^[A-Z]{3}[0-9]{7}$/,
+    "3 alphabets in captail and rest 7 will be numbers"
+  ),
   occupation: Yup.string().required("Present occupation is required"),
   brieflyTellAboutYourself: Yup.string()
     .required("Introduction is required")

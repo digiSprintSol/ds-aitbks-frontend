@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -48,6 +48,16 @@ function Acknowledge({ row, token }) {
     },
   });
 
+  const [imgPath, setImgPath] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      const fileName = data.pathOfDocumnet.split("\\").pop();
+      const exp = "/documents/transcation/".concat(fileName);
+      setImgPath(exp);
+    }
+  }, [data]);
+
   const post = async () => {
     try {
       // eslint-disable-next-line no-unused-vars
@@ -58,6 +68,9 @@ function Acknowledge({ row, token }) {
           Token: `Bearer ${token}`,
         }
       );
+      // eslint-disable-next-line no-alert
+      alert("Status Updated");
+      setOpen(false);
       // console.log(result);
     } catch (err) {
       // console.log(err);
@@ -113,10 +126,13 @@ function Acknowledge({ row, token }) {
           <CloseIcon />
         </IconButton>
         <DialogContent>
+          {/* --------------------------------------------------------------------------------------------------- */}
           <img
-            src="file:///C:/documents/transcation/user123-TRANSCATION%20RECEPIT.png"
+            src={imgPath}
             loading="lazy"
             alt="receipt"
+            height="20%"
+            width="50%"
           />
           <Grid item xs={4}>
             <Typography id="modal-modal-description">Transaction ID</Typography>
