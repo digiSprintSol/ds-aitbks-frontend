@@ -1,9 +1,10 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./style.module.css";
 import Button from "../Button";
 
-function Index() {
+function Header({ name }) {
   const navigate = useNavigate();
 
   return (
@@ -35,18 +36,42 @@ function Index() {
         <Link to="/" className={styles.link}>
           Contact
         </Link>
-        <Button
-          className={styles.btn}
-          onClick={() => navigate("/auth/registration-one")}
-        >
-          Register
-        </Button>
-        <Button className={styles.btn} onClick={() => navigate("/auth/login")}>
-          Login
-        </Button>
+        <Link to="/market-places" className={styles.link}>
+          Market Places
+        </Link>
+        {name > 0 ? (
+          <Button
+            className={styles.btn}
+            onClick={() => navigate("/auth/registration-one")}
+          >
+            Register
+          </Button>
+        ) : (
+          <p>{null}</p>
+        )}
+        {name > 0 ? (
+          <Button
+            className={styles.btn}
+            onClick={() => navigate("/auth/login")}
+          >
+            Login
+          </Button>
+        ) : (
+          <Button
+            className={styles.btn}
+            onClick={() => navigate("/auth/login")}
+          >
+            Logout
+          </Button>
+        )}
       </div>
     </div>
   );
 }
 
-export default Index;
+Header.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  name: PropTypes.number,
+};
+
+export default Header;

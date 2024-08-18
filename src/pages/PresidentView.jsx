@@ -18,7 +18,7 @@ function PresidentView() {
   // const usernavigation = () => {
   //   navigate('/president-user')
   // }
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(1);
   const [role, setRole] = useState(null);
   const [event, setEvent] = useState(null);
   const [gallery, setGallery] = useState(null);

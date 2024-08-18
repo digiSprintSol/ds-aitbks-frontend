@@ -5,6 +5,7 @@ import {
   MenuItem,
   Paper,
   Select,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -15,11 +16,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import SearchIcon from "@mui/icons-material/Search";
 import useCustomFetch from "../../Hooks/useCustomFetch";
 
-export default function search() {
+export default function Search() {
   // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
   const [load, setLoad] = useState({
@@ -27,12 +29,21 @@ export default function search() {
     category: "",
     city: "",
   });
+  // const navigate= useNavigate()
 
   const { REACT_APP_FAKE_API } = process.env;
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
   // eslint-disable-next-line no-unused-vars
   const { data, loading, error } = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/getMarketPlaces`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
+  const info = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/categories`,
     method: "GET",
     headers: {
       Token: token,
@@ -89,8 +100,12 @@ export default function search() {
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
 
+  // function displayPage(){
+  //   navigate("/market-places/display")
+  // }
+
   return (
-    <>
+    <Stack sx={{ backgroundColor: "#D4E9DA" }}>
       <Grid
         container
         spacing={2}
@@ -128,8 +143,12 @@ export default function search() {
                 value={load.category}
                 onChange={changeHandler}
               >
-                <MenuItem value="food">Food</MenuItem>
-                <MenuItem value="hotel">Hotel</MenuItem>
+                {info.data &&
+                  info.data.map((cat) => (
+                    <MenuItem key={cat} value={cat}>
+                      {cat}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Grid>
@@ -178,7 +197,8 @@ export default function search() {
                 <TableCell>Contact Person</TableCell>
                 <TableCell>Mobile Number</TableCell>
                 <TableCell>City</TableCell>
-                <TableCell>Google Maps</TableCell>
+                <TableCell>Details</TableCell>
+                {/* <TableCell>Google Maps</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -188,7 +208,11 @@ export default function search() {
                   <TableCell>{user.contactPerson}</TableCell>
                   <TableCell>{user.mobileNumber}</TableCell>
                   <TableCell>{user.city}</TableCell>
-                  <TableCell>{user.location}</TableCell>
+                  <TableCell>
+                    <Link to="/market-places/display" state={{ some: user }}>
+                      View Full Details
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -197,6 +221,6 @@ export default function search() {
       ) : (
         <h1 style={{ marginLeft: "42%" }}>No Results</h1>
       )}
-    </>
+    </Stack>
   );
 }

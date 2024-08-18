@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import "../App.css";
 import Marquee from "react-fast-marquee";
-import MarketPlace from "../components/MarketPlace/search";
+
 // import fap from "./images/fap.png";
 
 import logo from "./images/logo.png";
@@ -45,6 +45,7 @@ import rectangle3 from "./images/Rectangle3.png";
 import rectangle4 from "./images/Rectangle4.png";
 import rectangle5 from "./images/Rectangle5.png";
 import rectangle6 from "./images/Rectangle6.png";
+import homepage from "./images/homepage.webp";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 // import { styled } from '@mui/material/styles';
@@ -78,6 +79,38 @@ function Home() {
     headers: {
       Token: token,
     },
+  });
+
+  const data1 = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/getImages`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
+  const data2 = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/getEvents`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
+  const [imgPath1, setImgPath1] = useState("");
+  const [imgPath2, setImgPath2] = useState("");
+
+  useEffect(() => {
+    if (data1.data) {
+      const fileName1 = data1.data.pathOfDocumnet.split("\\").pop();
+      const exp1 = "/documents/images/".concat(fileName1);
+      setImgPath1(exp1);
+    }
+    if (data2.data) {
+      const fileName2 = data2.data.pathOfDocumnet.split("\\").pop();
+      const exp2 = "/documents/images/".concat(fileName2);
+      setImgPath2(exp2);
+    }
   });
 
   //  const getAnnouncements = () => {
@@ -249,8 +282,8 @@ function Home() {
     },
   ];
 
-  if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (error || data1.error || data2.error) return <h1>Error..</h1>;
+  if (loading || data1.loading || data2.loading) return <h1>loading...</h1>;
 
   return (
     <div className="homepage">
@@ -264,8 +297,30 @@ function Home() {
           </span>
         ))}
       </Marquee>
-      <Box sx={{ backgroundColor: "#e0e0e0", width: "100%", height: "40vw" }}>
-        {null}
+      <Box>
+        <Marquee velocity={10}>
+          <img
+            src={homepage}
+            loading="lazy"
+            alt="homepageimage"
+            height="400px"
+            width="600px"
+          />
+          <img
+            src={imgPath1}
+            loading="lazy"
+            alt="homepageimage"
+            height="400px"
+            width="600px"
+          />
+          <img
+            src={imgPath2}
+            loading="lazy"
+            alt="homepageimage"
+            height="400px"
+            width="600px"
+          />
+        </Marquee>
       </Box>
       <div className="firstpart">
         <div className="welcomeclass">
@@ -562,7 +617,7 @@ function Home() {
         </Button>
       </div>
       {/* --------------------------------------------------------------------------------------- */}
-      <MarketPlace />
+
       {/* 8th part ------------------------------------------------------------------------------------------------- */}
       <div className="eighthpart">
         <img src={image6} alt="tracedimage" height="45%" width="48%" />

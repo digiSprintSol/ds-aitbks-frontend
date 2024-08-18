@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import {
   Grid,
@@ -10,7 +10,6 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
-  // Stack,
 } from "@mui/material";
 import {
   gender as genders,
@@ -22,6 +21,7 @@ import { useRootContext } from "../../../../Hooks/useRootContext";
 
 function familyDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
+  const [info, setInfo] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -32,11 +32,10 @@ function familyDetails({ setActiveStep }) {
       spouseGender: data.spouseGender || "",
       spouseProfession: data.spouseProfession || "",
       spouseEducation: data.spouseEducation || "",
-      nativeAddress: data.nativeAddress || "",
       noOfChildren: data.noOfChildren || "",
-      nameOfChild: data.nameOfChild || "",
-      ageOfChild: data.ageOfChild || "",
-      childGender: data.childGender || "",
+      name: data.name || "",
+      childAge: data.childAge || "",
+      gender: data.gender || "",
     },
     validationSchema: familyValidationSchema,
     onSubmit: (values) => {
@@ -50,22 +49,47 @@ function familyDetails({ setActiveStep }) {
           spouseAge: values.spouseAge,
           spouseGender: values.spouseGender,
           spouseEducation: values.spouseEducation,
-          nativeAddress: values.nativeAddress,
           noOfChildren: values.noOfChildren,
-          children: [
-            {
-              name: values.nameOfChild,
-              childAge: values.ageOfChild,
-              childGender: values.childGender,
-            },
-          ],
+          children: info,
         },
       }));
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(data, null, 2));
+      // // eslint-disable-next-line no-alert
+      // alert(JSON.stringify(data, null, 2));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     },
   });
+
+  // let info = [];
+  // const [exp,setExp]= useState({})
+  // const changeHandler = (e) => {
+  //   setExp({ [e.target.name]: e.target.value })
+  //   info.push(exp);
+  // }
+
+  useEffect(() => {
+    const exp2 = [];
+    let i = 0;
+    while (i < formik.values.noOfChildren) {
+      exp2.push({
+        name: "",
+        childAge: "",
+        gender: "",
+      });
+      i += 1;
+    }
+    setInfo(exp2);
+
+    // console.log(info,"aaaaaaaaaaaa");
+  }, [formik.values.noOfChildren]);
+
+  // eslint-disable-next-line no-unused-vars
+  const changeHandler = (e, index) => {
+    // console.log(info,"middleeeeeeeeeeee")
+    const exp = [...info];
+    exp[index][e.target.name] = e.target.value;
+    setInfo(exp);
+    // console.log(exp,"kkkkkkkkkkkkkkk")
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -213,25 +237,6 @@ function familyDetails({ setActiveStep }) {
               )}
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            id="nativeAddress"
-            name="nativeAddress"
-            label="Native Address"
-            type="string"
-            value={formik.values.nativeAddress}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.nativeAddress &&
-              Boolean(formik.errors.nativeAddress)
-            }
-            helperText={
-              formik.touched.nativeAddress && formik.errors.nativeAddress
-            }
-          />
-        </Grid>
         {/* ----------------------------------------- */}
         <Grid item xs={7}>
           <TextField
@@ -253,63 +258,67 @@ function familyDetails({ setActiveStep }) {
             }
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            id="nameOfChild"
-            name="nameOfChild"
-            label="Name Of Child"
-            type="string"
-            value={formik.values.nameOfChild}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.nameOfChild && Boolean(formik.errors.nameOfChild)
-            }
-            helperText={formik.touched.nameOfChild && formik.errors.nameOfChild}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <TextField
-            fullWidth
-            id="ageOfChild"
-            name="ageOfChild"
-            label="Age Of Child"
-            type="number"
-            value={formik.values.ageOfChild}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.ageOfChild && Boolean(formik.errors.ageOfChild)
-            }
-            helperText={formik.touched.ageOfChild && formik.errors.ageOfChild}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel id="childGender-select-label">Child Gender</InputLabel>
-            <Select
-              labelId="childGender-select-label"
-              id="childGender-select"
-              value={formik.values.childGender}
-              name="childGender"
-              label="Child Gender"
-              onChange={formik.handleChange}
-            >
-              {genders.map((gen) => (
-                <MenuItem key={gen.label} value={gen.label}>
-                  {gen.label}
-                </MenuItem>
-              ))}
-            </Select>
-            {formik.touched.childGender && formik.errors.childGender && (
-              <FormHelperText sx={{ color: "red" }}>
-                {formik.errors.childGender}
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Grid>
+
+        {Array.from({ length: formik.values.noOfChildren }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="name"
+                name="name"
+                label="Name Of Child"
+                type="string"
+                // onChange={formik.handleChange}
+                // onBlur={formik.handleBlur}
+                onChange={(e) => changeHandler(e, index)}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                fullWidth
+                id="childAge"
+                name="childAge"
+                label="Age Of Child"
+                type="number"
+                // onChange={formik.handleChange}
+                // onBlur={formik.handleBlur}
+                onChange={(e) => changeHandler(e, index)}
+                error={
+                  formik.touched.childAge && Boolean(formik.errors.childAge)
+                }
+                helperText={formik.touched.childAge && formik.errors.childAge}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel id="gender-select-label">Child Gender</InputLabel>
+                <Select
+                  labelId="gender-select-label"
+                  id="gender-select"
+                  onChange={(e) => changeHandler(e, index)}
+                  name="gender"
+                  label="Child Gender"
+                >
+                  {genders.map((gen) => (
+                    <MenuItem key={gen.label} value={gen.label}>
+                      {gen.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {formik.touched.gender && formik.errors.gender && (
+                  <FormHelperText sx={{ color: "red" }}>
+                    {formik.errors.gender}
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+          </>
+        ))}
       </Grid>
+
       <Grid
         sx={{
           display: "flex",
@@ -326,3 +335,76 @@ function familyDetails({ setActiveStep }) {
 }
 
 export default familyDetails;
+
+// import React, { useState } from "react";
+
+// const familyDetails = () => {
+//   // State to hold the number input value
+//   const [inputNumber, setInputNumber] = useState(1);
+
+//   // State to hold the values of the input fields
+//   const [inputValues, setInputValues] = useState([]);
+
+//   // Change handler for inputNumber
+//   const handleNumberChange = (event) => {
+//     const number = Number(event.target.value);
+//     setInputNumber(number);
+
+//     // Initialize or truncate the inputValues array based on inputNumber
+//     const newInputValues = [...inputValues].slice(0, number);
+
+//     // Add empty strings if the number increases
+//     while (newInputValues.length < number) {
+//       newInputValues.push("");
+//     }
+
+//     setInputValues(newInputValues);
+//   };
+
+//   // Change handler for text input fields
+//   const handleInputChange = (index, event) => {
+//     const newValues = [...inputValues];
+//     newValues[index] = event.target.value;
+//     setInputValues(newValues);
+//   };
+
+//   return (
+//     <div>
+//       {/* Input to get the number of text fields */}
+//       <input
+//         type="number"
+//         value={inputNumber}
+//         onChange={handleNumberChange}
+//         min="1"
+//         placeholder="Enter the number of input fields"
+//       />
+
+//       {/* Render inputNumber of text input fields */}
+//       {Array.from({ length: inputNumber }).map((_, index) => (
+//         <input
+//           // eslint-disable-next-line react/no-array-index-key
+//           key={index}
+//           type="text"
+//           value={inputValues[index] || ""}
+//           onChange={(event) => handleInputChange(index, event)}
+//           placeholder={`Enter text ${index + 1}`}
+//         />
+//       ))}
+
+//       {/* Display the stored input values */}
+//       <div>
+//         <h3>Stored Input Values:</h3>
+//         <ul>
+//           {inputValues.map((value, index) => (
+//             // eslint-disable-next-line react/no-array-index-key
+//             <li key={index}>
+//               Field {index + 1}: {value}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default familyDetails;

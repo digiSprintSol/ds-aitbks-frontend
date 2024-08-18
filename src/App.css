@@ -52,7 +52,7 @@
   width: 60%;
   margin-top: 0;
   position: absolute;
-  top:166%;
+  top:152%;
 }
 
 .firstpara{
@@ -409,7 +409,7 @@
   border: none;
   border-radius: 10px;
   position: absolute;
-  transform: translate(37vw, 10vw);
+  transform: translate(37vw, 5vw);
   box-shadow: 0px 0px 6px gray;
 }
 
@@ -454,8 +454,8 @@
 .paymentbuttonclass {
   background-color: #23A380;
   color: white;
-  padding: 15px 160px;
-  width: 30%;
+  padding: 15px 20px;
+  width: 20vw;
   border: none;
   border-radius: 10px;
   box-shadow: 0px 0px 6px gray;
@@ -465,8 +465,11 @@
   display: flex;
 }
 
-.paymentbuttonclass>:nth-child(1)>:nth-child(1) {
-  margin-right: 15px;
+.paymentbuttonclassinside {
+  margin-right: 2vw;
+  /* border: 2px solid black; */
+  width:140px;
+  /* height: 2vw; */
 }
 
 .uploadreceiptform{

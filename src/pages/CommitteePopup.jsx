@@ -40,6 +40,7 @@ export default function CommitteePopup({ row, token }) {
   const accepted = { statusOfApproval: "accepted" };
   const rejected = { statusOfApproval: "rejected" };
   const waiting = { statusOfApproval: "waiting" };
+
   const changeHandler = (e) => {
     setData({ remarks: e.target.value });
   };
@@ -70,7 +71,9 @@ export default function CommitteePopup({ row, token }) {
           Token: `Bearer ${token}`,
         }
       );
-      // console.log(result);
+      // eslint-disable-next-line no-alert
+      alert("Status Updated");
+      setOpen(false);
     } catch (err) {
       // console.log(err);
     }
@@ -300,37 +303,41 @@ export default function CommitteePopup({ row, token }) {
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern}
+                  value={row.familyDetails.children.length}
                   aria-readonly
                 />
               </Grid>
-              <Grid item xs={7}>
-                <Typography id="modal-modal-description">Name</Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern}
-                  aria-readonly
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <Typography id="modal-modal-description">Age</Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern}
-                  aria-readonly
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <Typography id="modal-modal-description">Gender</Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.familyDetails.childern}
-                  aria-readonly
-                />
-              </Grid>
+              {row.familyDetails.children.map((item) => (
+                <>
+                  <Grid item xs={7}>
+                    <Typography id="modal-modal-description">Name</Typography>
+                    <TextField
+                      fullWidth
+                      sx={{ backgroundColor: "#ffffff" }}
+                      value={item.name}
+                      aria-readonly
+                    />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography id="modal-modal-description">Age</Typography>
+                    <TextField
+                      fullWidth
+                      sx={{ backgroundColor: "#ffffff" }}
+                      value={item.childAge}
+                      aria-readonly
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography id="modal-modal-description">Gender</Typography>
+                    <TextField
+                      fullWidth
+                      sx={{ backgroundColor: "#ffffff" }}
+                      value={item.gender}
+                      aria-readonly
+                    />
+                  </Grid>
+                </>
+              ))}
               {/* <Grid item xs={7}>
                 <Typography id="modal-modal-description">Name</Typography>
                 <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} />

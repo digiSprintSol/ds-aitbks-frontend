@@ -17,6 +17,8 @@ const PresidentView = loadable(() => import("./pages/PresidentView"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
 const UserNav = loadable(() => import("./pages/UserNav"));
+const Search = loadable(() => import("./components/MarketPlace/Search"));
+const Display = loadable(() => import("./components/MarketPlace/Display"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
 const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
 const RegistrationThree = loadable(() => import("./pages/RegistrationThree"));
@@ -59,6 +61,14 @@ export const router = createBrowserRouter([
       {
         path: "/auth/registration-three",
         element: <RegistrationThree />,
+      },
+      {
+        path: "/market-places",
+        element: <Search />,
+      },
+      {
+        path: `/market-places/display`,
+        element: <Display />,
       },
     ],
   },

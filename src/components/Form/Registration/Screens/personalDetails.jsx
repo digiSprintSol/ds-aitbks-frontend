@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import {
   Button,
@@ -15,6 +15,7 @@ import {
   gender as genders,
   profession as professions,
   education as educations,
+  cities,
   states,
   country as countries,
   addressType,
@@ -24,11 +25,10 @@ import { useRootContext } from "../../../../Hooks/useRootContext";
 
 function personalDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
-  // const [storeAddress, setStoreAddress] = useState([]);
+  const [file, setFile] = useState(null);
 
   const formik = useFormik({
     initialValues: {
-      // profilePic: data.profilePic || "",
       firstName: data.firstName || "",
       middleName: data.middleName || "",
       lastName: data.lastName || "",
@@ -52,7 +52,7 @@ function personalDetails({ setActiveStep }) {
         // firstName: values.firstName,
         // middleName: values.middleName,
         // lastName: values.lastName,
-        // profilePic: values.profilePic,
+        profilePic: file.name,
         fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.phoneNumber,
@@ -79,54 +79,29 @@ function personalDetails({ setActiveStep }) {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(data, null, 2), "input");
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    // console.log(selectedFile,"llllll")
+  };
+
   return (
     <form onSubmit={formik.handleSubmit}>
+      <br />
       <Grid container spacing={2}>
-        {/* <Grid item xs={3}>
-          <Typography variant="h6" sx={{ marginTop: "30px" }}>
-            Upload Passport Photo:
-          </Typography>
-        </Grid> */}
-        {/* <Grid item xs={12} sx={{ marginTop: "30px" }}>
-          <input
-            type="file"
-            id="profilePic"
-            value={formik.values.profilePic}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <input
-            type="file"
-            id="profilePic"
-            name="profilePic"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={(event) => {
-              formik.setFieldValue("profilePic", event.currentTarget.files[0]);
-            }}
-            onBlur={formik.handleBlur}
-          />
-          <label
-            htmlFor="profilePic"
-            style={{
-              fontFamily: "ProximaBold",
-              border: "1px solid",
-              borderRadius: "5px",
-              padding: "10px 20px",
-              backgroundColor: "#1B7DA6",
-              color: "white",
-            }}
-          >
-            {formik.values.profilePic
-              ? formik.values.profilePic.name
-              : "Upload Profile Picture"}
-          </label>
-          {formik.errors.profilePic && formik.touched.profilePic && (
-            <div className="error">{formik.errors.profilePic}</div>
-          )}
-        </Grid> */}
         <Grid item xs={12}>
-          <Typography variant="subtitle1">Full Name</Typography>
+          <label htmlFor="fileInput" style={{ fontFamily: "ProximaRegular" }}>
+            Upload your Passport size photo:
+            <input type="file" id="fileInput" onChange={handleFileChange} />
+          </label>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            variant="subtitle1"
+            style={{ fontFamily: "ProximaRegular" }}
+          >
+            Full Name
+          </Typography>
         </Grid>
         <Grid item xs={4}>
           <TextField
@@ -295,11 +270,15 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1">Address</Typography>
+          <Typography
+            variant="subtitle1"
+            style={{ fontFamily: "ProximaRegular" }}
+          >
+            Address
+          </Typography>
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
-            <InputLabel id="gender-select-label">Type of Address</InputLabel>
             <Select
               labelId="addressType"
               id="addressType"
@@ -372,7 +351,7 @@ function personalDetails({ setActiveStep }) {
             helperText={formik.touched.postalCode && formik.errors.postalCode}
           />
         </Grid>
-        <Grid item xs={3}>
+        {/* <Grid item xs={3}>
           <TextField
             fullWidth
             id="city"
@@ -385,6 +364,30 @@ function personalDetails({ setActiveStep }) {
             error={formik.touched.city && Boolean(formik.errors.city)}
             helperText={formik.touched.city && formik.errors.city}
           />
+        </Grid> */}
+        <Grid item xs={3}>
+          <FormControl fullWidth>
+            <InputLabel id="city-select-label">City</InputLabel>
+            <Select
+              labelId="city-select-label"
+              id="city"
+              value={formik.values.city}
+              name="city"
+              label="City"
+              onChange={formik.handleChange}
+            >
+              {cities.map((sta) => (
+                <MenuItem key={sta.label} value={sta.label}>
+                  {sta.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {formik.touched.city && formik.errors.city && (
+              <FormHelperText sx={{ color: "red" }}>
+                {formik.errors.city}
+              </FormHelperText>
+            )}
+          </FormControl>
         </Grid>
         <Grid item xs={3}>
           <FormControl fullWidth>

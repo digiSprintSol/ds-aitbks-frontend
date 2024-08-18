@@ -15,6 +15,7 @@ function MarketPlaces() {
   const { REACT_APP_FAKE_API } = process.env;
   const location = useLocation();
   const token = `${location.state.token}`;
+  const [file, setFile] = useState(null);
 
   const [data, setData] = useState({
     nameOfShop: "",
@@ -32,19 +33,30 @@ function MarketPlaces() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", file);
+    // console.log(file,"llllllllll")
+    // console.log(file.name,"ppppppp")
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
-        `${REACT_APP_FAKE_API}/postMarketPlace`,
-        data,
+        `${REACT_APP_FAKE_API}/postMarketPlace?nameOfShop=${data.nameOfShop}&contactPerson=${data.contactPerson}&mobileNumber=${data.mobileNumber}&location=${data.location}&category=${data.category}&city=${data.city}`,
+        formData,
         {
           Token: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         }
       );
       // console.log(result);
     } catch (err) {
       // console.log(err);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    //  console.log(selectedFile, "llllll");
   };
 
   return (
@@ -131,8 +143,8 @@ function MarketPlaces() {
               value={data.category}
               onChange={changeHandler}
             >
-              <MenuItem value="food">Food</MenuItem>
-              <MenuItem value="hotel">Hotel</MenuItem>
+              <MenuItem value="Food">Food</MenuItem>
+              <MenuItem value="Hotel">Hotel</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -148,9 +160,10 @@ function MarketPlaces() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Upload Image
-          </Typography>
+          <label htmlFor="fileInput" style={{ fontFamily: "ProximaBold" }}>
+            Upload your Passport size photo:
+            <input type="file" id="fileInput" onChange={handleFileChange} />
+          </label>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>
           <Button variant="contained" type="submit">

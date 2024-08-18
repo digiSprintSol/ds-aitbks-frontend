@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -19,6 +20,7 @@ import { postRequest } from "../../../../HTTP_POST/api";
 function Declaration() {
   const { data: finalData, setData } = useRootContext();
   const { REACT_APP_FAKE_API } = process.env;
+  const navigate = useNavigate();
   const token =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6ImFkbWluQHh5ei5jb20iLCJ1c2VySWQiOiJBZG1pbiIsInR5cGUiOiJBZG1pbjEyMyIsImFjY2VzcyI6WyJVU0VSIl0sImlhdCI6MTcyMzYxMjc4NywiZXhwIjoxNzIzNjE2Mzg3fQ.0ZuCEnMtnx06xjM6w5G3HoSwA8v6kru3UXiYO10ZMx4";
   // eslint-disable-next-line no-unused-vars
@@ -53,21 +55,18 @@ function Declaration() {
         url,
         {
           ...finalData,
-          profilePic: "https://example.com/profilepic.jpg",
-          // reference2: "Ms. Laura Brown",
-          // brieflyTellAboutYourself:
-          //   "I am a dedicated software engineer with over 10 years of experience in the tech industry. I am passionate about coding and problem-solving.",
-          // occupation: "Software Engineer",
-          // category: "Professional",
-          // reference1: "Dr. Alan Smith",
+          // profilePic: "https://example.com/profilepic.jpg",
           requestForMembershipApplicationFromDeclaration: true,
-          // reasonToJoinAITBKS:
-          //   "I am interested in joining AITBKS to connect with like-minded professionals and contribute to the community's growth.",
         },
         {
           Token: `Bearer ${token}`,
         }
       );
+      if (result) {
+        // eslint-disable-next-line no-alert
+        alert("Registered Successfully");
+        navigate("/");
+      }
       // console.log(result);
     } catch (err) {
       // console.log(err);
@@ -84,8 +83,8 @@ function Declaration() {
         ...prevData,
         membershipType: values.membershipType,
       }));
-      // eslint-disable-next-line no-alert
-      alert(JSON.stringify(finalData, null, 2));
+      // // eslint-disable-next-line no-alert
+      // alert(JSON.stringify(finalData, null, 2));
       fetchData(`${REACT_APP_FAKE_API}/user/register`, finalData);
     },
   });
@@ -162,9 +161,20 @@ function Declaration() {
           label="The information provided above is true and correct to the best of my knowledge and belief"
         />
       </Grid>
-      <Button variant="contained" type="submit">
+      {/* <Button variant="contained" type="submit">
         Register
-      </Button>
+      </Button> */}
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+        }}
+      >
+        <Button variant="contained" type="submit">
+          Register
+        </Button>
+      </Grid>
     </form>
   );
 }

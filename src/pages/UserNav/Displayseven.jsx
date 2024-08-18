@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 import user6 from "../images/user6.png";
 
 function Displayseven() {
@@ -25,6 +26,19 @@ function Displayseven() {
         member of <b>AITBKS.</b>
       </p>
       <b style={{ fontSize: "1.5vw" }}>Welcome aboard!</b>
+      <br />
+      <br />
+      <Button
+        variant="outlined"
+        sx={{
+          backgroundColor: "#1B7DA6",
+          color: "white",
+          width: "22vw",
+          borderRadius: "10vw",
+        }}
+      >
+        Download ID Card
+      </Button>
     </div>
   );
 }

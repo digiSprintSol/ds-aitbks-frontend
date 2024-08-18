@@ -30,7 +30,7 @@ function PresidentCRUD() {
     url: `${REACT_APP_FAKE_API}/getAll`,
     method: "GET",
     headers: {
-      Token: token,
+      Token: `Bearer ${token}`,
     },
   });
 

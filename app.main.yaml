@@ -1,13 +1,13 @@
 runtime: nodejs22
 env_variables:
- REACT_APP_FAKE_API: 'http://34.69.2.7:8082'
+  REACT_APP_FAKE_API: "http://34.69.2.7:8082"
 handlers:
- - url: /(.*\..+)$
-   static_files: build/\1
-   upload: build/(.*\..+)$
-# Catch all handler to index.html
- - url: /.*
-   static_files: build/index.html
-   secure: always
-   redirect_http_response_code: 301
-   upload: build/(.*\..+)$
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
+  # Catch all handler to index.html
+  - url: /.*
+    static_files: build/index.html
+    secure: always
+    redirect_http_response_code: 301
+    upload: build/(.*\..+)$

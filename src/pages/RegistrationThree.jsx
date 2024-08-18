@@ -91,7 +91,7 @@ function RegistrationThree() {
       } catch (e) {
         // console.log(e);
       }
-      navigate("/payment");
+      navigate("/payment", { state: { token } });
     },
   });
 
@@ -307,13 +307,47 @@ function RegistrationThree() {
             <Typography>No. of Children</Typography>
             <TextField
               disabled
-              value={data.familyDetails.numberOfchildren}
+              value={data.familyDetails.children.length}
               aria-readonly
               fullWidth
               sx={{ backgroundColor: "#ffffff" }}
             />
           </Grid>
-          <Grid item xs={7}>
+          {data.familyDetails.children.map((item) => (
+            <>
+              <Grid item xs={7}>
+                <Typography id="modal-modal-description">Name</Typography>
+                <TextField
+                  fullWidth
+                  disabled
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={item.name}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <Typography id="modal-modal-description">Age</Typography>
+                <TextField
+                  fullWidth
+                  disabled
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={item.childAge}
+                  aria-readonly
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Typography id="modal-modal-description">Gender</Typography>
+                <TextField
+                  fullWidth
+                  disabled
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={item.gender}
+                  aria-readonly
+                />
+              </Grid>
+            </>
+          ))}
+          {/* <Grid item xs={7}>
             <Typography>Name</Typography>
             <TextField
               disabled
@@ -330,7 +364,7 @@ function RegistrationThree() {
           <Grid item xs={3}>
             <Typography>Gender</Typography>
             <TextField disabled fullWidth sx={{ backgroundColor: "#ffffff" }} />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <Typography>Aadhar Card</Typography>
             <TextField
