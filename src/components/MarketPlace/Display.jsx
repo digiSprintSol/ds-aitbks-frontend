@@ -29,113 +29,118 @@ function Display() {
   }, [data]);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#D4E9DA",
-        padding: "20px 20px",
-        margin: "20px 0px",
-      }}
-    >
-      <img
-        src={imgPath}
-        loading="lazy"
-        alt="receipt"
-        height="50%"
-        width="50%"
-        style={{ marginLeft: "25vw" }}
-      />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Name of the shop
-          </Typography>
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            value={state.some.nameOfShop}
-          />
+    <div style={{ backgroundColor: "#D4E9DA", paddingBottom: "40px" }}>
+      <div
+        style={{
+          padding: "20px 20px",
+          margin: "20px 0px",
+          display: "flex",
+        }}
+      >
+        <img
+          src={imgPath}
+          loading="lazy"
+          alt="receipt"
+          height="300vw"
+          width="500vw"
+          // style={{ marginLeft: "30vw" }}
+        />
+        <Grid container spacing={2} marginLeft="5%">
+          <Grid item xs={6} sx={{ width: "50vw" }}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              Name of the shop
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              value={state.some.nameOfShop}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              Contact Person
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              value={state.some.contactPerson}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              Mobile Number
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              // error={
+              // formik.touched.phoneNumber &&
+              // Boolean(formik.errors.phoneNumber)
+              // }
+              // helperText={
+              // formik.touched.phoneNumber && formik.errors.phoneNumber
+              // }
+              value={state.some.mobileNumber}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              Location
+            </Typography>
+            {/* <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} value={url('state.some.location')}  /> */}
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Link
+                      href={state.some.location}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {state.some.location}
+                    </Link>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              Category
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              value={state.some.category}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+              City
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{ backgroundColor: "#ffffff" }}
+              value={state.some.city}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Contact Person
-          </Typography>
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            value={state.some.contactPerson}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Mobile Number
-          </Typography>
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            // error={
-            // formik.touched.phoneNumber &&
-            // Boolean(formik.errors.phoneNumber)
-            // }
-            // helperText={
-            // formik.touched.phoneNumber && formik.errors.phoneNumber
-            // }
-            value={state.some.mobileNumber}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Location
-          </Typography>
-          {/* <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} value={url('state.some.location')}  /> */}
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Link
-                    href={state.some.location}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    {state.some.location}
-                  </Link>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            Category
-          </Typography>
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            value={state.some.category}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
-            City
-          </Typography>
-          <TextField
-            fullWidth
-            sx={{ backgroundColor: "#ffffff" }}
-            value={state.some.city}
-          />
-        </Grid>
-      </Grid>
-      <br />
+      </div>
       <Link
         to="/market-places"
         style={{
           backgroundColor: "#23A380",
-          marginLeft: "45vw",
-          width: "20px",
-          borderRadius: "2px",
-          marginBottom: "5%",
+          marginLeft: "46.8vw",
+          width: "10px",
+          padding: "8px 25px",
+          borderRadius: "10px",
+          // marginBottom: "5%",
           color: "white",
+          textDecoration: "none",
+          fontSize: "1.5vw",
+          fontFamily: "ProximaRegular",
         }}
       >
         {" "}

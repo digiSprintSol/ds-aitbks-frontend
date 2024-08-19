@@ -6,6 +6,13 @@ import AuthLayout from "./layouts/AuthLayout";
 import PaymentLayout from "./layouts/PaymentLayout";
 import PresidentLayout from "./layouts/PresidentLayout";
 
+const Feedback = loadable(() => import("./pages/Feedback"));
+const AboutUs = loadable(() => import("./pages/AboutUs"));
+const Gallery = loadable(() => import("./pages/Gallery"));
+const Donation = loadable(() => import("./pages/Donation"));
+const UploadDonationReceipt = loadable(() =>
+  import("./pages/UploadDonationReceipt")
+);
 const AccountantView = loadable(() => import("./pages/AccountantView"));
 const CommitteeView = loadable(() => import("./pages/CommitteeView"));
 const Acknowledge = loadable(() => import("./pages/Acknowledge"));
@@ -45,6 +52,26 @@ export const router = createBrowserRouter([
     path: "/",
     element: <AuthLayout />,
     children: [
+      {
+        path: "/feedback",
+        element: <Feedback />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/gallery",
+        element: <Gallery />,
+      },
+      {
+        path: "/donation",
+        element: <Donation />,
+      },
+      {
+        path: "/upload-donation-receipt",
+        element: <UploadDonationReceipt />,
+      },
       {
         path: "/auth/login",
         element: <Login />,

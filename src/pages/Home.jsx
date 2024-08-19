@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import "../App.css";
@@ -45,7 +46,8 @@ import rectangle3 from "./images/Rectangle3.png";
 import rectangle4 from "./images/Rectangle4.png";
 import rectangle5 from "./images/Rectangle5.png";
 import rectangle6 from "./images/Rectangle6.png";
-import homepage from "./images/homepage.webp";
+import home1 from "./images/home1.png";
+import home2 from "./images/home2.png";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 // import { styled } from '@mui/material/styles';
@@ -71,6 +73,7 @@ function Home() {
   //   "get"
   // );
 
+  const navigate = useNavigate();
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
   const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
@@ -300,25 +303,32 @@ function Home() {
       <Box>
         <Marquee velocity={10}>
           <img
-            src={homepage}
+            src={home1}
             loading="lazy"
             alt="homepageimage"
             height="400px"
-            width="600px"
+            width="100%"
+          />
+          <img
+            src={home2}
+            loading="lazy"
+            alt="homepageimage"
+            height="400px"
+            width="100%"
           />
           <img
             src={imgPath1}
             loading="lazy"
             alt="homepageimage"
             height="400px"
-            width="600px"
+            width="100%"
           />
           <img
             src={imgPath2}
             loading="lazy"
             alt="homepageimage"
             height="400px"
-            width="600px"
+            width="100%"
           />
         </Marquee>
       </Box>
@@ -532,6 +542,7 @@ function Home() {
             zIndex: "2",
             marginLeft: "70%",
           }}
+          onClick={() => navigate("/feedback")}
         >
           VIEW ALL
         </Button>
@@ -552,6 +563,7 @@ function Home() {
         <Button
           variant="contained"
           disableElevation
+          onClick={() => navigate("/donation")}
           sx={{
             backgroundColor: "#23A380",
             marginLeft: "5vw",
@@ -612,6 +624,7 @@ function Home() {
             borderRadius: "15px",
             marginTop: "5%",
           }}
+          onClick={() => navigate("/gallery")}
         >
           VIEW MORE PHOTOS
         </Button>
@@ -640,6 +653,7 @@ function Home() {
         <Button
           variant="contained"
           disableElevation
+          onClick={() => navigate("/about-us")}
           sx={{
             backgroundColor: "#23A380",
             marginLeft: "5vw",
