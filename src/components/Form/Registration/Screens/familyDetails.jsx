@@ -95,11 +95,14 @@ function familyDetails({ setActiveStep }) {
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="subtitle1">Family Details</Typography>
+          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+            Family Details
+          </Typography>
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             label="Father Name"
             id="fatherName"
             name="fatherName"
@@ -111,11 +114,13 @@ function familyDetails({ setActiveStep }) {
               formik.touched.fatherName && Boolean(formik.errors.fatherName)
             }
             helperText={formik.touched.fatherName && formik.errors.fatherName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             id="motherName"
             name="motherName"
             label="Mother's Name"
@@ -127,11 +132,13 @@ function familyDetails({ setActiveStep }) {
               formik.touched.motherName && Boolean(formik.errors.motherName)
             }
             helperText={formik.touched.motherName && formik.errors.motherName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={7}>
           <TextField
             fullWidth
+            size="small"
             id="spouseName"
             name="spouseName"
             label="Spouse Name"
@@ -143,24 +150,32 @@ function familyDetails({ setActiveStep }) {
               formik.touched.spouseName && Boolean(formik.errors.spouseName)
             }
             helperText={formik.touched.spouseName && formik.errors.spouseName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={2}>
           <TextField
             fullWidth
+            size="small"
             id="spouseAge"
             name="spouseAge"
             label="Spouse Age"
             type="number"
+            inputProps={{ min: 0 }}
             value={formik.values.spouseAge}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.spouseAge && Boolean(formik.errors.spouseAge)}
             helperText={formik.touched.spouseAge && formik.errors.spouseAge}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={3}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="spouseGender-select-label">SpouseGender</InputLabel>
             <Select
               labelId="spouseGender-select-label"
@@ -184,7 +199,11 @@ function familyDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="spouseProfession-select-label">
               Spouse Profession
             </InputLabel>
@@ -211,7 +230,11 @@ function familyDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="spouseEducation-select-label">
               Spouse Education
             </InputLabel>
@@ -238,26 +261,32 @@ function familyDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         {/* ----------------------------------------- */}
-        <Grid item xs={7}>
-          <TextField
-            fullWidth
-            // select
-            id="noOfChildren"
-            name="noOfChildren"
-            label="No. of Children"
-            type="number"
-            // options={education}
-            value={formik.values.noOfChildren}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.noOfChildren && Boolean(formik.errors.noOfChildren)
-            }
-            helperText={
-              formik.touched.noOfChildren && formik.errors.noOfChildren
-            }
-          />
-        </Grid>
+        {formik.values.spouseName && (
+          <Grid item xs={7}>
+            <TextField
+              fullWidth
+              size="small"
+              // select
+              id="noOfChildren"
+              name="noOfChildren"
+              label="No. of Children"
+              type="number"
+              inputProps={{ min: 0 }}
+              // options={education}
+              value={formik.values.noOfChildren}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              // error={
+              //   formik.touched.noOfChildren &&
+              //   Boolean(formik.errors.noOfChildren)
+              // }
+              // helperText={
+              //   formik.touched.noOfChildren && formik.errors.noOfChildren
+              // }
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+            />
+          </Grid>
+        )}
 
         {Array.from({ length: formik.values.noOfChildren }).map((_, index) => (
           // eslint-disable-next-line react/no-array-index-key
@@ -265,6 +294,7 @@ function familyDetails({ setActiveStep }) {
             <Grid item xs={6}>
               <TextField
                 fullWidth
+                size="small"
                 id="name"
                 name="name"
                 label="Name Of Child"
@@ -274,15 +304,18 @@ function familyDetails({ setActiveStep }) {
                 onChange={(e) => changeHandler(e, index)}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 fullWidth
+                size="small"
                 id="childAge"
                 name="childAge"
                 label="Age Of Child"
                 type="number"
+                inputProps={{ min: 0 }}
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 onChange={(e) => changeHandler(e, index)}
@@ -290,10 +323,15 @@ function familyDetails({ setActiveStep }) {
                   formik.touched.childAge && Boolean(formik.errors.childAge)
                 }
                 helperText={formik.touched.childAge && formik.errors.childAge}
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
               />
             </Grid>
             <Grid item xs={4}>
-              <FormControl fullWidth>
+              <FormControl
+                fullWidth
+                size="small"
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              >
                 <InputLabel id="gender-select-label">Child Gender</InputLabel>
                 <Select
                   labelId="gender-select-label"

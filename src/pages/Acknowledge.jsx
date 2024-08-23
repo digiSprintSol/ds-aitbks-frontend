@@ -100,6 +100,10 @@ function Acknowledge({ row, token }) {
           height: "2vw",
           border: "none",
           fontSize: "12px",
+          "&:hover": {
+            backgroundColor: "#1B7DA6",
+            border: "none",
+          },
         }}
       >
         VIEW FULL DETAILS
@@ -151,7 +155,7 @@ function Acknowledge({ row, token }) {
           >
             Acknowlegde
           </Button>
-          <Button
+          {/* <Button
             style={{ backgroundColor: "#F1C21B", color: "white" }}
             onClick={() => handleButtonClick("waiting")}
           >
@@ -163,7 +167,7 @@ function Acknowledge({ row, token }) {
             autoFocus
           >
             Decline
-          </Button>
+          </Button> */}
         </DialogActions>
       </BootstrapDialog>
     </div>

@@ -10,10 +10,28 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-
+import { makeStyles } from "@mui/styles";
 // import Stack from "@mui/material/Stack";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import CommitteePopup from "./CommitteePopup";
+
+const useStyles = makeStyles({
+  committeetable: {
+    fontSize: "1vw",
+  },
+  accepted: {
+    backgroundColor: "white",
+    color: "green",
+  },
+  waiting: {
+    backgroundColor: "white",
+    color: "#F1C21B",
+  },
+  declined: {
+    backgroundColor: "white",
+    color: "#F3561F",
+  },
+});
 
 function CommitteeView() {
   const location = useLocation();
@@ -29,6 +47,7 @@ function CommitteeView() {
 
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
+  const classes = useStyles();
 
   const rowsperpage = 5;
 
@@ -75,6 +94,13 @@ function CommitteeView() {
               <TableCell align="middle">Date of Birth</TableCell>
               <TableCell align="middle">Phone number</TableCell>
               <TableCell align="middle">Email Id</TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Status of Committee
+              </TableCell>
               <TableCell>Details</TableCell>
             </TableRow>
           </TableHead>
@@ -93,6 +119,27 @@ function CommitteeView() {
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
+                {row.status ? (
+                  <TableCell
+                    align="middle"
+                    className={
+                      // eslint-disable-next-line no-nested-ternary
+                      row.status === "accepted"
+                        ? classes.accepted
+                        : row.status === "Waiting"
+                        ? classes.waiting
+                        : classes.declined
+                    }
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {row.status}
+                  </TableCell>
+                ) : (
+                  <TableCell align="middle">Yet to be approved</TableCell>
+                )}
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"

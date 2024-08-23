@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,7 +8,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-// import Stack from "@mui/material/Stack";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import PresidentModal from "../components/Modal/presidentModal";
@@ -18,14 +16,21 @@ const useStyles = makeStyles({
   committeetable: {
     fontSize: "1vw",
   },
+  accepted: {
+    backgroundColor: "white",
+    color: "green",
+  },
+  waiting: {
+    backgroundColor: "white",
+    color: "#F1C21B",
+  },
+  declined: {
+    backgroundColor: "white",
+    color: "#F3561F",
+  },
 });
 
 function PresidentUser() {
-  // const { data, loading, error } = useCustomFetch(
-  //   "http://localhost:1369/user/getAllUsers",
-  //   "get"
-  // );
-  // eslint-disable-next-line no-unused-vars
   const location = useLocation();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
@@ -38,7 +43,6 @@ function PresidentUser() {
   });
 
   const [currentpage, setCurrentpage] = useState(1);
-  // eslint-disable-next-line no-unused-vars
   const [customdata, setCustomdata] = useState([]);
   const classes = useStyles();
   const rowsperpage = 5;
@@ -51,7 +55,6 @@ function PresidentUser() {
     if (data) {
       const partdata = [];
       const exp =
-        // rowsperpage > data.content.length ? data.content.length : rowsperpage;
         (currentpage - 1) * rowsperpage + rowsperpage > data.content.length
           ? (currentpage - 1) * rowsperpage +
             (rowsperpage -
@@ -135,14 +138,29 @@ function PresidentUser() {
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
-                <TableCell align="middle">{row.status}</TableCell>
-                <TableCell align="middle">
-                  {/* <Button
-                    variant="contained"
-                    disableElevation
-                   
+                {row.status ? (
+                  <TableCell
+                    align="middle"
+                    className={
+                      // eslint-disable-next-line no-nested-ternary
+                      row.status === "accepted"
+                        ? classes.accepted
+                        : row.status === "Waiting"
+                        ? classes.waiting
+                        : classes.declined
+                    }
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
                   >
-                  </Button> */}
+                    {row.status}
+                  </TableCell>
+                ) : (
+                  <TableCell align="middle">Yet to be approved</TableCell>
+                )}
+
+                <TableCell align="middle">
                   <PresidentModal row={row} token={token} />
                 </TableCell>
               </TableRow>
