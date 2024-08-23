@@ -30,7 +30,7 @@ function personalDetails({ setActiveStep }) {
   const formik = useFormik({
     initialValues: {
       firstName: data.firstName || "",
-      middleName: data.middleName || "",
+      // middleName: data.middleName || "",
       lastName: data.lastName || "",
       dateOfBirth: data.dateOfBirth || "",
       phoneNumber: data.phoneNumber || "",
@@ -53,7 +53,7 @@ function personalDetails({ setActiveStep }) {
         // middleName: values.middleName,
         // lastName: values.lastName,
         profilePic: file.name,
-        fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
+        fullName: `${values.firstName} ${values.lastName}`,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.phoneNumber,
         emailAddress: values.emailAddress,
@@ -103,7 +103,7 @@ function personalDetails({ setActiveStep }) {
             Full Name
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             label="First Name"
@@ -117,7 +117,7 @@ function personalDetails({ setActiveStep }) {
             helperText={formik.touched.firstName && formik.errors.firstName}
           />
         </Grid>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <TextField
             fullWidth
             id="middleName"
@@ -132,13 +132,13 @@ function personalDetails({ setActiveStep }) {
             }
             helperText={formik.touched.middleName && formik.errors.middleName}
           />
-        </Grid>
-        <Grid item xs={4}>
+        </Grid> */}
+        <Grid item xs={6}>
           <TextField
             fullWidth
             id="lastName"
             name="lastName"
-            label="Last Name"
+            label="Surname Name"
             type="lastName"
             value={formik.values.lastName}
             onChange={formik.handleChange}

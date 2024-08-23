@@ -3,7 +3,7 @@ import * as yup from "yup";
 const validationSchema = yup.object({
   // profilePic: yup.mixed().required("File is required"),
   firstName: yup.string("Enter your first name").required("is required"),
-  middleName: yup.string("Enter your middle name"),
+  // middleName: yup.string("Enter your middle name"),
   lastName: yup.string("Enter your last name").required("is required"),
   dateOfBirth: yup
     .date("Enter your date of birth")

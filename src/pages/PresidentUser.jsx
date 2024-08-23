@@ -69,6 +69,8 @@ function PresidentUser() {
 
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
+  // eslint-disable-next-line no-console
+  console.log(data.content.length, rowsperpage, "aaaaaaaaaa");
 
   return (
     <div>
@@ -162,6 +164,7 @@ function PresidentUser() {
         )}{" "}
         of {data.content.length} entries
       </span>
+
       <Pagination
         count={Math.ceil(data.content.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}

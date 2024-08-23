@@ -120,6 +120,11 @@ export default function PresidentModal({ row, token }) {
           height: "2vw",
           border: "none",
           fontSize: "12px",
+          "&:hover": {
+            backgroundColor: "#F1C21B",
+            boxShadow: "0px 1px 2px black",
+            border: "none",
+          },
         }}
       >
         View Full Details

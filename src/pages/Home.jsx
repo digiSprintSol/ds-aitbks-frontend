@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
+import {
+  Divider,
+  Grid,
+  Menu,
+  MenuItem,
+  Typography,
+  Button,
+} from "@mui/material";
 import "../App.css";
+// import "../components/Header/style.module.css"
 import Marquee from "react-fast-marquee";
+import styles from "../components/Footer/style.module.css";
 
 // import fap from "./images/fap.png";
 
+import {
+  cmdata,
+  cmdata2,
+  ccmdata,
+  marqueedata,
+  gallery,
+  help,
+  count,
+} from "../Lib/constants";
 import logo from "./images/logo.png";
-import cm1 from "./images/cm1.png";
-import cm2 from "./images/cm2.png";
-import cm3 from "./images/cm3.png";
-import cm4 from "./images/cm4.png";
-import cm5 from "./images/cm5.png";
-import cm6 from "./images/cm6.png";
-import cm7 from "./images/cm7.png";
-import ccm1 from "./images/ccm1.png";
-import ccm2 from "./images/ccm2.png";
-import ccm3 from "./images/ccm3.png";
-import ccm4 from "./images/ccm4.png";
-import ccm5 from "./images/ccm5.png";
-import ccm6 from "./images/ccm6.png";
-import ccm7 from "./images/ccm7.png";
-import ccm8 from "./images/ccm8.png";
-import group1 from "./images/group1.png";
-import group2 from "./images/group2.png";
-import group3 from "./images/group3.png";
-import group4 from "./images/group4.png";
-import group5 from "./images/group5.png";
-import group6 from "./images/group6.png";
-import group7 from "./images/group7.png";
-import group8 from "./images/group8.png";
+
 import sixty from "./images/sixty.png";
 import userIcon from "./images/userIcon.png";
 import quoteIcon from "./images/quoteIcon.png";
@@ -40,39 +36,11 @@ import image3 from "./images/image3.png";
 import image5 from "./images/image5.png";
 import image6 from "./images/image6.png";
 import threecircles from "./images/threecircles.png";
-import rectangle1 from "./images/Rectangle1.png";
-import rectangle2 from "./images/Rectangle2.png";
-import rectangle3 from "./images/Rectangle3.png";
-import rectangle4 from "./images/Rectangle4.png";
-import rectangle5 from "./images/Rectangle5.png";
-import rectangle6 from "./images/Rectangle6.png";
 import home1 from "./images/home1.png";
 import home2 from "./images/home2.png";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
-// import { styled } from '@mui/material/styles';
-
-// import Paper from '@mui/material/Paper';
-// import Grid from '@mui/material/Grid';
-
-// import Header from "../components/Header";
-
 function Home() {
-  // const Item = styled(Paper)(({ theme }) => ({
-  //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  //   ...theme.typography.body2,
-  //   padding: theme.spacing(1),
-  //   textAlign: 'center',
-  //   color: theme.palette.text.secondary,
-  // }));
-
-  // const [announcements, setAnnouncements] = useState([]);
-
-  // const { data, loading, error } = useCustomFetch(
-  //   "http://localhost:1369/getAllAnnouncements",
-  //   "get"
-  // );
-
   const navigate = useNavigate();
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
   const { REACT_APP_FAKE_API } = process.env;
@@ -116,184 +84,109 @@ function Home() {
     }
   });
 
-  //  const getAnnouncements = () => {
-  //    try {
-  //      const data = useCustomFetch("http://localhost:1369/getAnnouncements", "get");
-  //      setAnnouncements(data);
-  //      console.log(announcements);
-  //    } catch (error) {
-  //      console.error("Error fetching announcements:", error);
-  //    }
-  //  };
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  //   useEffect(() => {
-  //     console.log(data[0].announcementTitle, data[0].announcementDescription);
-  //  }, []);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  const cmdata = [
-    {
-      photo: cm1,
-      heading: "Sri.Sri Hari Kotela",
-      para: "President",
-    },
-    {
-      photo: cm2,
-      heading: "Sri. Venkateshwara Rao Sunkara",
-      para: "Vice-President-1",
-    },
-    {
-      photo: cm3,
-      heading: "Sri. Janardhan Jawahar Bommadevara",
-      para: "Vice-President-2",
-    },
-    {
-      photo: cm4,
-      heading: "Sri. Vinayaka Swamy Patsa",
-      para: "General Secretary",
-    },
-  ];
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
-  const cmdata2 = [
-    {
-      photo: cm5,
-      heading: "Sri.Mareswara Rao Guruju",
-      para: "Joint Secretary-1",
-    },
-    {
-      photo: cm6,
-      heading: "Sri. Shanker Babu Katragadda",
-      para: "Joint Secretary-2",
-    },
-    {
-      photo: cm7,
-      heading: "CA Sri S. Ramana Rao",
-      para: "Treasurer",
-    },
-  ];
-
-  const ccmdata = [
-    {
-      photo: ccm1,
-      heading: "Sri Venkata Ratnam Anugolu  ",
-    },
-    {
-      photo: ccm2,
-      heading: "Sri Narasimha Rao Bandaru",
-    },
-    {
-      photo: ccm3,
-      heading: "Sri Parameswara Rao Parasa",
-    },
-    {
-      photo: ccm4,
-      heading: "Sri Narendra Babu N",
-    },
-    {
-      photo: ccm5,
-      heading: "Sri Ravinder Chaluvadi",
-    },
-    {
-      photo: ccm6,
-      heading: "Sri Venkata Krishna Rao Thota",
-    },
-    {
-      photo: ccm7,
-      heading: "Sri Trivikram Vidyasagar Jampa",
-    },
-    {
-      photo: ccm8,
-      heading: "Sri. Harikrishna Pothula",
-    },
-  ];
-
-  const gallery = [
-    rectangle1,
-    rectangle2,
-    rectangle3,
-    rectangle4,
-    rectangle5,
-    rectangle6,
-  ];
-
-  const marqueedata = [
-    {
-      name: "Gopala krishna m",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Narendra Babu N",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Ravinder Chaluvadi",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Harikrishna Pothula",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "S.Ramana Rao",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-  ];
-
-  const help = [
-    {
-      image: group1,
-      heading: "Cultural Events",
-    },
-    {
-      image: group2,
-      heading: "Scholarships",
-    },
-    {
-      image: group3,
-      heading: "Awards",
-    },
-    {
-      image: group4,
-      heading: "Parinaya Vedika",
-    },
-  ];
-
-  const count = [
-    {
-      image: group5,
-      heading: "4850+",
-      para: "Total Events",
-    },
-    {
-      image: group6,
-      heading: "3686+",
-      para: "Raised Funds",
-    },
-    {
-      image: group7,
-      heading: "480+",
-      para: "Scholarships",
-    },
-    {
-      image: group8,
-      heading: "2068+",
-      para: "Happy Members",
-    },
-  ];
+  const contactRef = useRef();
 
   if (error || data1.error || data2.error) return <h1>Error..</h1>;
   if (loading || data1.loading || data2.loading) return <h1>loading...</h1>;
 
   return (
     <div className="homepage">
+      <header>
+        <div className="header">
+          <div className="right">
+            <Link to="/">
+              <img
+                src="/assets/images/community_logo.png"
+                alt="logo"
+                className="logo"
+              />
+            </Link>
+            <img
+              src="/assets/images/community_title.png"
+              alt="title"
+              className="title"
+            />
+          </div>
+          <div className="left">
+            <Link to="/" className="link">
+              Home
+            </Link>
+            <Link to="/" className="link" onClick={handleMenuOpen}>
+              Members
+            </Link>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>Trustee</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Patron</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Life Members</MenuItem>
+            </Menu>
+            <Link to="/" className="link">
+              Events
+            </Link>
+            <Link
+              to="/"
+              className="link"
+              onClick={() => {
+                contactRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Contact
+            </Link>
+            <Link to="/market-places" className="link">
+              Market Places
+            </Link>
+            <Button
+              className="btn"
+              onClick={() => navigate("/auth/registration-one")}
+              sx={{
+                fontFamily: "ProximaBold",
+                color: "white",
+                backgroundColor: "#23A380",
+                "&:hover": {
+                  backgroundColor: "#1F735B",
+                },
+                boxShadow:
+                  "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
+              }}
+            >
+              Register
+            </Button>
+
+            <Button
+              className="btn"
+              onClick={() => navigate("/auth/login")}
+              sx={{
+                fontFamily: "ProximaBold",
+                color: "white",
+                backgroundColor: "#23A380",
+                "&:hover": {
+                  backgroundColor: "#1F735B",
+                },
+                boxShadow:
+                  "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
+              }}
+            >
+              Login
+            </Button>
+          </div>
+        </div>
+      </header>
       <Marquee className="marquee">
-        {/* अखिल भारतीय तेलगा कापू बलिजा संगम में आपका स्वागत है। */}
-        {/* {data[0].announcementTitle} &nbsp;|&nbsp;
-        {data[0].announcementDescription} */}
         {data.map((d) => (
           <span style={{ paddingRight: "40px" }} key={d.announcementTitle}>
             {d.announcementTitle} | {d.announcementDescription}
@@ -538,8 +431,6 @@ function Home() {
           disableElevation
           sx={{
             backgroundColor: "#1B7DA6",
-            position: "relative",
-            zIndex: "2",
             marginLeft: "70%",
           }}
           onClick={() => navigate("/feedback")}
@@ -566,7 +457,7 @@ function Home() {
           onClick={() => navigate("/donation")}
           sx={{
             backgroundColor: "#23A380",
-            marginLeft: "5vw",
+            marginLeft: "1vw",
             width: "20%",
             borderRadius: "15px",
             marginTop: "5%",
@@ -664,6 +555,93 @@ function Home() {
         >
           Know More
         </Button>
+      </div>
+      <div className={styles.footer} ref={contactRef}>
+        <img
+          src="/assets/images/footer.png"
+          alt="footer_bg"
+          className={styles.footer_img}
+        />
+        <div className={styles.content}>
+          <Grid container spacing={1}>
+            <Grid item sm={2} />
+            <Grid item sm={3}>
+              <div className={styles.column}>
+                <Typography variant="h4" className={styles.footer_text}>
+                  Links
+                </Typography>
+                <Divider className={styles.divider} sx={{ width: "40%" }} />
+                <Link to="/" className={styles.link}>
+                  About Us
+                </Link>
+                <Link to="/" className={styles.link}>
+                  Gallery
+                </Link>
+                <Link to="/" clas sName={styles.link}>
+                  Events
+                </Link>
+                <Link to="/" className={styles.link}>
+                  Terms of Use
+                </Link>
+                <Link to="/" className={styles.link}>
+                  Copyright Policy
+                </Link>
+                <Link to="/" className={styles.link}>
+                  Privacy Policy
+                </Link>
+              </div>
+            </Grid>
+            <Grid item sm={3}>
+              <div className={styles.column}>
+                <Typography variant="h4" className={styles.footer_text}>
+                  Contact
+                </Typography>
+                <Divider className={styles.divider} sx={{ width: "60%" }} />
+                <Link to="/" className={styles.link}>
+                  Contact Page
+                </Link>
+                <Typography variant="body1" className={styles.footer_text}>
+                  contact@allindiakapusangam.com
+                </Typography>
+                <Typography variant="body1" className={styles.footer_text}>
+                  040 2761 2388
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item sm={3}>
+              <div className={styles.column}>
+                <Typography variant="h4" className={styles.footer_text}>
+                  Office Contact
+                </Typography>
+                <Divider className={styles.divider} sx={{ width: "90%" }} />
+                <Typography variant="body1" className={styles.footer_text}>
+                  1-2-605/2/A, Lower Tank Bund Road, Kavadi Guda, Hyderabad,
+                  Telangana 500082
+                </Typography>
+                <div style={{ width: "100%", marginLeft: "80px" }}>
+                  <iframe
+                    title="Google Maps Location"
+                    style={{
+                      width: "100%",
+                      height: "100px",
+                      frameborder: "0",
+                      scrolling: "no",
+                      marginTop: "10",
+                      marginwidth: "0",
+                    }}
+                    src="https://maps.google.com/maps?width=100%25&amp;height=100px&amp;hl=en&amp;q=1-2-605/2/A,%20Lower%20Tank%20Bund%20Road,%20%20Kavadi%20Guda,%20Hyderabad,%20%20Telangana%20500082+(All%20India%20Telega%20Balija%20Kapu%20Sangam)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                  >
+                    <a href="https://www.gps.ie/">gps systems</a>
+                  </iframe>
+                </div>
+              </div>
+            </Grid>
+            <Grid item sm={1} />
+          </Grid>
+        </div>
+      </div>
+      <div className={styles.copyright}>
+        Copyright @2024 by AITBKS | All Rights Reserved
       </div>
     </div>
   );

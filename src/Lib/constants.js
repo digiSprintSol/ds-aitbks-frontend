@@ -1,3 +1,188 @@
+import cm1 from "../pages/images/cm1.png";
+import cm2 from "../pages/images/cm2.png";
+import cm3 from "../pages/images/cm3.png";
+import cm4 from "../pages/images/cm4.png";
+import cm5 from "../pages/images/cm5.png";
+import cm6 from "../pages/images/cm6.png";
+import cm7 from "../pages/images/cm7.png";
+import ccm1 from "../pages/images/ccm1.png";
+import ccm2 from "../pages/images/ccm2.png";
+import ccm3 from "../pages/images/ccm3.png";
+import ccm4 from "../pages/images/ccm4.png";
+import ccm5 from "../pages/images/ccm5.png";
+import ccm6 from "../pages/images/ccm6.png";
+import ccm7 from "../pages/images/ccm7.png";
+import ccm8 from "../pages/images/ccm8.png";
+import group1 from "../pages/images/group1.png";
+import group2 from "../pages/images/group2.png";
+import group3 from "../pages/images/group3.png";
+import group4 from "../pages/images/group4.png";
+import group5 from "../pages/images/group5.png";
+import group6 from "../pages/images/group6.png";
+import group7 from "../pages/images/group7.png";
+import group8 from "../pages/images/group8.png";
+import rectangle1 from "../pages/images/Rectangle1.png";
+import rectangle2 from "../pages/images/Rectangle2.png";
+import rectangle3 from "../pages/images/Rectangle3.png";
+import rectangle4 from "../pages/images/Rectangle4.png";
+import rectangle5 from "../pages/images/Rectangle5.png";
+import rectangle6 from "../pages/images/Rectangle6.png";
+
+export const cmdata = [
+  {
+    photo: cm1,
+    heading: "Sri.Sri Hari Kotela",
+    para: "President",
+  },
+  {
+    photo: cm2,
+    heading: "Sri. Venkateshwara Rao Sunkara",
+    para: "Vice-President-1",
+  },
+  {
+    photo: cm3,
+    heading: "Sri. Janardhan Jawahar Bommadevara",
+    para: "Vice-President-2",
+  },
+  {
+    photo: cm4,
+    heading: "Sri. Vinayaka Swamy Patsa",
+    para: "General Secretary",
+  },
+];
+
+export const cmdata2 = [
+  {
+    photo: cm5,
+    heading: "Sri.Mareswara Rao Guruju",
+    para: "Joint Secretary-1",
+  },
+  {
+    photo: cm6,
+    heading: "Sri. Shanker Babu Katragadda",
+    para: "Joint Secretary-2",
+  },
+  {
+    photo: cm7,
+    heading: "CA Sri S. Ramana Rao",
+    para: "Treasurer",
+  },
+];
+
+export const ccmdata = [
+  {
+    photo: ccm1,
+    heading: "Sri Venkata Ratnam Anugolu  ",
+  },
+  {
+    photo: ccm2,
+    heading: "Sri Narasimha Rao Bandaru",
+  },
+  {
+    photo: ccm3,
+    heading: "Sri Parameswara Rao Parasa",
+  },
+  {
+    photo: ccm4,
+    heading: "Sri Narendra Babu N",
+  },
+  {
+    photo: ccm5,
+    heading: "Sri Ravinder Chaluvadi",
+  },
+  {
+    photo: ccm6,
+    heading: "Sri Venkata Krishna Rao Thota",
+  },
+  {
+    photo: ccm7,
+    heading: "Sri Trivikram Vidyasagar Jampa",
+  },
+  {
+    photo: ccm8,
+    heading: "Sri. Harikrishna Pothula",
+  },
+];
+
+export const gallery = [
+  rectangle1,
+  rectangle2,
+  rectangle3,
+  rectangle4,
+  rectangle5,
+  rectangle6,
+];
+
+export const marqueedata = [
+  {
+    name: "Gopala krishna m",
+    tag: "IAS",
+    info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  },
+  {
+    name: "Narendra Babu N",
+    tag: "IAS",
+    info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  },
+  {
+    name: "Ravinder Chaluvadi",
+    tag: "IAS",
+    info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  },
+  {
+    name: "Harikrishna Pothula",
+    tag: "IAS",
+    info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  },
+  {
+    name: "S.Ramana Rao",
+    tag: "IAS",
+    info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  },
+];
+
+export const help = [
+  {
+    image: group1,
+    heading: "Cultural Events",
+  },
+  {
+    image: group2,
+    heading: "Scholarships",
+  },
+  {
+    image: group3,
+    heading: "Awards",
+  },
+  {
+    image: group4,
+    heading: "Parinaya Vedika",
+  },
+];
+
+export const count = [
+  {
+    image: group5,
+    heading: "4850+",
+    para: "Total Events",
+  },
+  {
+    image: group6,
+    heading: "3686+",
+    para: "Raised Funds",
+  },
+  {
+    image: group7,
+    heading: "480+",
+    para: "Scholarships",
+  },
+  {
+    image: group8,
+    heading: "2068+",
+    para: "Happy Members",
+  },
+];
+
 export const gender = [{ label: "Male" }, { label: "Female" }];
 
 export const education = [
@@ -143,6 +328,7 @@ export const category = [
   { label: "Telega " },
   { label: "Balija" },
   { label: "Kapu" },
+  { label: "Vontari" },
 ];
 
 export const registrationData = {

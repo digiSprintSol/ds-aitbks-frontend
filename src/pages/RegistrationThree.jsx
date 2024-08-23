@@ -91,7 +91,8 @@ function RegistrationThree() {
       } catch (e) {
         // console.log(e);
       }
-      navigate("/payment", { state: { token } });
+      navigate("/payment", { state: { token, data } });
+      // console.log(data,"ssssssssss");
     },
   });
 

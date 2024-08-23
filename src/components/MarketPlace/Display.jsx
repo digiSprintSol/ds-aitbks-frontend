@@ -83,8 +83,11 @@ function Display() {
               value={state.some.mobileNumber}
             />
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+          <Grid item xs={6} sx={{ width: "50vw" }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontFamily: "ProximaBold", overflow: "hidden" }}
+            >
               Location
             </Typography>
             {/* <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} value={url('state.some.location')}  /> */}
@@ -94,13 +97,7 @@ function Display() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Link
-                      href={state.some.location}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      {state.some.location}
-                    </Link>
+                    <a href={state.some.location}>Google Maps</a>
                   </InputAdornment>
                 ),
               }}

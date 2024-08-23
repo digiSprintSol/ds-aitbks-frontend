@@ -10,6 +10,8 @@ function Payment() {
   const location = useLocation();
   const navigate = useNavigate();
   const token = `${location.state.token}`;
+  // const data = location.state.data;
+  // console.log(location.state.data,"uuuuuuuuuuu")
   const submitHandler = () => {
     navigate("/user-nav", { state: { token } });
   };
@@ -59,7 +61,29 @@ function Payment() {
         </h3>
       </div>
       <br />
-      <img src={qrcode} alt="qrcode" height="30%" width="30%" />
+      <div style={{ display: "flex", marginLeft: "40vw" }}>
+        <img src={qrcode} alt="qrcode" height="30%" width="30%" />
+        {location.state.data.presidentChoosenMembershipForApplicant ===
+        "patron" ? (
+          <h2>Amount need to be paid: 10,000/-</h2>
+        ) : (
+          <p>{null}</p>
+        )}
+        {location.state.data.presidentChoosenMembershipForApplicant ===
+        "Life Member" ? (
+          <h2>Amount need to be paid: 2,000/-</h2>
+        ) : (
+          <p>{null}</p>
+        )}
+        {location.state.data.presidentChoosenMembershipForApplicant ===
+        "trustee" ? (
+          <h3 style={{ width: "20vw", marginTop: "7vw" }}>
+            Amount need to be paid: 1,00,000/-
+          </h3>
+        ) : (
+          <p>{null}</p>
+        )}
+      </div>
       <p style={{ fontFamily: "ProximaRegular" }}>
         Scan and pay with any BHIM UPI app
       </p>
