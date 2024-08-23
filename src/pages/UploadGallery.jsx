@@ -80,7 +80,7 @@ function UploadGallery() {
           margin: "10px auto",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box
               sx={{
@@ -99,7 +99,7 @@ function UploadGallery() {
               <Box
                 sx={{
                   backgroundColor: "white",
-                  padding: "20px",
+                  padding: "10px",
                   borderRadius: "30px",
                   margin: "10px 0px",
                   display: "flex",
@@ -107,8 +107,8 @@ function UploadGallery() {
                   alignItems: "center",
                   position: "relative",
                   overflow: "hidden",
-                  height: "400px",
-                  width: "100%",
+                  height: "180px",
+                  width: "35%",
                   border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
                   textAlign: "center",
                   flexDirection: "column",
@@ -118,9 +118,11 @@ function UploadGallery() {
                 onDrop={handleDrop}
               >
                 <Typography
+                  variant="h6"
                   sx={{
-                    fontWeight: "bold",
-                    fontSize: "20px",
+                    fontFamily: "ProximaSemiBold",
+                    // fontWeight: "bold",
+                    // fontSize: "20px",
                     color: isDragOver ? "#1976d2" : "#666",
                     mb: 2,
                   }}
@@ -176,7 +178,7 @@ function UploadGallery() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h5">
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h6">
               Image Details
             </Typography>
           </Grid>

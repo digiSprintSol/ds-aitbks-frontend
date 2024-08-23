@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 import next from "./images/next.png";
 import qrcode from "./images/qrcode.png";
 import phonepe from "./images/phonepe.png";
@@ -15,67 +16,94 @@ function Payment() {
   };
   return (
     <div className="paymenthead">
-      <h1 style={{ fontFamily: "ProximaBold" }}>Payment Form</h1>
-      <p style={{ fontFamily: "ProximaSemibold" }}>
+      <Typography variant="h4" sx={{ fontFamily: "ProximaBold" }}>
+        Payment Form
+      </Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: "ProximaSemiBold" }}>
         You can also make online Payment using mobile apps like Google Pay,
-        Paytm. BHIM or PhonePe
-      </p>
-      <h1 style={{ fontFamily: "ProximaBold" }}>Steps to Pay for Membership</h1>
-      <div>
-        <h3 className="paymentsteps">Open your UPI Enabled APP</h3>
+        Paytm, BHIM or PhonePe
+      </Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+        Steps to Pay for Membership
+      </Typography>
+      <div style={{ margin: "0px 0px 10px 180px" }}>
+        <Typography
+          variant="body2"
+          sx={{ fontFamily: "ProximaRegular" }}
+          className="paymentsteps"
+        >
+          Open your UPI Enabled APP
+        </Typography>
         <img
           src={next}
           alt="nextbutton"
-          height="40px"
-          width="40px"
+          height="30px"
+          width="30px"
           className="paymentsteps"
         />
-        <h3 className="paymentsteps">Select Scan & Pay</h3>
+        <Typography
+          variant="body2"
+          sx={{ fontFamily: "ProximaRegular" }}
+          className="paymentsteps"
+        >
+          Select Scan & Pay
+        </Typography>
         <img
           src={next}
           alt="nextbutton"
-          height="40px"
-          width="40px"
+          height="30px"
+          width="30px"
           className="paymentsteps"
         />
-        <h3 className="paymentsteps">Enter Amount</h3>
+        <Typography
+          variant="body2"
+          sx={{ fontFamily: "ProximaRegular" }}
+          className="paymentsteps"
+        >
+          Enter Amount
+        </Typography>
         <img
           src={next}
           alt="nextbutton"
-          height="40px"
-          width="40px"
+          height="30px"
+          width="30px"
           className="paymentsteps"
         />
-        <h3 className="paymentsteps">Enter your PIN & Pay</h3>
+        <Typography
+          variant="body2"
+          sx={{ fontFamily: "ProximaRegular" }}
+          className="paymentsteps"
+        >
+          Enter your PIN & Pay
+        </Typography>
         <img
           src={next}
           alt="nextbutton"
-          height="40px"
-          width="40px"
+          height="30px"
+          width="30px"
           className="paymentsteps"
         />
-        <h3 style={{ fontFamily: "ProximaBold" }}>
+        <Typography variant="body2" sx={{ fontFamily: "ProximaRegular" }}>
           Upload Transaction Details
-        </h3>
+        </Typography>
       </div>
-      <br />
-      <img src={qrcode} alt="qrcode" height="30%" width="30%" />
-      <p style={{ fontFamily: "ProximaRegular" }}>
+      <img src={qrcode} alt="qrcode" height="13%" width="13%" />
+      <Typography sx={{ fontFamily: "ProximaRegular" }}>
         Scan and pay with any BHIM UPI app
-      </p>
-      <img
-        src={phonepe}
-        alt="qrcode"
-        height="30%"
-        width="30%"
-        style={{ marginBottom: "10%" }}
-      />
-      <br />
+      </Typography>
+      <img src={phonepe} alt="qrcode" style={{ maxWidth: "20%" }} />
       <form onSubmit={submitHandler}>
         <button type="submit" className="paymentbuttonclass">
-          <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              maxHeight: "10px",
+            }}
+          >
             <div className="paymentbuttonclassinside">Go to Progress bar</div>
-            <img src={arrow} alt="smallupload" height="15vw" width="15vw" />
+            <img src={arrow} alt="smallupload" height="15vw" width="auto" />
           </div>
         </button>
       </form>

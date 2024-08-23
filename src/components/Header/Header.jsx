@@ -1,11 +1,21 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Menu, MenuItem } from "@mui/material";
 import styles from "./style.module.css";
 import Button from "../Button";
 
 function Header({ name }) {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={styles.header}>
@@ -27,9 +37,18 @@ function Header({ name }) {
         <Link to="/" className={styles.link}>
           Home
         </Link>
-        <Link to="/" className={styles.link}>
-          Member
+        <Link to="/" className={styles.link} onClick={handleMenuOpen}>
+          Members
         </Link>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Trustee</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Patron</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Life Members</MenuItem>
+        </Menu>
         <Link to="/" className={styles.link}>
           Events
         </Link>

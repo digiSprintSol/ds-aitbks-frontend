@@ -82,7 +82,7 @@ function PresidentCRUD() {
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component="th" align="center" scope="row">
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.phone}</TableCell>
@@ -102,6 +102,7 @@ function PresidentCRUD() {
                       onChange={handleChange}
                       sx={{
                         minWidth: 200,
+                        minHeight: "-1px",
                         borderRadius: "20px",
                         boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                       }}

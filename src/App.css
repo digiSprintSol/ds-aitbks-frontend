@@ -386,12 +386,12 @@
 .uploadannouncementhead{
     background-color: #D4E9DA;
     padding: 20px;
-    padding-bottom: 200px;
+    /* padding-bottom: 200px; */
 }
 
 .uploadannouncementhead>:nth-child(1) {
   text-align: center;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
 }
 
 .uploadannouncementhead>:nth-child(2) {
@@ -401,12 +401,13 @@
 .uploadannouncementbuttonclass {
   background-color: #23A380;
   color: white;
-  padding: 15px 90px;
+  padding: 25px 40px;
   width: 20%;
   border: none;
   border-radius: 10px;
-  position: absolute;
-  transform: translate(37vw, 5vw);
+  /* margin: 30px auto; */
+  /* position: absolute; */
+  transform: translate(37vw, 1vw);
   box-shadow: 0px 0px 6px gray;
 }
 

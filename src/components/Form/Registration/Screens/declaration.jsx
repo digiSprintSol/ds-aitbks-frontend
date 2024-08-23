@@ -12,12 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
+import LoadingOverlay from "react-loading-overlay";
 import { useRootContext } from "../../../../Hooks/useRootContext";
 import { postRequest } from "../../../../HTTP_POST/api";
 // import { instance } from "../../../../https";
 // import { registrationData } from "../../../../Lib/constants";
 
 function Declaration() {
+  const [loading, setLoading] = React.useState(false);
   const { data: finalData, setData } = useRootContext();
   const { REACT_APP_FAKE_API } = process.env;
   const navigate = useNavigate();
@@ -62,13 +64,16 @@ function Declaration() {
           Token: `Bearer ${token}`,
         }
       );
-      if (result) {
-        // eslint-disable-next-line no-alert
-        alert("Registered Successfully");
-        navigate("/");
+      if (!result) {
+        setLoading(true);
       }
+      setLoading(false);
+      // eslint-disable-next-line no-alert
+      alert("Registered Successfully");
+      navigate("/");
       // console.log(result);
     } catch (err) {
+      setLoading(false);
       // console.log(err);
     }
   };
@@ -79,6 +84,7 @@ function Declaration() {
     },
     // validationSchema,
     onSubmit: (values) => {
+      setLoading(true);
       setData((prevData) => ({
         ...prevData,
         membershipType: values.membershipType,
@@ -167,14 +173,40 @@ function Declaration() {
       <Grid
         sx={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-end",
           marginTop: "20px",
         }}
       >
-        <Button variant="contained" type="submit">
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ backgroundColor: "#1B7DA6" }}
+        >
           Register
         </Button>
       </Grid>
+      {loading && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            position: "relative",
+            marginRight: "100px",
+          }}
+        >
+          <LoadingOverlay
+            active={loading}
+            spinner
+            text="Sending Email..."
+            spinnerStyle={{
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            {null}
+          </LoadingOverlay>
+        </div>
+      )}
     </form>
   );
 }

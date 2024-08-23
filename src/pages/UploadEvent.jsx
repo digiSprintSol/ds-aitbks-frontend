@@ -240,7 +240,7 @@ function UploadEvent() {
           margin: "10px auto",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box
               sx={{
@@ -251,7 +251,7 @@ function UploadEvent() {
               }}
             >
               <Typography
-                sx={{ fontFamily: "ProximaBold", mb: 2 }}
+                sx={{ fontFamily: "ProximaBold", mb: 1, mt: "-10px" }}
                 variant="h4"
               >
                 Upload Event
@@ -259,16 +259,16 @@ function UploadEvent() {
               <Box
                 sx={{
                   backgroundColor: "white",
-                  padding: "20px",
+                  padding: "10px",
                   borderRadius: "30px",
-                  margin: "10px 0px",
+                  margin: "5px 0px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   position: "relative",
                   overflow: "hidden",
-                  height: "400px",
-                  width: "100%",
+                  height: "180px",
+                  width: "35%",
                   border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
                   textAlign: "center",
                   flexDirection: "column",
@@ -278,9 +278,11 @@ function UploadEvent() {
                 onDrop={handleDrop}
               >
                 <Typography
+                  variant="h6"
                   sx={{
-                    fontWeight: "bold",
-                    fontSize: "20px",
+                    fontFamily: "ProximaSemiBold",
+                    // fontWeight: "bold",
+                    // fontSize: "10px",
                     color: isDragOver ? "#1976d2" : "#666",
                     mb: 2,
                   }}
@@ -336,13 +338,14 @@ function UploadEvent() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h5">
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h6">
               Image Details
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
+              size="small"
               label="Title"
               id="title"
               name="title"
@@ -357,6 +360,7 @@ function UploadEvent() {
           <Grid item xs={12}>
             <TextField
               fullWidth
+              size="small"
               id="description"
               name="description"
               label="Description"
