@@ -30,9 +30,11 @@ const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
 const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
 const RegistrationThree = loadable(() => import("./pages/RegistrationThree"));
 const UploadAnnouncement = loadable(() => import("./pages/UploadAnnouncement"));
+const ViewAnnouncements = loadable(() => import("./pages/ViewAnnouncements"));
 const UploadEvent = loadable(() => import("./pages/UploadEvent"));
 const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
+// const EmailBroadcast = loadable(() => import("./pages/EmailBroadcast"));
 
 export const router = createBrowserRouter([
   // Default view
@@ -155,6 +157,10 @@ export const router = createBrowserRouter([
         element: <UploadAnnouncement />,
       },
       {
+        path: "/view-announcement",
+        element: <ViewAnnouncements />,
+      },
+      {
         path: "/upload-event",
         element: <UploadEvent />,
       },
@@ -166,6 +172,10 @@ export const router = createBrowserRouter([
         path: "/user-view",
         element: <UserView />,
       },
+      // {
+      //   path: "/email-broadcast",
+      //   element: <EmailBroadcast />,
+      // },
     ],
   },
 ]);

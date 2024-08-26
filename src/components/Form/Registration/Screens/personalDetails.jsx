@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import {
@@ -15,17 +16,47 @@ import {
   gender as genders,
   profession as professions,
   education as educations,
-  cities,
   states,
   country as countries,
   addressType,
+  district,
 } from "../../../../Lib/constants";
 import validationSchema from "../../../../validations/validationSchema";
 import { useRootContext } from "../../../../Hooks/useRootContext";
 
 function personalDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const maxDate = new Date();
+  maxDate.setFullYear(2024 - 18);
+
+  const districtStateMapping = {
+    Adilabad: "Telangana",
+    "Alluri Sitharama Raju": "Andhra Pradesh",
+    Anakapalli: "Andhra Pradesh",
+    Ananthapuram: "Andhra Pradesh",
+    Annamayya: "Andhra Pradesh",
+    Bapatla: "Andhra Pradesh",
+    "Bhadadri Kothagudem": "Telangana",
+    Chitoor: "Telangana",
+    "Dr. B.R. Ambedkar Konaseema": "Andhra Pradesh",
+    "East Godavari": "Andhra Pradesh",
+    Eluru: "Andhra Pradesh",
+    Guntur: "Andhra Pradesh",
+    Hanumakonda: "Telangana",
+    Hyderabad: "Telangana",
+    Jagtial: "Telangana",
+    Jangaon: "Telangana",
+    "Jayashankar Bhoopalpally": "Telangana",
+    "Jogulamba Gadwal": "Telangana",
+    Kakinada: "Andhra Pradesh",
+    Kamareddy: "Telangana",
+    Karimnagar: "Telangana",
+    Khammam: "Telangana",
+    "Kona Seema": "Telangana",
+    // Add more district-state mappings here
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +73,7 @@ function personalDetails({ setActiveStep }) {
       addressLine1: data.addressLine1 || "",
       addressLine2: data.addressLine2 || "",
       postalCode: data.postalCode || "",
-      city: data.city || "",
+      district: data.district || "",
       state: data.state || "",
       country: data.country || "",
     },
@@ -52,8 +83,8 @@ function personalDetails({ setActiveStep }) {
         // firstName: values.firstName,
         // middleName: values.middleName,
         // lastName: values.lastName,
-        profilePic: file.name,
-        fullName: `${values.firstName} ${values.lastName}`,
+        profilePic: selectedImage.name,
+        fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.phoneNumber,
         emailAddress: values.emailAddress,
@@ -66,7 +97,7 @@ function personalDetails({ setActiveStep }) {
             addressLine1: values.addressLine1,
             addressLine2: values.addressLine2,
             postalCode: values.postalCode,
-            city: values.city,
+            district: values.district,
             state: values.state,
             country: values.country,
           },
@@ -79,10 +110,26 @@ function personalDetails({ setActiveStep }) {
   // eslint-disable-next-line no-console
   console.log(JSON.stringify(data, null, 2), "input");
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    // console.log(selectedFile,"llllll")
+  // const handleFileChange = (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   setFile(selectedFile);
+  //   // console.log(selectedFile,"llllll")
+  // };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
+  };
+
+  const handleDistrictChange = (event) => {
+    const selectedDistrict = event.target.value;
+    formik.setFieldValue("district", selectedDistrict);
+    // Automatically update the state based on the district
+    if (districtStateMapping[selectedDistrict]) {
+      formik.setFieldValue("state", districtStateMapping[selectedDistrict]);
+    }
   };
 
   return (
@@ -90,10 +137,44 @@ function personalDetails({ setActiveStep }) {
       <br />
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <label htmlFor="fileInput" style={{ fontFamily: "ProximaRegular" }}>
-            Upload your Passport size photo:
-            <input type="file" id="fileInput" onChange={handleFileChange} />
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              alt="Selected"
+              style={{
+                display: "block",
+                width: "150px",
+                height: "150px",
+                objectFit: "cover",
+                margin: "10px auto",
+                borderRadius: "50%",
+              }}
+            />
+          )}
+          <label
+            htmlFor="fileInput"
+            style={{
+              fontFamily: "ProximaBold",
+              cursor: "pointer",
+              display: "block",
+              width: "100px",
+              background: "#1B7DA6",
+              color: "white",
+              margin: "10px auto",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              textAlign: "center",
+            }}
+          >
+            Upload Photo
           </label>
+          <input
+            type="file"
+            accept="image/jpg, image/png, image/jpeg"
+            id="fileInput"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
         </Grid>
         <Grid item xs={12}>
           <Typography
@@ -103,27 +184,32 @@ function personalDetails({ setActiveStep }) {
             Full Name
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4} sx={{}}>
           <TextField
             fullWidth
+            size="small"
             label="First Name"
             id="firstName"
             name="firstName"
             type="string"
+            disabled={!selectedImage}
             value={formik.values.firstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.firstName && Boolean(formik.errors.firstName)}
             helperText={formik.touched.firstName && formik.errors.firstName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         {/* <Grid item xs={4}>
           <TextField
             fullWidth
+            size="small"
             id="middleName"
             name="middleName"
             label="Middle Name"
             type="string"
+            disabled={!selectedImage}
             value={formik.values.middleName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -131,29 +217,38 @@ function personalDetails({ setActiveStep }) {
               formik.touched.middleName && Boolean(formik.errors.middleName)
             }
             helperText={formik.touched.middleName && formik.errors.middleName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid> */}
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             id="lastName"
             name="lastName"
             label="Surname Name"
             type="lastName"
+            disabled={!selectedImage}
             value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.lastName && Boolean(formik.errors.lastName)}
             helperText={formik.touched.lastName && formik.errors.lastName}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body2">Date of Birth</Typography>
         </Grid>
         <Grid item xs={2}>
           <TextField
             fullWidth
+            size="small"
             id="dateOfBirth"
             name="dateOfBirth"
             // label="DD/MM/YYYY"
             type="date"
+            disabled={!selectedImage}
             value={formik.values.dateOfBirth}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -161,15 +256,22 @@ function personalDetails({ setActiveStep }) {
               formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)
             }
             helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
+            inputProps={{
+              max: maxDate.toISOString().split("T")[0], // Set the max date attribute
+            }}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={4}>
           <TextField
             fullWidth
+            size="small"
             id="phoneNumber"
             name="phoneNumber"
             label="Mobile No"
             type="number"
+            disabled={!selectedImage}
+            inputProps={{ min: 0 }}
             value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -177,15 +279,18 @@ function personalDetails({ setActiveStep }) {
               formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
             }
             helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             id="emailAddress"
             name="emailAddress"
             label="Email ID"
             type="email"
+            disabled={!selectedImage}
             value={formik.values.emailAddress}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -195,10 +300,15 @@ function personalDetails({ setActiveStep }) {
             helperText={
               formik.touched.emailAddress && formik.errors.emailAddress
             }
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={2}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="gender-select-label">Gender</InputLabel>
             <Select
               labelId="gender-select-label"
@@ -206,6 +316,7 @@ function personalDetails({ setActiveStep }) {
               value={formik.values.gender}
               name="gender"
               label="Gender"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {genders.map((gen) => (
@@ -222,7 +333,11 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={5}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="profession-select-label">Profession</InputLabel>
             <Select
               labelId="profession-select-label"
@@ -230,6 +345,7 @@ function personalDetails({ setActiveStep }) {
               value={formik.values.profession}
               name="profession"
               label="profession"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {professions.map((pro) => (
@@ -246,7 +362,11 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={5}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="education-select-label">Education</InputLabel>
             <Select
               labelId="education-select-label"
@@ -254,6 +374,7 @@ function personalDetails({ setActiveStep }) {
               value={formik.values.education}
               name="education"
               label="Education"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {educations.map((edu) => (
@@ -270,20 +391,24 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Typography
-            variant="subtitle1"
-            style={{ fontFamily: "ProximaRegular" }}
-          >
+          <Typography variant="subtitle1" style={{ fontFamily: "ProximaBold" }}>
             Address
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <FormControl fullWidth>
+          <InputLabel id="gender-select-label">Address Type</InputLabel>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <Select
-              labelId="addressType"
+              labelId="addressType-select-label"
               id="addressType"
               value={formik.values.addressType}
               name="addressType"
+              // label="AddressType"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {addressType.map((add) => (
@@ -302,10 +427,12 @@ function personalDetails({ setActiveStep }) {
         <Grid item xs={12}>
           <TextField
             fullWidth
+            size="small"
             id="addressLine1"
             name="addressLine1"
             label="Address Line 1"
             type="string"
+            disabled={!selectedImage}
             value={formik.values.addressLine1}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -315,15 +442,18 @@ function personalDetails({ setActiveStep }) {
             helperText={
               formik.touched.addressLine1 && formik.errors.addressLine1
             }
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
+            size="small"
             id="addressLine2"
             name="addressLine2"
             label="Address Line 2"
             type="string"
+            disabled={!selectedImage}
             value={formik.values.addressLine2}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -333,15 +463,18 @@ function personalDetails({ setActiveStep }) {
             helperText={
               formik.touched.addressLine2 && formik.errors.addressLine2
             }
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={2}>
           <TextField
             fullWidth
+            size="small"
             id="postalCode"
             name="postalCode"
             label="Pin Code"
             type="string"
+            disabled={!selectedImage}
             value={formik.values.postalCode}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -349,6 +482,7 @@ function personalDetails({ setActiveStep }) {
               formik.touched.postalCode && Boolean(formik.errors.postalCode)
             }
             helperText={formik.touched.postalCode && formik.errors.postalCode}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         {/* <Grid item xs={3}>
@@ -366,31 +500,40 @@ function personalDetails({ setActiveStep }) {
           />
         </Grid> */}
         <Grid item xs={3}>
-          <FormControl fullWidth>
-            <InputLabel id="city-select-label">City</InputLabel>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
+            <InputLabel id="district-select-label">District</InputLabel>
             <Select
-              labelId="city-select-label"
-              id="city"
-              value={formik.values.city}
-              name="city"
-              label="City"
-              onChange={formik.handleChange}
+              labelId="district-select-label"
+              id="district"
+              value={formik.values.district}
+              name="district"
+              label="District"
+              disabled={!selectedImage}
+              onChange={handleDistrictChange} // Use custom handler
             >
-              {cities.map((sta) => (
-                <MenuItem key={sta.label} value={sta.label}>
-                  {sta.label}
+              {district.map((dis) => (
+                <MenuItem key={dis.label} value={dis.label}>
+                  {dis.label}
                 </MenuItem>
               ))}
             </Select>
-            {formik.touched.city && formik.errors.city && (
+            {formik.touched.district && formik.errors.district && (
               <FormHelperText sx={{ color: "red" }}>
-                {formik.errors.city}
+                {formik.errors.district}
               </FormHelperText>
             )}
           </FormControl>
         </Grid>
         <Grid item xs={3}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="state-select-label">State</InputLabel>
             <Select
               labelId="state-select-label"
@@ -398,6 +541,7 @@ function personalDetails({ setActiveStep }) {
               value={formik.values.state}
               name="state"
               label="State"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {states.map((sta) => (
@@ -414,7 +558,11 @@ function personalDetails({ setActiveStep }) {
           </FormControl>
         </Grid>
         <Grid item xs={4}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="country-select-label">Country</InputLabel>
             <Select
               labelId="country-select-label"
@@ -422,6 +570,7 @@ function personalDetails({ setActiveStep }) {
               value={formik.values.country}
               name="country"
               label="Country"
+              disabled={!selectedImage}
               onChange={formik.handleChange}
             >
               {countries.map((coun) => (

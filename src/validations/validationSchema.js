@@ -24,7 +24,7 @@ const validationSchema = yup.object({
     .string("must be a number")
     .matches(/[0-9]{6}$/, "must be exactly 6 difits")
     .required("is required"),
-  city: yup.string("Enter yourCity").required("is required"),
+  district: yup.string("Enter yourCity").required("is required"),
   state: yup.string("Enter your state").required("is required"),
   country: yup.string("Enter your country").required("is required"),
   gender: yup.string("Enter your gender").required("is required"),

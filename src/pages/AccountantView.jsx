@@ -14,9 +14,19 @@ import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import Acknowledge from "./Acknowledge";
 
+// const useStyles = makeStyles({
+//   committeetable: {
+//     fontSize: "1vw",
+//   },
+// });
 const useStyles = makeStyles({
   committeetable: {
     fontSize: "1vw",
+  },
+  acknowledged: {
+    color: "green",
+    fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
 
@@ -96,6 +106,13 @@ function PresidentView() {
               <TableCell align="middle" className={classes.committeetable}>
                 Email Id
               </TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Status
+              </TableCell>
               <TableCell className={classes.committeetable}>Details</TableCell>
             </TableRow>
           </TableHead>
@@ -112,6 +129,11 @@ function PresidentView() {
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
+                <TableCell align="middle">
+                  {row.status === "acknowledged" && (
+                    <span className={classes.acknowledged}>Acknowledged</span>
+                  )}
+                </TableCell>
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"

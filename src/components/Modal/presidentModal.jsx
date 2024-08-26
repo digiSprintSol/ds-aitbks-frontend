@@ -21,6 +21,8 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
+// import { ThreeDots } from "react-loader-spinner";
+import LoadingOverlay from "react-loading-overlay";
 import { postRequest } from "../../HTTP_POST/api";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -42,6 +44,7 @@ export default function PresidentModal({ row, token }) {
   const [comments, setComments] = useState("");
   const [radioValue, setRadioValue] = useState("");
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -84,15 +87,21 @@ export default function PresidentModal({ row, token }) {
           Token: `Bearer ${token}`,
         }
       );
+      if (!result) {
+        setLoading(true);
+      }
+      setLoading(false);
       // console.log(result);
       alert("Status Updated");
       setOpen(false);
     } catch (err) {
+      setLoading(false);
       // console.log(err);
     }
   };
 
   const handleButtonClick = (action) => {
+    setLoading(true);
     if (handleSubmit()) {
       setData({
         remarks: comments,
@@ -642,6 +651,28 @@ export default function PresidentModal({ row, token }) {
                 </Button>
               </DialogActions>
             </Grid>
+            {loading && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
+                  marginRight: "100px",
+                }}
+              >
+                <LoadingOverlay
+                  active={loading}
+                  spinner
+                  text="Sending Email..."
+                  spinnerStyle={{
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {null}
+                </LoadingOverlay>
+              </div>
+            )}
           </Box>
         </DialogContent>
       </BootstrapDialog>

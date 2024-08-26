@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { Box, Grid, TextField } from "@mui/material";
 import PropTypes from "prop-types";
+import LoadingOverlay from "react-loading-overlay";
 import { postRequest } from "../HTTP_POST/api";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -28,6 +29,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function CommitteePopup({ row, token }) {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,15 +73,21 @@ export default function CommitteePopup({ row, token }) {
           Token: `Bearer ${token}`,
         }
       );
+      if (!result) {
+        setLoading(true);
+      }
+      setLoading(false);
       // eslint-disable-next-line no-alert
       alert("Status Updated");
       setOpen(false);
     } catch (err) {
+      setLoading(false);
       // console.log(err);
     }
   };
 
   const acceptButton = () => {
+    setLoading(true);
     setData({ ...data, ...accepted, member: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
     if (Object.keys(data).length === 3) {
@@ -87,6 +95,7 @@ export default function CommitteePopup({ row, token }) {
     }
   };
   const rejectButton = () => {
+    setLoading(true);
     setData({ ...data, ...rejected, member: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
     if (Object.keys(data).length === 3) {
@@ -94,6 +103,7 @@ export default function CommitteePopup({ row, token }) {
     }
   };
   const waitButton = () => {
+    setLoading(true);
     setData({ ...data, ...waiting, member: row.categoryOfMembership });
     // console.log(data,"llllllllllllll");
     if (Object.keys(data).length === 3) {
@@ -490,6 +500,28 @@ export default function CommitteePopup({ row, token }) {
                 </Button>
               </DialogActions>
             </Grid>
+            {loading && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  position: "relative",
+                  marginRight: "100px",
+                }}
+              >
+                <LoadingOverlay
+                  active={loading}
+                  spinner
+                  text="Sending Email..."
+                  spinnerStyle={{
+                    color: "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {null}
+                </LoadingOverlay>
+              </div>
+            )}
           </Box>
         </DialogContent>
       </BootstrapDialog>

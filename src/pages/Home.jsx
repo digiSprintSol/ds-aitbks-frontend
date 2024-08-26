@@ -387,7 +387,13 @@ function Home() {
         </p>
         <div className="fourthpartinside">
           {help.map((item) => (
-            <div style={{ textAlign: "center" }}>
+            <div
+              style={{
+                textAlign: "center",
+                cursor: "pointer",
+                animation: "bounce 1s linear infinite",
+              }}
+            >
               <img src={item.image} alt="group" height="60%" width="70%" />
               <h1 style={{ fontFamily: "ProximaSemibold" }}>{item.heading}</h1>
             </div>

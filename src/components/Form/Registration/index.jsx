@@ -110,7 +110,7 @@ function RegistrationOne() {
       <div style={{ margin: "5px 20px 100px 20px" }}>
         <Box
           style={{
-            padding: "50px 80px",
+            padding: "40px 80px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

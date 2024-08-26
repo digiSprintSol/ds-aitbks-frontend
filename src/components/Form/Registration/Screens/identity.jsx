@@ -64,15 +64,19 @@ function identity({ setActiveStep }) {
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="subtitle1">Identity</Typography>
+          <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
+            Identity
+          </Typography>
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             label="Aadhar Number"
             id="aadharCard"
             name="aadharCard"
             type="number"
+            inputProps={{ min: 0 }}
             value={formik.values.aadharCard}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -80,11 +84,13 @@ function identity({ setActiveStep }) {
               formik.touched.aadharCard && Boolean(formik.errors.aadharCard)
             }
             helperText={formik.touched.aadharCard && formik.errors.aadharCard}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             label="Voter ID"
             id="voterIdCard"
             name="voterIdCard"
@@ -96,10 +102,15 @@ function identity({ setActiveStep }) {
               formik.touched.voterIdCard && Boolean(formik.errors.voterIdCard)
             }
             helperText={formik.touched.voterIdCard && formik.errors.voterIdCard}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={4}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="category">Category</InputLabel>
             <Select
               labelId="category"
@@ -125,9 +136,10 @@ function identity({ setActiveStep }) {
         <Grid item xs={8}>
           <TextField
             fullWidth
+            size="small"
             id="occupation"
             name="occupation"
-            label="Present Occupation"
+            label="Role"
             type="string"
             value={formik.values.occupation}
             onChange={formik.handleChange}
@@ -136,11 +148,13 @@ function identity({ setActiveStep }) {
               formik.touched.occupation && Boolean(formik.errors.occupation)
             }
             helperText={formik.touched.occupation && formik.errors.occupation}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
+            size="small"
             id="brieflyTellAboutYourself"
             name="brieflyTellAboutYourself"
             label="Tell us about yourself"
@@ -156,11 +170,13 @@ function identity({ setActiveStep }) {
               formik.touched.brieflyTellAboutYourself &&
               formik.errors.brieflyTellAboutYourself
             }
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
+            size="small"
             id="reasonToJoinAITBKS"
             name="reasonToJoinAITBKS"
             label="Why do you want to join AITBKS"
@@ -176,6 +192,7 @@ function identity({ setActiveStep }) {
               formik.touched.reasonToJoinAITBKS &&
               formik.errors.reasonToJoinAITBKS
             }
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
         {/* <Grid item xs={6}>
@@ -195,7 +212,11 @@ function identity({ setActiveStep }) {
           />
         </Grid> */}
         <Grid item xs={6}>
-          <FormControl fullWidth>
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          >
             <InputLabel id="reference1">
               Reference 1 (Existing Members)
             </InputLabel>
@@ -225,6 +246,7 @@ function identity({ setActiveStep }) {
         <Grid item xs={6}>
           <TextField
             fullWidth
+            size="small"
             id="reference2"
             name="reference2"
             label="Reference 2"
@@ -236,6 +258,7 @@ function identity({ setActiveStep }) {
               formik.touched.reference2 && Boolean(formik.errors.reference2)
             }
             helperText={formik.touched.reference2 && formik.errors.reference2}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
       </Grid>

@@ -159,16 +159,18 @@ function RegistrationThree() {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              size="  "
               disabled
               value={data.fullName}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={2}>
             <Typography>DOB</Typography>
             <TextField
+              size="small"
               disabled
               value={data.dateOfBirth
                 .split("T")[0]
@@ -178,92 +180,101 @@ function RegistrationThree() {
                 .replaceAll("-", "/")}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={4}>
             <Typography>Mobile No.</Typography>
             <TextField
+              size="small"
               disabled
               value={data.phoneNumber}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Email ID</Typography>
             <TextField
+              size="small"
               disabled
               value={data.emailAddress}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={2}>
             <Typography>Gender</Typography>
             <TextField
+              size="small"
               disabled
               value={data.gender}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={4}>
             <Typography>Profession</Typography>
             <TextField
+              size="small"
               disabled
               value={data.profession}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Education</Typography>
             <TextField
+              size="small"
               disabled
               value={data.education}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Father Name</Typography>
             <TextField
+              size="small"
               disabled
               value={data.familyDetails.fatherName}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Mother Name</Typography>
             <TextField
+              size="small"
               disabled
               value={data.familyDetails.motherName}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Spouse Name</Typography>
             <TextField
+              size="small"
               disabled
               value={data.familyDetails.spouseName}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={12}>
             <Typography>Present Address</Typography>
             <TextField
+              size="small"
               disabled
               value={data.address[0].addressLine1.concat(
                 ", ",
@@ -271,47 +282,51 @@ function RegistrationThree() {
               )}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={2}>
             <Typography>Pincode</Typography>
             <TextField
+              size="small"
               disabled
               value={data.address[0].postalCode}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={4}>
             <Typography>State</Typography>
             <TextField
+              size="small"
               disabled
               value={data.address[0].state}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Country</Typography>
             <TextField
+              size="small"
               disabled
               value={data.address[0].country}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>No. of Children</Typography>
             <TextField
+              size="small"
               disabled
               value={data.familyDetails.children.length}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           {data.familyDetails.children.map((item) => (
@@ -319,9 +334,10 @@ function RegistrationThree() {
               <Grid item xs={7}>
                 <Typography id="modal-modal-description">Name</Typography>
                 <TextField
+                  size="small"
                   fullWidth
                   disabled
-                  sx={{ backgroundColor: "#ffffff" }}
+                  sx={{ backgroundColor: "white", borderRadius: "5px" }}
                   value={item.name}
                   aria-readonly
                 />
@@ -329,9 +345,10 @@ function RegistrationThree() {
               <Grid item xs={2}>
                 <Typography id="modal-modal-description">Age</Typography>
                 <TextField
+                  size="small"
                   fullWidth
                   disabled
-                  sx={{ backgroundColor: "#ffffff" }}
+                  sx={{ backgroundColor: "white", borderRadius: "5px" }}
                   value={item.childAge}
                   aria-readonly
                 />
@@ -339,9 +356,10 @@ function RegistrationThree() {
               <Grid item xs={3}>
                 <Typography id="modal-modal-description">Gender</Typography>
                 <TextField
+                  size="small"
                   fullWidth
                   disabled
-                  sx={{ backgroundColor: "#ffffff" }}
+                  sx={{ backgroundColor: "white", borderRadius: "5px" }}
                   value={item.gender}
                   aria-readonly
                 />
@@ -355,75 +373,81 @@ function RegistrationThree() {
               value={data.familyDetails.children}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={2}>
             <Typography>Age</Typography>
-            <TextField disabled fullWidth sx={{ backgroundColor: "#ffffff" }} />
+            <TextField disabled fullWidth sx={{ backgroundColor: "white", borderRadius: "5px" }} />
           </Grid>
           <Grid item xs={3}>
             <Typography>Gender</Typography>
-            <TextField disabled fullWidth sx={{ backgroundColor: "#ffffff" }} />
+            <TextField disabled fullWidth sx={{ backgroundColor: "white", borderRadius: "5px" }} />
           </Grid> */}
           <Grid item xs={6}>
             <Typography>Aadhar Card</Typography>
             <TextField
+              size="small"
               disabled
               value={data.aadharCard}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Voter ID</Typography>
             <TextField
+              size="small"
               disabled
               value={data.voterIdCard}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={7}>
             <Typography>Present Occupation</Typography>
             <TextField
+              size="small"
               disabled
               value={data.occupation}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Reference 01 (existing members)</Typography>
             <TextField
+              size="small"
               disabled
               value={data.reference1}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography>Reference 02 (referred by)</Typography>
             <TextField
+              size="small"
               disabled
               value={data.reference2}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={12}>
             <Typography>Tell us about yourself</Typography>
             <TextField
+              size="small"
               disabled
               value={data.brieflyTellAboutYourself}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -431,11 +455,12 @@ function RegistrationThree() {
               Why do you want join All India Telega Balija Kapu Sangam?
             </Typography>
             <TextField
+              size="small"
               disabled
               value={data.reasonToJoinAITBKS}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
         </Grid>
@@ -445,13 +470,14 @@ function RegistrationThree() {
           <Grid item xs={12}>
             <Typography>Native Address</Typography>
             <TextField
+              size="small"
               name="nativePlace"
               value={formik.values.nativePlace}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               aria-readonly
               fullWidth
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
           <Grid item xs={3}>
@@ -497,7 +523,7 @@ function RegistrationThree() {
               id="communityName"
               name="communityName"
               value={formik.values.communityName}
-              sx={{ backgroundColor: "#ffffff" }}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={

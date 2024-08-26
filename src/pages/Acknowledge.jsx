@@ -156,7 +156,7 @@ function Acknowledge({ row, token }) {
           >
             Acknowlegde
           </Button>
-          <Button
+          {/* <Button
             style={{ backgroundColor: "#F1C21B", color: "white" }}
             onClick={() => handleButtonClick("waiting")}
           >
@@ -168,7 +168,7 @@ function Acknowledge({ row, token }) {
             autoFocus
           >
             Decline
-          </Button>
+          </Button> */}
         </DialogActions>
       </BootstrapDialog>
     </div>
