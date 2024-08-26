@@ -1,12 +1,4 @@
-import {
-  Button,
-  FormControl,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import { postRequest } from "../HTTP_POST/api";
@@ -47,6 +39,17 @@ function MarketPlaces() {
           "Content-Type": "multipart/form-data",
         }
       );
+      // eslint-disable-next-line no-alert
+      alert("Data added");
+      setData({
+        nameOfShop: "",
+        contactPerson: "",
+        mobileNumber: "",
+        location: "",
+        category: "",
+        city: "",
+        image: "",
+      });
       // console.log(result);
     } catch (err) {
       // console.log(err);
@@ -87,6 +90,7 @@ function MarketPlaces() {
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
+            value={data.nameOfShop}
           />
         </Grid>
         <Grid item xs={6}>
@@ -98,6 +102,7 @@ function MarketPlaces() {
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
+            value={data.contactPerson}
           />
         </Grid>
         <Grid item xs={6}>
@@ -109,6 +114,7 @@ function MarketPlaces() {
             type="number"
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
+            value={data.mobileNumber}
             // error={
             // formik.touched.phoneNumber &&
             // Boolean(formik.errors.phoneNumber)
@@ -128,6 +134,7 @@ function MarketPlaces() {
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
+            value={data.location}
           />
         </Grid>
         <Grid item xs={6}>
@@ -135,7 +142,7 @@ function MarketPlaces() {
             Category
           </Typography>
 
-          <FormControl fullWidth sx={{ backgroundColor: "#ffffff" }}>
+          {/* <FormControl fullWidth sx={{ backgroundColor: "#ffffff" }}>
             <Select
               labelId="category-select-label"
               id="category-select"
@@ -146,7 +153,14 @@ function MarketPlaces() {
               <MenuItem value="Food">Food</MenuItem>
               <MenuItem value="Hotel">Hotel</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <TextField
+            name="category"
+            fullWidth
+            sx={{ backgroundColor: "#ffffff" }}
+            onChange={changeHandler}
+            value={data.category}
+          />
         </Grid>
         <Grid item xs={6}>
           <Typography variant="subtitle1" sx={{ fontFamily: "ProximaBold" }}>
@@ -157,11 +171,12 @@ function MarketPlaces() {
             fullWidth
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
+            value={data.city}
           />
         </Grid>
         <Grid item xs={12}>
           <label htmlFor="fileInput" style={{ fontFamily: "ProximaBold" }}>
-            Upload your Passport size photo:
+            Upload Your Market Photo:
             <input type="file" id="fileInput" onChange={handleFileChange} />
           </label>
         </Grid>

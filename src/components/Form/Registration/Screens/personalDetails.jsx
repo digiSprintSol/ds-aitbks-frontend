@@ -61,7 +61,7 @@ function personalDetails({ setActiveStep }) {
   const formik = useFormik({
     initialValues: {
       firstName: data.firstName || "",
-      middleName: data.middleName || "",
+      // middleName: data.middleName || "",
       lastName: data.lastName || "",
       dateOfBirth: data.dateOfBirth || "",
       phoneNumber: data.phoneNumber || "",
@@ -201,7 +201,7 @@ function personalDetails({ setActiveStep }) {
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <TextField
             fullWidth
             size="small"
@@ -219,14 +219,14 @@ function personalDetails({ setActiveStep }) {
             helperText={formik.touched.middleName && formik.errors.middleName}
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
-        </Grid>
-        <Grid item xs={4}>
+        </Grid> */}
+        <Grid item xs={6}>
           <TextField
             fullWidth
             size="small"
             id="lastName"
             name="lastName"
-            label="Last Name"
+            label="Surname Name"
             type="lastName"
             disabled={!selectedImage}
             value={formik.values.lastName}

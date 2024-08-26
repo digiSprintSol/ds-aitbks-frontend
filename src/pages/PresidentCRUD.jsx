@@ -15,6 +15,7 @@ import {
   MenuItem,
   Select,
   Stack,
+  TextField,
 } from "@mui/material";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
@@ -58,12 +59,41 @@ function PresidentCRUD() {
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
+  // -----------------------------------------------------------------------------------------------------
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
+  // Handle the input change and filter the data
+  const handleInputChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+
+    if (data) {
+      const filteredResults = data.filter((item) =>
+        item.name ? item.name.toLowerCase().includes(value) : {}
+      );
+      // eslint-disable-next-line no-console
+      console.log(filteredData, "kkkk");
+      setFilteredData(filteredResults);
+    }
+  };
+
+  useEffect(() => {
+    setFilteredData(data);
+  }, [data]);
   if (error) return <h1>Error..</h1>;
   if (loading) return <h1>loading...</h1>;
 
   return (
     <Stack>
+      <TextField
+        type="text"
+        value={searchTerm}
+        onChange={handleInputChange}
+        placeholder="Search by full name"
+        style={{ width: "20vw", margin: "auto", marginBottom: "2vw" }}
+        size="small"
+      />
       <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -77,43 +107,43 @@ function PresidentCRUD() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" align="center" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">{row.phone}</TableCell>
-                <TableCell align="center">{row.add}</TableCell>
-                <TableCell align="center">{row.email}</TableCell>
-                <TableCell align="center">{row.name}</TableCell>
-                <TableCell align="center">
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                      Modify Role
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      // value={role}
-                      label="Modify Role"
-                      onChange={handleChange}
-                      sx={{
-                        minWidth: 200,
-                        minHeight: "-1px",
-                        borderRadius: "20px",
-                        boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-                      }}
-                    >
-                      <MenuItem value={0}>Committee</MenuItem>
-                      <MenuItem value={1}>Accountant</MenuItem>
-                    </Select>
-                  </FormControl>
-                </TableCell>
-              </TableRow>
-            ))}
+            {filteredData &&
+              filteredData.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="center">{row.phone}</TableCell>
+                  <TableCell align="center">{row.add}</TableCell>
+                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">{row.name}</TableCell>
+                  <TableCell align="center">
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Modify Role
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={role}
+                        label="Modify Role"
+                        onChange={handleChange}
+                        sx={{
+                          minWidth: 200,
+                          borderRadius: "20px",
+                          boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                        }}
+                      >
+                        <MenuItem value={0}>Committee</MenuItem>
+                        <MenuItem value={1}>Accountant</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -148,3 +178,71 @@ function PresidentCRUD() {
 }
 
 export default PresidentCRUD;
+
+// [
+//   {
+//     accessId: "Admin",
+//     name: "Admin",
+//     email: "admin@xyz.com",
+//     password: "Admin123",
+//     phoneNumber: null,
+//     president: true,
+//     accountant: true,
+//     commitee: true,
+//     user: true,
+//     dateOfAssignedPosition: null,
+//     deleted: false,
+//   },
+//   {
+//     accessId: "President",
+//     name: "President User",
+//     email: "president@gmail.com",
+//     password: "President@123",
+//     phoneNumber: "8787878787",
+//     president: true,
+//     accountant: false,
+//     commitee: false,
+//     user: false,
+//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
+//     deleted: false,
+//   },
+//   {
+//     accessId: "Accountant",
+//     name: "Accountant User",
+//     email: "accountant@gmail.com",
+//     password: "accountant@123",
+//     phoneNumber: "8787878787",
+//     president: false,
+//     accountant: true,
+//     commitee: false,
+//     user: false,
+//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
+//     deleted: false,
+//   },
+//   {
+//     accessId: "Committee",
+//     name: "Committee User",
+//     email: "committee@gmail.com",
+//     password: "committee@123",
+//     phoneNumber: "8787878787",
+//     president: false,
+//     accountant: false,
+//     commitee: true,
+//     user: false,
+//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
+//     deleted: false,
+//   },
+//   {
+//     accessId: "user",
+//     name: "user",
+//     email: "user@gmail.com",
+//     password: "user123",
+//     phoneNumber: "76767676",
+//     president: true,
+//     accountant: false,
+//     commitee: false,
+//     user: false,
+//     dateOfAssignedPosition: "2024-08-13T13:43:45.98",
+//     deleted: false,
+//   },
+// ];

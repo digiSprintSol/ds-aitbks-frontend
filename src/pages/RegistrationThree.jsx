@@ -91,7 +91,8 @@ function RegistrationThree() {
       } catch (e) {
         // console.log(e);
       }
-      navigate("/payment", { state: { token } });
+      navigate("/payment", { state: { token, data } });
+      // console.log(data,"ssssssssss");
     },
   });
 
@@ -158,7 +159,7 @@ function RegistrationThree() {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              size="small"
+              size="  "
               disabled
               value={data.fullName}
               aria-readonly

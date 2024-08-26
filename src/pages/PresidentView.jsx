@@ -12,18 +12,36 @@ import UploadEvent from "./UploadEvent";
 import UploadGallery from "./UploadGallery";
 import UploadAnnouncement from "./UploadAnnouncement";
 import MarketPlaces from "./MarketPlaces";
+import Qrcode from "./Qrcode";
 
 function PresidentView() {
   // const navigate = useNavigate();
   // const usernavigation = () => {
   //   navigate('/president-user')
   // }
-  const [user, setUser] = useState(1);
-  const [role, setRole] = useState(null);
-  const [event, setEvent] = useState(null);
-  const [gallery, setGallery] = useState(null);
-  const [announcemnt, setAnnouncement] = useState(null);
-  const [marketplaces, setMarketplaces] = useState(null);
+
+  const [activecount, setActivecount] = useState(0);
+
+  // eslint-disable-next-line consistent-return
+  const displayfunction = (active) => {
+    // eslint-disable-next-line default-case
+    switch (active) {
+      case 0:
+        return <PresidentUser />;
+      case 1:
+        return <PresidentCRUD />;
+      case 2:
+        return <UploadEvent />;
+      case 3:
+        return <UploadGallery />;
+      case 4:
+        return <UploadAnnouncement />;
+      case 5:
+        return <MarketPlaces />;
+      case 6:
+        return <Qrcode />;
+    }
+  };
   return (
     <div style={{ marginTop: "20px" }}>
       <div className="presidentviewhead">
@@ -31,12 +49,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(1);
-            setRole(null);
-            setEvent(null);
-            setGallery(null);
-            setAnnouncement(null);
-            setMarketplaces(null);
+            setActivecount(0);
           }}
         >
           <img src={president1} alt="usersimage" height="30px" width="30px" />
@@ -46,12 +59,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(null);
-            setRole(1);
-            setEvent(null);
-            setGallery(null);
-            setAnnouncement(null);
-            setMarketplaces(null);
+            setActivecount(1);
           }}
         >
           <img src={president2} alt="rolesimage" height="30px" width="30px" />
@@ -61,12 +69,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(null);
-            setRole(null);
-            setEvent(1);
-            setGallery(null);
-            setAnnouncement(null);
-            setMarketplaces(null);
+            setActivecount(2);
           }}
         >
           <img src={president3} alt="eventsimage" height="30px" width="30px" />
@@ -76,12 +79,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(null);
-            setRole(null);
-            setEvent(null);
-            setGallery(1);
-            setAnnouncement(null);
-            setMarketplaces(null);
+            setActivecount(3);
           }}
         >
           <img src={president4} alt="galleryimage" height="30px" width="30px" />
@@ -91,12 +89,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(null);
-            setRole(null);
-            setEvent(null);
-            setGallery(null);
-            setAnnouncement(1);
-            setMarketplaces(null);
+            setActivecount(4);
           }}
         >
           <img
@@ -111,12 +104,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setUser(null);
-            setRole(null);
-            setEvent(null);
-            setGallery(null);
-            setAnnouncement(null);
-            setMarketplaces(1);
+            setActivecount(5);
           }}
         >
           <img
@@ -127,13 +115,23 @@ function PresidentView() {
           />
           <h5>Add marketplaces</h5>
         </button>
+        <button
+          type="button"
+          className="presidentviewnav"
+          onClick={() => {
+            setActivecount(6);
+          }}
+        >
+          <img
+            src={president6}
+            alt="announcementimage"
+            height="25px"
+            width="25px"
+          />
+          <h5>Modify QR</h5>
+        </button>
       </div>
-      {user && <PresidentUser />}
-      {role && <PresidentCRUD />}
-      {event && <UploadEvent />}
-      {gallery && <UploadGallery />}
-      {announcemnt && <UploadAnnouncement />}
-      {marketplaces && <MarketPlaces />}
+      {displayfunction(activecount)}
     </div>
   );
 }

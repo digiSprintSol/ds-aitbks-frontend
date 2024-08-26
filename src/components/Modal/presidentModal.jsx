@@ -130,7 +130,8 @@ export default function PresidentModal({ row, token }) {
           border: "none",
           fontSize: "12px",
           "&:hover": {
-            backgroundColor: "#1B7DA6",
+            backgroundColor: "#F1C21B",
+            boxShadow: "0px 1px 2px black",
             border: "none",
           },
         }}
