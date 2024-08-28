@@ -1,8 +1,32 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Alert, Button, CircularProgress } from "@mui/material";
 import user6 from "../images/user6.png";
+import useCustomFetch from "../../Hooks/useCustomFetch";
 
-function Displayseven() {
+// eslint-disable-next-line no-unused-vars
+function Displayseven({ token }) {
+  const navigate = useNavigate();
+  const { data, loading, error } = useCustomFetch({
+    url: `http://localhost:8082/user/getIDOfUser`,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return (
+      <Alert severity="error">
+        Failed to load member data: {error.message}
+      </Alert>
+    );
+  }
   return (
     <div
       style={{
@@ -30,6 +54,7 @@ function Displayseven() {
       <br />
       <Button
         variant="outlined"
+        onClick={() => navigate("/user-idcard", { state: { data } })}
         sx={{
           backgroundColor: "#1B7DA6",
           color: "white",
@@ -44,3 +69,7 @@ function Displayseven() {
 }
 
 export default Displayseven;
+
+Displayseven.propTypes = {
+  token: PropTypes.func.isRequired,
+};

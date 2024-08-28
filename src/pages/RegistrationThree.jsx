@@ -159,7 +159,7 @@ function RegistrationThree() {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              size="  "
+              size="small"
               disabled
               value={data.fullName}
               aria-readonly

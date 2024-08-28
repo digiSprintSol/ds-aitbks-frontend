@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,16 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Pagination from "@mui/material/Pagination";
+import { Pagination } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useLocation } from "react-router-dom";
 import useCustomFetch from "../Hooks/useCustomFetch";
-import Acknowledge from "./Acknowledge";
+import AcknowledgeDonation from "./AcknowledgeDonation";
 
-// const useStyles = makeStyles({
-//   committeetable: {
-//     fontSize: "1vw",
-//   },
-// });
 const useStyles = makeStyles({
   committeetable: {
     fontSize: "1vw",
@@ -28,17 +23,13 @@ const useStyles = makeStyles({
   },
 });
 
-function PresidentView() {
-  // const { data, loading, error } = useCustomFetch(
-  //   "http://localhost:1369/user/getAllUsers",
-  //   "get"
-  // );
+function ViewDonations() {
   const location = useLocation();
   const token = `${location.state.token}`;
   // eslint-disable-next-line no-unused-vars
   const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/user/accountantFirstView`,
+    url: `${REACT_APP_FAKE_API}/donations/getAllDonation`,
     method: "GET",
     headers: {
       Token: `Bearer ${token}`,
@@ -52,43 +43,14 @@ function PresidentView() {
   const classes = useStyles();
   const rowsperpage = 3;
 
-  const handleChange = (event, value) => {
-    setCurrentpage(value);
-  };
-
-  // const handleViewDetails = () => {
-  //   navigate('/acknowledge');
-  // };
-
-  //  const handleClickOpen = () => {
-  //    setOpen(true);
-  //  };
-
-  useEffect(() => {
-    const range = [];
-    range.push((currentpage - 1) * rowsperpage + 1);
-    range.push(currentpage * rowsperpage);
-
-    if (data) {
-      const partdata = data.filter(
-        (row) => row.id >= range[0] && row.id <= range[1]
-      );
-      setCustomdata(partdata);
-    }
-  }, [currentpage, data]);
-
   if (error) return <h1>No users to display</h1>;
   if (loading) return <h1>loading...</h1>;
 
-  // const handleViewDonations = () => {
-  //   navigate("/view-donations", { state: { token } });
-  // };
-
+  const handleChange = (event, value) => {
+    setCurrentpage(value);
+  };
   return (
     <div>
-      {/* <Button variant="contained" onClick={handleViewDonations}>
-        View Donations
-      </Button> */}
       <TableContainer
         sx={{ width: "95%", margin: "30px auto" }}
         component={Paper}
@@ -97,10 +59,7 @@ function PresidentView() {
           <TableHead>
             <TableRow sx={{ textAlign: "center" }}>
               <TableCell align="middle" className={classes.committeetable}>
-                Name of the Applicant
-              </TableCell>
-              <TableCell align="middle" className={classes.committeetable}>
-                Date of Application Submitted
+                Full Name
               </TableCell>
               <TableCell align="middle" className={classes.committeetable}>
                 Date of Birth
@@ -110,6 +69,12 @@ function PresidentView() {
               </TableCell>
               <TableCell align="middle" className={classes.committeetable}>
                 Email Id
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Amount Paid
+              </TableCell>
+              <TableCell align="middle" className={classes.committeetable}>
+                Date of Donation
               </TableCell>
               <TableCell
                 align="middle"
@@ -130,10 +95,11 @@ function PresidentView() {
                 <TableCell component="th" scope="row">
                   {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">{row.dob}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
-                <TableCell align="middle">{row.emailAddress}</TableCell>
+                <TableCell align="middle">{row.emailId}</TableCell>
+                <TableCell align="middle">{row.amountPaid}</TableCell>
+                <TableCell align="middle">{row.transactionDate}</TableCell>
                 <TableCell align="middle">
                   {row.status === "acknowledged" && (
                     <span className={classes.acknowledged}>Acknowledged</span>
@@ -153,7 +119,7 @@ function PresidentView() {
                   >
                     View Full Details
                   </Button> */}
-                  <Acknowledge row={row} token={token} />
+                  <AcknowledgeDonation row={row} token={token} />
                 </TableCell>
               </TableRow>
             ))}
@@ -181,10 +147,8 @@ function PresidentView() {
         variant="outlined"
         shape="rounded"
       />
-      <br />
-      <hr />
     </div>
   );
 }
 
-export default PresidentView;
+export default ViewDonations;

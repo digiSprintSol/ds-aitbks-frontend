@@ -5,6 +5,7 @@ import HomeLayout from "./layouts/HomeLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import PaymentLayout from "./layouts/PaymentLayout";
 import PresidentLayout from "./layouts/PresidentLayout";
+import UserLayout from "./layouts/UserLayout";
 
 const Feedback = loadable(() => import("./pages/Feedback"));
 const AboutUs = loadable(() => import("./pages/AboutUs"));
@@ -13,9 +14,12 @@ const Donation = loadable(() => import("./pages/Donation"));
 const UploadDonationReceipt = loadable(() =>
   import("./pages/UploadDonationReceipt")
 );
-const AccountantView = loadable(() => import("./pages/AccountantView"));
+const AccountantNav = loadable(() => import("./pages/AccountantNav"));
 const CommitteeView = loadable(() => import("./pages/CommitteeView"));
 const Acknowledge = loadable(() => import("./pages/Acknowledge"));
+const AcknowledgeDonation = loadable(() =>
+  import("./pages/AcknowledgeDonation")
+);
 const Login = loadable(() => import("./pages/Login"));
 const Payment = loadable(() => import("./pages/Payment"));
 const UploadReceipt = loadable(() => import("./pages/UploadReceipt"));
@@ -23,6 +27,7 @@ const PaymentSuccess = loadable(() => import("./pages/PaymentSuccess"));
 const PresidentView = loadable(() => import("./pages/PresidentView"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
+const AddMembers = loadable(() => import("./pages/AddMembers"));
 const UserNav = loadable(() => import("./pages/UserNav"));
 const Search = loadable(() => import("./components/MarketPlace/Search"));
 const Display = loadable(() => import("./components/MarketPlace/Display"));
@@ -34,6 +39,7 @@ const ViewAnnouncements = loadable(() => import("./pages/ViewAnnouncements"));
 const UploadEvent = loadable(() => import("./pages/UploadEvent"));
 const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
+const UserID = loadable(() => import("./pages/UserID"));
 // const EmailBroadcast = loadable(() => import("./pages/EmailBroadcast"));
 
 export const router = createBrowserRouter([
@@ -129,8 +135,8 @@ export const router = createBrowserRouter([
     element: <PresidentLayout />,
     children: [
       {
-        path: "/accountant-view",
-        element: <AccountantView />,
+        path: "/accountant-nav",
+        element: <AccountantNav />,
       },
       {
         path: "/committee-view",
@@ -141,12 +147,20 @@ export const router = createBrowserRouter([
         element: <Acknowledge />,
       },
       {
+        path: "/acknowledge-donation",
+        element: <AcknowledgeDonation />,
+      },
+      {
         path: "/president-view",
         element: <PresidentView />,
       },
       {
         path: "/president-crud",
         element: <PresidentCRUD />,
+      },
+      {
+        path: "/add-members",
+        element: <AddMembers />,
       },
       {
         path: "/user-nav",
@@ -176,6 +190,16 @@ export const router = createBrowserRouter([
       //   path: "/email-broadcast",
       //   element: <EmailBroadcast />,
       // },
+    ],
+  },
+  {
+    path: "/",
+    element: <UserLayout />,
+    children: [
+      {
+        path: "/user-idcard",
+        element: <UserID />,
+      },
     ],
   },
 ]);
