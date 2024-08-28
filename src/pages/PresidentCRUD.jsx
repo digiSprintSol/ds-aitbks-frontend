@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,7 +10,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import {
+  Button,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -25,6 +27,7 @@ function PresidentCRUD() {
   //   "get"
   // );
   const location = useLocation();
+  const navigate = useNavigate();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
@@ -86,14 +89,37 @@ function PresidentCRUD() {
 
   return (
     <Stack>
-      <TextField
-        type="text"
-        value={searchTerm}
-        onChange={handleInputChange}
-        placeholder="Search by full name"
-        style={{ width: "20vw", margin: "auto", marginBottom: "2vw" }}
-        size="small"
-      />
+      <Grid
+        container
+        spacing={1}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px",
+          marginLeft: "100px",
+        }}
+      >
+        <Grid item xs={7}>
+          <TextField
+            type="text"
+            value={searchTerm}
+            onChange={handleInputChange}
+            placeholder="Search by full name"
+            style={{ width: "20vw" }}
+            size="small"
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <Button
+            variant="contained"
+            onClick={() => navigate("/add-members", { state: { token } })}
+          >
+            Add Members
+          </Button>
+        </Grid>
+      </Grid>
+
       <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -119,7 +145,16 @@ function PresidentCRUD() {
                   <TableCell align="center">{row.phone}</TableCell>
                   <TableCell align="center">{row.add}</TableCell>
                   <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.name}</TableCell>
+                  {row.president && (
+                    <TableCell align="center">President</TableCell>
+                  )}
+                  {row.accountant && (
+                    <TableCell align="center">Accountant</TableCell>
+                  )}
+                  {row.commitee && (
+                    <TableCell align="center">Committee</TableCell>
+                  )}
+                  {row.user && <TableCell align="center">User</TableCell>}
                   <TableCell align="center">
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">

@@ -8,8 +8,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Grid, IconButton, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
-import useCustomFetch from "../Hooks/useCustomFetch";
-import { postRequest } from "../HTTP_POST/api";
+// import useCustomFetch from "../Hooks/useCustomFetch";
+// import { postRequest } from "../HTTP_POST/api";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -25,8 +25,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-function Acknowledge({ row, token }) {
+// eslint-disable-next-line no-unused-vars
+function AcknowledgeDonation({ row, token }) {
   const [open, setOpen] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [info, setInfo] = React.useState({
     remarks: "string",
     membership: "string",
@@ -38,15 +40,16 @@ function Acknowledge({ row, token }) {
   const handleClose = () => {
     setOpen(false);
   };
+  // eslint-disable-next-line no-unused-vars
   const { REACT_APP_FAKE_API } = process.env;
   // eslint-disable-next-line no-unused-vars
-  const { data, loading, error } = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/user/downloadPaymentReceipt/${row.userId}`,
-    method: "GET",
-    headers: {
-      Token: `Bearer ${token}`,
-    },
-  });
+  // const { data, loading, error } = useCustomFetch({
+  //   url: `${REACT_APP_FAKE_API}/user/downloadPaymentReceipt/${row.userId}`,
+  //   method: "GET",
+  //   headers: {
+  //     Token: `Bearer ${token}`,
+  //   },
+  // });
 
   // const [imgPath, setImgPath] = useState("");
 
@@ -58,34 +61,34 @@ function Acknowledge({ row, token }) {
   //   }
   // }, [data]);
 
-  const post = async () => {
-    try {
-      // eslint-disable-next-line no-unused-vars
-      const result = await postRequest(
-        `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
-        info,
-        {
-          Token: `Bearer ${token}`,
-        }
-      );
-      // eslint-disable-next-line no-alert
-      alert("Status Updated");
-      setOpen(false);
-      // console.log(result);
-    } catch (err) {
-      // console.log(err);
-    }
-  };
+  // const post = async () => {
+  //   try {
+  //     // eslint-disable-next-line no-unused-vars
+  //     const result = await postRequest(
+  //       `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
+  //       info,
+  //       {
+  //         Token: `Bearer ${token}`,
+  //       }
+  //     );
+  //     // eslint-disable-next-line no-alert
+  //     alert("Status Updated");
+  //     setOpen(false);
+  //     // console.log(result);
+  //   } catch (err) {
+  //     // console.log(err);
+  //   }
+  // };
 
-  const handleButtonClick = (action) => {
-    setInfo({ ...info, statusOfApproval: action });
-    if (Object.keys(info).length === 3) {
-      post();
-    }
-  };
+  // const handleButtonClick = (action) => {
+  //   setInfo({ ...info, statusOfApproval: action });
+  //   if (Object.keys(info).length === 3) {
+  //     post();
+  //   }
+  // };
 
-  if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  // if (error) return <h1>Error..</h1>;
+  // if (loading) return <h1>loading...</h1>;
 
   return (
     <div>
@@ -144,7 +147,7 @@ function Acknowledge({ row, token }) {
             <TextField
               fullWidth
               sx={{ backgroundColor: "#ffffff" }}
-              value={row.paymentInfo.trasactionId}
+              // value={row.paymentInfo.trasactionId}
               aria-readonly
             />
           </Grid>
@@ -152,7 +155,7 @@ function Acknowledge({ row, token }) {
         <DialogActions sx={{ margin: "20px auto" }}>
           <Button
             style={{ backgroundColor: "#199369", color: "white" }}
-            onClick={() => handleButtonClick("accepted")}
+            // onClick={() => handleButtonClick("accepted")}
           >
             Acknowlegde
           </Button>
@@ -175,8 +178,8 @@ function Acknowledge({ row, token }) {
   );
 }
 
-export default Acknowledge;
-Acknowledge.propTypes = {
+export default AcknowledgeDonation;
+AcknowledgeDonation.propTypes = {
   row: PropTypes.func.isRequired,
   token: PropTypes.func.isRequired,
 };

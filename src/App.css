@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  background-image: linear-gradient(to right, #199071, #1B7DA6);
+  background-image: linear-gradient(to right, #ffff,  #199071, #1B7DA6);
   padding: 0 10px;
   padding-top: 5px;
 }
@@ -13,7 +13,7 @@
 }
 
 .logo {
-  width: 11vw;
+  width: 10vw;
   height: 9vw;
 }
 
