@@ -85,7 +85,7 @@ function Login() {
       navigate("/committee-view", { state: { token } });
     }
     if (data.accountant) {
-      navigate("/accountant-view", { state: { token } });
+      navigate("/accountant-nav", { state: { token } });
     }
     if (data.user) {
       navigate("/user-nav", { state: { token } });

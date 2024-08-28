@@ -52,13 +52,13 @@ function Home() {
     },
   });
 
-  const data1 = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/getImages`,
-    method: "GET",
-    headers: {
-      Token: token,
-    },
-  });
+  // const data1 = useCustomFetch({
+  //   url: `${REACT_APP_FAKE_API}/getImages`,
+  //   method: "GET",
+  //   headers: {
+  //     Token: token,
+  //   },
+  // });
 
   const data2 = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/getEvents`,
@@ -68,20 +68,20 @@ function Home() {
     },
   });
 
-  const [imgPath1, setImgPath1] = useState("");
-  const [imgPath2, setImgPath2] = useState("");
+  // const [imgPath1, setImgPath1] = useState("");
+  // const [imgPath2, setImgPath2] = useState("");
 
   useEffect(() => {
-    if (data1.data) {
-      const fileName1 = data1.data.pathOfDocumnet.split("\\").pop();
-      const exp1 = "/documents/images/".concat(fileName1);
-      setImgPath1(exp1);
-    }
-    if (data2.data) {
-      const fileName2 = data2.data.pathOfDocumnet.split("\\").pop();
-      const exp2 = "/documents/images/".concat(fileName2);
-      setImgPath2(exp2);
-    }
+    // if (data1.data) {
+    //   const fileName1 = data1.data.pathOfDocumnet.split("\\").pop();
+    //   const exp1 = "/documents/images/".concat(fileName1);
+    //   setImgPath1(exp1);
+    // }
+    // if (data2.data) {
+    //   const fileName2 = data2.data.pathOfDocumnet.split("\\").pop();
+    //   const exp2 = "/documents/images/".concat(fileName2);
+    //   setImgPath2(exp2);
+    // }
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -96,8 +96,8 @@ function Home() {
 
   const contactRef = useRef();
 
-  if (error || data1.error || data2.error) return <h1>Error..</h1>;
-  if (loading || data1.loading || data2.loading) return <h1>loading...</h1>;
+  if (error || data2.error) return <h1>Error..</h1>;
+  if (loading || data2.loading) return <h1>loading...</h1>;
 
   return (
     <div className="homepage">
@@ -209,20 +209,20 @@ function Home() {
             height="400px"
             width="100%"
           />
-          <img
+          {/* <img
             src={imgPath1}
             loading="lazy"
             alt="homepageimage"
             height="400px"
             width="100%"
-          />
-          <img
+          /> */}
+          {/* <img
             src={imgPath2}
             loading="lazy"
             alt="homepageimage"
             height="400px"
             width="100%"
-          />
+          /> */}
         </Marquee>
       </Box>
       <div className="firstpart">

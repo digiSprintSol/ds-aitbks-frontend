@@ -440,3 +440,9 @@ export const registrationData = {
   applicationForMembershipDeclaration: true,
   memberOfOtherCommunity: true,
 };
+
+export const memberCategory = [
+  { label: "President" },
+  { label: "Committee" },
+  { label: "Accountant" },
+];

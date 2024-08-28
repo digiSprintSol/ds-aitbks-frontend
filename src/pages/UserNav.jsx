@@ -152,7 +152,7 @@ function App() {
       case 5:
         return <Displaysix />;
       case 6:
-        return <Displayseven />;
+        return <Displayseven token={token} />;
     }
   };
 
