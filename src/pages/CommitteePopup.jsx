@@ -63,12 +63,12 @@ export default function CommitteePopup({ row, token }) {
     }
   }, [data]);
   const { REACT_APP_FAKE_API } = process.env;
-  const post = async () => {
+  const post = async (info) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
         `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
-        data,
+        info,
         {
           Token: `Bearer ${token}`,
         }
@@ -90,25 +90,28 @@ export default function CommitteePopup({ row, token }) {
     setLoading(true);
     setData({ ...data, ...accepted, member: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
-    if (Object.keys(data).length === 3) {
-      post();
-    }
+    // if (Object.keys(data).length === 3) {
+    //   post();
+    // }
+    post({ ...data, ...accepted, member: row.categoryOfMembership });
   };
   const rejectButton = () => {
     setLoading(true);
     setData({ ...data, ...rejected, member: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
-    if (Object.keys(data).length === 3) {
-      post();
-    }
+    // if (Object.keys(data).length === 3) {
+    //   post();
+    // }
+    post({ ...data, ...rejected, member: row.categoryOfMembership });
   };
   const waitButton = () => {
     setLoading(true);
     setData({ ...data, ...waiting, member: row.categoryOfMembership });
     // console.log(data,"llllllllllllll");
-    if (Object.keys(data).length === 3) {
-      post();
-    }
+    // if (Object.keys(data).length === 3) {
+    //   post();
+    // }
+    post({ ...data, ...waiting, member: row.categoryOfMembership });
   };
 
   return (
@@ -157,18 +160,18 @@ export default function CommitteePopup({ row, token }) {
         <DialogContent dividers>
           <Box>
             <Grid container spacing={2}>
-              <IconButton
-                aria-label="close"
-                onClick={handleClose}
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
+              <img
+                src={row.profilePic}
+                alt="Selected"
+                style={{
+                  display: "block",
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  margin: "10px auto",
+                  borderRadius: "50%",
                 }}
-              >
-                <CloseIcon />
-              </IconButton>
+              />
               <Grid item xs={12}>
                 <Typography>Full Name</Typography>
               </Grid>
@@ -438,6 +441,7 @@ export default function CommitteePopup({ row, token }) {
                   aria-readonly
                 />
               </Grid>
+              {/* ---------------------------------------------------------------------------------- */}
               <Grid item xs={12}>
                 <Typography
                   variant="h5"
@@ -499,6 +503,131 @@ export default function CommitteePopup({ row, token }) {
                   Decline
                 </Button>
               </DialogActions>
+              {/* ---------------------------------------------------------------------------------------------- */}
+              <Grid item xs={12}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: "#1B7DA6",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "40px",
+                  }}
+                >
+                  Committee Comments
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  onChange={changeHandler}
+                />
+                <p id="errordisplay" style={{ color: "red" }}>
+                  message:
+                </p>
+              </Grid>
+              <DialogActions sx={{ margin: "50px auto" }}>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={acceptButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#199369",
+                  }}
+                >
+                  Accept
+                </Button>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={waitButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#F1C21B",
+                  }}
+                >
+                  Waiting
+                </Button>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={rejectButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#F3561F",
+                  }}
+                >
+                  Decline
+                </Button>
+              </DialogActions>
+              {/* ---------------------------------------------------------------------------------------------- */}
+              <Grid item xs={12}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: "#1B7DA6",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "40px",
+                  }}
+                >
+                  Committee Comments
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  onChange={changeHandler}
+                />
+                <p id="errordisplay" style={{ color: "red" }}>
+                  message:
+                </p>
+              </Grid>
+              <DialogActions sx={{ margin: "50px auto" }}>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={acceptButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#199369",
+                  }}
+                >
+                  Accept
+                </Button>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={waitButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#F1C21B",
+                  }}
+                >
+                  Waiting
+                </Button>
+                <Button
+                  variant="contained"
+                  autoFocus
+                  onClick={rejectButton}
+                  sx={{
+                    width: "130px",
+                    borderRadius: "50px",
+                    backgroundColor: "#F3561F",
+                  }}
+                >
+                  Decline
+                </Button>
+              </DialogActions>
+              {/* ---------------------------------------------------------------------------------------------- */}
             </Grid>
             {loading && (
               <div

@@ -21,7 +21,6 @@ import React, { useEffect, useState } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 import useCustomFetch from "../../Hooks/useCustomFetch";
-import exp from "../../pages/images/exp.jpg";
 
 export default function Search() {
   // const navigate= useNavigate()
@@ -240,7 +239,7 @@ export default function Search() {
               }}
             >
               <img
-                src={exp}
+                src={user.imageUrl}
                 loading="lazy"
                 alt="receipt"
                 height="300vw"

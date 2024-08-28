@@ -13,6 +13,7 @@ import UploadGallery from "./UploadGallery";
 import UploadAnnouncement from "./UploadAnnouncement";
 import MarketPlaces from "./MarketPlaces";
 import Qrcode from "./Qrcode";
+import EmailBroadcast from "./EmailBroadcast";
 
 function PresidentView() {
   // const navigate = useNavigate();
@@ -40,6 +41,8 @@ function PresidentView() {
         return <MarketPlaces />;
       case 6:
         return <Qrcode />;
+      case 7:
+        return <EmailBroadcast />;
     }
   };
   return (
@@ -129,6 +132,21 @@ function PresidentView() {
             width="25px"
           />
           <h5>Modify QR</h5>
+        </button>
+        <button
+          type="button"
+          className="presidentviewnav"
+          onClick={() => {
+            setActivecount(6);
+          }}
+        >
+          <img
+            src={president6}
+            alt="announcementimage"
+            height="25px"
+            width="25px"
+          />
+          <h5>EmailBroadcast</h5>
         </button>
       </div>
       {displayfunction(activecount)}

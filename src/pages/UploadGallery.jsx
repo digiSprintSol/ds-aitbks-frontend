@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useFormik } from "formik";
+import UploadIcon from "@mui/icons-material/Upload";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
@@ -12,6 +13,10 @@ function UploadGallery() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [result, setResult] = useState(null);
+  const location = useLocation();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -19,6 +24,29 @@ function UploadGallery() {
 
     const filePreview = URL.createObjectURL(selectedFile);
     setPreview(filePreview);
+  };
+
+  const imageApi = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await postRequest(
+          `${REACT_APP_FAKE_API}/upload?folderName=gallery`,
+          formData,
+          {
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          }
+        );
+
+        setResult(res);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
+    }
   };
 
   const handleDrop = (e) => {
@@ -41,9 +69,6 @@ function UploadGallery() {
     setIsDragOver(false);
   };
 
-  const location = useLocation();
-  const token = `${location.state.token}`;
-  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -52,16 +77,17 @@ function UploadGallery() {
     },
     // validationSchema: postValidationSchema,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("imagesForHomePage", file);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `${REACT_APP_FAKE_API}/uploadEventsImages?title=${values.title}&description=${values.description}`,
-          formData,
+          `${REACT_APP_FAKE_API}/uploadEventsAnnouncementsGalleryAwardsQRCodeImages`,
+          {
+            title: values.title,
+            description: values.description,
+            imageUrl: result.url,
+          },
           {
             Token: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
           }
         );
         // console.log(response.data, "response");
@@ -175,6 +201,14 @@ function UploadGallery() {
                   />
                 )}
               </Box>
+              <UploadIcon
+                sx={{
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                  marginTop: "2vw",
+                }}
+                onClick={imageApi}
+              />
             </Box>
           </Grid>
           <Grid item xs={12}>

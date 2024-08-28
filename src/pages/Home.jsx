@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import {
@@ -10,6 +10,9 @@ import {
   Button,
 } from "@mui/material";
 import "../App.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // import "../components/Header/style.module.css"
 import Marquee from "react-fast-marquee";
 import styles from "../components/Footer/style.module.css";
@@ -52,13 +55,13 @@ function Home() {
     },
   });
 
-  const data1 = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/getImages`,
-    method: "GET",
-    headers: {
-      Token: token,
-    },
-  });
+  // const data1 = useCustomFetch({
+  //   url: `${REACT_APP_FAKE_API}/getImages`,
+  //   method: "GET",
+  //   headers: {
+  //     Token: token,
+  //   },
+  // });
 
   const data2 = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/getEvents`,
@@ -66,22 +69,6 @@ function Home() {
     headers: {
       Token: token,
     },
-  });
-
-  const [imgPath1, setImgPath1] = useState("");
-  const [imgPath2, setImgPath2] = useState("");
-
-  useEffect(() => {
-    if (data1.data) {
-      const fileName1 = data1.data.pathOfDocumnet.split("\\").pop();
-      const exp1 = "/documents/images/".concat(fileName1);
-      setImgPath1(exp1);
-    }
-    if (data2.data) {
-      const fileName2 = data2.data.pathOfDocumnet.split("\\").pop();
-      const exp2 = "/documents/images/".concat(fileName2);
-      setImgPath2(exp2);
-    }
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -96,8 +83,22 @@ function Home() {
 
   const contactRef = useRef();
 
-  if (error || data1.error || data2.error) return <h1>Error..</h1>;
-  if (loading || data1.loading || data2.loading) return <h1>loading...</h1>;
+  // useEffect(() => {
+
+  //   console.log(data2,"tttt");
+
+  // }, [data2])
+
+  if (error || data2.error) return <h1>Error..</h1>;
+  if (loading || data2.loading) return <h1>loading...</h1>;
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   return (
     <div className="homepage">
@@ -194,7 +195,7 @@ function Home() {
         ))}
       </Marquee>
       <Box>
-        <Marquee velocity={10}>
+        <Slider {...settings}>
           <img
             src={home1}
             loading="lazy"
@@ -209,21 +210,21 @@ function Home() {
             height="400px"
             width="100%"
           />
-          <img
+          {/* <img
             src={imgPath1}
             loading="lazy"
             alt="homepageimage"
             height="400px"
             width="100%"
-          />
+          /> */}
           <img
-            src={imgPath2}
+            src={data2.data.eventImageURL}
             loading="lazy"
             alt="homepageimage"
             height="400px"
             width="100%"
           />
-        </Marquee>
+        </Slider>
       </Box>
       <div className="firstpart">
         <div className="welcomeclass">
