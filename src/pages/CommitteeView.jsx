@@ -60,16 +60,14 @@ function CommitteeView() {
       const partdata = [];
       const exp =
         // rowsperpage > data.content.length ? data.content.length : rowsperpage;
-        (currentpage - 1) * rowsperpage + rowsperpage > data.content.length
+        (currentpage - 1) * rowsperpage + rowsperpage > data.length
           ? (currentpage - 1) * rowsperpage +
             (rowsperpage -
-              ((currentpage - 1) * rowsperpage +
-                rowsperpage -
-                data.content.length))
+              ((currentpage - 1) * rowsperpage + rowsperpage - data.length))
           : (currentpage - 1) * rowsperpage + rowsperpage;
       // eslint-disable-next-line no-plusplus
       for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
-        partdata.push(data.content[i - 1]);
+        partdata.push(data[i - 1]);
       }
       setCustomdata(partdata);
     }
@@ -88,9 +86,9 @@ function CommitteeView() {
           <TableHead>
             <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
               <TableCell align="middle">Name of the Applicant</TableCell>
-              <TableCell align="middle">
+              {/* <TableCell align="middle">
                 Date of Application Submitted
-              </TableCell>
+              </TableCell> */}
               <TableCell align="middle">Date of Birth</TableCell>
               <TableCell align="middle">Phone number</TableCell>
               <TableCell align="middle">Email Id</TableCell>
@@ -99,7 +97,21 @@ function CommitteeView() {
                 sx={{ fontFamily: "ProximaBold" }}
                 className={classes.committeetable}
               >
-                Status of Committee
+                Status of Committee1
+              </TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Status of Committee2
+              </TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Status of Committee3
               </TableCell>
               <TableCell>Details</TableCell>
             </TableRow>
@@ -115,11 +127,55 @@ function CommitteeView() {
                 <TableCell component="th" scope="row">
                   {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                {/* <TableCell align="middle">{row.dateOfBirth}</TableCell> */}
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
-                {row.status ? (
+                {row.committeeOneChoosenMembershipForApplicant ? (
+                  <TableCell
+                    align="middle"
+                    className={
+                      // eslint-disable-next-line no-nested-ternary
+                      row.status === "accepted"
+                        ? classes.accepted
+                        : row.status === "Waiting"
+                        ? classes.waiting
+                        : classes.declined
+                    }
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {row.status}
+                  </TableCell>
+                ) : (
+                  <TableCell align="middle">Yet to be approved</TableCell>
+                )}
+                {/* -------------------------------------------------------------------------- */}
+                {row.committeeTwoChoosenMembershipForApplicant ? (
+                  <TableCell
+                    align="middle"
+                    className={
+                      // eslint-disable-next-line no-nested-ternary
+                      row.status === "accepted"
+                        ? classes.accepted
+                        : row.status === "Waiting"
+                        ? classes.waiting
+                        : classes.declined
+                    }
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {row.status}
+                  </TableCell>
+                ) : (
+                  <TableCell align="middle">Yet to be approved</TableCell>
+                )}
+                {/* -------------------------------------------------------------------------- */}
+                {row.committeeThreeRemarksForApplicant ? (
                   <TableCell
                     align="middle"
                     className={
@@ -165,19 +221,19 @@ function CommitteeView() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.content.length ? (
-          <span>{data.content.length}</span>
+        {currentpage * rowsperpage > data.length ? (
+          <span>{data.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.content.length} entries
+        of {data.length} entries
       </span>
       {/* <span style={{ position: "absolute", transform: "Translate(50vw,-1vw)" }}>
         Display
         <input type="number" value={rowsperpage} onChange={changeHandler} />
       </span> */}
       <Pagination
-        count={Math.ceil(data.content.length / rowsperpage)}
+        count={Math.ceil(data.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

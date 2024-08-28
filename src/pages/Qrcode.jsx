@@ -1,7 +1,11 @@
 import React from "react";
+// import { useLocation } from "react-router-dom";
 
 function Qrcode() {
-  return <div>Qrcode</div>;
+  // const location = useLocation();
+  // const token = `${location.state.token}`;
+
+  return <div>sathwik</div>;
 }
 
 export default Qrcode;

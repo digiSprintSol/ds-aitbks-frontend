@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import UploadIcon from "@mui/icons-material/Upload";
 import {
   gender as genders,
   profession as professions,
@@ -23,11 +24,14 @@ import {
 } from "../../../../Lib/constants";
 import validationSchema from "../../../../validations/validationSchema";
 import { useRootContext } from "../../../../Hooks/useRootContext";
+import { postRequest } from "../../../../HTTP_POST/api";
 
 function personalDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
   // const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageFile, setImageFile] = useState({});
+  const [result, setResult] = useState(null);
   const maxDate = new Date();
   maxDate.setFullYear(2024 - 18);
 
@@ -58,6 +62,32 @@ function personalDetails({ setActiveStep }) {
     // Add more district-state mappings here
   };
 
+  const { REACT_APP_FAKE_API } = process.env;
+  const token =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8";
+  const imageApi = async () => {
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await postRequest(
+          `${REACT_APP_FAKE_API}/upload?folderName=user-passport-photo`,
+          formData,
+          {
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          }
+        );
+
+        setResult(res);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       firstName: data.firstName || "",
@@ -83,8 +113,8 @@ function personalDetails({ setActiveStep }) {
         // firstName: values.firstName,
         // middleName: values.middleName,
         // lastName: values.lastName,
-        profilePic: selectedImage.name,
-        fullName: `${values.firstName} ${values.middleName} ${values.lastName}`,
+        profilePic: result.url,
+        fullName: `${values.firstName} ${values.lastName}`,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.phoneNumber,
         emailAddress: values.emailAddress,
@@ -120,6 +150,7 @@ function personalDetails({ setActiveStep }) {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
+      setImageFile(file);
     }
   };
 
@@ -174,6 +205,14 @@ function personalDetails({ setActiveStep }) {
             id="fileInput"
             style={{ display: "none" }}
             onChange={handleFileChange}
+          />
+          <UploadIcon
+            sx={{
+              border: "2px solid black",
+              borderRadius: "50%",
+              transform: "translate(40vw,0)",
+            }}
+            onClick={imageApi}
           />
         </Grid>
         <Grid item xs={12}>

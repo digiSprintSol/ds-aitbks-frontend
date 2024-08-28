@@ -1,4 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
+import UploadIcon from "@mui/icons-material/Upload";
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import { postRequest } from "../HTTP_POST/api";
@@ -8,6 +9,7 @@ function MarketPlaces() {
   const location = useLocation();
   const token = `${location.state.token}`;
   const [file, setFile] = useState(null);
+  const [result, setResult] = useState(null);
 
   const [data, setData] = useState({
     nameOfShop: "",
@@ -19,24 +21,42 @@ function MarketPlaces() {
     image: "",
   });
 
+  const imageApi = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await postRequest(
+          `${REACT_APP_FAKE_API}/upload?folderName=market-place`,
+          formData,
+          {
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          }
+        );
+
+        setResult(res);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
+    }
+  };
+
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", file);
-    // console.log(file,"llllllllll")
-    // console.log(file.name,"ppppppp")
     try {
       // eslint-disable-next-line no-unused-vars
-      const result = await postRequest(
-        `${REACT_APP_FAKE_API}/postMarketPlace?nameOfShop=${data.nameOfShop}&contactPerson=${data.contactPerson}&mobileNumber=${data.mobileNumber}&location=${data.location}&category=${data.category}&city=${data.city}`,
-        formData,
+      const response = await postRequest(
+        `${REACT_APP_FAKE_API}/postMarketPlace`,
+        { ...data, imageUrl: result.url },
         {
           Token: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
         }
       );
       // eslint-disable-next-line no-alert
@@ -91,6 +111,7 @@ function MarketPlaces() {
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
             value={data.nameOfShop}
+            size="small"
           />
         </Grid>
         <Grid item xs={6}>
@@ -103,6 +124,7 @@ function MarketPlaces() {
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
             value={data.contactPerson}
+            size="small"
           />
         </Grid>
         <Grid item xs={6}>
@@ -123,6 +145,7 @@ function MarketPlaces() {
             // formik.touched.phoneNumber && formik.errors.phoneNumber
             // }
             onChange={changeHandler}
+            size="small"
           />
         </Grid>
         <Grid item xs={12}>
@@ -135,6 +158,7 @@ function MarketPlaces() {
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
             value={data.location}
+            size="small"
           />
         </Grid>
         <Grid item xs={6}>
@@ -160,6 +184,7 @@ function MarketPlaces() {
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
             value={data.category}
+            size="small"
           />
         </Grid>
         <Grid item xs={6}>
@@ -172,6 +197,7 @@ function MarketPlaces() {
             sx={{ backgroundColor: "#ffffff" }}
             onChange={changeHandler}
             value={data.city}
+            size="small"
           />
         </Grid>
         <Grid item xs={12}>
@@ -179,6 +205,15 @@ function MarketPlaces() {
             Upload Your Market Photo:
             <input type="file" id="fileInput" onChange={handleFileChange} />
           </label>
+          <UploadIcon
+            sx={{
+              border: "2px solid black",
+              borderRadius: "50%",
+              marginTop: "2vw",
+              transform: "translate(1vw,0.7vw)",
+            }}
+            onClick={imageApi}
+          />
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>
           <Button variant="contained" type="submit">

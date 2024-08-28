@@ -43,6 +43,7 @@ export default function PresidentModal({ row, token }) {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState("");
   const [radioValue, setRadioValue] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -77,12 +78,12 @@ export default function PresidentModal({ row, token }) {
     return true;
   };
 
-  const post = async () => {
+  const post = async (info) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
         `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
-        data,
+        info,
         {
           Token: `Bearer ${token}`,
         }
@@ -109,10 +110,15 @@ export default function PresidentModal({ row, token }) {
         membership: radioValue,
       });
       // Perform the action-specific logic here
-      console.log(action);
-      if (Object.keys(data).length === 3) {
-        post();
-      }
+      // console.log(action);
+      // if (Object.keys(data).length === 3) {
+      //   post();
+      // }
+      post({
+        remarks: comments,
+        statusOfApproval: action,
+        membership: radioValue,
+      });
     }
   };
 
@@ -162,18 +168,18 @@ export default function PresidentModal({ row, token }) {
         <DialogContent dividers>
           <Box>
             <Grid container spacing={2}>
-              <IconButton
-                aria-label="close"
-                onClick={handleClose}
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
+              <img
+                src={row.profilePic}
+                alt="Selected"
+                style={{
+                  display: "block",
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  margin: "10px auto",
+                  borderRadius: "50%",
                 }}
-              >
-                <CloseIcon />
-              </IconButton>
+              />
               <Grid item xs={12}>
                 <Typography>Full Name</Typography>
               </Grid>
