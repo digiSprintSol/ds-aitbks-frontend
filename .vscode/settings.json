@@ -7,6 +7,6 @@
   "workbench.colorTheme": "Default Dark+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.sideBar.location": "left",
+  "workbench.sideBar.location": "right",
   "reactSnippets.settings.prettierEnabled": true
 }

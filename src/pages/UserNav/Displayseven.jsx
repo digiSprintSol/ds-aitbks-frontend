@@ -8,11 +8,12 @@ import useCustomFetch from "../../Hooks/useCustomFetch";
 // eslint-disable-next-line no-unused-vars
 function Displayseven({ token }) {
   const navigate = useNavigate();
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `http://localhost:8082/user/getIDOfUser`,
+    url: `${REACT_APP_FAKE_API}/user/getIDOfUser`,
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Token: `Bearer ${token}`,
     },
   });
 
@@ -27,6 +28,7 @@ function Displayseven({ token }) {
       </Alert>
     );
   }
+
   return (
     <div
       style={{
@@ -54,12 +56,19 @@ function Displayseven({ token }) {
       <br />
       <Button
         variant="outlined"
-        onClick={() => navigate("/user-idcard", { state: { data } })}
+        onClick={() => {
+          if (data) {
+            navigate("/user-idcard", { state: data });
+          }
+        }}
         sx={{
           backgroundColor: "#1B7DA6",
           color: "white",
           width: "22vw",
           borderRadius: "10vw",
+          "&:hover": {
+            backgroundColor: "#199071",
+          },
         }}
       >
         Download ID Card
