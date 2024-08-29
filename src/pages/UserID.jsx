@@ -4,7 +4,6 @@ import UserIdCard from "./UserIdCard";
 
 function UserID() {
   const location = useLocation();
-  const data = `${location.state.data}`;
   return (
     <PDFViewer
       style={{
@@ -12,7 +11,7 @@ function UserID() {
         height: window.innerHeight,
       }}
     >
-      <UserIdCard data={data} />
+      <UserIdCard data={location.state} />
     </PDFViewer>
   );
 }
