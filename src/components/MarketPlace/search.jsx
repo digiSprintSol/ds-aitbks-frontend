@@ -1,33 +1,22 @@
 import {
-  Button,
-  FormControl,
   Grid,
-  MenuItem,
-  // Paper,
-  Select,
-  Stack,
-  // Table,
-  // TableBody,
-  // TableCell,
-  // TableContainer,
-  // TableHead,
-  // TableRow,
-  TextField,
   Typography,
-  InputAdornment,
+  Button,
+  Stack,
+  FormControl,
+  Select,
+  MenuItem,
   Divider,
+  TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
 import SearchIcon from "@mui/icons-material/Search";
 import useCustomFetch from "../../Hooks/useCustomFetch";
 
 export default function Search() {
-  // const navigate= useNavigate()
-
   const { REACT_APP_FAKE_API } = process.env;
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
-  // eslint-disable-next-line no-unused-vars
+
   const { data, loading, error } = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/getMarketPlaces`,
     method: "GET",
@@ -44,7 +33,6 @@ export default function Search() {
     },
   });
 
-  // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
   const [load, setLoad] = useState({
     shopname: "",
@@ -96,8 +84,6 @@ export default function Search() {
       return false;
     });
 
-    // eslint-disable-next-line no-console
-    console.log(filteredData, "llllll");
     setUsers(filteredData);
   };
 
@@ -106,11 +92,7 @@ export default function Search() {
   }, [data]);
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
-
-  // function displayPage(){
-  //   navigate("/market-places/display")
-  // }
+  if (loading) return <h1>Loading...</h1>;
 
   return (
     <Stack sx={{ backgroundColor: "#D4E9DA" }}>
@@ -165,8 +147,8 @@ export default function Search() {
             <Typography variant="subtitle1">City</Typography>
             <FormControl fullWidth sx={{ backgroundColor: "#ffffff" }}>
               <Select
-                labelId="category-select-label"
-                id="category-select"
+                labelId="city-select-label"
+                id="city-select"
                 name="city"
                 value={load.city}
                 onChange={changeHandler}
@@ -197,159 +179,54 @@ export default function Search() {
         </Grid>
       </Grid>
 
-      {/* {users ? (
-        <TableContainer component={Paper} sx={{ margin: "20px" }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Shop Name</TableCell>
-                <TableCell>Contact Person</TableCell>
-                <TableCell>Mobile Number</TableCell>
-                <TableCell>City</TableCell>
-                <TableCell>Details</TableCell> */}
-      {/* <TableCell>Google Maps</TableCell> */}
-      {/* </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow>
-                  <TableCell>{user.nameOfShop}</TableCell>
-                  <TableCell>{user.contactPerson}</TableCell>
-                  <TableCell>{user.mobileNumber}</TableCell>
-                  <TableCell>{user.city}</TableCell>
-                  <TableCell>
-                    <Link to="/market-places/display" state={{ some: user }}>
-                      View Full Details
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
-
-      {users &&
-        users.map((user) => (
-          <div style={{ marginBottom: "3vw" }}>
-            <div
-              style={{
-                padding: "20px 20px",
-                margin: "20px 0px",
-                display: "flex",
-              }}
-            >
-              <img
-                src={user.imageUrl}
-                loading="lazy"
-                alt="receipt"
-                height="300vw"
-                width="500vw"
-                // style={{ marginLeft: "30vw" }}
+      {users && (
+        <Grid
+          container
+          spacing={2}
+          justifyContent="space-between"
+          sx={{ padding: "0 20px" }}
+        >
+          {users.map((user) => (
+            <Grid item xs={12} md={4} key={user.nameOfShop}>
+              <div style={{ marginBottom: "3vw", textAlign: "center" }}>
+                <img
+                  src={user.imageUrl}
+                  loading="lazy"
+                  alt="shop"
+                  style={{ width: "100%", height: "250px" }}
+                />
+                <Typography
+                  variant="h6"
+                  sx={{ fontFamily: "ProximaBold", marginTop: "10px" }}
+                >
+                  {user.nameOfShop}
+                </Typography>
+                <Typography variant="body1">{user.contactPerson}</Typography>
+                <Typography variant="body1">{user.mobileNumber}</Typography>
+                <Typography variant="body1">{user.category}</Typography>
+                <Typography variant="body1">{user.city}</Typography>
+                <Typography variant="body1">
+                  <a
+                    href={user.location}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google Maps
+                  </a>
+                </Typography>
+              </div>
+              <Divider
+                sx={{
+                  width: "100%",
+                  height: "1px",
+                  backgroundColor: "#909090",
+                  marginTop: "3vw",
+                }}
               />
-              <Grid container spacing={2} marginLeft="5%">
-                <Grid item xs={6} sx={{ width: "50vw" }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold" }}
-                  >
-                    Name of the shop
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    value={user.nameOfShop}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold" }}
-                  >
-                    Contact Person
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    value={user.contactPerson}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold" }}
-                  >
-                    Mobile Number
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    size="small"
-                    value={user.mobileNumber}
-                  />
-                </Grid>
-                <Grid item xs={6} sx={{ width: "50vw" }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold", overflow: "hidden" }}
-                  >
-                    Location
-                  </Typography>
-                  {/* <TextField fullWidth sx={{ backgroundColor: "#ffffff" }} value={url('state.some.location')}  /> */}
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <a href={user.location}>Google Maps</a>
-                        </InputAdornment>
-                      ),
-                    }}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold" }}
-                  >
-                    Category
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    value={user.category}
-                    size="small"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontFamily: "ProximaBold" }}
-                  >
-                    City
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    value={user.city}
-                    size="small"
-                  />
-                </Grid>
-              </Grid>
-            </div>
-            <Divider
-              sx={{
-                width: "100%",
-                height: "1px",
-                backgroundColor: "#909090",
-                marginTop: "3vw",
-              }}
-            />
-          </div>
-        ))}
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Stack>
   );
 }

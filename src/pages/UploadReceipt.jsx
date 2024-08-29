@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import UploadIcon from "@mui/icons-material/Upload";
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -11,6 +12,34 @@ function UploadGallery() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [result, setResult] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
+
+  const imageApi = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await postRequest(
+          `${REACT_APP_FAKE_API}/upload?folderName=transcation-recepit`,
+          formData,
+          {
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          }
+        );
+
+        setResult(res);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
+    }
+  };
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -40,30 +69,26 @@ function UploadGallery() {
     setIsDragOver(false);
   };
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const token = `${location.state.token}`;
-  const { REACT_APP_FAKE_API } = process.env;
   const formik = useFormik({
     initialValues: {
-      title: "",
+      trasactionId: "",
       description: "",
       imagesForHomePage: null,
       amountPaid: "",
     },
     // validationSchema: postValidationSchema,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("transcationRecepit", file);
-      formData.append("amountPaid", values.amountPaid);
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
-          `${REACT_APP_FAKE_API}/user/uploadTranscationReceipt?transcationId=${values.transactionId}`,
-          formData,
+          `${REACT_APP_FAKE_API}/user/uploadTranscationReceipt`,
+          {
+            trasactionId: values.trasactionId,
+            amountPaid: values.amountPaid,
+            paymentImageUrl: result.url,
+          },
           {
             Token: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
           }
         );
         // console.log(response.data, "response");
@@ -176,6 +201,14 @@ function UploadGallery() {
                   />
                 )}
               </Box>
+              <UploadIcon
+                sx={{
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                  marginTop: "2vw",
+                }}
+                onClick={imageApi}
+              />
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -209,11 +242,11 @@ function UploadGallery() {
               id="fullName"
               name="fullName"
               type="string"
-              value={formik.values.fullName}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.fullName && Boolean(formik.errors.fullName)}
-              helperText={formik.touched.fullName && formik.errors.fullName}
+              // value={formik.values.fullName}
+              // onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              // error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+              // helperText={formik.touched.fullName && formik.errors.fullName}
             />
           </Grid>
           <Grid item xs={2}>
@@ -223,16 +256,16 @@ function UploadGallery() {
               name="dateOfPayment"
               // label="dateOfPayment"
               type="date"
-              value={formik.values.dateOfPayment}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.dateOfPayment &&
-                Boolean(formik.errors.dateOfPayment)
-              }
-              helperText={
-                formik.touched.dateOfPayment && formik.errors.dateOfPayment
-              }
+              // value={formik.values.dateOfPayment}
+              // onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              // error={
+              //   formik.touched.dateOfPayment &&
+              //   Boolean(formik.errors.dateOfPayment)
+              // }
+              // helperText={
+              //   formik.touched.dateOfPayment && formik.errors.dateOfPayment
+              // }
             />
           </Grid>
           <Grid item xs={3}>
@@ -241,15 +274,15 @@ function UploadGallery() {
               id="phoneNumber"
               name="phoneNumber"
               type="number"
-              value={formik.values.phoneNumber}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
-              }
-              helperText={
-                formik.touched.phoneNumber && formik.errors.phoneNumber
-              }
+              // value={formik.values.phoneNumber}
+              // onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              // error={
+              //   formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+              // }
+              // helperText={
+              //   formik.touched.phoneNumber && formik.errors.phoneNumber
+              // }
             />
           </Grid>
           <Grid item xs={3}>
@@ -258,16 +291,16 @@ function UploadGallery() {
               id="emailAddress"
               name="emailAddress"
               type="email"
-              value={formik.values.emailAddress}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.emailAddress &&
-                Boolean(formik.errors.emailAddress)
-              }
-              helperText={
-                formik.touched.emailAddress && formik.errors.emailAddress
-              }
+              // value={formik.values.emailAddress}
+              // onChange={formik.handleChange}
+              // onBlur={formik.handleBlur}
+              // error={
+              //   formik.touched.emailAddress &&
+              //   Boolean(formik.errors.emailAddress)
+              // }
+              // helperText={
+              //   formik.touched.emailAddress && formik.errors.emailAddress
+              // }
             />
           </Grid>
           <Grid item xs={6}>
@@ -283,18 +316,18 @@ function UploadGallery() {
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
             <TextField
               fullWidth
-              id="transactionId"
-              name="transactionId"
+              id="trasactionId"
+              name="trasactionId"
               type="string"
-              value={formik.values.transactionId}
+              value={formik.values.trasactionId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
-                formik.touched.transactionId &&
-                Boolean(formik.errors.transactionId)
+                formik.touched.trasactionId &&
+                Boolean(formik.errors.trasactionId)
               }
               helperText={
-                formik.touched.transactionId && formik.errors.transactionId
+                formik.touched.trasactionId && formik.errors.trasactionId
               }
             />
           </Grid>
