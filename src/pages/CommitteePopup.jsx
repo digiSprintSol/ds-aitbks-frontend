@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -88,30 +89,30 @@ export default function CommitteePopup({ row, token }) {
 
   const acceptButton = () => {
     setLoading(true);
-    setData({ ...data, ...accepted, member: row.categoryOfMembership });
+    setData({ ...data, ...accepted, membership: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...accepted, member: row.categoryOfMembership });
+    post({ ...data, ...accepted, membership: row.categoryOfMembership });
   };
   const rejectButton = () => {
     setLoading(true);
-    setData({ ...data, ...rejected, member: row.categoryOfMembership });
+    setData({ ...data, ...rejected, membership: row.categoryOfMembership });
     // console.log(data, "llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...rejected, member: row.categoryOfMembership });
+    post({ ...data, ...rejected, membership: row.categoryOfMembership });
   };
   const waitButton = () => {
     setLoading(true);
-    setData({ ...data, ...waiting, member: row.categoryOfMembership });
+    setData({ ...data, ...waiting, membership: row.categoryOfMembership });
     // console.log(data,"llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...waiting, member: row.categoryOfMembership });
+    post({ ...data, ...waiting, membership: row.categoryOfMembership });
   };
 
   return (
@@ -181,6 +182,7 @@ export default function CommitteePopup({ row, token }) {
                   value={row.fullName}
                   aria-readonly
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               {/* <Grid item xs={4}>
@@ -197,31 +199,34 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                 />
               </Grid> */}
-              <Grid item xs={2}>
+              <Grid item xs={3}>
                 <Typography id="modal-modal-description">DOB</Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.dateOfBirth}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={5}>
                 <Typography id="modal-modal-description">Mobile No.</Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.phoneNumber}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Typography id="modal-modal-description">Email ID</Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.emailAddress}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={2}>
@@ -231,6 +236,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.gender}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -240,6 +246,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.profession}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -249,6 +256,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.education}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -260,6 +268,7 @@ export default function CommitteePopup({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -271,6 +280,7 @@ export default function CommitteePopup({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -285,6 +295,7 @@ export default function CommitteePopup({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={2}>
@@ -294,6 +305,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].postalCode}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -303,6 +315,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].state}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -312,6 +325,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].country}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -323,6 +337,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.familyDetails.children.length}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               {row.familyDetails.children.map((item) => (
@@ -334,6 +349,7 @@ export default function CommitteePopup({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.name}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                   <Grid item xs={2}>
@@ -343,6 +359,7 @@ export default function CommitteePopup({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.childAge}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                   <Grid item xs={3}>
@@ -352,6 +369,7 @@ export default function CommitteePopup({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.gender}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                 </>
@@ -377,6 +395,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.aadharCard}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -386,6 +405,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.voterIdCard}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={7}>
@@ -395,6 +415,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.category}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -406,6 +427,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reference1}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -417,6 +439,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reference2}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -428,6 +451,7 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.brieflyTellAboutYourself}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -439,8 +463,71 @@ export default function CommitteePopup({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reasonToJoinAITBKS}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
+              <Grid item xs={12}>
+                {row.committeeOneRemarksForApplicant && (
+                  <h3>
+                    Committee 1 comments: {row.committeeOneRemarksForApplicant}
+                  </h3>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {row.committeeOneRemarksForApplicant &&
+                row.committeeOneApproval === true ? (
+                  <h3>Committee 1 Status: Accepted</h3>
+                ) : row.committeeOneRemarksForApplicant &&
+                  row.committeeOneApproval === false ? (
+                  <h3>Committee 1 Status: Rejected</h3>
+                ) : (
+                  <h3>{null}</h3>
+                )}
+              </Grid>
+
+              {/* -------------------------------------------------------------------------- */}
+
+              <Grid item xs={12}>
+                {row.committeeTwoRemarksForApplicant && (
+                  <h3>
+                    Committee 2 comments: {row.committeeTwoRemarksForApplicant}
+                  </h3>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {row.committeeTwoRemarksForApplicant &&
+                row.committeeTwoApproval === true ? (
+                  <h3>Committee 2 Status: Accepted</h3>
+                ) : row.committeeTwoRemarksForApplicant &&
+                  row.committeeTwoApproval === false ? (
+                  <h3>Committee 2 Status: Rejected</h3>
+                ) : (
+                  <h3>{null}</h3>
+                )}
+              </Grid>
+
+              {/* -------------------------------------------------------------------------- */}
+
+              <Grid item xs={12}>
+                {row.committeeThreeRemarksForApplicant && (
+                  <h3>
+                    Committee 3 comments:{" "}
+                    {row.committeeThreeRemarksForApplicant}
+                  </h3>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {row.committeeThreeRemarksForApplicant &&
+                row.committeeThreeApproval === true ? (
+                  <h3>Committee 3 Status: Accepted</h3>
+                ) : row.committeeThreeRemarksForApplicant &&
+                  row.committeeThreeApproval === false ? (
+                  <h3>Committee 3 Status: Rejected</h3>
+                ) : (
+                  <h3>{null}</h3>
+                )}
+              </Grid>
+
               {/* ---------------------------------------------------------------------------------- */}
               <Grid item xs={12}>
                 <Typography
@@ -460,130 +547,7 @@ export default function CommitteePopup({ row, token }) {
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                   onChange={changeHandler}
-                />
-                <p id="errordisplay" style={{ color: "red" }}>
-                  message:
-                </p>
-              </Grid>
-              <DialogActions sx={{ margin: "50px auto" }}>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={acceptButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#199369",
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={waitButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F1C21B",
-                  }}
-                >
-                  Waiting
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={rejectButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F3561F",
-                  }}
-                >
-                  Decline
-                </Button>
-              </DialogActions>
-              {/* ---------------------------------------------------------------------------------------------- */}
-              <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  Committee Comments
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  onChange={changeHandler}
-                />
-                <p id="errordisplay" style={{ color: "red" }}>
-                  message:
-                </p>
-              </Grid>
-              <DialogActions sx={{ margin: "50px auto" }}>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={acceptButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#199369",
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={waitButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F1C21B",
-                  }}
-                >
-                  Waiting
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={rejectButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F3561F",
-                  }}
-                >
-                  Decline
-                </Button>
-              </DialogActions>
-              {/* ---------------------------------------------------------------------------------------------- */}
-              <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  Committee Comments
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  onChange={changeHandler}
+                  size="small"
                 />
                 <p id="errordisplay" style={{ color: "red" }}>
                   message:

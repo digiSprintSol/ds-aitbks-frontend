@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 function PresidentUser() {
   const location = useLocation();
-  const token = `${location.state.token}`;
+  const token = `${location?.state?.token}`;
   const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/user/getAllUsers`,
@@ -55,16 +55,14 @@ function PresidentUser() {
     if (data) {
       const partdata = [];
       const exp =
-        (currentpage - 1) * rowsperpage + rowsperpage > data.content.length
+        (currentpage - 1) * rowsperpage + rowsperpage > data.length
           ? (currentpage - 1) * rowsperpage +
             (rowsperpage -
-              ((currentpage - 1) * rowsperpage +
-                rowsperpage -
-                data.content.length))
+              ((currentpage - 1) * rowsperpage + rowsperpage - data.length))
           : (currentpage - 1) * rowsperpage + rowsperpage;
       // eslint-disable-next-line no-plusplus
       for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
-        partdata.push(data.content[i - 1]);
+        partdata.push(data[i - 1]);
       }
       setCustomdata(partdata);
     }
@@ -73,7 +71,7 @@ function PresidentUser() {
   if (error) return <h1>No data found...</h1>;
   if (loading) return <h1>loading...</h1>;
   // eslint-disable-next-line no-console
-  console.log(data.content.length, rowsperpage, "aaaaaaaaaa");
+  console.log(data.length, rowsperpage, "aaaaaaaaaa");
 
   return (
     <div>
@@ -175,16 +173,16 @@ function PresidentUser() {
       <br />
       <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.content.length ? (
-          <span>{data.content.length}</span>
+        {currentpage * rowsperpage > data.length ? (
+          <span>{data.length}</span>
         ) : (
           <span>{currentpage * rowsperpage}</span>
         )}{" "}
-        of {data.content.length} entries
+        of {data.length} entries
       </span>
 
       <Pagination
-        count={Math.ceil(data.content.length / rowsperpage)}
+        count={Math.ceil(data.length / rowsperpage)}
         sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
         page={currentpage}
         onChange={handleChange}

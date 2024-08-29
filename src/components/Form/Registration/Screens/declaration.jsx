@@ -87,7 +87,7 @@ function Declaration() {
       setLoading(true);
       setData((prevData) => ({
         ...prevData,
-        membershipType: values.membershipType,
+        applicantChoosenMembership: values.membershipType,
       }));
       // // eslint-disable-next-line no-alert
       // alert(JSON.stringify(finalData, null, 2));

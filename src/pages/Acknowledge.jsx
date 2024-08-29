@@ -58,12 +58,12 @@ function Acknowledge({ row, token }) {
   //   }
   // }, [data]);
 
-  const post = async () => {
+  const post = async (information) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
         `${REACT_APP_FAKE_API}/user/approval/${row.userId}`,
-        info,
+        information,
         {
           Token: `Bearer ${token}`,
         }
@@ -79,9 +79,7 @@ function Acknowledge({ row, token }) {
 
   const handleButtonClick = (action) => {
     setInfo({ ...info, statusOfApproval: action });
-    if (Object.keys(info).length === 3) {
-      post();
-    }
+    post({ ...info, statusOfApproval: action });
   };
 
   if (error) return <h1>Error..</h1>;
@@ -132,13 +130,14 @@ function Acknowledge({ row, token }) {
         </IconButton>
         <DialogContent>
           {/* --------------------------------------------------------------------------------------------------- */}
-          {/* <img
-            src={imgPath}
+          <img
+            src={row.paymentInfo.paymentDetailDocument}
             loading="lazy"
             alt="receipt"
             height="20%"
             width="50%"
-          /> */}
+            style={{ marginLeft: "15vw" }}
+          />
           <Grid item xs={4}>
             <Typography id="modal-modal-description">Transaction ID</Typography>
             <TextField
@@ -150,12 +149,14 @@ function Acknowledge({ row, token }) {
           </Grid>
         </DialogContent>
         <DialogActions sx={{ margin: "20px auto" }}>
-          <Button
-            style={{ backgroundColor: "#199369", color: "white" }}
-            onClick={() => handleButtonClick("accepted")}
-          >
-            Acknowlegde
-          </Button>
+          {!row.member && (
+            <Button
+              style={{ backgroundColor: "#199369", color: "white" }}
+              onClick={() => handleButtonClick("accepted")}
+            >
+              Acknowlegde
+            </Button>
+          )}
           {/* <Button
             style={{ backgroundColor: "#F1C21B", color: "white" }}
             onClick={() => handleButtonClick("waiting")}
