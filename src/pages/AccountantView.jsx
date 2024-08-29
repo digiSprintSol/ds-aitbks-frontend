@@ -65,14 +65,19 @@ function PresidentView() {
   //  };
 
   useEffect(() => {
-    const range = [];
-    range.push((currentpage - 1) * rowsperpage + 1);
-    range.push(currentpage * rowsperpage);
-
     if (data) {
-      const partdata = data.filter(
-        (row) => row.id >= range[0] && row.id <= range[1]
-      );
+      const partdata = [];
+      const exp =
+        // rowsperpage > data.content.length ? data.content.length : rowsperpage;
+        (currentpage - 1) * rowsperpage + rowsperpage > data.length
+          ? (currentpage - 1) * rowsperpage +
+            (rowsperpage -
+              ((currentpage - 1) * rowsperpage + rowsperpage - data.length))
+          : (currentpage - 1) * rowsperpage + rowsperpage;
+      // eslint-disable-next-line no-plusplus
+      for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
+        partdata.push(data[i - 1]);
+      }
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
@@ -122,7 +127,7 @@ function PresidentView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {customdata.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -135,8 +140,10 @@ function PresidentView() {
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
                 <TableCell align="middle">
-                  {row.status === "acknowledged" && (
+                  {row.member === true ? (
                     <span className={classes.acknowledged}>Acknowledged</span>
+                  ) : (
+                    <span>Yet to be approved</span>
                   )}
                 </TableCell>
                 <TableCell align="middle">

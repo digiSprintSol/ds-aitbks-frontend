@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -73,7 +74,7 @@ function CommitteeView() {
     }
   }, [currentpage, data]);
 
-  if (error) return <h1>Error..</h1>;
+  if (error) return <h1>No users to display...</h1>;
   if (loading) return <h1>loading...</h1>;
 
   return (
@@ -131,71 +132,95 @@ function CommitteeView() {
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
-                {row.committeeOneChoosenMembershipForApplicant ? (
+
+                {row.committeeOneRemarksForApplicant &&
+                row.committeeOneApproval === true ? (
                   <TableCell
                     align="middle"
-                    className={
-                      // eslint-disable-next-line no-nested-ternary
-                      row.status === "accepted"
-                        ? classes.accepted
-                        : row.status === "Waiting"
-                        ? classes.waiting
-                        : classes.declined
-                    }
+                    className={classes.accepted}
                     sx={{
                       fontWeight: "bold",
                       textTransform: "uppercase",
                     }}
                   >
-                    {row.status}
+                    Accepted
+                  </TableCell>
+                ) : row.committeeOneRemarksForApplicant &&
+                  row.committeeOneApproval === false ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.declined}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Declined
                   </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>
                 )}
+
                 {/* -------------------------------------------------------------------------- */}
-                {row.committeeTwoChoosenMembershipForApplicant ? (
+
+                {row.committeeTwoRemarksForApplicant &&
+                row.committeeTwoApproval === true ? (
                   <TableCell
                     align="middle"
-                    className={
-                      // eslint-disable-next-line no-nested-ternary
-                      row.status === "accepted"
-                        ? classes.accepted
-                        : row.status === "Waiting"
-                        ? classes.waiting
-                        : classes.declined
-                    }
+                    className={classes.accepted}
                     sx={{
                       fontWeight: "bold",
                       textTransform: "uppercase",
                     }}
                   >
-                    {row.status}
+                    Accepted
+                  </TableCell>
+                ) : row.committeeTwoRemarksForApplicant &&
+                  row.committeeTwoApproval === false ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.declined}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Declined
                   </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>
                 )}
+
                 {/* -------------------------------------------------------------------------- */}
-                {row.committeeThreeRemarksForApplicant ? (
+
+                {row.committeeThreeRemarksForApplicant &&
+                row.committeeThreeApproval === true ? (
                   <TableCell
                     align="middle"
-                    className={
-                      // eslint-disable-next-line no-nested-ternary
-                      row.status === "accepted"
-                        ? classes.accepted
-                        : row.status === "Waiting"
-                        ? classes.waiting
-                        : classes.declined
-                    }
+                    className={classes.accepted}
                     sx={{
                       fontWeight: "bold",
                       textTransform: "uppercase",
                     }}
                   >
-                    {row.status}
+                    Accepted
+                  </TableCell>
+                ) : row.committeeThreeRemarksForApplicant &&
+                  row.committeeThreeApproval === false ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.declined}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Declined
                   </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>
                 )}
+
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"

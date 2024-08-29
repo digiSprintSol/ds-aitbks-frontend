@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import AccountantView from "./AccountantView";
 import ViewDonations from "./ViewDonations";
-import president4 from "./images/president4.png";
+import accountant1 from "./images/accountant1.png";
+import accountant2 from "./images/accountant2.png";
 
 function AccountantNav() {
   const [activecount, setActivecount] = useState(0);
@@ -17,7 +18,7 @@ function AccountantNav() {
   };
   return (
     <div style={{ marginTop: "20px" }}>
-      <div className="presidentviewhead">
+      <div className="presidentviewhead" style={{ marginLeft: "35vw" }}>
         <button
           type="button"
           className="presidentviewnav"
@@ -25,7 +26,12 @@ function AccountantNav() {
             setActivecount(0);
           }}
         >
-          <img src={president4} alt="galleryimage" height="30px" width="30px" />
+          <img
+            src={accountant1}
+            alt="galleryimage"
+            height="30px"
+            width="30px"
+          />
           <h5>User Payments</h5>
         </button>
         <button
@@ -35,7 +41,13 @@ function AccountantNav() {
             setActivecount(1);
           }}
         >
-          <img src={president4} alt="galleryimage" height="30px" width="30px" />
+          <img
+            src={accountant2}
+            alt="galleryimage"
+            height="35px"
+            style={{ marginTop: "0.7vw" }}
+            width="30px"
+          />
           <h5>Donations</h5>
         </button>
       </div>
