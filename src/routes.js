@@ -6,6 +6,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import PaymentLayout from "./layouts/PaymentLayout";
 import PresidentLayout from "./layouts/PresidentLayout";
 import UserLayout from "./layouts/UserLayout";
+import ResetPsw from "./pages/ResetPsw";
 
 const Feedback = loadable(() => import("./pages/Feedback"));
 const AboutUs = loadable(() => import("./pages/AboutUs"));
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: "/auth/login",
         element: <Login />,
+      },
+      {
+        path: "/auth/resetpsw",
+        element: <ResetPsw />,
       },
       {
         path: "/auth/registration-one",

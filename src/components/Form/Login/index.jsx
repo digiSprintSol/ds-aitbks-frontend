@@ -30,6 +30,10 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleResetPasswordClick = () => {
+    navigate("/auth/resetpsw");
+  };
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -211,16 +215,22 @@ function Login() {
             </Grid>
           </Grid>
         </form>
-        <Stack direction="row" justifyContent="center" marginTop="20px">
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          marginTop="20px"
+          spacing={1}
+        >
           <Typography variant="body2" sx={{ fontFamily: "ProximaRegular" }}>
             Forgot your password?
           </Typography>
-          <Typography
-            variant="body2"
-            style={{ fontFamily: "ProximaBold", marginLeft: "5px" }}
+          <Button
+            sx={{ marginLeft: "10px" }}
+            onClick={handleResetPasswordClick}
           >
             Reset Password
-          </Typography>
+          </Button>
         </Stack>
       </Box>
     </Box>
