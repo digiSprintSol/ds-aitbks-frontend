@@ -40,7 +40,6 @@ const UploadEvent = loadable(() => import("./pages/UploadEvent"));
 const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
 const UserID = loadable(() => import("./pages/UserID"));
-// const EmailBroadcast = loadable(() => import("./pages/EmailBroadcast"));
 
 export const router = createBrowserRouter([
   // Default view

@@ -5,7 +5,9 @@ import president2 from "./images/president2.png";
 import president3 from "./images/president3.png";
 import president4 from "./images/president4.png";
 import president5 from "./images/president5.png";
-import president6 from "./images/president6.png";
+import qrcoode from "./images/qr-code.png";
+import president7 from "./images/president7.png";
+import president8 from "./images/president8.png";
 import PresidentUser from "./PresidentUser";
 import PresidentCRUD from "./PresidentCRUD";
 import UploadEvent from "./UploadEvent";
@@ -13,7 +15,7 @@ import UploadGallery from "./UploadGallery";
 import UploadAnnouncement from "./UploadAnnouncement";
 import MarketPlaces from "./MarketPlaces";
 import Qrcode from "./Qrcode";
-import EmailBroadcast from "./EmailBroadcast";
+import Broadcast from "./Broadcast";
 
 function PresidentView() {
   // const navigate = useNavigate();
@@ -42,7 +44,7 @@ function PresidentView() {
       case 6:
         return <Qrcode />;
       case 7:
-        return <EmailBroadcast />;
+        return <Broadcast />;
     }
   };
   return (
@@ -111,10 +113,10 @@ function PresidentView() {
           }}
         >
           <img
-            src={president6}
+            src={president8}
             alt="announcementimage"
             height="25px"
-            width="25px"
+            width="27px"
           />
           <h5>Add marketplaces</h5>
         </button>
@@ -126,7 +128,7 @@ function PresidentView() {
           }}
         >
           <img
-            src={president6}
+            src={qrcoode}
             alt="announcementimage"
             height="25px"
             width="25px"
@@ -137,14 +139,14 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(6);
+            setActivecount(7);
           }}
         >
           <img
-            src={president6}
+            src={president7}
             alt="announcementimage"
-            height="25px"
-            width="25px"
+            height="20px"
+            width="26px"
           />
           <h5>EmailBroadcast</h5>
         </button>

@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
 
 // eslint-disable-next-line no-unused-vars
 function UserIdCard({ data }) {
+  // console.log(data,"aaaaaa")
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -84,13 +85,13 @@ function UserIdCard({ data }) {
               }}
             >
               <Text style={{ fontSize: "20px", fontWeight: "bold" }}>
-                SURYA GOURAB MISHRA
+                {data.nameofTheApplicant}
               </Text>
               <Text style={{ fontSize: "16px", fontWeight: "medium" }}>
-                Trustee Member
+                {data.typeOfMemberShip}
               </Text>
               <Text style={{ fontSize: "16px", fontWeight: "medium" }}>
-                TM240001
+                {data.membershipId}
               </Text>
             </View>
           </View>

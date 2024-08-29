@@ -446,3 +446,11 @@ export const memberCategory = [
   { label: "Committee" },
   { label: "Accountant" },
 ];
+
+export const toEmail = [
+  { label: "trustee" },
+  { label: "patron" },
+  { label: "lifemember" },
+  { label: "committee" },
+  { label: "accountant" },
+];
