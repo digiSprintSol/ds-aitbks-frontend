@@ -18,7 +18,8 @@ import { postRequest } from "../../../HTTP_POST/api";
 function Login() {
   // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState({});
-  const [token, setToken] = useState({});
+  const [token, setToken] = useState(null);
+  const [id, setId] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { REACT_APP_FAKE_API } = process.env;
@@ -52,6 +53,7 @@ function Login() {
           }
         );
         setToken(response?.token);
+        setId(res?.accessId);
         setData(res);
       } catch (err) {
         // console.log(err.message, "okayyy");
@@ -82,7 +84,7 @@ function Login() {
       navigate("/president-view", { state: { token } });
     }
     if (data.commitee) {
-      navigate("/committee-view", { state: { token } });
+      navigate("/committee-view", { state: { token, id } });
     }
     if (data.accountant) {
       navigate("/accountant-nav", { state: { token } });

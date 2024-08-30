@@ -9,6 +9,5 @@ handlers:
   # Catch all handler to index.html
   - url: /.*
     static_files: build/index.html
-    secure: always
     redirect_http_response_code: 301
     upload: build/(.*\..+)$

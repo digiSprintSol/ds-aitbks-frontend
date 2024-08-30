@@ -223,7 +223,7 @@ function personalDetails({ setActiveStep }) {
             Full Name
           </Typography>
         </Grid>
-        <Grid item xs={4} sx={{}}>
+        <Grid item xs={6}>
           <TextField
             fullWidth
             size="small"

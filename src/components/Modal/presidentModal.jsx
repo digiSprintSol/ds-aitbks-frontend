@@ -189,6 +189,7 @@ export default function PresidentModal({ row, token }) {
                   value={row.fullName}
                   aria-readonly
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               {/* <Grid item xs={4}>
@@ -212,6 +213,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.dateOfBirth}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -221,6 +223,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.phoneNumber}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -230,6 +233,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.emailAddress}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={2}>
@@ -239,6 +243,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.gender}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -248,6 +253,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.profession}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -257,6 +263,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.education}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -268,6 +275,7 @@ export default function PresidentModal({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -279,6 +287,7 @@ export default function PresidentModal({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -293,6 +302,7 @@ export default function PresidentModal({ row, token }) {
                   aria-readonly
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
                 />
               </Grid>
               <Grid item xs={2}>
@@ -302,6 +312,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].postalCode}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={4}>
@@ -311,6 +322,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].state}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -320,6 +332,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.address[0].country}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -331,6 +344,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.familyDetails.children.length}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               {row.familyDetails.children.map((item) => (
@@ -342,6 +356,7 @@ export default function PresidentModal({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.name}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                   <Grid item xs={2}>
@@ -351,6 +366,7 @@ export default function PresidentModal({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.childAge}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                   <Grid item xs={3}>
@@ -360,6 +376,7 @@ export default function PresidentModal({ row, token }) {
                       sx={{ backgroundColor: "#ffffff" }}
                       value={item.gender}
                       aria-readonly
+                      size="small"
                     />
                   </Grid>
                 </>
@@ -385,6 +402,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.aadharCard}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -394,6 +412,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.voterIdCard}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={7}>
@@ -403,6 +422,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.category}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -414,6 +434,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reference1}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={6}>
@@ -425,6 +446,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reference2}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -436,6 +458,7 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.brieflyTellAboutYourself}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -447,8 +470,25 @@ export default function PresidentModal({ row, token }) {
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.reasonToJoinAITBKS}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
+              {/* <Grid item xs={12}>
+                <Typography id="modal-modal-description">
+                  Applicant Choosen Membership
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.applicantChoosenMembership}
+                  aria-readonly
+                  size="small"
+                  disabled
+                />
+              </Grid> */}
+
+              {/* -------------------------- committee 1,2,3 commenets and status starts from here------------------ */}
+              {/* ==============committee 1 comments===================================================================================================== */}
               <Grid item xs={12}>
                 <Typography
                   variant="h5"
@@ -461,19 +501,24 @@ export default function PresidentModal({ row, token }) {
                     marginTop: "40px",
                   }}
                 >
-                  Committee Comments
+                  Committee member 1 Comments
                 </Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.committeeRemarksForApplicant}
+                  value={row.committeeOneRemarksForApplicant}
                   aria-readonly
+                  size="small"
                 />
               </Grid>
 
-              {/* ------------------------------------------------------------ committeee status checking */}
-              {row.status === "accepted" && (
-                <Stack direction="row" spacing={30}>
+              {/* ------------------------------------------------------------ committeee 1 status checking */}
+              {row.committeeOneApproval === true && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
                   <Grid item xs={4}>
                     <FormControlLabel
                       value="accepted"
@@ -502,8 +547,12 @@ export default function PresidentModal({ row, token }) {
                 </Stack>
               )}
 
-              {row.status === "rejected" && (
-                <Stack direction="row" spacing={30}>
+              {row.committeeOneApproval === false && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
                   <Grid item xs={4}>
                     <FormControlLabel
                       value="accepted"
@@ -532,7 +581,7 @@ export default function PresidentModal({ row, token }) {
                 </Stack>
               )}
 
-              {row.status === "waiting" && (
+              {/* {row.committeeOneApproval === "waiting" && (
                 <Stack direction="row" spacing={30}>
                   <Grid item xs={4}>
                     <FormControlLabel
@@ -560,102 +609,453 @@ export default function PresidentModal({ row, token }) {
                     />
                   </Grid>
                 </Stack>
-              )}
+              )} */}
 
-              {/* ------------------------------------------------------------------------------------- */}
+              {/* ====================committee 2 comment ============================================================================================== */}
 
               <Grid item xs={12}>
-                <Divider />
-                <Grid item xs={12}>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: "#1B7DA6",
-                      fontWeight: "bold",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginTop: "40px",
-                    }}
-                  >
-                    President Comments
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}
-                    value={comments}
-                    onChange={handleCommentChange}
-                  />
-                </Grid>
-                <Grid container justifyContent="center">
-                  <RadioGroup
-                    row
-                    sx={{ marginTop: "10px" }}
-                    value={radioValue}
-                    onChange={handleRadioChange}
-                  >
-                    <Grid item xs={4}>
-                      <FormControlLabel
-                        value="trustee"
-                        control={<Radio />}
-                        label="Trustee"
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <FormControlLabel
-                        value="patron"
-                        control={<Radio />}
-                        label="Patron"
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <FormControlLabel
-                        value="life_member"
-                        control={<Radio />}
-                        label="Life Member"
-                      />
-                    </Grid>
-                  </RadioGroup>
-                </Grid>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: "#1B7DA6",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "40px",
+                  }}
+                >
+                  Committee member 2 Comments
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.committeeTwoRemarksForApplicant}
+                  aria-readonly
+                  size="small"
+                />
               </Grid>
-              <DialogActions sx={{ margin: "50px auto" }}>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={() => handleButtonClick("accepted")}
+
+              {/* ------------------------------------------------------------ committeee2 status checking */}
+              {row.committeeTwoApproval === true && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.committeeTwoApproval === false && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {/* {row.status === "waiting" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )} */}
+
+              {/* ================committee 3 comment================================================================================================== */}
+
+              <Grid item xs={12}>
+                <Typography
+                  variant="h5"
                   sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#199369",
+                    color: "#1B7DA6",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "40px",
                   }}
                 >
-                  Accept
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={() => handleButtonClick("Waiting")}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F1C21B",
-                  }}
+                  Committee member 3 Comments
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.committeeThreeRemarksForApplicant}
+                  aria-readonly
+                  size="small"
+                />
+              </Grid>
+
+              {/* ------------------------------------------------------------ committeee3 status checking */}
+              {row.committeeThreeApproval === true && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
                 >
-                  Waiting
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={() => handleButtonClick("rejected")}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F3561F",
-                  }}
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.committeeThreeApproval === false && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
                 >
-                  Decline
-                </Button>
-              </DialogActions>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {/* {row.status === "waiting" && (
+                <Stack direction="row" spacing={30}>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )} */}
+
+              {/* =========end end end end end end end========================================================================================================= */}
+              {/* ------------------------------------- display President comments------------------------------------------------------------------------------------------ */}
+              {row.presidentRemarksForApplicant && (
+                <>
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        color: "#1B7DA6",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: "40px",
+                      }}
+                    >
+                      President Comments
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{ backgroundColor: "#ffffff" }}
+                      value={row.committeeTwoRemarksForApplicant}
+                      aria-readonly
+                      size="small"
+                    />
+                  </Grid>
+
+                  {/* ------------------------------------------------------------ display president status */}
+                  {row.presidentApproval === true && (
+                    <Stack
+                      direction="row"
+                      spacing={30}
+                      sx={{ marginLeft: "5.5vw" }}
+                    >
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="accepted"
+                          checked
+                          disabled
+                          control={<Radio />}
+                          label="Accepted"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="rejected"
+                          disabled
+                          control={<Radio />}
+                          label="Rejected"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="waiting"
+                          disabled
+                          control={<Radio />}
+                          label="Waiting"
+                        />
+                      </Grid>
+                    </Stack>
+                  )}
+
+                  {row.presidentApproval === false && (
+                    <Stack
+                      direction="row"
+                      spacing={30}
+                      sx={{ marginLeft: "5.5vw" }}
+                    >
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="accepted"
+                          disabled
+                          control={<Radio />}
+                          label="Accepted"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="rejected"
+                          checked
+                          disabled
+                          control={<Radio />}
+                          label="Rejected"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <FormControlLabel
+                          value="waiting"
+                          disabled
+                          control={<Radio />}
+                          label="Waiting"
+                        />
+                      </Grid>
+                    </Stack>
+                  )}
+                </>
+              )}
+
+              {/* ------------------president comments------------------------------------------------------------------------------ */}
+
+              {!row.presidentRemarksForApplicant && (
+                <>
+                  <Grid item xs={12}>
+                    <Divider />
+                    <Grid item xs={12}>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          color: "#1B7DA6",
+                          fontWeight: "bold",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: "40px",
+                        }}
+                      >
+                        President Comments
+                      </Typography>
+                      <TextField
+                        fullWidth
+                        sx={{ backgroundColor: "#ffffff" }}
+                        value={comments}
+                        onChange={handleCommentChange}
+                        size="small"
+                      />
+                    </Grid>
+                    <Grid container justifyContent="center">
+                      <RadioGroup
+                        row
+                        sx={{ marginTop: "10px" }}
+                        value={radioValue}
+                        onChange={handleRadioChange}
+                      >
+                        <Grid item xs={4}>
+                          <FormControlLabel
+                            value="trustee"
+                            control={<Radio />}
+                            label="Trustee"
+                          />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControlLabel
+                            value="patron"
+                            control={<Radio />}
+                            label="Patron"
+                          />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControlLabel
+                            value="lifemember"
+                            control={<Radio />}
+                            label="Life Member"
+                          />
+                        </Grid>
+                      </RadioGroup>
+                    </Grid>
+                  </Grid>
+                  <DialogActions sx={{ margin: "50px auto" }}>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={() => handleButtonClick("accepted")}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#199369",
+                      }}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={() => handleButtonClick("Waiting")}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#F1C21B",
+                      }}
+                    >
+                      Waiting
+                    </Button>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={() => handleButtonClick("rejected")}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#F3561F",
+                      }}
+                    >
+                      Decline
+                    </Button>
+                  </DialogActions>
+                </>
+              )}
             </Grid>
             {loading && (
               <div
