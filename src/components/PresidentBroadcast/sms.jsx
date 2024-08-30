@@ -9,6 +9,7 @@ import {
   TextField,
   // Button,
   Box,
+  Button,
 } from "@mui/material";
 
 // Define validation schema using Yup
@@ -80,6 +81,14 @@ function SmsComponent() {
             {/* <Button type="submit" variant="contained" color="primary">
               Submit
             </Button> */}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+            >
+              Send
+            </Button>
           </Box>
         </Form>
       )}

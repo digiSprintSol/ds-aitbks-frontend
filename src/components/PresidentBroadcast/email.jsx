@@ -113,7 +113,7 @@ function EmailComponent() {
               >
                 {toEmail.map((ema) => (
                   <MenuItem key={ema.label} value={ema.label}>
-                    {ema.label}
+                    {ema.label.toUpperCase()}
                   </MenuItem>
                 ))}
               </Select>

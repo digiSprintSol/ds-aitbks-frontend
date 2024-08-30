@@ -28,7 +28,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CommitteePopup({ row, token }) {
+export default function CommitteePopup({ row, token, id }) {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -114,6 +114,13 @@ export default function CommitteePopup({ row, token }) {
     // }
     post({ ...data, ...waiting, membership: row.categoryOfMembership });
   };
+
+  const arr = [];
+  arr.push(row.committeeMemberOneId);
+  arr.push(row.committeeMemberTwoId);
+  arr.push(row.committeeMemberThreeId);
+  console.log(id, arr, "fffff");
+  // console.log(arr.includes(id), "fffff");
 
   return (
     <>
@@ -466,14 +473,39 @@ export default function CommitteePopup({ row, token }) {
                   size="small"
                 />
               </Grid>
+              {/* <Grid item xs={12}>
+                <Typography id="modal-modal-description">
+                  Applicant Choosen Membership
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.applicantChoosenMembership}
+                  aria-readonly
+                  size="small"
+                  disabled
+                />
+              </Grid> */}
               <Grid item xs={12}>
                 {row.committeeOneRemarksForApplicant && (
-                  <h3>
-                    Committee 1 comments: {row.committeeOneRemarksForApplicant}
-                  </h3>
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {`Committee member 1 comments: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={row.committeeOneRemarksForApplicant}
+                      aria-readonly
+                      size="small"
+                    />
+                  </>
                 )}
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 {row.committeeOneRemarksForApplicant &&
                 row.committeeOneApproval === true ? (
                   <h3>Committee 1 Status: Accepted</h3>
@@ -483,18 +515,30 @@ export default function CommitteePopup({ row, token }) {
                 ) : (
                   <h3>{null}</h3>
                 )}
-              </Grid>
+              </Grid> */}
 
               {/* -------------------------------------------------------------------------- */}
 
               <Grid item xs={12}>
                 {row.committeeTwoRemarksForApplicant && (
-                  <h3>
-                    Committee 2 comments: {row.committeeTwoRemarksForApplicant}
-                  </h3>
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {`Committee member 2 comments: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={row.committeeTwoRemarksForApplicant}
+                      aria-readonly
+                      size="small"
+                    />
+                  </>
                 )}
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 {row.committeeTwoRemarksForApplicant &&
                 row.committeeTwoApproval === true ? (
                   <h3>Committee 2 Status: Accepted</h3>
@@ -504,19 +548,30 @@ export default function CommitteePopup({ row, token }) {
                 ) : (
                   <h3>{null}</h3>
                 )}
-              </Grid>
+              </Grid> */}
 
               {/* -------------------------------------------------------------------------- */}
 
               <Grid item xs={12}>
                 {row.committeeThreeRemarksForApplicant && (
-                  <h3>
-                    Committee 3 comments:{" "}
-                    {row.committeeThreeRemarksForApplicant}
-                  </h3>
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {`Committee member 3 comments: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={row.committeeThreeRemarksForApplicant}
+                      aria-readonly
+                      size="small"
+                    />
+                  </>
                 )}
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 {row.committeeThreeRemarksForApplicant &&
                 row.committeeThreeApproval === true ? (
                   <h3>Committee 3 Status: Accepted</h3>
@@ -526,71 +581,76 @@ export default function CommitteePopup({ row, token }) {
                 ) : (
                   <h3>{null}</h3>
                 )}
-              </Grid>
+              </Grid> */}
 
               {/* ---------------------------------------------------------------------------------- */}
-              <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  Committee Comments
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  onChange={changeHandler}
-                  size="small"
-                />
-                <p id="errordisplay" style={{ color: "red" }}>
-                  message:
-                </p>
-              </Grid>
-              <DialogActions sx={{ margin: "50px auto" }}>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={acceptButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#199369",
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={waitButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F1C21B",
-                  }}
-                >
-                  Waiting
-                </Button>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={rejectButton}
-                  sx={{
-                    width: "130px",
-                    borderRadius: "50px",
-                    backgroundColor: "#F3561F",
-                  }}
-                >
-                  Decline
-                </Button>
-              </DialogActions>
+
+              {!arr.includes(id) && (
+                <>
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        color: "#1B7DA6",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: "40px",
+                      }}
+                    >
+                      Committee Comments
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{ backgroundColor: "#ffffff" }}
+                      onChange={changeHandler}
+                      size="small"
+                    />
+                    <p id="errordisplay" style={{ color: "red" }}>
+                      message:
+                    </p>
+                  </Grid>
+                  <DialogActions sx={{ margin: "50px auto" }}>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={acceptButton}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#199369",
+                      }}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={waitButton}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#F1C21B",
+                      }}
+                    >
+                      Waiting
+                    </Button>
+                    <Button
+                      variant="contained"
+                      autoFocus
+                      onClick={rejectButton}
+                      sx={{
+                        width: "130px",
+                        borderRadius: "50px",
+                        backgroundColor: "#F3561F",
+                      }}
+                    >
+                      Decline
+                    </Button>
+                  </DialogActions>
+                </>
+              )}
               {/* ---------------------------------------------------------------------------------------------- */}
             </Grid>
             {loading && (
@@ -625,4 +685,5 @@ export default function CommitteePopup({ row, token }) {
 CommitteePopup.propTypes = {
   row: PropTypes.func.isRequired,
   token: PropTypes.func.isRequired,
+  id: PropTypes.func.isRequired,
 };

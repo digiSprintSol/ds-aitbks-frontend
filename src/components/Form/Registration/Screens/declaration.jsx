@@ -58,7 +58,7 @@ function Declaration() {
         {
           ...finalData,
           // profilePic: "https://example.com/profilepic.jpg",
-          requestForMembershipApplicationFromDeclaration: true,
+          decalartionForRegOne: true,
         },
         {
           Token: `Bearer ${token}`,
@@ -80,14 +80,14 @@ function Declaration() {
 
   const formik = useFormik({
     initialValues: {
-      membershipType: "",
+      applicantChoosenMembership: "",
     },
     // validationSchema,
     onSubmit: (values) => {
       setLoading(true);
       setData((prevData) => ({
         ...prevData,
-        applicantChoosenMembership: values.membershipType,
+        values,
       }));
       // // eslint-disable-next-line no-alert
       // alert(JSON.stringify(finalData, null, 2));
@@ -116,7 +116,7 @@ function Declaration() {
           <RadioGroup
             row
             name="membershipType"
-            value={formik.values.membershipType}
+            value={formik.values.applicantChoosenMembership}
             onChange={formik.handleChange}
             sx={{
               marginLeft: "20px",
@@ -136,7 +136,7 @@ function Declaration() {
               }}
             />
             <FormControlLabel
-              value="lifeMembership"
+              value="lifemember"
               control={<Radio />}
               label="Life Membership"
               sx={{
@@ -145,9 +145,10 @@ function Declaration() {
             />
           </RadioGroup>
         </Box>
-        {formik.touched.membershipType && formik.errors.membershipType ? (
+        {formik.touched.applicantChoosenMembership &&
+        formik.errors.applicantChoosenMembership ? (
           <Typography variant="body2" color="error">
-            {formik.errors.membershipType}
+            {formik.errors.applicantChoosenMembership}
           </Typography>
         ) : null}
         <Typography
