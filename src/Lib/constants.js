@@ -451,6 +451,5 @@ export const toEmail = [
   { label: "trustee" },
   { label: "patron" },
   { label: "lifemember" },
-  { label: "committee" },
-  { label: "accountant" },
+  { label: "all" },
 ];

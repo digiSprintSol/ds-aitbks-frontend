@@ -6,7 +6,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Divider,
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -180,52 +179,51 @@ export default function Search() {
       </Grid>
 
       {users && (
-        <Grid
-          container
-          spacing={2}
-          justifyContent="space-between"
-          sx={{ padding: "0 20px" }}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "auto auto auto",
+            columnGap: "2vw",
+          }}
         >
           {users.map((user) => (
-            <Grid item xs={12} md={4} key={user.nameOfShop}>
-              <div style={{ marginBottom: "3vw", textAlign: "center" }}>
-                <img
-                  src={user.imageUrl}
-                  loading="lazy"
-                  alt="shop"
-                  style={{ width: "100%", height: "250px" }}
-                />
-                <Typography
-                  variant="h6"
-                  sx={{ fontFamily: "ProximaBold", marginTop: "10px" }}
-                >
-                  {user.nameOfShop}
-                </Typography>
-                <Typography variant="body1">{user.contactPerson}</Typography>
-                <Typography variant="body1">{user.mobileNumber}</Typography>
-                <Typography variant="body1">{user.category}</Typography>
-                <Typography variant="body1">{user.city}</Typography>
-                <Typography variant="body1">
-                  <a
-                    href={user.location}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Google Maps
-                  </a>
-                </Typography>
-              </div>
-              <Divider
-                sx={{
-                  width: "100%",
-                  height: "1px",
-                  backgroundColor: "#909090",
-                  marginTop: "3vw",
-                }}
+            <div style={{ marginBottom: "3vw", textAlign: "center" }}>
+              <img
+                src={user.imageUrl}
+                loading="lazy"
+                alt="shop"
+                style={{ width: "30vw", height: "20vw" }}
               />
-            </Grid>
+              <Typography
+                variant="h6"
+                sx={{ fontFamily: "ProximaBold", marginTop: "10px" }}
+              >
+                {user.nameOfShop}
+              </Typography>
+              <Typography variant="body1">{user.contactPerson}</Typography>
+              <Typography variant="body1">{user.mobileNumber}</Typography>
+              <Typography variant="body1">{user.category}</Typography>
+              <Typography variant="body1">{user.city}</Typography>
+              <Typography variant="body1">
+                <a
+                  href={user.location}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Maps
+                </a>
+              </Typography>
+              {/* <Divider
+              sx={{
+                width: "100%",
+                height: "1px",
+                backgroundColor: "#909090",
+                marginTop: "3vw",
+              }}
+            /> */}
+            </div>
           ))}
-        </Grid>
+        </div>
       )}
     </Stack>
   );

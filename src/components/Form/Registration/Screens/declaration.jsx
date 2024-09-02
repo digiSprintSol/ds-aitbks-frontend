@@ -58,7 +58,7 @@ function Declaration() {
         {
           ...finalData,
           // profilePic: "https://example.com/profilepic.jpg",
-          requestForMembershipApplicationFromDeclaration: true,
+          decalartionForRegOne: true,
         },
         {
           Token: `Bearer ${token}`,
@@ -80,14 +80,14 @@ function Declaration() {
 
   const formik = useFormik({
     initialValues: {
-      membershipType: "",
+      applicantChoosenMembership: "",
     },
     // validationSchema,
     onSubmit: (values) => {
       setLoading(true);
       setData((prevData) => ({
         ...prevData,
-        applicantChoosenMembership: values.membershipType,
+        values,
       }));
       // // eslint-disable-next-line no-alert
       // alert(JSON.stringify(finalData, null, 2));
@@ -144,7 +144,7 @@ function Declaration() {
               <RadioGroup
                 row
                 name="membershipType"
-                value={formik.values.membershipType}
+                value={formik.values.applicantChoosenMembership}
                 onChange={formik.handleChange}
                 sx={{
                   marginLeft: "20px",
@@ -160,7 +160,9 @@ function Declaration() {
                   control={<Radio />}
                   label="Patron"
                   sx={{
-                    marginLeft: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "20px",
                   }}
                 />
                 <FormControlLabel
@@ -176,6 +178,23 @@ function Declaration() {
             {formik.touched.membershipType && formik.errors.membershipType ? (
               <Typography variant="body2" color="error">
                 {formik.errors.membershipType}
+              </Typography>
+            ) : null}
+            <Typography
+              variant="subtitle1"
+              style={{ color: "red", fontWeight: "bold" }}
+            >
+              Declaration
+            </Typography>
+            <Typography variant="body1">
+              I hereby declare that once the membership is granted, I will abide
+              by the laws and the other regulation of All India Telega Balija
+              Kapu Sangam
+            </Typography>
+            {formik.touched.applicantChoosenMembership &&
+            formik.errors.applicantChoosenMembership ? (
+              <Typography variant="body2" color="error">
+                {formik.errors.applicantChoosenMembership}
               </Typography>
             ) : null}
             <Typography
