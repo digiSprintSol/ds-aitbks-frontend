@@ -234,7 +234,11 @@ function CommitteeView() {
                   >
                     View Full Details
                   </Button> */}
-                  <CommitteePopup row={row} token={token} />
+                  <CommitteePopup
+                    row={row}
+                    token={token}
+                    id={location.state.id}
+                  />
                 </TableCell>
               </TableRow>
             ))}

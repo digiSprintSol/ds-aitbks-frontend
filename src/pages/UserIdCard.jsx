@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
 // eslint-disable-next-line no-unused-vars
 function UserIdCard({ data }) {
   // console.log(data,"aaaaaa")
+  const name = data.nameofTheApplicant.toUpperCase();
+  const member = data.typeOfMemberShip.toUpperCase().concat("  MEMBER");
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -72,7 +74,7 @@ function UserIdCard({ data }) {
             }}
           >
             <Image
-              src="/assets/images/passport_pic.jpg"
+              src={data.image}
               style={{ width: "100px", height: "110px" }}
             />
             <View
@@ -85,12 +87,12 @@ function UserIdCard({ data }) {
               }}
             >
               <Text style={{ fontSize: "20px", fontWeight: "bold" }}>
-                {data.nameofTheApplicant}
+                {name}
               </Text>
-              <Text style={{ fontSize: "16px", fontWeight: "medium" }}>
-                {data.typeOfMemberShip}
+              <Text style={{ fontSize: "12px", fontWeight: "medium" }}>
+                {member}
               </Text>
-              <Text style={{ fontSize: "16px", fontWeight: "medium" }}>
+              <Text style={{ fontSize: "12px", fontWeight: "medium" }}>
                 {data.membershipId}
               </Text>
             </View>
