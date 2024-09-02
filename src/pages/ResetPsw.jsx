@@ -1,12 +1,12 @@
-import React from "react";
-import ResetPassword from "../components/ResetPassword/ForgotPassword";
+// import Reactfrom "react";
 
-function ResetPsw() {
-  return (
-    <div>
-      <ResetPassword />
-    </div>
-  );
-}
+// function ResetPsw() {
 
-export default ResetPsw;
+//   return (
+//     <div>
+
+//     </div>
+//   );
+// }
+
+// export default ResetPsw;
