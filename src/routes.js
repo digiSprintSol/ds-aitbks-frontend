@@ -6,7 +6,9 @@ import AuthLayout from "./layouts/AuthLayout";
 import PaymentLayout from "./layouts/PaymentLayout";
 import PresidentLayout from "./layouts/PresidentLayout";
 import UserLayout from "./layouts/UserLayout";
-import ResetPsw from "./pages/ResetPsw";
+import ForgotPassword from "./components/ResetPassword/ForgotPassword";
+import OtpVerify from "./components/ResetPassword/OtpVerify";
+import NewPassword from "./components/ResetPassword/newPsw";
 
 const Feedback = loadable(() => import("./pages/Feedback"));
 const AboutUs = loadable(() => import("./pages/AboutUs"));
@@ -86,7 +88,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/auth/resetpsw",
-        element: <ResetPsw />,
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/auth/otp-verify",
+        element: <OtpVerify />,
+      },
+      {
+        path: "/auth/new-password",
+        element: <NewPassword />,
       },
       {
         path: "/auth/registration-one",

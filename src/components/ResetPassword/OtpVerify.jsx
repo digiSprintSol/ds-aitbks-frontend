@@ -1,50 +1,49 @@
+/* eslint-disable no-alert */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { Typography, CircularProgress } from "@mui/material";
+import { IconButton, InputAdornment, Typography } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { postRequest } from "../../HTTP_POST/api";
 
-function ForgotPassword() {
+function verifyOtp() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const [showOtp, setShowOtp] = useState(false);
   const { REACT_APP_FAKE_API } = process.env;
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const handleClickShowOtp = () => setShowOtp((show) => !show);
   const formik = useFormik({
-    initialValues: { email: "" },
+    initialValues: { otp: "" },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
+      otp: Yup.string()
+        .length(6, "OTP must be exactly 6 digits")
+        .required("OTP is required"),
     }),
     onSubmit: async (values) => {
-      // eslint-disable-next-line no-console
-      setLoading(true);
-      // console.log("Form values:", values);
+      // console.log("OTP Verified:", values.otp);
+      // After successfully verifying the OTP, move to the next step
       try {
         // eslint-disable-next-line no-unused-vars
         const result = await postRequest(
-          `${REACT_APP_FAKE_API}/verifyEmail`,
-          { ...values, otp: "string", password: "string" },
+          `${REACT_APP_FAKE_API}/verifyOtp`,
+          { email: location.state.mail, otp: values.otp, password: "string" },
           {
             Token: `${token}`,
           }
         );
-
-        if (result) {
-          setLoading(false);
-        }
+        navigate("/auth/new-password", {
+          state: { mail: location.state.mail },
+        });
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
+        alert("error.....");
       }
-
-      const mail = values.email;
-      // console.log(mail,"moni")
-      navigate("/auth/otp-verify", { state: { mail } });
     },
   });
 
@@ -65,25 +64,37 @@ function ForgotPassword() {
       }}
     >
       <Typography variant="h4" sx={{ fontFamily: "ProximaBold" }}>
-        Forgot Password
+        Verify OTP
       </Typography>
       <Typography variant="subtitle1" sx={{ fontFamily: "ProximaRegular" }}>
-        Enter the email address you used to create the account, and we will
-        email you the OTP to reset the password
+        Enter the 6 digit unique OTP sent on your Email ID
       </Typography>
       <TextField
         fullWidth
-        id="email"
-        name="email"
-        label="Email"
+        id="otp"
+        name="otp"
+        label="Enter OTP"
+        type={showOtp ? "text" : "password"}
         variant="outlined"
         margin="normal"
-        value={formik.values.email}
+        value={formik.values.otp}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-        sx={{ marginTop: "30px" }}
+        error={formik.touched.otp && Boolean(formik.errors.otp)}
+        helperText={formik.touched.otp && formik.errors.otp}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={handleClickShowOtp}
+                edge="end"
+                aria-label="toggle password visibility"
+              >
+                {showOtp ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <Button
         color="primary"
@@ -91,12 +102,11 @@ function ForgotPassword() {
         fullWidth
         type="submit"
         sx={{ backgroundColor: "#199071" }}
-        disabled={loading}
       >
-        {loading ? <CircularProgress size={24} /> : "Send Email"}
+        Verify OTP
       </Button>
     </Box>
   );
 }
 
-export default ForgotPassword;
+export default verifyOtp;
