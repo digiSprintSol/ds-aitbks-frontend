@@ -11,6 +11,9 @@ import OtpVerify from "./components/ResetPassword/OtpVerify";
 import NewPassword from "./components/ResetPassword/newPsw";
 
 const Feedback = loadable(() => import("./pages/Feedback"));
+const Trustee = loadable(() => import("./pages/Trustee"));
+const Patron = loadable(() => import("./pages/Patron"));
+const LifeMembers = loadable(() => import("./pages/LifeMembers"));
 const AboutUs = loadable(() => import("./pages/AboutUs"));
 const Gallery = loadable(() => import("./pages/Gallery"));
 const Donation = loadable(() => import("./pages/Donation"));
@@ -77,6 +80,18 @@ export const router = createBrowserRouter([
       {
         path: "/donation",
         element: <Donation />,
+      },
+      {
+        path: "/trustee",
+        element: <Trustee />,
+      },
+      {
+        path: "/patron",
+        element: <Patron />,
+      },
+      {
+        path: "/lifemembers",
+        element: <LifeMembers />,
       },
       {
         path: "/upload-donation-receipt",
