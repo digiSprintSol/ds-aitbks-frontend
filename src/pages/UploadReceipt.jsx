@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import UploadIcon from "@mui/icons-material/Upload";
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -40,6 +39,15 @@ function UploadGallery() {
       }
     }
   };
+
+  useEffect(() => {
+    if (file) {
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      if (confirm("Do you want to upload...")) {
+        imageApi();
+      }
+    }
+  }, [file]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -201,14 +209,14 @@ function UploadGallery() {
                   />
                 )}
               </Box>
-              <UploadIcon
+              {/* <UploadIcon
                 sx={{
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginTop: "2vw",
                 }}
                 onClick={imageApi}
-              />
+              /> */}
             </Box>
           </Grid>
           <Grid item xs={12}>

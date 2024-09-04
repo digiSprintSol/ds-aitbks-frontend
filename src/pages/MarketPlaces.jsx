@@ -1,7 +1,6 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import UploadIcon from "@mui/icons-material/Upload";
 import { useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { postRequest } from "../HTTP_POST/api";
 
 function MarketPlaces() {
@@ -38,11 +37,21 @@ function MarketPlaces() {
 
         setResult(res);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size crossed..");
+        // console.log(err);
       }
     }
   };
+
+  useEffect(() => {
+    if (file) {
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      if (confirm("Do you want to upload...")) {
+        imageApi();
+      }
+    }
+  }, [file]);
 
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -205,7 +214,7 @@ function MarketPlaces() {
             Upload Your Market Photo:
             <input type="file" id="fileInput" onChange={handleFileChange} />
           </label>
-          <UploadIcon
+          {/* <UploadIcon
             sx={{
               border: "2px solid black",
               borderRadius: "50%",
@@ -213,7 +222,7 @@ function MarketPlaces() {
               transform: "translate(1vw,0.7vw)",
             }}
             onClick={imageApi}
-          />
+          /> */}
         </Grid>
         <Grid item xs={12} sx={{ textAlign: "center" }}>
           <Button variant="contained" type="submit">

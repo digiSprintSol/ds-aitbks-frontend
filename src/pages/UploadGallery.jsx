@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useFormik } from "formik";
-import UploadIcon from "@mui/icons-material/Upload";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
@@ -50,6 +49,15 @@ function UploadGallery() {
       }
     }
   };
+
+  useEffect(() => {
+    if (file) {
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      if (confirm("Do you want to upload...")) {
+        imageApi();
+      }
+    }
+  }, [file]);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -203,14 +211,14 @@ function UploadGallery() {
                   />
                 )}
               </Box>
-              <UploadIcon
+              {/* <UploadIcon
                 sx={{
                   border: "2px solid black",
                   borderRadius: "50%",
                   marginTop: "2vw",
                 }}
                 onClick={imageApi}
-              />
+              /> */}
             </Box>
           </Grid>
           <Grid item xs={12}>
