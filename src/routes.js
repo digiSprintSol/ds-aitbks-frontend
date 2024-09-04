@@ -35,7 +35,7 @@ const PresidentView = loadable(() => import("./pages/PresidentView"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
 const AddMembers = loadable(() => import("./pages/AddMembers"));
 const UserNav = loadable(() => import("./pages/UserNav"));
-const Search = loadable(() => import("./components/MarketPlace/search"));
+const Search = loadable(() => import("./components/MarketPlace/Search"));
 const Display = loadable(() => import("./components/MarketPlace/Display"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
 const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
