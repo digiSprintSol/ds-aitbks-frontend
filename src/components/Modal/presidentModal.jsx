@@ -880,7 +880,7 @@ export default function PresidentModal({ row, token }) {
                     <TextField
                       fullWidth
                       sx={{ backgroundColor: "#ffffff" }}
-                      value={row.committeeTwoRemarksForApplicant}
+                      value={row.presidentRemarksForApplicant}
                       aria-readonly
                       size="small"
                     />

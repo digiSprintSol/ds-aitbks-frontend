@@ -115,7 +115,7 @@ function Declaration() {
           </Typography>
           <RadioGroup
             row
-            name="membershipType"
+            name="applicantChoosenMembership"
             value={formik.values.applicantChoosenMembership}
             onChange={formik.handleChange}
             sx={{

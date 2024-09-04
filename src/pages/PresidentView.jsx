@@ -14,7 +14,7 @@ import UploadEvent from "./UploadEvent";
 import UploadGallery from "./UploadGallery";
 import UploadAnnouncement from "./UploadAnnouncement";
 import MarketPlaces from "./MarketPlaces";
-import Qrcode from "./Qrcode";
+import AddFeedback from "./AddFeedback";
 import Broadcast from "./Broadcast";
 
 function PresidentView() {
@@ -42,7 +42,7 @@ function PresidentView() {
       case 5:
         return <MarketPlaces />;
       case 6:
-        return <Qrcode />;
+        return <AddFeedback />;
       case 7:
         return <Broadcast />;
     }
@@ -133,7 +133,7 @@ function PresidentView() {
             height="25px"
             width="25px"
           />
-          <h5>Modify QR</h5>
+          <h5>Add Feedback</h5>
         </button>
         <button
           type="button"

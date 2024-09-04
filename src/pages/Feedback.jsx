@@ -1,76 +1,26 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import userIcon from "./images/userIcon.png";
+// import userIcon from "./images/userIcon.png";
 import quoteIcon from "./images/quoteIcon.png";
 import feedbackhands from "./images/feedbackhands.png";
 import "../App.css";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function Feedback() {
   const navigate = useNavigate();
-  const marqueedata = [
-    {
-      name: "Gopala krishna m",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { REACT_APP_FAKE_API } = process.env;
+  const { data, loading, error } = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/feedback/getAllFeedBacks`,
+    method: "GET",
+    headers: {
+      Token: token,
     },
-    {
-      name: "Narendra Babu N",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Ravinder Chaluvadi",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Harikrishna Pothula",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "S.Ramana Rao",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Gopala krishna m",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Narendra Babu N",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Ravinder Chaluvadi",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Harikrishna Pothula",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "S.Ramana Rao",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "Harikrishna Pothula",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-    {
-      name: "S.Ramana Rao",
-      tag: "IAS",
-      info: "AITBK is Doing Extremely very well. working very well for the community Empowerment",
-    },
-  ];
+  });
 
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
   return (
     <Box sx={{ padding: "2vw" }}>
       <Box>
@@ -94,14 +44,18 @@ function Feedback() {
             width: "98%",
           }}
         >
-          {marqueedata.map((item) => (
+          {data.map((item) => (
             <Grid item xs={6}>
               <div className="feedback">
-                <img src={userIcon} alt="user_icon" height="60%" width="19%" />
+                <img src={item.url} alt="user_icon" height="60%" width="19%" />
                 <div>
                   <h1 style={{ fontFamily: "ProximaBold" }}>{item.name}</h1>
-                  <p style={{ fontFamily: "ProximaRegular" }}>{item.tag}</p>
-                  <p style={{ fontFamily: "ProximaRegular" }}>{item.info}</p>
+                  <p style={{ fontFamily: "ProximaRegular" }}>
+                    {item.profession}
+                  </p>
+                  <p style={{ fontFamily: "ProximaRegular" }}>
+                    {item.description}
+                  </p>
                 </div>
                 <img
                   src={quoteIcon}

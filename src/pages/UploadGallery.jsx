@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useFormik } from "formik";
@@ -25,6 +25,8 @@ function UploadGallery() {
     const filePreview = URL.createObjectURL(selectedFile);
     setPreview(filePreview);
   };
+
+  useEffect(() => {}, [file]);
 
   const imageApi = async () => {
     if (file) {
