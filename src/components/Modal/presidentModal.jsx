@@ -39,7 +39,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function PresidentModal({ row, token }) {
+export default function PresidentModal({ row, token, name1, name2, name3 }) {
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState("");
   const [radioValue, setRadioValue] = useState("");
@@ -501,7 +501,7 @@ export default function PresidentModal({ row, token }) {
                     marginTop: "40px",
                   }}
                 >
-                  Committee member 1 Comments
+                  {name1} {` Comments`}
                 </Typography>
                 <TextField
                   fullWidth
@@ -625,7 +625,7 @@ export default function PresidentModal({ row, token }) {
                     marginTop: "40px",
                   }}
                 >
-                  Committee member 2 Comments
+                  {name2} {` Comments`}
                 </Typography>
                 <TextField
                   fullWidth
@@ -749,7 +749,7 @@ export default function PresidentModal({ row, token }) {
                     marginTop: "40px",
                   }}
                 >
-                  Committee member 3 Comments
+                  {name3} {` Comments`}
                 </Typography>
                 <TextField
                   fullWidth
@@ -880,7 +880,7 @@ export default function PresidentModal({ row, token }) {
                     <TextField
                       fullWidth
                       sx={{ backgroundColor: "#ffffff" }}
-                      value={row.committeeTwoRemarksForApplicant}
+                      value={row.presidentRemarksForApplicant}
                       aria-readonly
                       size="small"
                     />
@@ -1089,4 +1089,7 @@ export default function PresidentModal({ row, token }) {
 PresidentModal.propTypes = {
   row: PropTypes.func.isRequired,
   token: PropTypes.func.isRequired,
+  name1: PropTypes.func.isRequired,
+  name2: PropTypes.func.isRequired,
+  name3: PropTypes.func.isRequired,
 };

@@ -25,6 +25,8 @@ function UploadGallery() {
     setPreview(filePreview);
   };
 
+  useEffect(() => {}, [file]);
+
   const imageApi = async () => {
     if (file) {
       const formData = new FormData();
@@ -98,6 +100,8 @@ function UploadGallery() {
             Token: `Bearer ${token}`,
           }
         );
+        // eslint-disable-next-line no-alert
+        alert("Uploaded.....");
         // console.log(response.data, "response");
       } catch (err) {
         // console.log(err.message, "error");

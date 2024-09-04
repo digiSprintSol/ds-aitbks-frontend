@@ -170,7 +170,9 @@ function PresidentView() {
       <br />
       <hr />
       <br />
-      <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
+      <span
+        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+      >
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
         {currentpage * rowsperpage > data.length ? (
           <span>{data.length}</span>
@@ -182,7 +184,7 @@ function PresidentView() {
 
       <Pagination
         count={Math.ceil(data.length / rowsperpage)}
-        sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
+        sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
         page={currentpage}
         onChange={handleChange}
         variant="outlined"

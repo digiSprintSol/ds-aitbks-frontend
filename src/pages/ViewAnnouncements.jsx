@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React from "react";
 import {
   Table,
@@ -15,26 +16,44 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation, useNavigate } from "react-router-dom";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import deleteRequest from "../HTTP_DELETE/deleteRequest";
 
 function ViewAnnouncements() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = `${location.state.token}`;
+  const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `${process.env.REACT_APP_FAKE_API}/getAllAnnouncements`,
+    url: `${REACT_APP_FAKE_API}/getAllAnnouncements`,
     method: "GET",
     headers: {
       Token: `Bearer ${token}`,
     },
   });
 
-  const handleDelete = (id) => {
-    // Implement delete functionality, possibly using another API call
-    console.log(`Delete announcement with ID: ${id}`);
+  const handleDelete = async (id) => {
+    // eslint-disable-next-line no-alert
+    if (confirm("Confirm Delete.....")) {
+      try {
+        const data2 = await deleteRequest(
+          `${REACT_APP_FAKE_API}/deleteAnnouncement/${id}`,
+          {
+            Token: `Bearer ${token}`,
+          }
+        );
+        // eslint-disable-next-line no-console
+        console.log("Delete successful:", data2);
+      } catch (error2) {
+        // eslint-disable-next-line no-console
+        console.error("Delete request failed", error2);
+      }
+    }
   };
 
+  const display = 4;
+
   const handleBack = () => {
-    navigate("/president-view", { state: { token } });
+    navigate("/president-view", { state: { token, display } });
   };
 
   if (loading) return <CircularProgress />;
@@ -90,7 +109,12 @@ function ViewAnnouncements() {
         <Button variant="contained" onClick={handleBack}>
           Back
         </Button>
-        <Button variant="contained">Save</Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/view-announcement", { state: { token } })}
+        >
+          Save
+        </Button>
       </div>
     </div>
   );

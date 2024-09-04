@@ -16,6 +16,8 @@ const Patron = loadable(() => import("./pages/Patron"));
 const LifeMembers = loadable(() => import("./pages/LifeMembers"));
 const AboutUs = loadable(() => import("./pages/AboutUs"));
 const Gallery = loadable(() => import("./pages/Gallery"));
+const Awards = loadable(() => import("./pages/Awards"));
+const Events = loadable(() => import("./pages/Events"));
 const Donation = loadable(() => import("./pages/Donation"));
 const UploadDonationReceipt = loadable(() =>
   import("./pages/UploadDonationReceipt")
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
       {
         path: "/gallery",
         element: <Gallery />,
+      },
+      {
+        path: "/awards",
+        element: <Awards />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
       },
       {
         path: "/donation",

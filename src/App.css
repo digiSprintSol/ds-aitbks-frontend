@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  background-image: linear-gradient(to right, #ffffff -7%, #199071, #1B7DA6);
+  background-image: linear-gradient(to right, #ffffff -40%, #199071, #1B7DA6);
   padding: 0 10px;
   padding-top: 5px;
 }
@@ -20,8 +20,8 @@
 
 .title {
   width: 33vw;
-    height: 4vw;
-    margin-top: -1vw;
+  height: 4vw;
+  margin-top: -1vw;
 }
 
 .left {
@@ -143,9 +143,9 @@
 
 .grid-container3 {
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 20px 20px;
-  padding: 0 17vw;
+  grid-template-columns: auto auto;
+  /* gap: 20px 10p; */
+  padding: 0 23.5vw;  
 }
 
 .fourthpart{
@@ -439,7 +439,7 @@
 .uploadannouncementhead{
     background-color: #D4E9DA;
     padding: 20px;
-    /* padding-bottom: 200px; */
+    padding-bottom: 50px;
 }
 
 .uploadannouncementhead>:nth-child(1) {
@@ -562,30 +562,33 @@
 
 .presidentviewhead{  
   display: flex;
-  margin-left: 1.7%;
+  margin-left: 2.1%;
   margin-bottom: 2%;
 }
 
 .presidentviewhead>:nth-child(1) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(2) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(3) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(4) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(5) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(6) {
-  margin-right: 20px;
+  margin-right: 12px;
 }
 .presidentviewhead>:nth-child(7) {
-  margin-right: 20px;
+  margin-right: 12px;
+}
+.presidentviewhead>:nth-child(8) {
+  margin-right: 12px;
 }
 
 .presidentviewnav{
@@ -604,7 +607,7 @@
 
 
 .presidentviewnav>:nth-child(1){
-  margin-right: 15px;
+  margin-right: 8px;
 }
 
 .custom-file-upload {

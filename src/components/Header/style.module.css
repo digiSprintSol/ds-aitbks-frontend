@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    background-image: linear-gradient(to right,#ffffff -7%, #199071, #1B7DA6);
+    background-image: linear-gradient(to right,#ffffff -40%, #199071, #1B7DA6);
     padding: 0 10px;
     padding-top: 5px;
 }

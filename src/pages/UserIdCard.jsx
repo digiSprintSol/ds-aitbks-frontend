@@ -62,7 +62,7 @@ function UserIdCard({ data }) {
               style={{ width: "80px", height: "70px" }}
             />
             <Image
-              src="/assets/images/aptbks_Logo.png"
+              src="/assets/images/aptbks_logo.png"
               style={{ width: "auto", height: "30px", marginLeft: 9 }}
             />
           </View>
