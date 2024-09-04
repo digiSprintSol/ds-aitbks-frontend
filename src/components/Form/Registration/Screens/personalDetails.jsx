@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import {
   Button,
@@ -12,7 +12,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import UploadIcon from "@mui/icons-material/Upload";
 import {
   gender as genders,
   profession as professions,
@@ -30,7 +29,7 @@ function personalDetails({ setActiveStep }) {
   const { data, setData } = useRootContext();
   // const [file, setFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [imageFile, setImageFile] = useState({});
+  const [imageFile, setImageFile] = useState(null);
   const [result, setResult] = useState(null);
   const maxDate = new Date();
   maxDate.setFullYear(2024 - 18);
@@ -87,6 +86,15 @@ function personalDetails({ setActiveStep }) {
       }
     }
   };
+
+  useEffect(() => {
+    if (imageFile) {
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      if (confirm("Do you want to upload...")) {
+        imageApi();
+      }
+    }
+  }, [imageFile]);
 
   const formik = useFormik({
     initialValues: {
@@ -206,14 +214,14 @@ function personalDetails({ setActiveStep }) {
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
-          <UploadIcon
+          {/* <UploadIcon
             sx={{
               border: "2px solid black",
               borderRadius: "50%",
               transform: "translate(40vw,0)",
             }}
             onClick={imageApi}
-          />
+          /> */}
         </Grid>
         <Grid item xs={12}>
           <Typography

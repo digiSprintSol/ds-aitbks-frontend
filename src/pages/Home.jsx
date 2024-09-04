@@ -77,9 +77,9 @@ function Home() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleMenuClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   const contactRef = useRef();
 
@@ -128,11 +128,13 @@ function Home() {
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
+              // onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Trustee</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Patron</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Life Members</MenuItem>
+              <MenuItem onClick={() => navigate("/trustee")}>Trustee</MenuItem>
+              <MenuItem onClick={() => navigate("/patron")}>Patron</MenuItem>
+              <MenuItem onClick={() => navigate("/lifemembers")}>
+                Life Members
+              </MenuItem>
             </Menu>
             <Link to="/" className="link">
               Events
