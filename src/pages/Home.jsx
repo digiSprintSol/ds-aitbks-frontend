@@ -23,6 +23,7 @@ import {
   cmdata,
   cmdata2,
   ccmdata,
+  ccmdata2,
   marqueedata,
   gallery,
   help,
@@ -39,8 +40,10 @@ import image3 from "./images/image3.png";
 import image5 from "./images/image5.png";
 import image6 from "./images/image6.png";
 import threecircles from "./images/threecircles.png";
-import home1 from "./images/home1.png";
-import home2 from "./images/home2.png";
+import home1 from "./images/home1.jpg";
+import home2 from "./images/home2.jpeg";
+import home3 from "./images/home3.jpg";
+import home4 from "./images/home4.jpg";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 function Home() {
@@ -136,7 +139,7 @@ function Home() {
                 Life Members
               </MenuItem>
             </Menu>
-            <Link to="/" className="link">
+            <Link to="/events" className="link">
               Events
             </Link>
             <Link
@@ -202,14 +205,28 @@ function Home() {
             src={home1}
             loading="lazy"
             alt="homepageimage"
-            height="400px"
+            height="440px"
             width="100%"
           />
           <img
             src={home2}
             loading="lazy"
             alt="homepageimage"
-            height="400px"
+            height="440px"
+            width="100%"
+          />
+          <img
+            src={home3}
+            loading="lazy"
+            alt="homepageimage"
+            height="440px"
+            width="100%"
+          />
+          <img
+            src={home4}
+            loading="lazy"
+            alt="homepageimage"
+            height="440px"
             width="100%"
           />
           {/* <img
@@ -219,13 +236,6 @@ function Home() {
             height="400px"
             width="100%"
           /> */}
-          <img
-            src={data2.data.eventImageURL}
-            loading="lazy"
-            alt="homepageimage"
-            height="400px"
-            width="100%"
-          />
         </Slider>
       </Box>
       <div className="firstpart">
@@ -359,17 +369,17 @@ function Home() {
         <br />
         {/* --------------------------------------------------------------------- */}
         <div className="grid-container3">
-          {cmdata2.map((item) => (
-            <div className="item1">
-              <img src={item.photo} alt="cm" />
+          {ccmdata2.map((item) => (
+            <div className="item1" style={{ width: "22vw" }}>
+              <img src={item.photo} alt="ccm" />
               <hr />
               <h4
                 style={{
                   border: "2px solid transparent",
                   width: "12vw",
-                  marginLeft: "5vw",
+                  marginLeft: "5.5vw",
                   fontFamily: "ProximaBold",
-                  transform: "translate(-1.5vw,0)",
+                  // transform: "translate(-1.5vw,0)",
                 }}
               >
                 {item.heading}
@@ -498,6 +508,7 @@ function Home() {
             borderRadius: "15px",
             marginTop: "5%",
           }}
+          onClick={() => navigate("/awards")}
         >
           VIEW MORE PHOTOS
         </Button>

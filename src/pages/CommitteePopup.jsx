@@ -28,7 +28,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CommitteePopup({ row, token, id }) {
+export default function CommitteePopup({
+  row,
+  token,
+  id,
+  name1,
+  name2,
+  name3,
+}) {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -63,6 +70,7 @@ export default function CommitteePopup({ row, token, id }) {
       }
     }
   }, [data]);
+
   const { REACT_APP_FAKE_API } = process.env;
   const post = async (info) => {
     try {
@@ -119,7 +127,7 @@ export default function CommitteePopup({ row, token, id }) {
   arr.push(row.committeeMemberOneId);
   arr.push(row.committeeMemberTwoId);
   arr.push(row.committeeMemberThreeId);
-  console.log(id, arr, "fffff");
+  // console.log(id, arr, "fffff");
   // console.log(arr.includes(id), "fffff");
 
   return (
@@ -490,7 +498,8 @@ export default function CommitteePopup({ row, token, id }) {
                 {row.committeeOneRemarksForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
-                      {`Committee member 1 comments: `}
+                      {name1}
+                      {` comments: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -523,7 +532,8 @@ export default function CommitteePopup({ row, token, id }) {
                 {row.committeeTwoRemarksForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
-                      {`Committee member 2 comments: `}
+                      {name2}
+                      {` comments: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -556,7 +566,8 @@ export default function CommitteePopup({ row, token, id }) {
                 {row.committeeThreeRemarksForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
-                      {`Committee member 3 comments: `}
+                      {name3}
+                      {` comments: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -686,4 +697,7 @@ CommitteePopup.propTypes = {
   row: PropTypes.func.isRequired,
   token: PropTypes.func.isRequired,
   id: PropTypes.func.isRequired,
+  name1: PropTypes.func.isRequired,
+  name2: PropTypes.func.isRequired,
+  name3: PropTypes.func.isRequired,
 };

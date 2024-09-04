@@ -1,32 +1,11 @@
 import React from "react";
-// import rectangle1 from "./images/Rectangle1.png";
-// import rectangle2 from "./images/Rectangle2.png";
-// import rectangle3 from "./images/Rectangle3.png";
-// import rectangle4 from "./images/Rectangle4.png";
-// import rectangle5 from "./images/Rectangle5.png";
-// import rectangle6 from "./images/Rectangle6.png";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
-function Gallery() {
-  // const arr = [
-  //   rectangle1,
-  //   rectangle2,
-  //   rectangle3,
-  //   rectangle4,
-  //   rectangle5,
-  //   rectangle6,
-  //   rectangle1,
-  //   rectangle2,
-  //   rectangle3,
-  //   rectangle4,
-  //   rectangle5,
-  //   rectangle6,
-  // ];
-
+function Awards() {
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
   const { REACT_APP_FAKE_API } = process.env;
   const { data, loading, error } = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/gallery-urls`,
+    url: `${REACT_APP_FAKE_API}/award-urls`,
     method: "GET",
     headers: {
       Token: token,
@@ -49,7 +28,7 @@ function Gallery() {
       >
         {data.map((item) => (
           <img
-            src={item.galleryURL}
+            src={item.awardImageURL}
             alt="galleryimage"
             height="250vw"
             width="380vw"
@@ -60,4 +39,4 @@ function Gallery() {
   );
 }
 
-export default Gallery;
+export default Awards;

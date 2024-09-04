@@ -82,10 +82,11 @@ function Login() {
   // useEffect(async() => {
   //   siva()
   // },[token])
+  const display = 0;
 
   useEffect(() => {
     if (data.president) {
-      navigate("/president-view", { state: { token } });
+      navigate("/president-view", { state: { token, display } });
     }
     if (data.commitee) {
       navigate("/committee-view", { state: { token, id } });

@@ -46,6 +46,30 @@ function CommitteeView() {
     },
   });
 
+  const data1 = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/fetchUsersById/Committee`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${token}`,
+    },
+  });
+
+  const data2 = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/fetchUsersById/66cc34c8e549e83dc4cecf02`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${token}`,
+    },
+  });
+
+  const data3 = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/fetchUsersById/66cc3510e549e83dc4cecf03`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${token}`,
+    },
+  });
+
   const [currentpage, setCurrentpage] = useState(1);
   const [customdata, setCustomdata] = useState([]);
   const classes = useStyles();
@@ -74,8 +98,10 @@ function CommitteeView() {
     }
   }, [currentpage, data]);
 
-  if (error) return <h1>No users to display...</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (error || data1.error || data2.error || data3.error)
+    return <h1>No users to display...</h1>;
+  if (loading || data1.loading || data2.loading || data3.loading)
+    return <h1>loading...</h1>;
 
   return (
     <div>
@@ -238,6 +264,9 @@ function CommitteeView() {
                     row={row}
                     token={token}
                     id={location.state.id}
+                    name1={data1.data.name}
+                    name2={data2.data.name}
+                    name3={data3.data.name}
                   />
                 </TableCell>
               </TableRow>
@@ -248,7 +277,9 @@ function CommitteeView() {
       <br />
       <hr />
       <br />
-      <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
+      <span
+        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+      >
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
         {currentpage * rowsperpage > data.length ? (
           <span>{data.length}</span>
@@ -263,7 +294,7 @@ function CommitteeView() {
       </span> */}
       <Pagination
         count={Math.ceil(data.length / rowsperpage)}
-        sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
+        sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
         page={currentpage}
         onChange={handleChange}
         variant="outlined"

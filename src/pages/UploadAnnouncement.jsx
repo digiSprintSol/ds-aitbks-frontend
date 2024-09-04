@@ -34,6 +34,8 @@ function UploadAnnouncement() {
         }
       );
       // console.log(result);
+      // eslint-disable-next-line no-alert
+      alert("Anouncement Uploaded...");
       resetForm();
     } catch (err) {
       // console.log(err);
@@ -63,8 +65,15 @@ function UploadAnnouncement() {
               </h1>
             </Grid>
             <Grid item xs={12}>
-              <Button onClick={handleViewClick} sx={{ marginTop: "-200px" }}>
-                View
+              <Button
+                onClick={handleViewClick}
+                style={{
+                  marginLeft: "68vw",
+                  transform: "Translate(0,-5vw)",
+                  position: "absolute",
+                }}
+              >
+                View all
               </Button>
             </Grid>
             <Grid item xs={12}>
@@ -83,6 +92,7 @@ function UploadAnnouncement() {
                 sx={{ backgroundColor: "white" }}
                 error={touched.title && !!errors.title}
                 helperText={touched.title && errors.title}
+                size="small"
               />
             </Grid>
             <Grid item xs={12}>
@@ -96,6 +106,7 @@ function UploadAnnouncement() {
                 sx={{ backgroundColor: "white" }}
                 error={touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
+                size="small"
               />
             </Grid>
             <Grid item xs={12}>

@@ -45,7 +45,7 @@ function Trustee() {
         Trustee Members
       </Typography>
       <TableContainer
-        sx={{ fontFamily: "ProximaBold", width: "95%", margin: "30px auto" }}
+        sx={{ fontFamily: "ProximaBold", width: "80%", margin: "30px auto" }}
         component={Paper}
       >
         <Table sx={{ minWidth: 850 }} aria-label="simple table">
@@ -73,11 +73,21 @@ function Trustee() {
                   />
                 </TableCell>
                 <TableCell align="center">{row.membershipId}</TableCell>
-                <TableCell component="th" scope="row">
-                  {row.fullName}
-                </TableCell>
+                <TableCell align="center">{row.fullName}</TableCell>
                 <TableCell align="center">{row.emailAddress}</TableCell>
-                <TableCell align="center">{row.district}</TableCell>
+                <TableCell align="center">
+                  {row.address[0].addressLine1}
+                  {", "}
+                  {row.address[0].addressLine2}
+                  {", "}
+                  {row.address[0].district}
+                  {", "}
+                  {row.address[0].state}
+                  {", "}
+                  {row.address[0].country}
+                  {", "}
+                  {row.address[0].postalCode}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

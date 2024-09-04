@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import president1 from "./images/president1.png";
 import president2 from "./images/president2.png";
 import president3 from "./images/president3.png";
 import president4 from "./images/president4.png";
 import president5 from "./images/president5.png";
-import qrcoode from "./images/qr-code.png";
+// import qrcoode from "./images/qr-code.png";
 import president7 from "./images/president7.png";
 import president8 from "./images/president8.png";
+import president9 from "./images/president9.png";
 import PresidentUser from "./PresidentUser";
 import PresidentCRUD from "./PresidentCRUD";
 import UploadEvent from "./UploadEvent";
 import UploadGallery from "./UploadGallery";
+import UploadAwards from "./UploadAwards";
 import UploadAnnouncement from "./UploadAnnouncement";
 import MarketPlaces from "./MarketPlaces";
 import AddFeedback from "./AddFeedback";
@@ -23,7 +26,9 @@ function PresidentView() {
   //   navigate('/president-user')
   // }
 
-  const [activecount, setActivecount] = useState(0);
+  const location = useLocation();
+
+  const [activecount, setActivecount] = useState(location.state.display);
 
   // eslint-disable-next-line consistent-return
   const displayfunction = (active) => {
@@ -38,12 +43,14 @@ function PresidentView() {
       case 3:
         return <UploadGallery />;
       case 4:
-        return <UploadAnnouncement />;
+        return <UploadAwards />;
       case 5:
-        return <MarketPlaces />;
+        return <UploadAnnouncement />;
       case 6:
-        return <AddFeedback />;
+        return <MarketPlaces />;
       case 7:
+        return <AddFeedback />;
+      case 8:
         return <Broadcast />;
     }
   };
@@ -88,13 +95,23 @@ function PresidentView() {
           }}
         >
           <img src={president4} alt="galleryimage" height="30px" width="30px" />
-          <h5>Upload Image</h5>
+          <h5>Gallery</h5>
         </button>
         <button
           type="button"
           className="presidentviewnav"
           onClick={() => {
             setActivecount(4);
+          }}
+        >
+          <img src={president4} alt="galleryimage" height="30px" width="30px" />
+          <h5>Awards</h5>
+        </button>
+        <button
+          type="button"
+          className="presidentviewnav"
+          onClick={() => {
+            setActivecount(5);
           }}
         >
           <img
@@ -109,7 +126,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(5);
+            setActivecount(6);
           }}
         >
           <img
@@ -124,14 +141,14 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(6);
+            setActivecount(7);
           }}
         >
           <img
-            src={qrcoode}
+            src={president9}
             alt="announcementimage"
-            height="25px"
-            width="25px"
+            height="35px"
+            width="30px"
           />
           <h5>Add Feedback</h5>
         </button>
@@ -139,7 +156,7 @@ function PresidentView() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(7);
+            setActivecount(8);
           }}
         >
           <img

@@ -76,9 +76,7 @@ function LifeMembers() {
                   />
                 </TableCell>
                 <TableCell align="middle">{row.membershipId}</TableCell>
-                <TableCell component="th" scope="row">
-                  {row.fullName}
-                </TableCell>
+                <TableCell align="middle">{row.fullName}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
                 <TableCell align="middle">{row.district}</TableCell>
               </TableRow>

@@ -13,6 +13,8 @@ import ccm5 from "../pages/images/ccm5.png";
 import ccm6 from "../pages/images/ccm6.png";
 import ccm7 from "../pages/images/ccm7.png";
 import ccm8 from "../pages/images/ccm8.png";
+import ccm9 from "../pages/images/ccm9.png";
+import ccm10 from "../pages/images/ccm10.png";
 import group1 from "../pages/images/group1.png";
 import group2 from "../pages/images/group2.png";
 import group3 from "../pages/images/group3.png";
@@ -31,7 +33,7 @@ import rectangle6 from "../pages/images/Rectangle6.png";
 export const cmdata = [
   {
     photo: cm1,
-    heading: "Sri.Sri Hari Kotela",
+    heading: "Sri. Sri Hari Kotela",
     para: "President",
   },
   {
@@ -64,7 +66,7 @@ export const cmdata2 = [
   },
   {
     photo: cm7,
-    heading: "CA Sri S. Ramana Rao",
+    heading: "Sri Ravinder Chaluvadi",
     para: "Treasurer",
   },
 ];
@@ -88,19 +90,30 @@ export const ccmdata = [
   },
   {
     photo: ccm5,
-    heading: "Sri Ravinder Chaluvadi",
-  },
-  {
-    photo: ccm6,
     heading: "Sri Venkata Krishna Rao Thota",
   },
   {
-    photo: ccm7,
+    photo: ccm6,
     heading: "Sri Trivikram Vidyasagar Jampa",
   },
   {
+    photo: ccm7,
+    heading: "Sri Hari Krishna Pothula",
+  },
+  {
     photo: ccm8,
-    heading: "Sri. Harikrishna Pothula",
+    heading: "Sri Sammeta Prasad",
+  },
+];
+
+export const ccmdata2 = [
+  {
+    photo: ccm9,
+    heading: "Sri K. Gopala  Krishna",
+  },
+  {
+    photo: ccm10,
+    heading: "Sri Katari  Apparao",
   },
 ];
 
