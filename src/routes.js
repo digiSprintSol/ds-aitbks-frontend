@@ -32,6 +32,9 @@ const Login = loadable(() => import("./pages/Login"));
 const Payment = loadable(() => import("./pages/Payment"));
 const UploadReceipt = loadable(() => import("./pages/UploadReceipt"));
 const PaymentSuccess = loadable(() => import("./pages/PaymentSuccess"));
+const PaymentDonationSuccess = loadable(() =>
+  import("./pages/PaymentDonationSuccess")
+);
 const PresidentView = loadable(() => import("./pages/PresidentView"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
@@ -106,6 +109,10 @@ export const router = createBrowserRouter([
       {
         path: "/upload-donation-receipt",
         element: <UploadDonationReceipt />,
+      },
+      {
+        path: "/payment-donation-success",
+        element: <PaymentDonationSuccess />,
       },
       {
         path: "/auth/login",

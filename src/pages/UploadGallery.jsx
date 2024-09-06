@@ -46,6 +46,10 @@ function UploadGallery() {
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size reached...");
+        setFile(null);
+        setPreview(null);
       }
     }
   };
@@ -86,7 +90,7 @@ function UploadGallery() {
       imagesForHomePage: null,
     },
     // validationSchema: postValidationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
@@ -102,7 +106,9 @@ function UploadGallery() {
         );
         // eslint-disable-next-line no-alert
         alert("Uploaded.....");
-        // console.log(response.data, "response");
+        resetForm();
+        setFile(null);
+        setPreview(null);
       } catch (err) {
         // console.log(err.message, "error");
       }

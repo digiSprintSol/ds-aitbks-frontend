@@ -200,7 +200,11 @@ function UploadEvent() {
         setResult(res);
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.log(err);
+        // console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size crossed...");
+        setFile(null);
+        setPreview(null);
       }
     }
   };
@@ -241,7 +245,7 @@ function UploadEvent() {
       events: null,
     },
     // validationSchema: postValidationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
@@ -256,8 +260,10 @@ function UploadEvent() {
           }
         );
         // eslint-disable-next-line no-alert
-        alert("Uploaded.....");
-        // console.log(response.data, "response");
+        alert("Uploaded...");
+        resetForm();
+        setFile(null);
+        setPreview(null);
       } catch (err) {
         // console.log(err.message, "error");
       }

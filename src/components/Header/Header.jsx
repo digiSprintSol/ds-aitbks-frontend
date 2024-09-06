@@ -49,9 +49,9 @@ function Header({ name }) {
           <MenuItem onClick={handleMenuClose}>Patron</MenuItem>
           <MenuItem onClick={handleMenuClose}>Life Members</MenuItem>
         </Menu>
-        <Link to="/" className={styles.link}>
+        {/* <Link to="/" className={styles.link}>
           Events
-        </Link>
+        </Link> */}
         <Link to="/" className={styles.link}>
           Contact
         </Link>

@@ -2,10 +2,10 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import next from "./images/next.png";
-import qrcode from "./images/qrcode.png";
 import phonepe from "./images/phonepe.png";
 import arrow from "./images/arrow.png";
 import "../App.css";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function Payment() {
   const location = useLocation();
@@ -16,6 +16,20 @@ function Payment() {
   const submitHandler = () => {
     navigate("/user-nav", { state: { token } });
   };
+
+  const token1 = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { REACT_APP_FAKE_API } = process.env;
+  const { data, loading, error } = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/getQRCode/2`,
+    method: "GET",
+    headers: {
+      Token: token1,
+    },
+  });
+
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <div className="paymenthead">
       <Typography variant="h4" sx={{ fontFamily: "ProximaBold" }}>
@@ -91,16 +105,26 @@ function Payment() {
       </div>
       <br />
       <div style={{ display: "flex", marginLeft: "40vw" }}>
-        <img src={qrcode} alt="qrcode" height="30%" width="30%" />
+        <img
+          src={data.pathOfDocumnet}
+          alt="qrcode"
+          height="30%"
+          width="30%"
+          style={{ marginRight: "1vw" }}
+        />
         {location.state.data.presidentChoosenMembershipForApplicant ===
         "patron" ? (
-          <h2>Amount need to be paid: 10,000/-</h2>
+          <h2 style={{ width: "20vw", marginTop: "7vw" }}>
+            Amount need to be paid: 10,000/-
+          </h2>
         ) : (
           <p>{null}</p>
         )}
         {location.state.data.presidentChoosenMembershipForApplicant ===
-        "Life Member" ? (
-          <h2>Amount need to be paid: 2,000/-</h2>
+        "lifemember" ? (
+          <h2 style={{ width: "20vw", marginTop: "7vw" }}>
+            Amount need to be paid: 2,000/-
+          </h2>
         ) : (
           <p>{null}</p>
         )}

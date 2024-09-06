@@ -82,7 +82,9 @@ function personalDetails({ setActiveStep }) {
         setResult(res);
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.log(err);
+        // console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size reached...");
       }
     }
   };

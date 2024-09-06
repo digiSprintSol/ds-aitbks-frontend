@@ -50,7 +50,7 @@ function PresidentView() {
   const [customdata, setCustomdata] = useState([]);
   // const navigate = useNavigate();
   const classes = useStyles();
-  const rowsperpage = 3;
+  const rowsperpage = 5;
 
   const handleChange = (event, value) => {
     setCurrentpage(value);

@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     // width: "100%",
     maxHeight: "250px",
-    objectFit: "cover",
-    opacity: 0.2,
+    // objectFit: "cover",
+    // opacity: 0.2,
   },
 });
 

@@ -957,7 +957,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </>
               )}
 
-              {/* ------------------president comments------------------------------------------------------------------------------ */}
+              {/* ------------------enter president comments------------------------------------------------------------------------------ */}
 
               {!row.presidentRemarksForApplicant && (
                 <>

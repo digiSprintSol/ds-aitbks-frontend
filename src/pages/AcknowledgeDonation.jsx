@@ -135,19 +135,20 @@ function AcknowledgeDonation({ row, token }) {
         </IconButton>
         <DialogContent>
           {/* --------------------------------------------------------------------------------------------------- */}
-          {/* <img
-            src={imgPath}
+          <img
+            src={row.transactionReceiptUploadUrl}
             loading="lazy"
             alt="receipt"
             height="20%"
             width="50%"
-          /> */}
+            style={{ marginLeft: "15vw" }}
+          />
           <Grid item xs={4}>
             <Typography id="modal-modal-description">Transaction ID</Typography>
             <TextField
               fullWidth
               sx={{ backgroundColor: "#ffffff" }}
-              // value={row.paymentInfo.trasactionId}
+              value={row.transactionId}
               aria-readonly
             />
           </Grid>
