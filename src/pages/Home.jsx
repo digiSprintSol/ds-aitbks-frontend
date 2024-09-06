@@ -248,9 +248,9 @@ function Home() {
         <h1 className="firstparaheading">
           All India Telaga Balija Kapu Sangham
         </h1>
-        <p className="firstpara">
+        <Typography variant="body1" className="firstpara">
           The Andhra Pradesh Telaga, Balija Kapu Sangham (for short “the
-          APTBKS”) was registered under the Societies Registration Act in 1959
+          AITBKS”) was registered under the Societies Registration Act in 1959
           to meet the needs and aspirations of members of the above communities
           in twin cities of Hyderabad & Secunderabad, Andhra Pradesh State, and
           elsewhere in the country and abroad. The aims and objectives of the
@@ -265,7 +265,9 @@ function Home() {
           seeks to empower its members through various capacity-building
           programs and training sessions, aimed at enhancing their skills and
           knowledge in diverse fields
-        </p>
+        </Typography>
+        <br />
+        <br />
         <br />
         <br />
         <br />
