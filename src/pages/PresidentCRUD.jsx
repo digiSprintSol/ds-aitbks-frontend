@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -81,6 +82,24 @@ function PresidentCRUD() {
     }
   };
 
+  const status = (row) => {
+    if (row.president && row.accountant && row.commitee && row.user) {
+      return "Admin";
+    }
+    // eslint-disable-next-line no-else-return
+    else if (row.president) {
+      return "President";
+    } else if (row.commitee) {
+      return "Committee";
+    } else if (row.accountant) {
+      return "Accountant";
+    } else if (row.user) {
+      return "User";
+    } else {
+      return null;
+    }
+  };
+
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
@@ -145,16 +164,20 @@ function PresidentCRUD() {
                   <TableCell align="center">{row.phone}</TableCell>
                   <TableCell align="center">{row.add}</TableCell>
                   <TableCell align="center">{row.email}</TableCell>
-                  {row.president && (
+                  {/* {(row.president &&
+                    row.accountant &&
+                    row.commitee &&
+                    row.user)?(<TableCell align="center">Admin</TableCell>):
+                    (row.president) ?(
                     <TableCell align="center">President</TableCell>
-                  )}
-                  {row.accountant && (
+                   ):
+                  (row.accountant)?(
                     <TableCell align="center">Accountant</TableCell>
-                  )}
-                  {row.commitee && (
-                    <TableCell align="center">Committee</TableCell>
-                  )}
-                  {row.user && <TableCell align="center">User</TableCell>}
+                  ):
+                  (row.commitee)?(
+                    <TableCell align="center">Committee</TableCell>)
+                  } */}
+                  <TableCell align="center">{status(row)}</TableCell>
                   <TableCell align="center">
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">
