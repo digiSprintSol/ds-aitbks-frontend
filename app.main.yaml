@@ -1,7 +1,6 @@
 runtime: nodejs22
-service: aitbks
 env_variables:
-  REACT_APP_FAKE_API: "http://34.69.2.7:8082"
+REACT_APP_FAKE_API: "http://34.69.2.7:8082"
 handlers:
   - url: /(.*\..+)$
     static_files: build/\1

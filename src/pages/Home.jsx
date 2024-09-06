@@ -80,9 +80,9 @@ function Home() {
     setAnchorEl(event.currentTarget);
   };
 
-  // const handleMenuClose = () => {
-  //   setAnchorEl(null);
-  // };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const contactRef = useRef();
 
@@ -131,7 +131,7 @@ function Home() {
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
-              // onClose={handleMenuClose}
+              onClose={handleMenuClose}
             >
               <MenuItem onClick={() => navigate("/trustee")}>Trustee</MenuItem>
               <MenuItem onClick={() => navigate("/patron")}>Patron</MenuItem>
@@ -139,9 +139,9 @@ function Home() {
                 Life Members
               </MenuItem>
             </Menu>
-            <Link to="/events" className="link">
+            {/* <Link to="/events" className="link">
               Events
-            </Link>
+            </Link> */}
             <Link
               to="/"
               className="link"
@@ -271,9 +271,15 @@ function Home() {
         <br />
         <Button
           variant="outlined"
-          sx={{ backgroundColor: "#23A380", color: "white" }}
+          sx={{
+            backgroundColor: "#23A380",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#1F735B",
+            },
+          }}
+          onClick={() => navigate("/about-us")}
         >
-          {" "}
           Learn more
         </Button>
         <br />
@@ -561,20 +567,18 @@ function Home() {
             </div>
           ))}
         </div>
-        <Button
+        {/* <Button
           variant="contained"
           disableElevation
-          onClick={() => navigate("/about-us")}
           sx={{
             backgroundColor: "#23A380",
             marginLeft: "5vw",
             width: "12%",
             borderRadius: "15px",
-            marginBottom: "5%",
           }}
         >
           Know More
-        </Button>
+        </Button> */}
       </div>
       <div className={styles.footer} ref={contactRef}>
         <img

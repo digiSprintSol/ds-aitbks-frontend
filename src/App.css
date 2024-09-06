@@ -324,6 +324,7 @@
 .eighthpart{
   background-color:#E8E8E8 ;
   padding: 0px 30px;
+  padding-bottom: 6vw;
 }
 
 .eighthpart>:nth-child(2) {

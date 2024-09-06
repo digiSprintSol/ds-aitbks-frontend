@@ -2,16 +2,30 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import next from "./images/next.png";
-import qrcode from "./images/qrcode.png";
 import phonepe from "./images/phonepe.png";
 import arrow from "./images/arrow.png";
 import "../App.css";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function Donation() {
   const navigate = useNavigate();
   const submitHandler = () => {
     navigate("/upload-donation-receipt");
   };
+
+  const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+  const { REACT_APP_FAKE_API } = process.env;
+  const { data, loading, error } = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/getQRCode/3`,
+    method: "GET",
+    headers: {
+      Token: token,
+    },
+  });
+
+  if (error) return <h1>Error..</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <div className="paymenthead">
       <Typography variant="h4" sx={{ fontFamily: "ProximaBold" }}>
@@ -85,7 +99,7 @@ function Donation() {
           Upload Transaction Details
         </Typography>
       </div>
-      <img src={qrcode} alt="qrcode" height="13%" width="13%" />
+      <img src={data.pathOfDocumnet} alt="qrcode" height="13%" width="13%" />
       <Typography sx={{ fontFamily: "ProximaRegular" }}>
         Scan and pay with any BHIM UPI app
       </Typography>

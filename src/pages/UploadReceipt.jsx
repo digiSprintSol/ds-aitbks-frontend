@@ -35,7 +35,9 @@ function UploadGallery() {
         setResult(res);
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.log(err);
+        // console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size reached...");
       }
     }
   };
@@ -135,7 +137,7 @@ function UploadGallery() {
               <Box
                 sx={{
                   backgroundColor: "white",
-                  padding: "20px",
+                  padding: "10px",
                   borderRadius: "30px",
                   margin: "10px 0px",
                   display: "flex",
@@ -143,8 +145,8 @@ function UploadGallery() {
                   alignItems: "center",
                   position: "relative",
                   overflow: "hidden",
-                  height: "450px",
-                  width: "100%",
+                  height: "180px",
+                  width: "35%",
                   border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
                   textAlign: "center",
                   flexDirection: "column",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -41,14 +41,32 @@ function ViewDonations() {
   const [customdata, setCustomdata] = useState([]);
   // const navigate = useNavigate();
   const classes = useStyles();
-  const rowsperpage = 3;
-
-  if (error) return <h1>No users to display</h1>;
-  if (loading) return <h1>loading...</h1>;
+  const rowsperpage = 5;
 
   const handleChange = (event, value) => {
     setCurrentpage(value);
   };
+
+  useEffect(() => {
+    if (data) {
+      const partdata = [];
+      const exp =
+        // rowsperpage > data.content.length ? data.content.length : rowsperpage;
+        (currentpage - 1) * rowsperpage + rowsperpage > data.length
+          ? (currentpage - 1) * rowsperpage +
+            (rowsperpage -
+              ((currentpage - 1) * rowsperpage + rowsperpage - data.length))
+          : (currentpage - 1) * rowsperpage + rowsperpage;
+      // eslint-disable-next-line no-plusplus
+      for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
+        partdata.push(data[i - 1]);
+      }
+      setCustomdata(partdata);
+    }
+  }, [currentpage, data]);
+  if (error) return <h1>No users to display</h1>;
+  if (loading) return <h1>loading...</h1>;
+
   return (
     <div>
       <TableContainer
@@ -76,18 +94,18 @@ function ViewDonations() {
               <TableCell align="middle" className={classes.committeetable}>
                 Date of Donation
               </TableCell>
-              <TableCell
+              {/* <TableCell
                 align="middle"
                 sx={{ fontFamily: "ProximaBold" }}
                 className={classes.committeetable}
               >
                 Status
-              </TableCell>
+              </TableCell> */}
               <TableCell className={classes.committeetable}>Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
+            {customdata.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -100,11 +118,11 @@ function ViewDonations() {
                 <TableCell align="middle">{row.emailId}</TableCell>
                 <TableCell align="middle">{row.amountPaid}</TableCell>
                 <TableCell align="middle">{row.transactionDate}</TableCell>
-                <TableCell align="middle">
+                {/* <TableCell align="middle">
                   {row.status === "acknowledged" && (
                     <span className={classes.acknowledged}>Acknowledged</span>
                   )}
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="middle">
                   {/* <Button
                     variant="contained"
@@ -129,7 +147,9 @@ function ViewDonations() {
       <br />
       <hr />
       <br />
-      <span style={{ position: "absolute", transform: "Translate(5vw,-1vw)" }}>
+      <span
+        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+      >
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
         {currentpage * rowsperpage > data.length ? (
           <span>{data.length}</span>
@@ -141,12 +161,14 @@ function ViewDonations() {
 
       <Pagination
         count={Math.ceil(data.length / rowsperpage)}
-        sx={{ position: "absolute", transform: "Translate(75vw,-1.5vw)" }}
+        sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
         page={currentpage}
         onChange={handleChange}
         variant="outlined"
         shape="rounded"
       />
+      <br />
+      <hr />
     </div>
   );
 }

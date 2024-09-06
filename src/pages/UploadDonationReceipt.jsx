@@ -1,15 +1,55 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
+import UploadDonationValidation from "../validations/uploadDonationValidation";
 import Button from "../components/Button";
+import { postRequest } from "../HTTP_POST/api";
 
 function UploadDonationReceipt() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [result, setResult] = useState(null);
+  const navigate = useNavigate();
+  const { REACT_APP_FAKE_API } = process.env;
+  const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
+
+  const imageApi = async () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await postRequest(
+          `${REACT_APP_FAKE_API}/upload?folderName=donation`,
+          formData,
+          {
+            Token: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          }
+        );
+
+        setResult(res);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        // console.log(err);
+        // eslint-disable-next-line no-alert
+        alert("Maximum upload size reached...");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (file) {
+      // eslint-disable-next-line no-restricted-globals, no-alert
+      if (confirm("Do you want to upload...")) {
+        imageApi();
+      }
+    }
+  }, [file]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -39,20 +79,43 @@ function UploadDonationReceipt() {
     setIsDragOver(false);
   };
 
-  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
-      imagesForHomePage: null,
+      fullName: "",
+      transactionDate: "",
+      phoneNumber: "",
+      transactionId: "",
+      emailId: "",
       amountPaid: "",
+      dob: "",
     },
-    // validationSchema: postValidationSchema,
+    validationSchema: UploadDonationValidation,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("transcationRecepit", file);
-      formData.append("amountPaid", values.amountPaid);
-      navigate("/");
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const response = await postRequest(
+          `${REACT_APP_FAKE_API}/donations/createDonation`,
+          {
+            fullName: values.fullName,
+            transactionDate: values.transactionDate,
+            phoneNumber: values.phoneNumber,
+            transactionId: values.transactionId,
+            emailId: values.emailId,
+            amountPaid: values.amountPaid,
+            dob: new Date(values.dob).toISOString(),
+            transactionReceiptUploadUrl: result.url,
+          },
+          {
+            Token: `Bearer ${token}`,
+          }
+        );
+        if (response) {
+          navigate("/payment-donation-success");
+        }
+        // console.log(response.data, "response");
+      } catch (err) {
+        // console.log(err.message, "error");
+      }
     },
   });
 
@@ -84,7 +147,7 @@ function UploadDonationReceipt() {
               <Box
                 sx={{
                   backgroundColor: "white",
-                  padding: "20px",
+                  padding: "10px",
                   borderRadius: "30px",
                   margin: "10px 0px",
                   display: "flex",
@@ -92,8 +155,8 @@ function UploadDonationReceipt() {
                   alignItems: "center",
                   position: "relative",
                   overflow: "hidden",
-                  height: "450px",
-                  width: "100%",
+                  height: "180px",
+                  width: "35%",
                   border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
                   textAlign: "center",
                   flexDirection: "column",
@@ -158,6 +221,14 @@ function UploadDonationReceipt() {
                   />
                 )}
               </Box>
+              {/* <UploadIcon
+                sx={{
+                  border: "2px solid black",
+                  borderRadius: "50%",
+                  marginTop: "2vw",
+                }}
+                onClick={imageApi}
+              /> */}
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -172,7 +243,7 @@ function UploadDonationReceipt() {
           </Grid>
           <Grid item xs={2}>
             <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
-              Date Of Payment
+              Date Of Birth
             </Typography>
           </Grid>
           <Grid item xs={3}>
@@ -201,20 +272,15 @@ function UploadDonationReceipt() {
           <Grid item xs={2}>
             <TextField
               fullWidth
-              id="  "
-              name="dateOfPayment"
+              id="dob"
+              name="dob"
               // label="dateOfPayment"
               type="date"
-              value={formik.values.dateOfPayment}
+              value={formik.values.dob}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.dateOfPayment &&
-                Boolean(formik.errors.dateOfPayment)
-              }
-              helperText={
-                formik.touched.dateOfPayment && formik.errors.dateOfPayment
-              }
+              error={formik.touched.dob && Boolean(formik.errors.dob)}
+              helperText={formik.touched.dob && formik.errors.dob}
             />
           </Grid>
           <Grid item xs={3}>
@@ -222,7 +288,7 @@ function UploadDonationReceipt() {
               fullWidth
               id="phoneNumber"
               name="phoneNumber"
-              type="number"
+              type="string"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -238,23 +304,23 @@ function UploadDonationReceipt() {
             <TextField
               fullWidth
               id="emailAddress"
-              name="emailAddress"
+              name="emailId"
               type="email"
-              value={formik.values.emailAddress}
+              value={formik.values.emailId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={
-                formik.touched.emailAddress &&
-                Boolean(formik.errors.emailAddress)
-              }
-              helperText={
-                formik.touched.emailAddress && formik.errors.emailAddress
-              }
+              error={formik.touched.emailId && Boolean(formik.errors.emailId)}
+              helperText={formik.touched.emailId && formik.errors.emailId}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
               Transaction ID
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography sx={{ fontFamily: "ProximaBold" }} variant="subtitle1">
+              Date of Payment
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -262,7 +328,7 @@ function UploadDonationReceipt() {
               Amount Paid
             </Typography>
           </Grid>
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
             <TextField
               fullWidth
               id="transactionId"
@@ -277,6 +343,25 @@ function UploadDonationReceipt() {
               }
               helperText={
                 formik.touched.transactionId && formik.errors.transactionId
+              }
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <TextField
+              fullWidth
+              id="transactionDate"
+              name="transactionDate"
+              // label="dateOfPayment"
+              type="date"
+              value={formik.values.transactionDate}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.transactionDate &&
+                Boolean(formik.errors.transactionDate)
+              }
+              helperText={
+                formik.touched.transactionDate && formik.errors.transactionDate
               }
             />
           </Grid>
