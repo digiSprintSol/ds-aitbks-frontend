@@ -9,7 +9,9 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import MembersPopup from "./MembersPopup";
 
 function Patron() {
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
@@ -23,7 +25,28 @@ function Patron() {
   });
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "55vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible
+        />
+      </div>
+    );
+  }
 
   const patron = data.filter(
     (user) =>
@@ -53,9 +76,10 @@ function Patron() {
             <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
               <TableCell align="middle">Photo</TableCell>
               <TableCell align="middle">Membership ID</TableCell>
-              <TableCell align="middle">Name</TableCell>
+              <TableCell align="center">First Name</TableCell>
+              <TableCell align="center">Surname</TableCell>
               <TableCell align="middle">Email ID</TableCell>
-              <TableCell align="middle">Address</TableCell>
+              <TableCell align="center">Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -75,9 +99,12 @@ function Patron() {
                   />
                 </TableCell>
                 <TableCell align="middle">{row.membershipId}</TableCell>
-                <TableCell align="middle">{row.fullName}</TableCell>
+                <TableCell align="center">{row.firstName}</TableCell>
+                <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
-                <TableCell align="middle">{row.district}</TableCell>
+                <TableCell align="middle">
+                  <MembersPopup row={row} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
