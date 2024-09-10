@@ -85,6 +85,9 @@ function Login() {
   const display = 0;
 
   useEffect(() => {
+    if (data.admin) {
+      navigate("/admin-nav", { state: { token, display } });
+    }
     if (data.president) {
       navigate("/president-view", { state: { token, display } });
     }

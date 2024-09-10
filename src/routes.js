@@ -36,6 +36,7 @@ const PaymentDonationSuccess = loadable(() =>
   import("./pages/PaymentDonationSuccess")
 );
 const PresidentView = loadable(() => import("./pages/PresidentView"));
+const AdminNav = loadable(() => import("./pages/AdminNav"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
 const AddMembers = loadable(() => import("./pages/AddMembers"));
@@ -199,6 +200,10 @@ export const router = createBrowserRouter([
       {
         path: "/president-view",
         element: <PresidentView />,
+      },
+      {
+        path: "/admin-nav",
+        element: <AdminNav />,
       },
       {
         path: "/president-crud",
