@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Circles } from "react-loader-spinner";
 import { useLocation } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -93,7 +94,27 @@ function PresidentUser() {
   }, [currentpage, data]);
 
   if (error) return <h1>No data found...</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading)
+    return (
+      <div
+        style={{
+          minHeight: "55vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible
+        />
+      </div>
+    );
   // eslint-disable-next-line no-console
   console.log(data.length, rowsperpage, "aaaaaaaaaa");
 
@@ -202,7 +223,11 @@ function PresidentUser() {
       <hr />
       <br />
       <span
-        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+        style={{
+          position: "absolute",
+          transform: "Translate(5vw,-0.7vw)",
+          fontFamily: "ProximaRegular",
+        }}
       >
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
         {currentpage * rowsperpage > data.length ? (

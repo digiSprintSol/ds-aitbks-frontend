@@ -26,7 +26,7 @@ const idValidationSchema = Yup.object({
     ),
   category: Yup.string("Enter your category").required("is required"),
   reference1: Yup.string().required("Reference one is required"),
-  reference2: Yup.string().required("Reference two is required"),
+  // reference2: Yup.string().required("Reference two is required"),
 });
 
 export default idValidationSchema;

@@ -18,6 +18,7 @@ import {
   TextField,
   Typography,
   styled,
+  Alert,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
@@ -65,11 +66,11 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
   const { REACT_APP_FAKE_API } = process.env;
   const handleSubmit = () => {
     if (!comments) {
-      alert("Please enter your comments");
+      <Alert severity="warning">Please enter your commenets</Alert>;
       return false;
     }
     if (!radioValue) {
-      alert("Please select a membership type");
+      <Alert severity="warning">Please select a membership type</Alert>;
       return false;
     }
     // Perform the submission logic
