@@ -20,6 +20,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 function PresidentCRUD() {
@@ -107,7 +108,13 @@ function PresidentCRUD() {
   if (loading) return <h1>loading...</h1>;
 
   return (
-    <Stack>
+    <Box
+      sx={{
+        backgroundColor: "#D4E9DA",
+        padding: 5,
+        margin: "10px auto",
+      }}
+    >
       <Grid
         container
         spacing={1}
@@ -231,7 +238,7 @@ function PresidentCRUD() {
           shape="rounded"
         />
       </Stack>
-    </Stack>
+    </Box>
   );
 }
 

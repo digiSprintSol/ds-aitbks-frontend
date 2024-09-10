@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from "@mui/styles";
+import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import Acknowledge from "./Acknowledge";
 
@@ -83,7 +84,28 @@ function PresidentView() {
   }, [currentpage, data]);
 
   if (error) return <h1>No users to display</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "55vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible
+        />
+      </div>
+    );
+  }
 
   // const handleViewDonations = () => {
   //   navigate("/view-donations", { state: { token } });

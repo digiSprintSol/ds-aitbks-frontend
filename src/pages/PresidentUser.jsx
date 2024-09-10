@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
+import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import PresidentModal from "../components/Modal/presidentModal";
@@ -98,132 +99,140 @@ function PresidentUser() {
   console.log(data.length, rowsperpage, "aaaaaaaaaa");
 
   return (
-    <div>
-      <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow sx={{ textAlign: "center" }}>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Name of the Applicant
-              </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Date of Birth
-              </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Phone number
-              </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Email Id
-              </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Status of Committee
-              </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
-                Details
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {customdata.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{
-                  fontFamily: "ProximaRegular",
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.fullName}
+    <Box
+      sx={{
+        backgroundColor: "#D4E9DA",
+        padding: 5,
+        margin: "10px auto",
+      }}
+    >
+      <div>
+        <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow sx={{ textAlign: "center" }}>
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Name of the Applicant
                 </TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
-                <TableCell align="middle">{row.phoneNumber}</TableCell>
-                <TableCell align="middle">{row.emailAddress}</TableCell>
-                {row.status ? (
-                  <TableCell
-                    align="middle"
-                    className={
-                      // eslint-disable-next-line no-nested-ternary
-                      row.status === "accepted"
-                        ? classes.accepted
-                        : row.status === "Waiting"
-                        ? classes.waiting
-                        : classes.declined
-                    }
-                    sx={{
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {row.status}
-                  </TableCell>
-                ) : (
-                  <TableCell align="middle">Yet to be approved</TableCell>
-                )}
-
-                <TableCell align="middle">
-                  <PresidentModal
-                    row={row}
-                    token={token}
-                    name1={data1.data.name}
-                    name2={data2.data.name}
-                    name3={data3.data.name}
-                  />
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Date of Birth
+                </TableCell>
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Phone number
+                </TableCell>
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Email Id
+                </TableCell>
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Status of Committee
+                </TableCell>
+                <TableCell
+                  align="middle"
+                  sx={{ fontFamily: "ProximaBold" }}
+                  className={classes.committeetable}
+                >
+                  Details
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <br />
-      <hr />
-      <br />
-      <span
-        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
-      >
-        showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-        {currentpage * rowsperpage > data.length ? (
-          <span>{data.length}</span>
-        ) : (
-          <span>{currentpage * rowsperpage}</span>
-        )}{" "}
-        of {data.length} entries
-      </span>
+            </TableHead>
+            <TableBody>
+              {customdata.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{
+                    fontFamily: "ProximaRegular",
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.fullName}
+                  </TableCell>
+                  <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                  <TableCell align="middle">{row.phoneNumber}</TableCell>
+                  <TableCell align="middle">{row.emailAddress}</TableCell>
+                  {row.status ? (
+                    <TableCell
+                      align="middle"
+                      className={
+                        // eslint-disable-next-line no-nested-ternary
+                        row.status === "accepted"
+                          ? classes.accepted
+                          : row.status === "Waiting"
+                          ? classes.waiting
+                          : classes.declined
+                      }
+                      sx={{
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {row.status}
+                    </TableCell>
+                  ) : (
+                    <TableCell align="middle">Yet to be approved</TableCell>
+                  )}
 
-      <Pagination
-        count={Math.ceil(data.length / rowsperpage)}
-        sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
-        page={currentpage}
-        onChange={handleChange}
-        variant="outlined"
-        shape="rounded"
-      />
-      <br />
-      <hr />
-    </div>
+                  <TableCell align="middle">
+                    <PresidentModal
+                      row={row}
+                      token={token}
+                      name1={data1.data.name}
+                      name2={data2.data.name}
+                      name3={data3.data.name}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <br />
+        <hr />
+        <br />
+        <span
+          style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+        >
+          showing {(currentpage - 1) * rowsperpage + 1} to{" "}
+          {currentpage * rowsperpage > data.length ? (
+            <span>{data.length}</span>
+          ) : (
+            <span>{currentpage * rowsperpage}</span>
+          )}{" "}
+          of {data.length} entries
+        </span>
+
+        <Pagination
+          count={Math.ceil(data.length / rowsperpage)}
+          sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
+          page={currentpage}
+          onChange={handleChange}
+          variant="outlined"
+          shape="rounded"
+        />
+        <br />
+        <hr />
+      </div>
+    </Box>
   );
 }
 

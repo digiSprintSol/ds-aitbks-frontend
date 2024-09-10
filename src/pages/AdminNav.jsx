@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import president1 from "./images/president1.png";
 import president3 from "./images/president3.png";
 import president4 from "./images/president4.png";
 import president5 from "./images/president5.png";
 import president7 from "./images/president7.png";
 import president8 from "./images/president8.png";
 import president9 from "./images/president9.png";
-import PresidentUser from "./PresidentUser";
 import UploadEvent from "./UploadEvent";
 import UploadGallery from "./UploadGallery";
 import UploadAwards from "./UploadAwards";
@@ -31,20 +29,18 @@ function AdminNav() {
     // eslint-disable-next-line default-case
     switch (active) {
       case 0:
-        return <PresidentUser />;
-      case 1:
         return <UploadEvent />;
-      case 2:
+      case 1:
         return <UploadGallery />;
-      case 3:
+      case 2:
         return <UploadAwards />;
-      case 4:
+      case 3:
         return <UploadAnnouncement />;
-      case 5:
+      case 4:
         return <MarketPlaces />;
-      case 6:
+      case 5:
         return <AddFeedback />;
-      case 7:
+      case 6:
         return <Broadcast />;
     }
   };
@@ -58,16 +54,6 @@ function AdminNav() {
             setActivecount(0);
           }}
         >
-          <img src={president1} alt="usersimage" height="30px" width="30px" />
-          <h5>Application</h5>
-        </button>
-        <button
-          type="button"
-          className="presidentviewnav"
-          onClick={() => {
-            setActivecount(2);
-          }}
-        >
           <img src={president3} alt="eventsimage" height="30px" width="30px" />
           <h5>Events</h5>
         </button>
@@ -75,7 +61,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(3);
+            setActivecount(1);
           }}
         >
           <img src={president4} alt="galleryimage" height="30px" width="30px" />
@@ -85,7 +71,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(4);
+            setActivecount(2);
           }}
         >
           <img src={president4} alt="galleryimage" height="30px" width="30px" />
@@ -95,7 +81,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(5);
+            setActivecount(3);
           }}
         >
           <img
@@ -110,7 +96,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(6);
+            setActivecount(4);
           }}
         >
           <img
@@ -125,7 +111,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(7);
+            setActivecount(5);
           }}
         >
           <img
@@ -140,7 +126,7 @@ function AdminNav() {
           type="button"
           className="presidentviewnav"
           onClick={() => {
-            setActivecount(8);
+            setActivecount(6);
           }}
         >
           <img
