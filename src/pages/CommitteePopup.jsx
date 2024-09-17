@@ -1,15 +1,23 @@
 /* eslint-disable no-nested-ternary */
 import * as React from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
+import {
+  Dialog,
+  Button,
+  styled,
+  Typography,
+  IconButton,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Box,
+  Grid,
+  TextField,
+  Alert,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import { Box, Grid, TextField } from "@mui/material";
 import PropTypes from "prop-types";
 import LoadingOverlay from "react-loading-overlay";
 import { postRequest } from "../HTTP_POST/api";
@@ -52,24 +60,24 @@ export default function CommitteePopup({
   const waiting = { statusOfApproval: "waiting" };
 
   const changeHandler = (e) => {
-    setData({ remarks: e.target.value });
+    setData({ membership: e.target.value });
   };
 
-  React.useEffect(() => {
-    if (data) {
-      const message = document.getElementById("errordisplay");
-      message.innerHTML = "message:";
-      try {
-        const exp = data.remarks.charCodeAt(0);
-        if (!(exp >= 97 && exp <= 122)) {
-          // eslint-disable-next-line no-throw-literal
-          throw "enter only alphabets";
-        }
-      } catch (err) {
-        message.innerHTML = "message:".concat(err);
-      }
-    }
-  }, [data]);
+  // React.useEffect(() => {
+  //   if (data) {
+  //     const message = document.getElementById("errordisplay");
+  //     message.innerHTML = "message:";
+  //     try {
+  //       const exp = data.remarks.charCodeAt(0);
+  //       if (!(exp >= 97 && exp <= 122)) {
+  //         // eslint-disable-next-line no-throw-literal
+  //         throw "enter only alphabets";
+  //       }
+  //     } catch (err) {
+  //       message.innerHTML = "message:".concat(err);
+  //     }
+  //   }
+  // }, [data]);
 
   const { REACT_APP_FAKE_API } = process.env;
   const post = async (info) => {
@@ -86,8 +94,7 @@ export default function CommitteePopup({
         setLoading(true);
       }
       setLoading(false);
-      // eslint-disable-next-line no-alert
-      alert("Status Updated");
+      <Alert severity="success">Status updated...</Alert>;
       setOpen(false);
     } catch (err) {
       setLoading(false);
@@ -97,30 +104,30 @@ export default function CommitteePopup({
 
   const acceptButton = () => {
     setLoading(true);
-    setData({ ...data, ...accepted, membership: row.categoryOfMembership });
+    setData({ ...data, ...accepted });
     // console.log(data, "llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...accepted, membership: row.categoryOfMembership });
+    post({ ...data, ...accepted });
   };
   const rejectButton = () => {
     setLoading(true);
-    setData({ ...data, ...rejected, membership: row.categoryOfMembership });
+    setData({ ...data, ...rejected });
     // console.log(data, "llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...rejected, membership: row.categoryOfMembership });
+    post({ ...data, ...rejected });
   };
   const waitButton = () => {
     setLoading(true);
-    setData({ ...data, ...waiting, membership: row.categoryOfMembership });
+    setData({ ...data, ...waiting });
     // console.log(data,"llllllllllllll");
     // if (Object.keys(data).length === 3) {
     //   post();
     // }
-    post({ ...data, ...waiting, membership: row.categoryOfMembership });
+    post({ ...data, ...waiting });
   };
 
   const arr = [];
@@ -129,6 +136,19 @@ export default function CommitteePopup({
   arr.push(row.committeeMemberThreeId);
   // console.log(id, arr, "fffff");
   // console.log(arr.includes(id), "fffff");
+
+  const membershipFunction = (acms) => {
+    if (acms === "trustee") {
+      return "Trustee";
+    }
+    if (acms === "patron") {
+      return "Patron";
+    }
+    if (acms === "lifemember") {
+      return "Life Member";
+    }
+    return null;
+  };
 
   return (
     <>
@@ -176,25 +196,39 @@ export default function CommitteePopup({
         <DialogContent dividers>
           <Box>
             <Grid container spacing={2}>
-              <img
-                src={row.profilePic}
-                alt="Selected"
-                style={{
-                  display: "block",
-                  width: "150px",
-                  height: "150px",
-                  objectFit: "cover",
-                  margin: "10px auto",
-                  borderRadius: "50%",
-                }}
-              />
               <Grid item xs={12}>
-                <Typography>Full Name</Typography>
+                <img
+                  src={row.profilePic}
+                  alt="Selected"
+                  style={{
+                    display: "block",
+                    width: "150px",
+                    height: "150px",
+                    objectFit: "cover",
+                    margin: "10px auto",
+                    borderRadius: "50%",
+                  }}
+                />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
+                <Typography>First Name</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography>Surname</Typography>
+              </Grid>
+              <Grid item xs={6}>
                 <TextField
                   fullWidth
-                  value={row.fullName}
+                  value={row.firstName}
+                  aria-readonly
+                  sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  value={row.lastName}
                   aria-readonly
                   sx={{ backgroundColor: "#ffffff" }}
                   size="small"
@@ -276,7 +310,7 @@ export default function CommitteePopup({
               </Grid>
               <Grid item xs={6}>
                 <Typography id="modal-modal-description">
-                  Father Name
+                  {`Father's Name`}
                 </Typography>
                 <TextField
                   value={row.familyDetails.fatherName}
@@ -288,7 +322,7 @@ export default function CommitteePopup({
               </Grid>
               <Grid item xs={6}>
                 <Typography id="modal-modal-description">
-                  Mother Name
+                  {`Mother's Name`}
                 </Typography>
                 <TextField
                   value={row.familyDetails.motherName}
@@ -423,12 +457,24 @@ export default function CommitteePopup({
                   size="small"
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid item xs={6}>
                 <Typography id="modal-modal-description">Community</Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
                   value={row.category}
+                  aria-readonly
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography id="modal-modal-description">
+                  Caste Status
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.casteStatus}
                   aria-readonly
                   size="small"
                 />
@@ -481,25 +527,33 @@ export default function CommitteePopup({
                   size="small"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <Typography id="modal-modal-description">
                   Applicant Choosen Membership
                 </Typography>
+                {/* <FormControlLabel
+                  control={<Radio />}
+                  label={membershipFunction(row.applicantChoosenMembership)}
+                  sx={{
+                    marginLeft: "20px",
+                  }}
+                  checked
+                /> */}
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.applicantChoosenMembership}
+                  value={membershipFunction(row.applicantChoosenMembership)}
                   aria-readonly
                   size="small"
-                  disabled
                 />
-              </Grid> */}
+              </Grid>
+              {/* --------------------------------display c1 approvals and choosesn membership---------------------------------------------------------- */}
               <Grid item xs={12}>
-                {row.committeeOneRemarksForApplicant && (
+                {row.committeeOneChoosenMembershipForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
                       {name1}
-                      {` comments: `}
+                      {` choosen membership: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -507,10 +561,22 @@ export default function CommitteePopup({
                         backgroundColor: "#ffffff",
                         // fontFamily: "ProximaRegular",
                       }}
-                      value={row.committeeOneRemarksForApplicant}
+                      value={membershipFunction(
+                        row.committeeOneChoosenMembershipForApplicant
+                      )}
                       aria-readonly
                       size="small"
                     />
+                    {/* <FormControlLabel
+                      control={<Radio />}
+                      label={membershipFunction(
+                        row.committeeOneChoosenMembershipForApplicant
+                      )}
+                      sx={{
+                        marginLeft: "20px",
+                      }}
+                      checked
+                    /> */}
                   </>
                 )}
               </Grid>
@@ -526,14 +592,14 @@ export default function CommitteePopup({
                 )}
               </Grid> */}
 
-              {/* -------------------------------------------------------------------------- */}
+              {/* ----------------------display c2 approvals and choosesn membership---------------------------------------------------- */}
 
               <Grid item xs={12}>
-                {row.committeeTwoRemarksForApplicant && (
+                {row.committeeTwoChoosenMembershipForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
                       {name2}
-                      {` comments: `}
+                      {` choosen membership: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -541,15 +607,27 @@ export default function CommitteePopup({
                         backgroundColor: "#ffffff",
                         // fontFamily: "ProximaRegular",
                       }}
-                      value={row.committeeTwoRemarksForApplicant}
+                      value={membershipFunction(
+                        row.committeeTwoChoosenMembershipForApplicant
+                      )}
                       aria-readonly
                       size="small"
                     />
+                    {/* <FormControlLabel
+                      control={<Radio />}
+                      label={membershipFunction(
+                        row.committeeTwoChoosenMembershipForApplicant
+                      )}
+                      sx={{
+                        marginLeft: "20px",
+                      }}
+                      checked
+                    /> */}
                   </>
                 )}
               </Grid>
               {/* <Grid item xs={12}>
-                {row.committeeTwoRemarksForApplicant &&
+                {row.committexeTwoRemarksForApplicant &&
                 row.committeeTwoApproval === true ? (
                   <h3>Committee 2 Status: Accepted</h3>
                 ) : row.committeeTwoRemarksForApplicant &&
@@ -560,14 +638,14 @@ export default function CommitteePopup({
                 )}
               </Grid> */}
 
-              {/* -------------------------------------------------------------------------- */}
+              {/* ---------------------display c3 approvals and choosesn membership----------------------------------------------------- */}
 
               <Grid item xs={12}>
-                {row.committeeThreeRemarksForApplicant && (
+                {row.committeeThreeChoosenMembershipForApplicant && (
                   <>
                     <Typography sx={{ fontFamily: "ProximaBold" }}>
                       {name3}
-                      {` comments: `}
+                      {` choosen membership: `}
                     </Typography>
                     <TextField
                       fullWidth
@@ -575,10 +653,22 @@ export default function CommitteePopup({
                         backgroundColor: "#ffffff",
                         // fontFamily: "ProximaRegular",
                       }}
-                      value={row.committeeThreeRemarksForApplicant}
+                      value={membershipFunction(
+                        row.committeeThreeChoosenMembershipForApplicant
+                      )}
                       aria-readonly
                       size="small"
                     />
+                    {/* <FormControlLabel
+                        control={<Radio />}
+                        label={membershipFunction(
+                          row.committeeThreeChoosenMembershipForApplicant
+                        )}
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                        checked
+                      /> */}
                   </>
                 )}
               </Grid>
@@ -607,12 +697,11 @@ export default function CommitteePopup({
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginTop: "40px",
                       }}
                     >
-                      Committee Comments
+                      Choose Membership Type
                     </Typography>
-                    <TextField
+                    {/* <TextField
                       fullWidth
                       sx={{ backgroundColor: "#ffffff" }}
                       onChange={changeHandler}
@@ -620,9 +709,40 @@ export default function CommitteePopup({
                     />
                     <p id="errordisplay" style={{ color: "red" }}>
                       message:
-                    </p>
+                    </p> */}
+                    <RadioGroup
+                      row
+                      name="applicantChoosenMembership"
+                      onChange={changeHandler}
+                      sx={{
+                        marginTop: "2vw",
+                        marginLeft: "21vw",
+                      }}
+                    >
+                      <FormControlLabel
+                        value="trustee"
+                        control={<Radio />}
+                        label="Trustee"
+                      />
+                      <FormControlLabel
+                        value="patron"
+                        control={<Radio />}
+                        label="Patron"
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                      />
+                      <FormControlLabel
+                        value="lifemember"
+                        control={<Radio />}
+                        label="Life Membership"
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                      />
+                    </RadioGroup>
                   </Grid>
-                  <DialogActions sx={{ margin: "50px auto" }}>
+                  <DialogActions sx={{ margin: "2vw 22vw" }}>
                     <Button
                       variant="contained"
                       autoFocus

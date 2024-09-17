@@ -2,61 +2,95 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
-import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
+import {
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  IconButton,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
 import { postRequest } from "../HTTP_POST/api";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function UploadEvent() {
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState([]);
+  const [radioData, setRadioData] = useState("");
+  const [folderNames, setFolderNames] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [pathData, setPathData] = useState(null);
+  // const [preview, setPreview] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [result, setResult] = useState(null);
   const location = useLocation();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
 
+  const radioHandleChange = (e) => {
+    setRadioData(e.target.value);
+  };
+
+  const pathDataChangeHandler = (e) => {
+    setPathData(e.target.value);
+  };
+
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    const filePreview = URL.createObjectURL(selectedFile);
-    setPreview(filePreview);
+    let selectedFile = e.target.files;
+    selectedFile = Object.values(selectedFile);
+    setFile([...file, ...selectedFile]);
   };
 
   const imageApi = async () => {
     if (file) {
       const formData = new FormData();
-      formData.append("file", file);
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < file.length; i++) {
+        formData.append("files", file[i]);
+      }
       try {
         // eslint-disable-next-line no-unused-vars
         const res = await postRequest(
-          `${REACT_APP_FAKE_API}/upload?folderName=events`,
+          `${REACT_APP_FAKE_API}/uploadMultipleImages?folderName=events&folderPath=events/${pathData}`,
           formData,
           {
             Token: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           }
         );
-        setResult(res);
+
+        const exp = [];
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < res.uploadedImages.length; i++) {
+          exp.push(res.uploadedImages[0].url);
+        }
+        setResult(exp);
       } catch (err) {
         // eslint-disable-next-line no-console
         // console.log(err);
         // eslint-disable-next-line no-alert
-        alert("Maximum upload size crossed...");
+        // alert("Maximum upload size crossed...");
         setFile(null);
-        setPreview(null);
+        // setPreview(null);
       }
     }
   };
 
-  useEffect(() => {
-    if (file) {
-      // eslint-disable-next-line no-restricted-globals, no-alert
-      if (confirm("Do you want to upload...")) {
-        imageApi();
-      }
-    }
-  }, [file]);
+  // useEffect(() => {
+  //   if (file) {
+  //     // eslint-disable-next-line no-restricted-globals, no-alert
+  //     if (confirm("Do you want to upload...")) {
+  //       imageApi();
+  //     }
+  //   }
+  // }, [file]);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -64,8 +98,8 @@ function UploadEvent() {
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
       setFile(droppedFile);
-      const filePreview = URL.createObjectURL(droppedFile);
-      setPreview(filePreview);
+      // const filePreview = URL.createObjectURL(droppedFile);
+      // setPreview(filePreview);
     }
   };
 
@@ -78,11 +112,38 @@ function UploadEvent() {
     setIsDragOver(false);
   };
 
+  const { data, loading, error } = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/getAllFolderName`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${token}`,
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      const arr = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]) {
+          const exp = data[i].split("/");
+          if (exp[0] === "events") {
+            arr.push(exp[1]);
+          }
+        }
+      }
+      setFolderNames(arr);
+    }
+  }, [data]);
+
+  const capitalChange = (item) => item.toUpperCase();
+
   const formik = useFormik({
     initialValues: {
       title: "",
       description: "",
-      events: null,
+      sponsoredBy: "",
+      eventDate: "",
     },
     // validationSchema: postValidationSchema,
     onSubmit: async (values, { resetForm }) => {
@@ -93,7 +154,10 @@ function UploadEvent() {
           {
             title: values.title,
             description: values.description,
-            imageUrl: result.url,
+            eventType: "events",
+            eventDate: new Date(values.eventDate).toISOString(),
+            sponsoredBy: values.sponsoredBy,
+            imageURLs: result,
           },
           {
             Token: `Bearer ${token}`,
@@ -103,12 +167,15 @@ function UploadEvent() {
         alert("Uploaded...");
         resetForm();
         setFile(null);
-        setPreview(null);
+        // setPreview(null);
       } catch (err) {
         // console.log(err.message, "error");
       }
     },
   });
+
+  if (loading) return <h1>Loading.....</h1>;
+  if (error) return <h1>error</h1>;
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -171,6 +238,7 @@ function UploadEvent() {
                 <input
                   type="file"
                   id="fileInput"
+                  multiple
                   onChange={handleFileChange}
                   style={{ display: "none" }}
                 />
@@ -197,7 +265,7 @@ function UploadEvent() {
                 >
                   or click to select
                 </Typography>
-                {preview && (
+                {/* {preview && (
                   <Box
                     sx={{
                       position: "absolute",
@@ -212,8 +280,86 @@ function UploadEvent() {
                       opacity: 0.5,
                     }}
                   />
-                )}
+                )} */}
               </Box>
+              <Grid
+                container
+                spacing={2}
+                sx={{ width: "40vw", margin: "auto" }}
+              >
+                <Grid item xs={12} sx={{ margin: "auto" }}>
+                  <Typography sx={{ marginTop: "2vw", marginLeft: "2vw" }}>
+                    Do you want to uplaod the above images in the existing
+                    folder
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{ marginLeft: "11vw" }}>
+                  <RadioGroup
+                    row
+                    name="value"
+                    onChange={radioHandleChange}
+                    sx={{
+                      margin: "1.5vw",
+                    }}
+                  >
+                    <FormControlLabel
+                      value="yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="no"
+                      control={<Radio />}
+                      label="No"
+                      sx={{
+                        marginLeft: "20px",
+                      }}
+                    />
+                  </RadioGroup>
+                </Grid>
+                <Grid item xs={6} sx={{ margin: "auto" }}>
+                  {radioData === "yes" && (
+                    <FormControl fullWidth>
+                      <InputLabel>Select folder</InputLabel>
+                      <Select
+                        label="Select folder"
+                        onChange={pathDataChangeHandler}
+                      >
+                        {folderNames &&
+                          folderNames.map((item) =>
+                            item ? (
+                              <MenuItem key={item} value={item}>
+                                {capitalChange(item)}
+                              </MenuItem>
+                            ) : null
+                          )}
+                      </Select>
+                    </FormControl>
+                  )}
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    textAlign: "center",
+                    transform: "translate(0.2vw ,-1.5vw)",
+                  }}
+                >
+                  {radioData === "no" && (
+                    <div>
+                      <TextField
+                        label="Enter FolderName"
+                        onChange={pathDataChangeHandler}
+                        sx={{ width: "20vw" }}
+                        fullWidth
+                      />
+                    </div>
+                  )}
+                </Grid>
+                <Grid item xs={3} sx={{ margin: "auto" }}>
+                  <Button onClick={imageApi}>Upload</Button>
+                </Grid>
+              </Grid>
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -224,7 +370,6 @@ function UploadEvent() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              size="small"
               label="Title"
               id="title"
               name="title"
@@ -239,7 +384,6 @@ function UploadEvent() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              size="small"
               id="description"
               name="description"
               label="Description"
@@ -258,6 +402,45 @@ function UploadEvent() {
             />
           </Grid>
           <Grid item xs={12}>
+            <Typography variant="body1">Event Date</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              fullWidth
+              id="eventDate"
+              name="eventDate"
+              // label="DD/MM/YYYY"
+              type="date"
+              value={formik.values.eventDate}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.eventDate && Boolean(formik.errors.eventDate)
+              }
+              helperText={formik.touched.eventDate && formik.errors.eventDate}
+              // sx={{ backgroundColor: "white", borderRadius: "5px" }}
+            />
+          </Grid>
+          <Grid item xs={9}>
+            <TextField
+              fullWidth
+              id="sponsoredBy"
+              name="sponsoredBy"
+              label="SponsoredBy"
+              type="string"
+              rows={4}
+              value={formik.values.sponsoredBy}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.sponsoredBy && Boolean(formik.errors.sponsoredBy)
+              }
+              helperText={
+                formik.touched.sponsoredBy && formik.errors.sponsoredBy
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Box
               sx={{
                 display: "flex",
@@ -266,7 +449,7 @@ function UploadEvent() {
               }}
             >
               <Button variant="contained" type="submit">
-                Upload
+                Submit
               </Button>
             </Box>
           </Grid>

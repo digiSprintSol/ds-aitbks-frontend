@@ -103,7 +103,7 @@ function familyDetails({ setActiveStep }) {
           <TextField
             fullWidth
             size="small"
-            label="Father Name"
+            label="Father's Name"
             id="fatherName"
             name="fatherName"
             type="string"

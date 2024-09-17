@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 // import React from "react";
+
+import { Circles } from "react-loader-spinner";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -101,7 +103,26 @@ function CommitteeView() {
   if (error || data1.error || data2.error || data3.error)
     return <h1>No users to display...</h1>;
   if (loading || data1.loading || data2.loading || data3.loading)
-    return <h1>loading...</h1>;
+    return (
+      <div
+        style={{
+          minHeight: "55vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible
+        />
+      </div>
+    );
 
   return (
     <div>
@@ -112,7 +133,8 @@ function CommitteeView() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
-              <TableCell align="middle">Name of the Applicant</TableCell>
+              <TableCell align="middle">First Name</TableCell>
+              <TableCell align="middle">Last Name</TableCell>
               {/* <TableCell align="middle">
                 Date of Application Submitted
               </TableCell> */}
@@ -152,15 +174,18 @@ function CommitteeView() {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.fullName}
+                  {row.firstName}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.lastName}
                 </TableCell>
                 {/* <TableCell align="middle">{row.dateOfBirth}</TableCell> */}
                 <TableCell align="middle">{row.dateOfBirth}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
 
-                {row.committeeOneRemarksForApplicant &&
-                row.committeeOneApproval === true ? (
+                {row.committeeOneChoosenMembershipForApplicant &&
+                row.committeeOneApproval === "accepted" ? (
                   <TableCell
                     align="middle"
                     className={classes.accepted}
@@ -171,8 +196,8 @@ function CommitteeView() {
                   >
                     Accepted
                   </TableCell>
-                ) : row.committeeOneRemarksForApplicant &&
-                  row.committeeOneApproval === false ? (
+                ) : row.committeeOneChoosenMembershipForApplicant &&
+                  row.committeeOneApproval === "rejected" ? (
                   <TableCell
                     align="middle"
                     className={classes.declined}
@@ -189,8 +214,8 @@ function CommitteeView() {
 
                 {/* -------------------------------------------------------------------------- */}
 
-                {row.committeeTwoRemarksForApplicant &&
-                row.committeeTwoApproval === true ? (
+                {row.committeeTwoChoosenMembershipForApplicant &&
+                row.committeeTwoApproval === "accepted" ? (
                   <TableCell
                     align="middle"
                     className={classes.accepted}
@@ -201,8 +226,8 @@ function CommitteeView() {
                   >
                     Accepted
                   </TableCell>
-                ) : row.committeeTwoRemarksForApplicant &&
-                  row.committeeTwoApproval === false ? (
+                ) : row.committeeTwoChoosenMembershipForApplicant &&
+                  row.committeeTwoApproval === "rejected" ? (
                   <TableCell
                     align="middle"
                     className={classes.declined}
@@ -219,8 +244,8 @@ function CommitteeView() {
 
                 {/* -------------------------------------------------------------------------- */}
 
-                {row.committeeThreeRemarksForApplicant &&
-                row.committeeThreeApproval === true ? (
+                {row.committeeThreeChoosenMembershipForApplicant &&
+                row.committeeThreeApproval === "accepted" ? (
                   <TableCell
                     align="middle"
                     className={classes.accepted}
@@ -231,8 +256,8 @@ function CommitteeView() {
                   >
                     Accepted
                   </TableCell>
-                ) : row.committeeThreeRemarksForApplicant &&
-                  row.committeeThreeApproval === false ? (
+                ) : row.committeeThreeChoosenMembershipForApplicant &&
+                  row.committeeThreeApproval === "rejected" ? (
                   <TableCell
                     align="middle"
                     className={classes.declined}
@@ -278,7 +303,11 @@ function CommitteeView() {
       <hr />
       <br />
       <span
-        style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+        style={{
+          position: "absolute",
+          transform: "Translate(5vw,-0.7vw)",
+          fontFamily: "ProximaRegular",
+        }}
       >
         showing {(currentpage - 1) * rowsperpage + 1} to{" "}
         {currentpage * rowsperpage > data.length ? (

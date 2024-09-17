@@ -4,13 +4,16 @@ import { useFormik } from "formik";
 import {
   Button,
   FormControl,
+  FormControlLabel,
   FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
+  RadioGroup,
   Select,
   TextField,
   Typography,
+  Radio,
 } from "@mui/material";
 import {
   gender as genders,
@@ -103,6 +106,7 @@ function personalDetails({ setActiveStep }) {
       firstName: data.firstName || "",
       // middleName: data.middleName || "",
       lastName: data.lastName || "",
+      casteStatus: data.casteStatus || "",
       dateOfBirth: data.dateOfBirth || "",
       phoneNumber: data.phoneNumber || "",
       emailAddress: data.emailAddress || "",
@@ -124,7 +128,10 @@ function personalDetails({ setActiveStep }) {
         // middleName: values.middleName,
         // lastName: values.lastName,
         profilePic: result.url,
-        fullName: `${values.firstName} ${values.lastName}`,
+        // fullName: `${values.firstName} ${values.lastName}`,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        casteStatus: values.casteStatus,
         dateOfBirth: new Date(values.dateOfBirth).toISOString(),
         phoneNumber: values.phoneNumber,
         emailAddress: values.emailAddress,
@@ -285,6 +292,43 @@ function personalDetails({ setActiveStep }) {
             helperText={formik.touched.lastName && formik.errors.lastName}
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
+        </Grid>
+        <Grid item xs={2}>
+          <Typography sx={{ transform: "Translate(0,0.6vw)" }}>
+            Caste Status
+          </Typography>
+        </Grid>
+        <Grid item xs={10}>
+          <RadioGroup
+            row
+            name="casteStatus"
+            value={formik.values.casteStatus}
+            onChange={formik.handleChange}
+            sx={
+              {
+                // marginLeft: "20px",
+              }
+            }
+            error={
+              formik.touched.casteStatus && Boolean(formik.errors.casteStatus)
+            }
+          >
+            <FormControlLabel
+              disabled={!selectedImage}
+              value="oc"
+              control={<Radio />}
+              label="OC"
+            />
+            <FormControlLabel
+              disabled={!selectedImage}
+              value="bc"
+              control={<Radio />}
+              label="BC"
+              sx={{
+                marginLeft: "20px",
+              }}
+            />
+          </RadioGroup>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body2">Date of Birth</Typography>

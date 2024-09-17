@@ -1,0 +1,186 @@
+.calendar {
+    max-width: 55vw;
+    max-height: 45vw;
+    margin: auto;
+    padding: 10px;
+}
+
+    .calendarHeader {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding: 0rem 1rem;  
+        background-color: #AED8F0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .controls{
+        display: flex;
+        margin-right: 2vw;
+    }
+
+    .title {
+        color: black;
+        font-weight: 700;
+        font-size: 25px;
+        font-family: 'ProximaBold';
+        display: flex;
+        align-items: center;
+    }
+
+    select{
+        width: 5vw;
+        transform: translateX(-2vw);
+    }
+
+    .button {
+        padding: 0.5rem;
+        font-family: 'ProximaBold';
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        opacity: 0.6;
+        &:hover {
+                opacity: 1;
+            }
+        &:nth-of-type(1) {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        &:nth-of-type(2) {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+
+        .reset {
+            border-radius: 10px;
+        }
+
+
+    .week {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--primary-color);
+    }
+
+    .day-name {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 3px;
+        color: white;
+        font-weight: 300;
+        font-size: 16px;
+        font-family: "ProximaBold";
+        background-color: #006F98;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .day {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        width: 40px;
+        height: 45px;
+        padding: 10px;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        &:hover {
+            background-color: var(--tertiary-color);
+        }
+    }   
+
+    .number {
+        font-weight: 300;
+        font-family: 'Lato', serif;
+    }
+
+    .today {
+        font-weight: 600;
+        background-color: #AED8F0;
+        opacity: 0.6;
+
+        &:hover {
+            color: white;
+            background-color: #68B2D7;
+            opacity: 1;
+        }
+    }
+
+    .inactive {
+        color: gray;
+        background-color: lightgray;
+        cursor: unset;
+
+        &:hover {
+            background-color: lightgray;
+        }
+    }
+
+    .appointment {
+        z-index: 1;
+        align-self: flex-start;
+        max-width: 90%;
+        height: 10px;
+        margin: 2px;
+        padding: 4px;
+        overflow: hidden;
+        color: #721c24;
+        font-size: 0.8em;
+        font-family: 'Roboto Slab', serif;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: var(--tertiary-color);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        opacity: 0.65;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .buttomButtons{
+        padding: 1vw 2vw;
+        font-family: 'proximaBold';
+        border-radius: 5px;
+        
+    }
+
+
+@media screen and (max-width: 757px) {
+    .calendar {
+        max-width: 90vw;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .calendar {
+        &__day {
+            width: 30px;
+            height: 50px;
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .calendar {
+        &__day {
+            width: 25px;
+            height: 40px;
+        }
+
+        &__button {
+            border-radius: 10px;
+        }
+    }
+}

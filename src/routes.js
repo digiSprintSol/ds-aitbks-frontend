@@ -36,6 +36,9 @@ const PaymentDonationSuccess = loadable(() =>
   import("./pages/PaymentDonationSuccess")
 );
 const PresidentView = loadable(() => import("./pages/PresidentView"));
+const PresidentAnimationNav = loadable(() =>
+  import("./pages/PresidentAnimationNav")
+);
 const AdminNav = loadable(() => import("./pages/AdminNav"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
@@ -52,6 +55,8 @@ const UploadEvent = loadable(() => import("./pages/UploadEvent"));
 const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
 const UserID = loadable(() => import("./pages/UserID"));
+const GetScholar = loadable(() => import("./pages/GetScholar"));
+const Calendar = loadable(() => import("./components/CulturalEvents/Calendar"));
 
 export const router = createBrowserRouter([
   // Default view
@@ -114,6 +119,14 @@ export const router = createBrowserRouter([
       {
         path: "/payment-donation-success",
         element: <PaymentDonationSuccess />,
+      },
+      {
+        path: "/getscholar",
+        element: <GetScholar />,
+      },
+      {
+        path: "/calendar",
+        element: <Calendar />,
       },
       {
         path: "/auth/login",
@@ -200,6 +213,10 @@ export const router = createBrowserRouter([
       {
         path: "/president-view",
         element: <PresidentView />,
+      },
+      {
+        path: "/president-animation-page",
+        element: <PresidentAnimationNav />,
       },
       {
         path: "/admin-nav",

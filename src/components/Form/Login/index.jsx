@@ -60,6 +60,7 @@ function Login() {
         setId(res?.accessId);
         setData(res);
       } catch (err) {
+        // eslint-disable-next-line no-alert
         alert("Enter Valid Login Credentials....");
       } finally {
         setLoading(false);

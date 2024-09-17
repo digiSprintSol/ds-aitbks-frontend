@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -65,13 +66,13 @@ function Home() {
   //   },
   // });
 
-  const data2 = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/getEvents`,
-    method: "GET",
-    headers: {
-      Token: token,
-    },
-  });
+  // const data2 = useCustomFetch({
+  //   url: `${REACT_APP_FAKE_API}/getEvents`,
+  //   method: "GET",
+  //   headers: {
+  //     Token: token,
+  //   },
+  // });
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -85,9 +86,13 @@ function Home() {
 
   const contactRef = useRef();
 
-  if (error || data2.error) return <h1>Error..</h1>;
+  const imageClickHandler = () => {
+    navigate("/getscholar");
+  };
+
+  if (error) return <h1>Error..</h1>;
   // const loading2 = true;
-  if (loading || data.loading || loading)
+  if (loading)
     return (
       <div>
         <Box sx={{ width: 1400, display: "flex" }}>
@@ -248,9 +253,9 @@ function Home() {
               fontWeight: index === data.length - 1 ? "bold" : "normal",
               fontFamily: "ProximaSemiBold",
             }}
-            key={d.announcementTitle}
+            key={d.title}
           >
-            {d.announcementTitle} | {d.announcementDescription}
+            {d.title} | {d.description}
           </span>
         ))}
       </Marquee>
@@ -528,11 +533,11 @@ function Home() {
           We’re here to help ourselves
         </h1>
         <p style={{ fontFamily: "ProximaRegular" }}>
-          All these years we were helped our community in different aspects.
+          All these years we have helped our community in different aspects.
           Conducted multiple events for the community upliftment.
         </p>
         <div className="fourthpartinside">
-          {help.map((item) => (
+          {help.map((item, key) => (
             <div
               style={{
                 textAlign: "center",
@@ -540,7 +545,22 @@ function Home() {
                 animation: "bounce 1s linear infinite",
               }}
             >
-              <img src={item.image} alt="group" height="60%" width="70%" />
+              <Button
+                onClick={key === 1 ? imageClickHandler : null}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt="group"
+                  height="210vw"
+                  width="210vw"
+                />
+              </Button>
+
               <h1 style={{ fontFamily: "ProximaSemibold" }}>{item.heading}</h1>
             </div>
           ))}
@@ -601,7 +621,12 @@ function Home() {
         </h1>
         <div className="sixthpartinside">
           <img src={image3} alt="image3" height="25%" width="35%" />
-          <img src={threecircles} alt="threecirlces" height="90%" width="45%" />
+          <img
+            src={threecircles}
+            alt="threecirlces"
+            height="525vw"
+            width="570vw"
+          />
         </div>
         <Button
           variant="contained"

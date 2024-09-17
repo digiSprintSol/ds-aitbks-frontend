@@ -31,6 +31,7 @@ function UploadGallery() {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
+      // console.log(formData, "999");
       try {
         // eslint-disable-next-line no-unused-vars
         const res = await postRequest(
