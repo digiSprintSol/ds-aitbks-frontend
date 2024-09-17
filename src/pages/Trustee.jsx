@@ -9,7 +9,9 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import MembersPopup from "./MembersPopup";
 
 function Trustee() {
   const token = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MiLCJ1c2VyTmFtZSI6InBycEAxMjM0IiwidXNlcklkIjoicHJwQDEyMzQiLCJ0eXBlIjoicHJwMTIzIiwiYWNjZXNzIjpbIlBSRVNJREVOVCIsIkFDQ09VTlRBTlQiLCJDT01NSVRFRSJdLCJpYXQiOjE3MjI2Nzc5MTMsImV4cCI6MTcyMjY4MTUxM30.AaNa6tYcSLCUIhzqMSmdqkqO9OArVU3DaPZkD5tTHK8`;
@@ -23,7 +25,28 @@ function Trustee() {
   });
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "55vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible
+        />
+      </div>
+    );
+  }
 
   const trusteeMembers = data.filter(
     (user) =>
@@ -53,9 +76,10 @@ function Trustee() {
             <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
               <TableCell align="center">Photo</TableCell>
               <TableCell align="center">Membership ID</TableCell>
-              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">First Name</TableCell>
+              <TableCell align="center">Surname</TableCell>
               <TableCell align="center">Email ID</TableCell>
-              <TableCell align="center">Address</TableCell>
+              <TableCell align="center">Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,20 +97,11 @@ function Trustee() {
                   />
                 </TableCell>
                 <TableCell align="center">{row.membershipId}</TableCell>
-                <TableCell align="center">{row.fullName}</TableCell>
+                <TableCell align="center">{row.firstName}</TableCell>
+                <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="center">{row.emailAddress}</TableCell>
                 <TableCell align="center">
-                  {row.address[0].addressLine1}
-                  {", "}
-                  {row.address[0].addressLine2}
-                  {", "}
-                  {row.address[0].district}
-                  {", "}
-                  {row.address[0].state}
-                  {", "}
-                  {row.address[0].country}
-                  {", "}
-                  {row.address[0].postalCode}
+                  <MembersPopup row={row} />
                 </TableCell>
               </TableRow>
             ))}

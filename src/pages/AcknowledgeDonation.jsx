@@ -28,6 +28,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 // eslint-disable-next-line no-unused-vars
 function AcknowledgeDonation({ row, token }) {
   const [open, setOpen] = React.useState(false);
+  //  const [loading, setLoading] = React.useState(false);
   // eslint-disable-next-line no-unused-vars
   const [info, setInfo] = React.useState({
     remarks: "string",
@@ -91,6 +92,34 @@ function AcknowledgeDonation({ row, token }) {
   // if (loading) return <h1>loading...</h1>;
 
   return (
+    // <LoadingOverlay
+    //   active={loading}
+    //   spinner
+    //   text="Sending Email..."
+    //   styles={{
+    //     overlay: (base) => ({
+    //       ...base,
+    //       position: "fixed",
+    //       width: "100vw",
+    //       height: "100vh",
+    //       zIndex: 2000,
+    //       backgroundColor: "rgba(255, 255, 255, 0.7)",
+    //     }),
+    //     spinner: (base) => ({
+    //       ...base,
+    //       position: "absolute",
+    //       top: "50%",
+    //       left: "50%",
+    //       transform: "translate(-50%, -30%)",
+    //       color: "green",
+    //     }),
+    //     content: (base) => ({
+    //       ...base,
+    //       color: "green",
+    //     }),
+    //   }}
+    // >
+    //   <div style={{ filter: loading ? "blur(5px)" : "none" }}>
     <div>
       <Button
         variant="outlined"
@@ -176,6 +205,8 @@ function AcknowledgeDonation({ row, token }) {
         </DialogActions>
       </BootstrapDialog>
     </div>
+    /* </div>
+    </LoadingOverlay> */
   );
 }
 

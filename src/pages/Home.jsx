@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -8,16 +9,15 @@ import {
   MenuItem,
   Typography,
   Button,
+  Skeleton,
+  Avatar,
 } from "@mui/material";
 import "../App.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import "../components/Header/style.module.css"
 import Marquee from "react-fast-marquee";
 import styles from "../components/Footer/style.module.css";
-
-// import fap from "./images/fap.png";
 
 import {
   cmdata,
@@ -25,7 +25,7 @@ import {
   ccmdata,
   ccmdata2,
   marqueedata,
-  gallery,
+  // gallery,
   help,
   count,
 } from "../Lib/constants";
@@ -37,7 +37,7 @@ import quoteIcon from "./images/quoteIcon.png";
 import image1 from "./images/image1.png";
 import image2 from "./images/image2.png";
 import image3 from "./images/image3.png";
-import image5 from "./images/image5.png";
+// import image5 from "./images/image5.png";
 import image6 from "./images/image6.png";
 import threecircles from "./images/threecircles.png";
 import home1 from "./images/home1.jpg";
@@ -66,13 +66,13 @@ function Home() {
   //   },
   // });
 
-  const data2 = useCustomFetch({
-    url: `${REACT_APP_FAKE_API}/getEvents`,
-    method: "GET",
-    headers: {
-      Token: token,
-    },
-  });
+  // const data2 = useCustomFetch({
+  //   url: `${REACT_APP_FAKE_API}/getEvents`,
+  //   method: "GET",
+  //   headers: {
+  //     Token: token,
+  //   },
+  // });
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -86,14 +86,63 @@ function Home() {
 
   const contactRef = useRef();
 
-  // useEffect(() => {
+  const imageClickHandler = () => {
+    navigate("/getscholar");
+  };
 
-  //   console.log(data2,"tttt");
-
-  // }, [data2])
-
-  if (error || data2.error) return <h1>Error..</h1>;
-  if (loading || data2.loading) return <h1>loading...</h1>;
+  if (error) return <h1>Error..</h1>;
+  // const loading2 = true;
+  if (loading)
+    return (
+      <div>
+        <Box sx={{ width: 1400, display: "flex" }}>
+          <Skeleton
+            variant="circular"
+            animation="wave"
+            sx={{ padding: "30px", marginTop: "15px", marginLeft: "20px" }}
+          >
+            <Avatar />
+          </Skeleton>
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={400}
+            height={38}
+            sx={{ margin: "40px 20px 0px 30px", borderRadius: "30px" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={120}
+            height={35}
+            sx={{ margin: "40px 20px 0px 430px", borderRadius: "30px" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={100}
+            height={35}
+            sx={{ margin: "40px 20px 0px 0px", borderRadius: "30px" }}
+          />
+        </Box>
+        <Box sx={{ padding: "20px" }}>
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={1240}
+            height={50}
+            sx={{ marginTop: "5px", borderRadius: "10px" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={1240}
+            height={350}
+            sx={{ marginTop: "5px", borderRadius: "10px" }}
+          />
+        </Box>
+      </div>
+    );
 
   const settings = {
     dots: true,
@@ -193,12 +242,24 @@ function Home() {
         </div>
       </header>
       <Marquee className="marquee">
-        {data.map((d) => (
-          <span style={{ paddingRight: "40px" }} key={d.announcementTitle}>
-            {d.announcementTitle} | {d.announcementDescription}
+        {data.map((d, index) => (
+          <span
+            style={{
+              paddingRight: "40px",
+              backgroundColor: index === data.length - 1 ? "white" : "#54AB66",
+              padding:
+                index === data.length - 1 ? "10px 20px 5px 20px" : "0px 20px",
+              color: index === data.length - 1 ? "#82372A" : "white",
+              fontWeight: index === data.length - 1 ? "bold" : "normal",
+              fontFamily: "ProximaSemiBold",
+            }}
+            key={d.title}
+          >
+            {d.title} | {d.description}
           </span>
         ))}
       </Marquee>
+
       <Box>
         <Slider {...settings}>
           <img
@@ -289,10 +350,59 @@ function Home() {
         <hr />
       </div>
 
+      <div className="secondpart">
+        <h1
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#144047",
+            fontSize: "4vw",
+            transform: "translate(0,-2vw)",
+            fontFamily: "ProximaBold",
+          }}
+        >
+          Founders
+          <hr
+            style={{
+              width: "13%",
+              border: "2px solid #41965B",
+              marginTop: "0.1vw",
+            }}
+          />
+        </h1>
+
+        <div className="grid-container">
+          {cmdata.map((item) => (
+            <div className="item1">
+              <img src={item.photo} alt="cm" height="50%" width="50%" />
+              <hr />
+              <h4
+                style={{
+                  border: "2px solid transparent",
+                  width: "15vw",
+                  marginLeft: "3vw",
+                  fontFamily: "ProximaBold",
+                }}
+              >
+                {item.heading}
+              </h4>
+              <p style={{ fontFamily: "ProximaRegular" }}>{item.para}</p>
+            </div>
+          ))}
+        </div>
+        <br />
+      </div>
+      <hr />
       {/* 2nd part ------------------------------------------------------------------------------ */}
       <div className="secondpart">
         <h1
           style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             color: "#144047",
             fontSize: "4vw",
             transform: "translate(0,-2vw)",
@@ -300,6 +410,13 @@ function Home() {
           }}
         >
           Office Bearers
+          <hr
+            style={{
+              width: "20%",
+              border: "2px solid #41965B",
+              marginTop: "0.1vw",
+            }}
+          />
         </h1>
         <div className="grid-container">
           {cmdata.map((item) => (
@@ -348,6 +465,10 @@ function Home() {
       <div>
         <h1
           style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             color: "#144047",
             fontSize: "4vw",
             marginLeft: "2vw",
@@ -355,6 +476,13 @@ function Home() {
           }}
         >
           Central Committee Members
+          <hr
+            style={{
+              width: "45%",
+              border: "2px solid #41965B",
+              marginTop: "0.1vw",
+            }}
+          />
         </h1>
         <div className="grid-container" style={{ padding: "0 8vw" }}>
           {ccmdata.map((item) => (
@@ -401,13 +529,15 @@ function Home() {
       <div className="fourthpart">
         <img src={image1} alt="tracedimage" width="95%" />
         <h1 style={{ fontFamily: "ProximaSemibold" }}>Change Everything</h1>
-        <h1 style={{ fontFamily: "ProximaBold" }}>We’re here to help us</h1>
+        <h1 style={{ fontFamily: "ProximaBold" }}>
+          We’re here to help ourselves
+        </h1>
         <p style={{ fontFamily: "ProximaRegular" }}>
-          All these years we were helped our community in different aspects.
+          All these years we have helped our community in different aspects.
           Conducted multiple events for the community upliftment.
         </p>
         <div className="fourthpartinside">
-          {help.map((item) => (
+          {help.map((item, key) => (
             <div
               style={{
                 textAlign: "center",
@@ -415,7 +545,22 @@ function Home() {
                 animation: "bounce 1s linear infinite",
               }}
             >
-              <img src={item.image} alt="group" height="60%" width="70%" />
+              <Button
+                onClick={key === 1 ? imageClickHandler : null}
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt="group"
+                  height="210vw"
+                  width="210vw"
+                />
+              </Button>
+
               <h1 style={{ fontFamily: "ProximaSemibold" }}>{item.heading}</h1>
             </div>
           ))}
@@ -476,7 +621,12 @@ function Home() {
         </h1>
         <div className="sixthpartinside">
           <img src={image3} alt="image3" height="25%" width="35%" />
-          <img src={threecircles} alt="threecirlces" height="90%" width="45%" />
+          <img
+            src={threecircles}
+            alt="threecirlces"
+            height="525vw"
+            width="570vw"
+          />
         </div>
         <Button
           variant="contained"
@@ -496,7 +646,7 @@ function Home() {
       </div>
 
       {/* 7th part -------------------------------------------------------------------------------------------- */}
-      <div className="seventhpart">
+      {/* <div className="seventhpart">
         <img src={image5} alt="tracedimage" />
         <h1 style={{ fontFamily: "ProximaBold" }}>Awards</h1>
         <div className="gallerycontainer">
@@ -520,10 +670,10 @@ function Home() {
         >
           VIEW MORE PHOTOS
         </Button>
-      </div>
+      </div> */}
       {/* 7-2th part -------------------------------------------------------------------------------------------- */}
 
-      <div className="seventhpart">
+      {/* <div className="seventhpart">
         <img src={image5} alt="tracedimage" />
         <h1 style={{ fontFamily: "ProximaBold" }}>Gallery</h1>
         <div className="gallerycontainer">
@@ -547,7 +697,7 @@ function Home() {
         >
           VIEW MORE PHOTOS
         </Button>
-      </div>
+      </div> */}
       {/* --------------------------------------------------------------------------------------- */}
 
       {/* 8th part ------------------------------------------------------------------------------------------------- */}

@@ -12,7 +12,7 @@ import EmailComponent from "./email";
 import SmsComponent from "./sms";
 
 function MainForm() {
-  const [contactMethod, setContactMethod] = useState();
+  const [contactMethod, setContactMethod] = useState("email");
 
   const changeHandler = (e) => {
     setContactMethod(e.target.value);
