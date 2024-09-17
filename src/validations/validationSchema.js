@@ -5,6 +5,7 @@ const validationSchema = yup.object({
   firstName: yup.string("Enter your first name").required("is required"),
   // middleName: yup.string("Enter your middle name"),
   lastName: yup.string("Enter your last name").required("is required"),
+  casteStatus: yup.string("select one").required("is required"),
   dateOfBirth: yup
     .date("Enter your date of birth")
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")

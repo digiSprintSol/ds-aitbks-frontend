@@ -107,7 +107,7 @@ function EmailComponent() {
                 labelId="toEmail-label"
                 id="toEmail-select"
                 name="toEmail"
-                label="toEmail"
+                label="Select Member Type"
                 value={formik.values.toEmail}
                 onChange={formik.handleChange}
               >

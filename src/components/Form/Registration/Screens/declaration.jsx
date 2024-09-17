@@ -50,13 +50,13 @@ function Declaration() {
     //   // eslint-disable-next-line no-console
     //   console.log(false);
     // }
-
+    console.log(payload, "adffff");
     try {
       // eslint-disable-next-line no-unused-vars
       const result = await postRequest(
         url,
         {
-          ...finalData,
+          ...payload,
           // profilePic: "https://example.com/profilepic.jpg",
           decalartionForRegOne: true,
         },
@@ -87,11 +87,14 @@ function Declaration() {
       setLoading(true);
       setData((prevData) => ({
         ...prevData,
-        values,
+        ...values,
       }));
       // // eslint-disable-next-line no-alert
       // alert(JSON.stringify(finalData, null, 2));
-      fetchData(`${REACT_APP_FAKE_API}/user/register`, finalData);
+      fetchData(`${REACT_APP_FAKE_API}/user/register`, {
+        ...finalData,
+        ...values,
+      });
     },
   });
 

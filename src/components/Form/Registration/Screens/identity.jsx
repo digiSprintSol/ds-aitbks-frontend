@@ -28,7 +28,7 @@ function identity({ setActiveStep }) {
       category: data.category || "",
       occupation: data.occupation || "",
       reference1: data.reference1 || "",
-      reference2: data.reference2 || "",
+      // reference2: data.reference2 || "",
     },
     validationSchema: idValidationSchema,
     onSubmit: (values) => {
@@ -41,7 +41,7 @@ function identity({ setActiveStep }) {
         category: values.category,
         occupation: values.occupation,
         reference1: values.reference1,
-        reference2: values.reference2,
+        // reference2: values.reference2,
       }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       // // eslint-disable-next-line no-alert
@@ -211,7 +211,7 @@ function identity({ setActiveStep }) {
             helperText={formik.touched.reference1 && formik.errors.reference1}
           />
         </Grid> */}
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <FormControl
             fullWidth
             size="small"
@@ -243,7 +243,7 @@ function identity({ setActiveStep }) {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField
             fullWidth
             size="small"
@@ -260,7 +260,7 @@ function identity({ setActiveStep }) {
             helperText={formik.touched.reference2 && formik.errors.reference2}
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Grid
         sx={{

@@ -210,7 +210,11 @@ function PresidentUser() {
         <hr />
         <br />
         <span
-          style={{ position: "absolute", transform: "Translate(5vw,-0.7vw)" }}
+          style={{
+            position: "absolute",
+            transform: "Translate(5vw,-0.7vw)",
+            fontFamily: "ProximaRegular",
+          }}
         >
           showing {(currentpage - 1) * rowsperpage + 1} to{" "}
           {currentpage * rowsperpage > data.length ? (
