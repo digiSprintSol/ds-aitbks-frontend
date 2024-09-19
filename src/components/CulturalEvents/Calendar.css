@@ -115,6 +115,51 @@
             opacity: 1;
         }
     }
+    .green {
+        font-weight: 600;
+        background-color: green;
+        opacity: 0.6;
+
+        &:hover {
+            color: white;
+            background-color: #68B2D7;
+            opacity: 1;
+        }
+    }
+    .orange {
+        font-weight: 600;
+        background-color: #e95c19;
+        opacity: 0.6;
+
+        &:hover {
+            color: white;
+            /* background-color: #68B2D7; */
+            background-color: #e95c19;
+            opacity: 1;
+        }
+    }
+    .pink {
+        font-weight: 600;
+        background-color: pink;
+        opacity: 0.6;
+
+        &:hover {
+            color: white;
+            /* background-color: #68B2D7; */
+            opacity: 1;
+        }
+    }
+    .today {
+        font-weight: 600;
+        background-color: #AED8F0;
+        opacity: 0.6;
+
+        &:hover {
+            color: white;
+            /* background-color: #68B2D7; */
+            opacity: 1;
+        }
+    }
 
     .inactive {
         color: gray;
@@ -153,7 +198,7 @@
         padding: 1vw 2vw;
         font-family: 'proximaBold';
         border-radius: 5px;
-        
+
     }
 
 

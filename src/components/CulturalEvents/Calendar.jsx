@@ -1,5 +1,6 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable array-callback-return */
-import React, { useEffect } from "react";
+import React from "react";
 // import PropTypes from "prop-types";
 import "./Calendar.css";
 import useCustomFetch from "../../Hooks/useCustomFetch";
@@ -16,8 +17,8 @@ function Calendar() {
     const savedDate = localStorage.getItem("currentDate");
     return savedDate ? new Date(savedDate) : new Date();
   });
-  const culturalEventsDate = [];
-  const culturalEventsType = [];
+  //   const culturalEventsDate = [];
+  //   const culturalEventsType = [];
   // const [monthData, setMonthData] = useState('');
 
   // save the current date to localStorage each time the currentDate state changes
@@ -127,7 +128,13 @@ function Calendar() {
   });
 
   // render date boxes for the current month, previous month, and next month
-  function getDayClassName(date, isCurrentMonth, isToday) {
+  function getDayClassName(
+    date,
+    isCurrentMonth,
+    isToday,
+    isEventIsGalleryIsAwardsIsScholarship,
+    index
+  ) {
     // console.log(date,isCurrentMonth,isToday, "999999999999");
     if (!isCurrentMonth || date < 1 || date > daysInMonth) {
       return "inactive";
@@ -135,18 +142,59 @@ function Calendar() {
     if (isToday) {
       return "today";
     }
+    if (isEventIsGalleryIsAwardsIsScholarship) {
+      //   console.log(index, "000090909");
+      return data[index].eventType === "events"
+        ? "orange"
+        : data[index].eventType === "awards"
+        ? "green"
+        : data[index].eventType === "gallery"
+        ? "red"
+        : data[index].eventType === "scholarship"
+        ? "pink"
+        : "";
+    }
     return "";
   }
 
-  useEffect(() => {
-    if (data) {
-      data.map((item) => {
-        culturalEventsDate.push(item.eventDate);
-        culturalEventsType.push(item.eventType);
-      });
+  //   useEffect(() => {
+  //     if (data) {
+  //       data.map((item) => {
+  //         const exp = new Date(item.eventDate);
+  //         culturalEventsDate.push(exp);
+  //         culturalEventsType.push(item.eventType);
+  //       });
+  //     }
+  //   }, [data]);
+
+  const checkCuluturalEventDate = (exp, x) => {
+    const month = x.getMonth();
+    const date = exp;
+    const year = x.getFullYear();
+    let index;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < data.length; i++) {
+      const y = new Date(data[i].eventDate);
+      if (
+        y.getDate() === date &&
+        y.getFullYear() === year &&
+        y.getMonth() === month
+      ) {
+        // console.log(
+        //   y.getDate(),
+        //   y.getMonth(),
+        //   y.getFullYear(),
+        //   date,
+        //   month,
+        //   year,
+        //   "hjdbncxvbafbc"
+        // );
+        index = i;
+      }
     }
-    // console.log(culturalEventsDate, culturalEventsType, "7777777777777");
-  }, [data]);
+    //   console.log(index, "11999");
+    return index;
+  };
 
   const dateBoxes = Array.from(
     { length: Math.ceil((daysInMonth + firstDayOfWeek) / 7) },
@@ -163,8 +211,6 @@ function Calendar() {
         const isActualYear = actualYear === currentDate.getFullYear();
         const isToday =
           isActualMonth && isActualYear && currentDate.getDate() === date;
-        //   console.log(isActualMonth, isActualYear, currentDate.getDate(), date,"88888888888888888888888888");
-        // const isEventIsGalleryIsAwardsIsScholarship=
 
         let dateText;
         if (date < 1) {
@@ -174,10 +220,26 @@ function Calendar() {
         } else {
           dateText = date;
         }
+        //   console.log(dateText, "sadajda");
+        const index = data
+          ? checkCuluturalEventDate(dateText, currentDate)
+          : false;
+        const isEventIsGalleryIsAwardsIsScholarship = data
+          ? isActualMonth && isActualYear && index
+          : false;
+        if (isEventIsGalleryIsAwardsIsScholarship) {
+          console.log(isEventIsGalleryIsAwardsIsScholarship, "babdkjs");
+        }
 
         return (
           <div
-            className={`day ${getDayClassName(date, isCurrentMonth, isToday)}`}
+            className={`day ${getDayClassName(
+              date,
+              isCurrentMonth,
+              isToday,
+              isEventIsGalleryIsAwardsIsScholarship,
+              index
+            )}`}
             key={`${week}-${day}`}
           >
             <div className="number">{dateText}</div>
