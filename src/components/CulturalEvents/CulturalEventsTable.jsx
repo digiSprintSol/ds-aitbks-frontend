@@ -43,7 +43,7 @@ function CulturalEventsTable() {
   //     setCustomdata(partdata);
   //   }
   // }, [currentpage, data]);
-  console.log(location.state.data, "00000000000000000000000");
+  console.log(location, "00000000000000000000000");
 
   return (
     <div>
@@ -73,7 +73,7 @@ function CulturalEventsTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {location.state.data.map((row, index) => (
+            {location?.state?.data?.map((row, index) => (
               <TableRow
                 key={row.id}
                 sx={{

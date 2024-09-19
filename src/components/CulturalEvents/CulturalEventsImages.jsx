@@ -1,10 +1,16 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import "./CulturalEventsImages.css";
 
 function CulturalEventsImages() {
   const location = useLocation();
-  console.log(location.state.row, "hsfkjshfkjf");
-  return <div>CulturalEventsImages</div>;
+  return (
+    <div className="image-grid">
+      {location.state.row.imageURLs.map((item) => (
+        <img src={item} alt="event" className="grid-image" />
+      ))}
+    </div>
+  );
 }
 
 export default CulturalEventsImages;
