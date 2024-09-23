@@ -94,6 +94,15 @@ function CulturalEventsTable() {
                         state: { row },
                       })
                     }
+                    sx={{
+                      backgroundColor: "#1B7DA6",
+                      height: "2vw",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "#1B7DA6",
+                        opacity: 0.9,
+                      },
+                    }}
                   >
                     View
                   </Button>

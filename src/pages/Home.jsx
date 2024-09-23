@@ -86,8 +86,13 @@ function Home() {
 
   const contactRef = useRef();
 
-  const imageClickHandler = () => {
-    navigate("/getscholar");
+  const imageClickHandler = (key) => {
+    if (key === 0) {
+      navigate("/calendar");
+    }
+    if (key === 1) {
+      navigate("/getscholar");
+    }
   };
 
   if (error) return <h1>Error..</h1>;
@@ -546,9 +551,12 @@ function Home() {
               }}
             >
               <Button
-                onClick={key === 1 ? imageClickHandler : null}
+                onClick={() => imageClickHandler(key)}
                 sx={{
                   "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                  "&:active": {
                     backgroundColor: "transparent",
                   },
                 }}

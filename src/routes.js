@@ -39,6 +39,7 @@ const PresidentView = loadable(() => import("./pages/PresidentView"));
 const PresidentAnimationNav = loadable(() =>
   import("./pages/PresidentAnimationNav")
 );
+const AdminAnimationNav = loadable(() => import("./pages/AdminAnimationNav"));
 const AdminNav = loadable(() => import("./pages/AdminNav"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
@@ -231,6 +232,10 @@ export const router = createBrowserRouter([
       {
         path: "/president-animation-page",
         element: <PresidentAnimationNav />,
+      },
+      {
+        path: "/admin-animation-page",
+        element: <AdminAnimationNav />,
       },
       {
         path: "/admin-nav",

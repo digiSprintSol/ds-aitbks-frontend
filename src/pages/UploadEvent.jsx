@@ -39,7 +39,8 @@ function UploadEvent() {
   };
 
   const pathDataChangeHandler = (e) => {
-    setPathData(e.target.value);
+    const exp = e.target.value.replace(" ", "_");
+    setPathData(exp);
   };
 
   const handleFileChange = (e) => {
@@ -69,7 +70,7 @@ function UploadEvent() {
         const exp = [];
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < res.uploadedImages.length; i++) {
-          exp.push(res.uploadedImages[0].url);
+          exp.push(res.uploadedImages[i].url);
         }
         setResult(exp);
       } catch (err) {
@@ -148,6 +149,7 @@ function UploadEvent() {
     // validationSchema: postValidationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
+        // console.log(values.eventDate, "32398723894723");
         // eslint-disable-next-line no-unused-vars
         const response = await postRequest(
           `${REACT_APP_FAKE_API}/uploadEventsAnnouncementsGalleryAwardsQRCodeImages`,

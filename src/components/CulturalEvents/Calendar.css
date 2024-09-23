@@ -106,13 +106,47 @@
 
     .today {
         font-weight: 600;
-        background-color: #AED8F0;
-        opacity: 0.6;
+        background-color: #AED8F0;  
 
         &:hover {
-            color: white;
-            background-color: #68B2D7;
+            background-color: #AED8F0;
             opacity: 1;
+        }
+    }
+    .green {
+        font-weight: 600;
+        background-color: #85c669;
+
+        &:hover {
+            background-color: #85c669;
+            opacity: 0.9;
+        }
+    }
+    .red {
+        font-weight: 600;
+        background-color: #e74a4a;
+
+        &:hover {
+            background-color: #e74a4a;
+            opacity: 0.9;
+        }
+    }
+    .orange {
+        font-weight: 600;
+        background-color: #e2adff;
+
+        &:hover {
+            background-color: #e2adff;
+            opacity: 0.9;
+        }
+    }
+    .pink {
+        font-weight: 600;
+        background-color: pink;
+
+        &:hover {
+            background-color: pink;
+            opacity: 0.9;
         }
     }
 
@@ -153,7 +187,7 @@
         padding: 1vw 2vw;
         font-family: 'proximaBold';
         border-radius: 5px;
-        
+
     }
 
 

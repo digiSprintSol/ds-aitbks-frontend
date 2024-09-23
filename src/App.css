@@ -44,7 +44,7 @@
 }
 
 .btn {
-  border-radius: 60px !important;
+    border-radius: 60px !important;
     width: 95px;
     font-family: 'ProximaBold';
     font-size: small;
@@ -577,6 +577,10 @@
 
 .presidentclosebutton{
   animation: exp 0.5s ease;
+  border-radius: 60px !important;
+  width: 95px;
+  font-family: 'ProximaBold';
+  font-size: small;
 }
 
 @keyframes exp{
@@ -593,7 +597,12 @@
   /* display: flex; */
   /* margin-left: 2.1%; */
   margin-bottom: 2%;
-  margin-left: 40vw;
+  margin-left: 20vw;
+  display: flex;
+}
+
+.presidentviewhead>:nth-child(1){
+  margin-right: 25vw;
 }
 
 
@@ -623,11 +632,46 @@
   margin-right: 12px;
 } */
 
-.presidentviewhead>:nth-child(1) {
+
+
+.presidentviewheadone>:nth-child(1){
+  
+}
+.presidentviewheadone>:nth-child(2){
+
+}
+.presidentviewheadone>:nth-child(3){
+
+}
+.presidentviewheadone>:nth-child(4){
+
+}
+.presidentviewheadone>:nth-child(5){
+
+}
+
+
+.presidentviewheadtwo>:nth-child(1){
+  
+}
+.presidentviewheadtwo>:nth-child(2){
+
+}
+.presidentviewheadtwo>:nth-child(3){
+
+}
+.presidentviewheadtwo>:nth-child(4){
+
+}
+.presidentviewheadtwo>:nth-child(5){
+
+}
+
+
+/* .presidentviewhead>:nth-child(1) {
   margin-bottom: 12px;
   animation: example 0.4s ease;
 }
-
 
 .presidentviewhead>:nth-child(2) {
   margin-bottom: 12px;
@@ -717,7 +761,7 @@
   100% {
     opacity: 0;
   }
-}
+} */
 
 
 .presidentviewnav{

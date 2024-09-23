@@ -43,6 +43,7 @@ function PresidentUser() {
     },
   });
 
+  // eslint-disable-next-line no-unused-vars
   const data1 = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/fetchUsersById/Committee`,
     method: "GET",
@@ -51,6 +52,7 @@ function PresidentUser() {
     },
   });
 
+  // eslint-disable-next-line no-unused-vars
   const data2 = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/fetchUsersById/66cc34c8e549e83dc4cecf02`,
     method: "GET",
@@ -59,6 +61,7 @@ function PresidentUser() {
     },
   });
 
+  // eslint-disable-next-line no-unused-vars
   const data3 = useCustomFetch({
     url: `${REACT_APP_FAKE_API}/fetchUsersById/66cc3510e549e83dc4cecf03`,
     method: "GET",
@@ -165,7 +168,7 @@ function PresidentUser() {
                   }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.fullName}
+                    {`${row.firstName} ${row.lastName}`}
                   </TableCell>
                   <TableCell align="middle">{row.dateOfBirth}</TableCell>
                   <TableCell align="middle">{row.phoneNumber}</TableCell>
@@ -196,9 +199,9 @@ function PresidentUser() {
                     <PresidentModal
                       row={row}
                       token={token}
-                      name1={data1.data.name}
-                      name2={data2.data.name}
-                      name3={data3.data.name}
+                      name1={data1 ? data1.name : ""}
+                      name2={data2 ? data2.name : ""}
+                      name3={data3 ? data3.name : ""}
                     />
                   </TableCell>
                 </TableRow>
