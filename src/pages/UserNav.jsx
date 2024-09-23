@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -13,6 +13,7 @@ import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 // import useCustomFetch from "../Hooks/useCustomFetch";
+import { Button } from "@mui/material";
 import Displayone from "./UserNav/Displayone";
 import Displaytwo from "./UserNav/Displaytwo";
 import Displaythree from "./UserNav/Displaythree";
@@ -123,6 +124,7 @@ const steps = [
 
 function App() {
   const [activecount, setActivecount] = React.useState(-1);
+  const navigate = useNavigate();
   const location = useLocation();
   const token = `${location.state.token}`;
   // eslint-disable-next-line no-unused-vars
@@ -218,7 +220,15 @@ function App() {
           </Step>
         ))}
       </Stepper>
-
+      <Button
+        variant="contained"
+        sx={{ marginX: "550px", marginTop: "20px" }}
+        onClick={() => {
+          navigate("/user-edit-details");
+        }}
+      >
+        Edit Profile
+      </Button>
       {display(activecount)}
     </Stack>
   );
