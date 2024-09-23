@@ -1,11 +1,27 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable array-callback-return */
 import React from "react";
-// import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 import "./Calendar.css";
 import useCustomFetch from "../../Hooks/useCustomFetch";
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const monthsData = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+];
 
 // {
 //   isOpen, onOpen, onClose;
@@ -17,6 +33,7 @@ function Calendar() {
     const savedDate = localStorage.getItem("currentDate");
     return savedDate ? new Date(savedDate) : new Date();
   });
+  const navigate = useNavigate();
   //   const culturalEventsDate = [];
   //   const culturalEventsType = [];
   // const [monthData, setMonthData] = useState('');
@@ -69,44 +86,59 @@ function Calendar() {
     setCurrentDate(new Date());
   }
 
+  const yearsData = [];
+
+  const addYearsData = () => {
+    const exp = new Date();
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1950; i <= exp.getFullYear(); i++) {
+      yearsData.push(i);
+    }
+  };
+
+  function handleYearChange(e) {
+    const newDate = new Date(currentDate);
+    newDate.setFullYear(e.target.value);
+    setCurrentDate(newDate);
+  }
   function handleMonthChange(e) {
     const newDate = new Date(currentDate);
     let exp = 0;
     switch (e.target.value) {
-      case "jan":
+      case "Jan":
         exp = 0;
         break;
-      case "feb":
+      case "Feb":
         exp = 1;
         break;
-      case "mar":
+      case "Mar":
         exp = 2;
         break;
-      case "apr":
+      case "Apr":
         exp = 3;
         break;
-      case "may":
+      case "May":
         exp = 4;
         break;
-      case "jun":
+      case "Jun":
         exp = 5;
         break;
-      case "jul":
+      case "Jul":
         exp = 6;
         break;
-      case "aug":
+      case "Aug":
         exp = 7;
         break;
-      case "sep":
+      case "Sep":
         exp = 8;
         break;
-      case "oct":
+      case "Oct":
         exp = 9;
         break;
-      case "nov":
+      case "Nov":
         exp = 10;
         break;
-      case "dec":
+      case "Dec":
         exp = 11;
         break;
       default:
@@ -157,16 +189,6 @@ function Calendar() {
     return "";
   }
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       data.map((item) => {
-  //         const exp = new Date(item.eventDate);
-  //         culturalEventsDate.push(exp);
-  //         culturalEventsType.push(item.eventType);
-  //       });
-  //     }
-  //   }, [data]);
-
   const checkCuluturalEventDate = (exp, x) => {
     const month = x.getMonth();
     const date = exp;
@@ -180,20 +202,16 @@ function Calendar() {
         y.getFullYear() === year &&
         y.getMonth() === month
       ) {
-        // console.log(
-        //   y.getDate(),
-        //   y.getMonth(),
-        //   y.getFullYear(),
-        //   date,
-        //   month,
-        //   year,
-        //   "hjdbncxvbafbc"
-        // );
         index = i;
       }
     }
-    //   console.log(index, "11999");
     return index;
+  };
+
+  const dateImageNavigation = (t, index) => {
+    if (t) {
+      navigate("/cutural-events-images", { state: { row: data[index] } });
+    }
   };
 
   const dateBoxes = Array.from(
@@ -224,12 +242,7 @@ function Calendar() {
         const index = data
           ? checkCuluturalEventDate(dateText, currentDate)
           : false;
-        const isEventIsGalleryIsAwardsIsScholarship = data
-          ? isActualMonth && isActualYear && index
-          : false;
-        if (isEventIsGalleryIsAwardsIsScholarship) {
-          console.log(isEventIsGalleryIsAwardsIsScholarship, "babdkjs");
-        }
+        const isEventIsGalleryIsAwardsIsScholarship = data ? index : false;
 
         return (
           <div
@@ -241,6 +254,9 @@ function Calendar() {
               index
             )}`}
             key={`${week}-${day}`}
+            onClick={() =>
+              dateImageNavigation(isEventIsGalleryIsAwardsIsScholarship, index)
+            }
           >
             <div className="number">{dateText}</div>
           </div>
@@ -253,108 +269,97 @@ function Calendar() {
   if (error) return <h1>error...</h1>;
 
   return (
-    <div className="calendar">
-      <div className="calendarHeader">
-        <div className="controls">
-          <button
-            className="button button_prev"
-            onClick={() => handleDateChange(-1)}
-            type="button"
-          >
-            Back
-          </button>
-          <button
-            className="button button_next"
-            onClick={() => handleDateChange(1)}
-            type="button"
-          >
-            Next
-          </button>
-        </div>
-        <h1 className="title">{currentYearMonth}</h1>
-        {/* <Dropdown>
-          <MenuButton sx={{}}>My account</MenuButton>
-          <Menu>
-            onClick={createHandleMenuClick("Profile")}
-            <MenuItem>Profile</MenuItem>
-            <MenuItem >
-              Language settings
-            </MenuItem>
-            <MenuItem >
-              Log out
-            </MenuItem>
-          </Menu>
-        </Dropdown> */}
-        {/* <select name="cars" id="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select> */}
-        <select onChange={handleMonthChange}>
-          <option value="jan">Jan</option>
-          <option value="feb">Feb</option>
-          <option value="mar">Mar</option>
-          <option value="mar">Apr</option>
-          <option value="apr">May</option>
-          <option value="jun">Jun</option>
-          <option value="jul">Jul</option>
-          <option value="aug">Aug</option>
-          <option value="sep">Sep</option>
-          <option value="oct">Oct</option>
-          <option value="nov">Nov</option>
-          <option value="dec">Dec</option>
-        </select>
+    <div style={{ display: "flex" }}>
+      <div className="calendar">
+        <div className="calendarHeader">
+          <div className="controls">
+            <button
+              className="button button_prev"
+              onClick={() => handleDateChange(-1)}
+              type="button"
+            >
+              Back
+            </button>
+            <button
+              className="button button_next"
+              onClick={() => handleDateChange(1)}
+              type="button"
+            >
+              Next
+            </button>
+          </div>
+          <h1 className="title">{currentYearMonth}</h1>
 
-        <button
-          className="button reset"
-          onClick={handleResetClick}
-          type="button"
+          {addYearsData()}
+          {yearsData.length > 0 && (
+            <select onChange={handleYearChange}>
+              {yearsData.map((item) => (
+                <option value={`${item}`} key={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <select onChange={handleMonthChange} style={{ marginLeft: "1.5vw" }}>
+            {monthsData.map((item) => (
+              <option value={`${item}`} key={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+          <button
+            className="button reset"
+            onClick={handleResetClick}
+            type="button"
+          >
+            Today
+          </button>
+        </div>
+        <div className="body">
+          <div className="week">
+            {days.map((day) => (
+              <div className="day-name" key={day}>
+                {day}
+              </div>
+            ))}
+          </div>
+          {dateBoxes}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "10px",
+          }}
         >
-          Today
-        </button>
-      </div>
-      <div className="body">
-        <div className="week">
-          {days.map((day) => (
-            <div className="day-name" key={day}>
-              {day}
-            </div>
-          ))}
+          <div style={{ backgroundColor: "#85c669" }} className="buttomButtons">
+            Awards
+          </div>
+          <div style={{ backgroundColor: "#e74a4a" }} className="buttomButtons">
+            Gallery
+          </div>
+          <div style={{ backgroundColor: "#e2adff" }} className="buttomButtons">
+            Events
+          </div>
+          <div style={{ backgroundColor: "pink" }} className="buttomButtons">
+            ScholarShips
+          </div>
+          <div style={{ backgroundColor: "#AED8F0" }} className="buttomButtons">
+            Today
+          </div>
         </div>
-        {dateBoxes}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "10px",
+      <Button
+        onClick={() => {
+          navigate("/cutural-events-table", { state: { data } });
         }}
+        style={{ transform: "Translate(-15vw,2.5vw)", borderRadius: "2vw" }}
       >
-        <div style={{ backgroundColor: "green" }} className="buttomButtons">
-          Awards
-        </div>
-        <div style={{ backgroundColor: "red" }} className="buttomButtons">
-          Gallery
-        </div>
-        <div style={{ backgroundColor: "#e95c19" }} className="buttomButtons">
-          Events
-        </div>
-        <div style={{ backgroundColor: "pink" }} className="buttomButtons">
-          ScholarShips
-        </div>
-        <div style={{ backgroundColor: "#AED8F0" }} className="buttomButtons">
-          Today
-        </div>
-      </div>
+        View All
+      </Button>
     </div>
   );
 }
-
-// Calendar.propTypes = {
-//   isOpen: PropTypes.bool.isRequired,
-//   onOpen: PropTypes.func.isRequired,
-//   onClose: PropTypes.func.isRequired,
-// };
 
 export default Calendar;

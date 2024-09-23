@@ -39,6 +39,7 @@ const PresidentView = loadable(() => import("./pages/PresidentView"));
 const PresidentAnimationNav = loadable(() =>
   import("./pages/PresidentAnimationNav")
 );
+const AdminAnimationNav = loadable(() => import("./pages/AdminAnimationNav"));
 const AdminNav = loadable(() => import("./pages/AdminNav"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
@@ -57,6 +58,12 @@ const UserView = loadable(() => import("./pages/UserView"));
 const UserID = loadable(() => import("./pages/UserID"));
 const GetScholar = loadable(() => import("./pages/GetScholar"));
 const Calendar = loadable(() => import("./components/CulturalEvents/Calendar"));
+const CulturalEventsTable = loadable(() =>
+  import("./components/CulturalEvents/CulturalEventsTable")
+);
+const CulturalEventsImages = loadable(() =>
+  import("./components/CulturalEvents/CulturalEventsImages")
+);
 
 export const router = createBrowserRouter([
   // Default view
@@ -127,6 +134,14 @@ export const router = createBrowserRouter([
       {
         path: "/calendar",
         element: <Calendar />,
+      },
+      {
+        path: "/cutural-events-table",
+        element: <CulturalEventsTable />,
+      },
+      {
+        path: "/cutural-events-images",
+        element: <CulturalEventsImages />,
       },
       {
         path: "/auth/login",
@@ -217,6 +232,10 @@ export const router = createBrowserRouter([
       {
         path: "/president-animation-page",
         element: <PresidentAnimationNav />,
+      },
+      {
+        path: "/admin-animation-page",
+        element: <AdminAnimationNav />,
       },
       {
         path: "/admin-nav",

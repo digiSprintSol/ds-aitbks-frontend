@@ -39,7 +39,8 @@ function UploadEvent() {
   };
 
   const pathDataChangeHandler = (e) => {
-    setPathData(e.target.value);
+    const exp = e.target.value.replace(" ", "_");
+    setPathData(exp);
   };
 
   const handleFileChange = (e) => {
@@ -69,7 +70,7 @@ function UploadEvent() {
         const exp = [];
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < res.uploadedImages.length; i++) {
-          exp.push(res.uploadedImages[0].url);
+          exp.push(res.uploadedImages[i].url);
         }
         setResult(exp);
       } catch (err) {

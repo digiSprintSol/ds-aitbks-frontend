@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "@mui/material";
 import PresidentUser from "./PresidentUser";
 import PresidentCRUD from "./PresidentCRUD";
 import UploadEvent from "./UploadEvent";
@@ -19,8 +20,9 @@ function PresidentView() {
   // eslint-disable-next-line no-unused-vars
   const [activecount, setActivecount] = useState(0);
   useEffect(() => {
-    setActivecount(location.state.value);
-  });
+    setActivecount(location.state.display);
+  }, []);
+  // console.log(activecount, "47593");
   // eslint-disable-next-line consistent-return
   const displayfunction = (active) => {
     // eslint-disable-next-line default-case
@@ -50,15 +52,18 @@ function PresidentView() {
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <button
-        type="button"
-        style={{
-          padding: "10px",
-          borderRadius: "10px",
-          border: "none",
-          backgroundImage: "linear-gradient(148deg, #ffdead, #ffa04c)",
-          fontWeight: "bold",
-          marginLeft: "90vw",
+      <Button
+        className="btn"
+        sx={{
+          fontFamily: "ProximaBold",
+          color: "white",
+          backgroundColor: "#23A380",
+          marginLeft: "89.7vw",
+          "&:hover": {
+            backgroundColor: "#1F735B",
+          },
+          boxShadow:
+            "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
         }}
         onClick={() =>
           navigate("/president-animation-page", {
@@ -67,7 +72,7 @@ function PresidentView() {
         }
       >
         Menu
-      </button>
+      </Button>
       {displayfunction(activecount)}
     </div>
   );

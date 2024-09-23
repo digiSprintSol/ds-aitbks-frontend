@@ -30,6 +30,7 @@
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4",
+    "yet-another-react-lightbox": "^3.21.5",
     "yup": "^1.4.0"
   },
   "scripts": {
@@ -39,7 +40,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint . --fix --max-warnings=2",
     "format": "prettier . --write",
-    "prepare":"node -e \"try { require('husky').install() } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e }\""
+    "prepare": "node -e \"try { require('husky').install() } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e }\""
   },
   "eslintConfig": {
     "extends": [

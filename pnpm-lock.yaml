@@ -89,6 +89,9 @@ importers:
       web-vitals:
         specifier: ^2.1.4
         version: 2.1.4
+      yet-another-react-lightbox:
+        specifier: ^3.21.5
+        version: 3.21.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       yup:
         specifier: ^1.4.0
         version: 1.4.0
@@ -6871,6 +6874,13 @@ packages:
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
+
+  yet-another-react-lightbox@3.21.5:
+    resolution: {integrity: sha512-ri73f6IMZD2UC7fdkmhNeDVh+1GZWeAnoSUHII/nyRovcRkUM+OwVAhwl1d5ZoNFGKjd+nHNMroAaoQONqRDZQ==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
@@ -15054,6 +15064,11 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  yet-another-react-lightbox@3.21.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   yn@3.1.1: {}
 

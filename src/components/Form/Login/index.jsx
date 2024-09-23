@@ -69,10 +69,11 @@ function Login() {
   });
 
   const display = 0;
+  const display2 = 2;
 
   useEffect(() => {
     if (data.admin) {
-      navigate("/admin-nav", { state: { token, display } });
+      navigate("/admin-nav", { state: { token, display2 } });
     }
     if (data.president) {
       navigate("/president-view", { state: { token, display } });
