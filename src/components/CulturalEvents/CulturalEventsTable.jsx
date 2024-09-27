@@ -43,7 +43,19 @@ function CulturalEventsTable() {
   //     setCustomdata(partdata);
   //   }
   // }, [currentpage, data]);
-  console.log(location, "00000000000000000000000");
+
+  function displayDate(mydate) {
+    const d = new Date(mydate);
+    let month = d.getMonth() + 1;
+    let date = d.getDate();
+    if (String(month).length === 1) {
+      month = "0".concat(month);
+    }
+    if (String(date).length === 1) {
+      date = "0".concat(date);
+    }
+    return `${date}-${month}-${d.getFullYear()}`;
+  }
 
   return (
     <div>
@@ -83,7 +95,9 @@ function CulturalEventsTable() {
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
-                <TableCell align="middle">{row.eventDate}</TableCell>
+                <TableCell align="middle">
+                  {displayDate(row.eventDate)}
+                </TableCell>
                 <TableCell align="middle">{row.title}</TableCell>
                 <TableCell align="middle">{row.place}</TableCell>
                 <TableCell align="middle">{row.sponsoredBy}</TableCell>

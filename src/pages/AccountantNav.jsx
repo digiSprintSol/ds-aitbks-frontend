@@ -18,10 +18,10 @@ function AccountantNav() {
   };
   return (
     <div style={{ marginTop: "20px" }}>
-      <div className="presidentviewhead" style={{ marginLeft: "35vw" }}>
+      <div className="accountanthead" style={{ marginLeft: "35vw" }}>
         <button
           type="button"
-          className="presidentviewnav"
+          className="accountantheadinside"
           onClick={() => {
             setActivecount(0);
           }}
@@ -31,12 +31,13 @@ function AccountantNav() {
             alt="galleryimage"
             height="30px"
             width="30px"
+            style={{ transform: "Translate(0,0.6vw)" }}
           />
           <h5>User Payments</h5>
         </button>
         <button
           type="button"
-          className="presidentviewnav"
+          className="accountantheadinside"
           onClick={() => {
             setActivecount(1);
           }}

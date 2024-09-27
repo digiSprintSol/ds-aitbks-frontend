@@ -20,6 +20,7 @@ import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
 import { postRequest } from "../HTTP_POST/api";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 function UploadEvent() {
   const [file, setFile] = useState([]);
@@ -176,7 +177,7 @@ function UploadEvent() {
     },
   });
 
-  if (loading) return <h1>Loading.....</h1>;
+  if (loading) return <LoadingComponent />;
   if (error) return <h1>error</h1>;
 
   return (

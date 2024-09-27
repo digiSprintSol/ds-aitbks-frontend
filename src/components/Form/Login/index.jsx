@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Circles } from "react-loader-spinner";
 import { postRequest } from "../../../HTTP_POST/api";
+import LoadingComponent from "../../Loading/loadingComponent";
 
 function Login() {
   const [data, setData] = useState({});
@@ -91,31 +91,7 @@ function Login() {
 
   return (
     <Box sx={{ position: "relative" }}>
-      {loading && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-            backdropFilter: "blur(5px)",
-          }}
-        >
-          <Circles
-            height="90"
-            width="90"
-            color="#4fa94d"
-            ariaLabel="circles-loading"
-            visible
-          />
-        </Box>
-      )}
+      {loading && <LoadingComponent />}
 
       <Box
         display="flex"

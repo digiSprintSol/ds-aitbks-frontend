@@ -9,9 +9,9 @@ import Paper from "@mui/material/Paper";
 import { Pagination } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useLocation } from "react-router-dom";
-import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import AcknowledgeDonation from "./AcknowledgeDonation";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 const useStyles = makeStyles({
   committeetable: {
@@ -65,28 +65,23 @@ function ViewDonations() {
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
+
+  function displayDate(mydate) {
+    const d = new Date(mydate);
+    let month = d.getMonth() + 1;
+    let date = d.getDate();
+    if (String(month).length === 1) {
+      month = "0".concat(month);
+    }
+    if (String(date).length === 1) {
+      date = "0".concat(date);
+    }
+    return `${date}-${month}-${d.getFullYear()}`;
+  }
+
   if (error) return <h1>No users to display</h1>;
   if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: "55vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Circles
-          height="90"
-          width="90"
-          color="#4fa94d"
-          ariaLabel="circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible
-        />
-      </div>
-    );
+    return <LoadingComponent />;
   }
 
   return (
@@ -135,11 +130,13 @@ function ViewDonations() {
                 <TableCell component="th" scope="row">
                   {row.fullName}
                 </TableCell>
-                <TableCell align="middle">{row.dob}</TableCell>
+                <TableCell align="middle">{displayDate(row.dob)}</TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailId}</TableCell>
                 <TableCell align="middle">{row.amountPaid}</TableCell>
-                <TableCell align="middle">{row.transactionDate}</TableCell>
+                <TableCell align="middle">
+                  {displayDate(row.transactionDate)}
+                </TableCell>
                 {/* <TableCell align="middle">
                   {row.status === "acknowledged" && (
                     <span className={classes.acknowledged}>Acknowledged</span>

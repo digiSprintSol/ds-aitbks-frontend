@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 
 // import React from "react";
 
-import { Circles } from "react-loader-spinner";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,10 +12,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 // import Stack from "@mui/material/Stack";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import CommitteePopup from "./CommitteePopup";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 const useStyles = makeStyles({
   committeetable: {
@@ -100,32 +101,36 @@ function CommitteeView() {
     }
   }, [currentpage, data]);
 
+  function displayDate(mydate) {
+    const d = new Date(mydate);
+    let month = d.getMonth() + 1;
+    let date = d.getDate();
+    if (String(month).length === 1) {
+      month = "0".concat(month);
+    }
+    if (String(date).length === 1) {
+      date = "0".concat(date);
+    }
+    return `${date}-${month}-${d.getFullYear()}`;
+  }
+
   if (error || data1.error || data2.error || data3.error)
     return <h1>No users to display...</h1>;
   if (loading || data1.loading || data2.loading || data3.loading)
-    return (
-      <div
-        style={{
-          minHeight: "55vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Circles
-          height="90"
-          width="90"
-          color="#4fa94d"
-          ariaLabel="circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible
-        />
-      </div>
-    );
+    return <LoadingComponent />;
 
   return (
     <div>
+      <Typography
+        style={{
+          fontFamily: "ProximaBold",
+          fontSize: "3vw",
+          marginLeft: "39vw",
+          marginTop: "1vw",
+        }}
+      >
+        Applicant Details
+      </Typography>
       <TableContainer
         sx={{ width: "95%", margin: "30px auto" }}
         component={Paper}
@@ -133,8 +138,7 @@ function CommitteeView() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ textAlign: "center", fontFamily: "ProximaBold" }}>
-              <TableCell align="middle">First Name</TableCell>
-              <TableCell align="middle">Last Name</TableCell>
+              <TableCell align="middle">Name of the applicant</TableCell>
               {/* <TableCell align="middle">
                 Date of Application Submitted
               </TableCell> */}
@@ -162,7 +166,13 @@ function CommitteeView() {
               >
                 Status of Committee3
               </TableCell>
-              <TableCell>Details</TableCell>
+              <TableCell
+                align="middle"
+                sx={{ fontFamily: "ProximaBold" }}
+                className={classes.committeetable}
+              >
+                Details
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -174,13 +184,12 @@ function CommitteeView() {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.firstName}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.lastName}
+                  {`${row.firstName} ${row.lastName}`}
                 </TableCell>
                 {/* <TableCell align="middle">{row.dateOfBirth}</TableCell> */}
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">
+                  {displayDate(row.dateOfBirth)}
+                </TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
 
@@ -207,6 +216,18 @@ function CommitteeView() {
                     }}
                   >
                     Declined
+                  </TableCell>
+                ) : row.committeeOneChoosenMembershipForApplicant &&
+                  row.committeeOneApproval === "waiting" ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.waiting}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Waiting
                   </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>
@@ -289,9 +310,9 @@ function CommitteeView() {
                     row={row}
                     token={token}
                     id={location.state.id}
-                    name1={data1.data.name}
-                    name2={data2.data.name}
-                    name3={data3.data.name}
+                    name1={data1 ? data1.data.name : ""}
+                    name2={data2 ? data2.data.name : ""}
+                    name3={data3 ? data3.data.name : ""}
                   />
                 </TableCell>
               </TableRow>

@@ -123,6 +123,19 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
     }
   };
 
+  const membershipFunction = (acms) => {
+    if (acms === "trustee") {
+      return "Trustee";
+    }
+    if (acms === "patron") {
+      return "Patron";
+    }
+    if (acms === "lifemember") {
+      return "Life Member";
+    }
+    return null;
+  };
+
   return (
     <>
       <Button
@@ -169,25 +182,36 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
         <DialogContent dividers>
           <Box>
             <Grid container spacing={2}>
-              <img
-                src={row.profilePic}
-                alt="Selected"
-                style={{
-                  display: "block",
-                  width: "150px",
-                  height: "150px",
-                  objectFit: "cover",
-                  margin: "10px auto",
-                  borderRadius: "50%",
-                }}
-              />
               <Grid item xs={12}>
-                <Typography>Full Name</Typography>
+                <img
+                  src={row.profilePic}
+                  alt="Selected"
+                  style={{
+                    display: "block",
+                    width: "150px",
+                    height: "150px",
+                    objectFit: "cover",
+                    margin: "10px auto",
+                    borderRadius: "50%",
+                  }}
+                />
               </Grid>
-              <Grid item xs={12}>
+
+              <Grid item xs={6}>
+                <Typography>First Name</Typography>
                 <TextField
                   fullWidth
-                  value={row.fullName}
+                  value={row.firstName}
+                  aria-readonly
+                  sx={{ backgroundColor: "#ffffff" }}
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography>SurName</Typography>
+                <TextField
+                  fullWidth
+                  value={row.lastName}
                   aria-readonly
                   sx={{ backgroundColor: "#ffffff" }}
                   size="small"
@@ -474,47 +498,56 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                   size="small"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <Typography id="modal-modal-description">
                   Applicant Choosen Membership
                 </Typography>
                 <TextField
                   fullWidth
                   sx={{ backgroundColor: "#ffffff" }}
-                  value={row.applicantChoosenMembership}
+                  value={membershipFunction(row.applicantChoosenMembership)}
                   aria-readonly
                   size="small"
-                  disabled
                 />
-              </Grid> */}
+              </Grid>
 
               {/* -------------------------- committee 1,2,3 commenets and status starts from here------------------ */}
-              {/* ==============committee 1 comments===================================================================================================== */}
+              {/* ==============committee 1 choosen membership===================================================================================================== */}
               <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  {name1} {` Comments`}
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.committeeOneRemarksForApplicant}
-                  aria-readonly
-                  size="small"
-                />
+                {row.committeeOneChoosenMembershipForApplicant && (
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {name1}
+                      {` choosen membership: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={membershipFunction(
+                        row.committeeOneChoosenMembershipForApplicant
+                      )}
+                      aria-readonly
+                      size="small"
+                    />
+                    {/* <FormControlLabel
+                      control={<Radio />}
+                      label={membershipFunction(
+                        row.committeeOneChoosenMembershipForApplicant
+                      )}
+                      sx={{
+                        marginLeft: "20px",
+                      }}
+                      checked
+                    /> */}
+                  </>
+                )}
               </Grid>
 
               {/* ------------------------------------------------------------ committeee 1 status checking */}
-              {row.committeeOneApproval === true && (
+              {row.committeeOneApproval === "accepted" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -548,7 +581,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {row.committeeOneApproval === false && (
+              {row.committeeOneApproval === "rejected" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -582,7 +615,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {/* {row.committeeOneApproval === "waiting" && (
+              {row.committeeOneApproval === "waiting" && (
                 <Stack direction="row" spacing={30}>
                   <Grid item xs={4}>
                     <FormControlLabel
@@ -610,35 +643,45 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                     />
                   </Grid>
                 </Stack>
-              )} */}
+              )}
 
-              {/* ====================committee 2 comment ============================================================================================== */}
+              {/* ====================committee 2 choosen membership ============================================================================================== */}
 
               <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  {name2} {` Comments`}
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.committeeTwoRemarksForApplicant}
-                  aria-readonly
-                  size="small"
-                />
+                {row.committeeTwoChoosenMembershipForApplicant && (
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {name2}
+                      {` choosen membership: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={membershipFunction(
+                        row.committeeTwoChoosenMembershipForApplicant
+                      )}
+                      aria-readonly
+                      size="small"
+                    />
+                    {/* <FormControlLabel
+                      control={<Radio />}
+                      label={membershipFunction(
+                        row.committeeTwoChoosenMembershipForApplicant
+                      )}
+                      sx={{
+                        marginLeft: "20px",
+                      }}
+                      checked
+                    /> */}
+                  </>
+                )}
               </Grid>
 
               {/* ------------------------------------------------------------ committeee2 status checking */}
-              {row.committeeTwoApproval === true && (
+              {row.committeeTwoApproval === "accepted" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -672,7 +715,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {row.committeeTwoApproval === false && (
+              {row.committeeTwoApproval === "rejected" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -706,7 +749,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {/* {row.status === "waiting" && (
+              {row.committeeThreeApproval === "waiting" && (
                 <Stack direction="row" spacing={30}>
                   <Grid item xs={4}>
                     <FormControlLabel
@@ -734,35 +777,45 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                     />
                   </Grid>
                 </Stack>
-              )} */}
+              )}
 
-              {/* ================committee 3 comment================================================================================================== */}
+              {/* ================committee 3 choosen membership================================================================================================== */}
 
               <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: "#1B7DA6",
-                    fontWeight: "bold",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "40px",
-                  }}
-                >
-                  {name3} {` Comments`}
-                </Typography>
-                <TextField
-                  fullWidth
-                  sx={{ backgroundColor: "#ffffff" }}
-                  value={row.committeeThreeRemarksForApplicant}
-                  aria-readonly
-                  size="small"
-                />
+                {row.committeeThreeChoosenMembershipForApplicant && (
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      {name3}
+                      {` choosen membership: `}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={membershipFunction(
+                        row.committeeThreeChoosenMembershipForApplicant
+                      )}
+                      aria-readonly
+                      size="small"
+                    />
+                    {/* <FormControlLabel
+                        control={<Radio />}
+                        label={membershipFunction(
+                          row.committeeThreeChoosenMembershipForApplicant
+                        )}
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                        checked
+                      /> */}
+                  </>
+                )}
               </Grid>
 
               {/* ------------------------------------------------------------ committeee3 status checking */}
-              {row.committeeThreeApproval === true && (
+              {row.committeeThreeApproval === "accepted" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -796,7 +849,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {row.committeeThreeApproval === false && (
+              {row.committeeThreeApproval === "rejected" && (
                 <Stack
                   direction="row"
                   spacing={30}
@@ -830,7 +883,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {/* {row.status === "waiting" && (
+              {row.committeeThreeApproval === "waiting" && (
                 <Stack direction="row" spacing={30}>
                   <Grid item xs={4}>
                     <FormControlLabel
@@ -858,11 +911,73 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                     />
                   </Grid>
                 </Stack>
-              )} */}
+              )}
 
               {/* =========end end end end end end end========================================================================================================= */}
               {/* ------------------------------------- display President comments------------------------------------------------------------------------------------------ */}
-              {row.presidentRemarksForApplicant && (
+              <Grid item xs={12}>
+                {row.presidentChoosenMembershipForApplicant && (
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      President Choosenmembership
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={membershipFunction(
+                        row.presidentChoosenMembershipForApplicant
+                      )}
+                      aria-readonly
+                      size="small"
+                    />
+                    {/* <FormControlLabel
+                        control={<Radio />}
+                        label={membershipFunction(
+                          row.committeeThreeChoosenMembershipForApplicant
+                        )}
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                        checked
+                      /> */}
+                  </>
+                )}
+              </Grid>
+
+              <Grid item xs={12}>
+                {row.presidentRemarksForApplicant && (
+                  <>
+                    <Typography sx={{ fontFamily: "ProximaBold" }}>
+                      President Comments
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // fontFamily: "ProximaRegular",
+                      }}
+                      value={row.presidentRemarksForApplicant}
+                      aria-readonly
+                      size="small"
+                    />
+                    {/* <FormControlLabel
+                        control={<Radio />}
+                        label={membershipFunction(
+                          row.committeeThreeChoosenMembershipForApplicant
+                        )}
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                        checked
+                      /> */}
+                  </>
+                )}
+              </Grid>
+
+              {/* {row.presidentRemarksForApplicant && (
                 <>
                   <Grid item xs={12}>
                     <Typography
@@ -885,80 +1000,112 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                       aria-readonly
                       size="small"
                     />
+                  </Grid> */}
+
+              {/* ---------------------------------------------- display president status */}
+              {row.presidentApproval === "accepted" && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
                   </Grid>
-
-                  {/* ------------------------------------------------------------ display president status */}
-                  {row.presidentApproval === true && (
-                    <Stack
-                      direction="row"
-                      spacing={30}
-                      sx={{ marginLeft: "5.5vw" }}
-                    >
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="accepted"
-                          checked
-                          disabled
-                          control={<Radio />}
-                          label="Accepted"
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="rejected"
-                          disabled
-                          control={<Radio />}
-                          label="Rejected"
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="waiting"
-                          disabled
-                          control={<Radio />}
-                          label="Waiting"
-                        />
-                      </Grid>
-                    </Stack>
-                  )}
-
-                  {row.presidentApproval === false && (
-                    <Stack
-                      direction="row"
-                      spacing={30}
-                      sx={{ marginLeft: "5.5vw" }}
-                    >
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="accepted"
-                          disabled
-                          control={<Radio />}
-                          label="Accepted"
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="rejected"
-                          checked
-                          disabled
-                          control={<Radio />}
-                          label="Rejected"
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <FormControlLabel
-                          value="waiting"
-                          disabled
-                          control={<Radio />}
-                          label="Waiting"
-                        />
-                      </Grid>
-                    </Stack>
-                  )}
-                </>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
               )}
 
-              {/* ------------------enter president comments------------------------------------------------------------------------------ */}
+              {row.presidentApproval === "rejected" && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {row.presidentApproval === "waiting" && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="accepted"
+                      disabled
+                      control={<Radio />}
+                      label="Accepted"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="rejected"
+                      disabled
+                      control={<Radio />}
+                      label="Rejected"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControlLabel
+                      value="waiting"
+                      checked
+                      disabled
+                      control={<Radio />}
+                      label="Waiting"
+                    />
+                  </Grid>
+                </Stack>
+              )}
+
+              {/* ------------------enter president comments------------------------------------------------------ */}
 
               {!row.presidentRemarksForApplicant && (
                 <>

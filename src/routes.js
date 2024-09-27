@@ -45,6 +45,7 @@ const AdminNav = loadable(() => import("./pages/AdminNav"));
 const PresidentCRUD = loadable(() => import("./pages/PresidentCRUD"));
 const AddMembers = loadable(() => import("./pages/AddMembers"));
 const UserNav = loadable(() => import("./pages/UserNav"));
+const UserEditDetails = loadable(() => import("./pages/UserEditDetails"));
 const Search = loadable(() => import("./components/MarketPlace/Search"));
 const Display = loadable(() => import("./components/MarketPlace/Display"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
@@ -252,6 +253,10 @@ export const router = createBrowserRouter([
       {
         path: "/user-nav",
         element: <UserNav />,
+      },
+      {
+        path: "/user-edit-details",
+        element: <UserEditDetails />,
       },
       {
         path: "/upload-announcement",

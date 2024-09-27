@@ -12,7 +12,6 @@ import {
   Box,
   Grid,
   TextField,
-  Alert,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -94,7 +93,9 @@ export default function CommitteePopup({
         setLoading(true);
       }
       setLoading(false);
-      <Alert severity="success">Status updated...</Alert>;
+      // <Alert severity="success">Status updated...</Alert>;
+      // eslint-disable-next-line no-alert
+      alert("Status Updated");
       setOpen(false);
     } catch (err) {
       setLoading(false);
