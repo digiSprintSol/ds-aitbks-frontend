@@ -51,7 +51,13 @@ function PresidentView() {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div
+      style={{
+        paddingTop: "2vw",
+        backgroundColor: "#D4E9DA",
+        paddingBottom: "2vw",
+      }}
+    >
       <Button
         className="btn"
         sx={{

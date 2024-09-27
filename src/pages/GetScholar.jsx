@@ -83,7 +83,7 @@ function GetScholar() {
               >
                 <TableCell align="center">
                   <img
-                    src={row.profilePic}
+                    src={row.profilePicUrl}
                     alt="profilepic"
                     height="100"
                     width="90"

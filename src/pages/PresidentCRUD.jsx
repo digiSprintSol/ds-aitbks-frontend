@@ -20,8 +20,11 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import { Circles } from "react-loader-spinner";
 import { Box } from "@mui/system";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import { updateData } from "../HTTP_PUT/api";
 
 function PresidentCRUD() {
   // const { data, loading, error } = useCustomFetch(
@@ -51,35 +54,86 @@ function PresidentCRUD() {
     setCurrentpage(value);
   };
 
-  useEffect(() => {
-    const range = [
-      (currentpage - 1) * rowsperpage + 1,
-      currentpage * rowsperpage,
-    ];
-
+  const [roledata, setRoleData] = useState(null);
+  const roleChangeHandler = (index, e) => {
     if (data) {
-      const partdata = data.filter(
-        (row) => row.id >= range[0] && row.id <= range[1]
+      const exp = { ...data[index] };
+      // console.log(Object.keys(exp).length, data[index], "geggee");
+      // eslint-disable-next-line no-restricted-syntax
+      for (const i in exp) {
+        // console.log("siva1","siva1")
+        // console.log(exp[i], true, "dhhdhfaak");
+        if (exp[i] === true) {
+          exp[i] = false;
+        }
+      }
+      if (e.target.value === 0) {
+        // eslint-disable-next-line dot-notation
+        exp["president"] = true;
+      } else if (e.target.value === 1) {
+        // eslint-disable-next-line dot-notation
+        exp["commitee"] = true;
+      } else if (e.target.value === 2) {
+        // eslint-disable-next-line dot-notation
+        exp["accountant"] = true;
+      }
+      setRoleData(exp);
+    }
+  };
+
+  const handlePut = async (id) => {
+    try {
+      const result = await updateData(
+        `${REACT_APP_FAKE_API}/updateInternalUser/${id}`,
+        roledata,
+        {
+          Token: `Bearer ${token}`,
+        }
       );
+      // eslint-disable-next-line no-console
+      console.log("message:", result);
+      // eslint-disable-next-line no-alert
+      alert("Role updated..");
+    } catch (error2) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to update data", error2);
+    }
+  };
+
+  useEffect(() => {
+    if (data && currentpage > 0) {
+      const partdata = [];
+      const exp =
+        (currentpage - 1) * rowsperpage + rowsperpage > data.length
+          ? (currentpage - 1) * rowsperpage +
+            (rowsperpage -
+              ((currentpage - 1) * rowsperpage + rowsperpage - data.length))
+          : (currentpage - 1) * rowsperpage + rowsperpage;
+      // eslint-disable-next-line no-plusplus
+      for (let i = (currentpage - 1) * rowsperpage + 1; i <= exp; i++) {
+        partdata.push(data[i - 1]);
+      }
       setCustomdata(partdata);
     }
   }, [currentpage, data]);
   // -----------------------------------------------------------------------------------------------------
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+  // const [searchTerm, setSearchTerm] = useState("");
 
-  // Handle the input change and filter the data
   const handleInputChange = (e) => {
     const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
-
-    if (data) {
+    if (value === "") {
+      // console.log(value, "kkkdddd");
+      setCurrentpage(20);
+      // setCurrentpage(1);
+    } else if (data) {
       const filteredResults = data.filter((item) =>
-        item.name ? item.name.toLowerCase().includes(value) : {}
+        item.name ? item.name.toLowerCase() === value : {}
       );
       // eslint-disable-next-line no-console
-      console.log(filteredData, "kkkk");
-      setFilteredData(filteredResults);
+      // console.log(filteredResults, "kkkk");
+      if (filteredResults) {
+        setCustomdata(filteredResults);
+      }
     }
   };
 
@@ -87,6 +141,7 @@ function PresidentCRUD() {
     if (row.president && row.accountant && row.commitee && row.user) {
       return "Admin";
     }
+
     // eslint-disable-next-line no-else-return
     else if (row.president) {
       return "President";
@@ -101,11 +156,36 @@ function PresidentCRUD() {
     }
   };
 
-  useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setFilteredData(customdata);
+  // }, [data]);
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.6)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          visible
+        />
+      </Box>
+    );
 
   return (
     <Box
@@ -129,7 +209,7 @@ function PresidentCRUD() {
         <Grid item xs={7}>
           <TextField
             type="text"
-            value={searchTerm}
+            // value={searchTerm}
             onChange={handleInputChange}
             placeholder="Search by full name"
             style={{ width: "20vw" }}
@@ -155,12 +235,13 @@ function PresidentCRUD() {
               <TableCell align="center">Phone number</TableCell>
               <TableCell align="center">Email Id</TableCell>
               <TableCell align="center">Current Status</TableCell>
-              <TableCell>Modify</TableCell>
+              <TableCell align="center">Modify</TableCell>
+              <TableCell align="center">Confirm</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData &&
-              filteredData.map((row) => (
+            {customdata &&
+              customdata.map((row, index) => (
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -186,128 +267,71 @@ function PresidentCRUD() {
                   } */}
                   <TableCell align="center">{status(row)}</TableCell>
                   <TableCell align="center">
-                    <FormControl fullWidth>
+                    <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">
                         Modify Role
                       </InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        // value={role}
                         label="Modify Role"
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          roleChangeHandler(
+                            (currentpage - 1) * rowsperpage + index,
+                            e
+                          )
+                        }
                         sx={{
-                          minWidth: 200,
+                          width: "15vw",
                           borderRadius: "20px",
                           boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                         }}
                       >
-                        <MenuItem value={0}>Committee</MenuItem>
-                        <MenuItem value={1}>Accountant</MenuItem>
+                        <MenuItem value={0}>President</MenuItem>
+                        <MenuItem value={1}>Committee</MenuItem>
+                        <MenuItem value={2}>Accountant</MenuItem>
                       </Select>
                     </FormControl>
+                  </TableCell>
+                  <TableCell align="center">
+                    <CheckIcon onClick={() => handlePut(row.accessId)} />
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Stack
-        direction="row"
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "20px 40px",
+      <br />
+      <hr />
+      <br />
+      <span
+        style={{
+          position: "absolute",
+          transform: "Translate(5vw,-0.7vw)",
+          fontFamily: "ProximaRegular",
         }}
       >
-        <div>
-          showing {(currentpage - 1) * rowsperpage + 1} to{" "}
-          {currentpage * rowsperpage > data.length ? (
-            <span>{data.length}</span>
-          ) : (
-            <span>{currentpage * rowsperpage}</span>
-          )}{" "}
-          of {data.length} entries
-        </div>
-        <Pagination
-          count={Math.ceil(data.length / rowsperpage)}
-          page={currentpage}
-          onChange={handleChange}
-          variant="outlined"
-          shape="rounded"
-        />
-      </Stack>
+        showing {(currentpage - 1) * rowsperpage + 1} to{" "}
+        {currentpage * rowsperpage > data.length ? (
+          <span>{data.length}</span>
+        ) : (
+          <span>{currentpage * rowsperpage}</span>
+        )}{" "}
+        of {data.length} entries
+      </span>
+
+      <Pagination
+        count={Math.ceil(data.length / rowsperpage)}
+        sx={{ position: "absolute", transform: "Translate(65vw,-1.2vw)" }}
+        page={currentpage}
+        onChange={handleChange}
+        variant="outlined"
+        shape="rounded"
+      />
+      <br />
+      <hr />
     </Box>
   );
 }
 
 export default PresidentCRUD;
-
-// [
-//   {
-//     accessId: "Admin",
-//     name: "Admin",
-//     email: "admin@xyz.com",
-//     password: "Admin123",
-//     phoneNumber: null,
-//     president: true,
-//     accountant: true,
-//     commitee: true,
-//     user: true,
-//     dateOfAssignedPosition: null,
-//     deleted: false,
-//   },
-//   {
-//     accessId: "President",
-//     name: "President User",
-//     email: "president@gmail.com",
-//     password: "President@123",
-//     phoneNumber: "8787878787",
-//     president: true,
-//     accountant: false,
-//     commitee: false,
-//     user: false,
-//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
-//     deleted: false,
-//   },
-//   {
-//     accessId: "Accountant",
-//     name: "Accountant User",
-//     email: "accountant@gmail.com",
-//     password: "accountant@123",
-//     phoneNumber: "8787878787",
-//     president: false,
-//     accountant: true,
-//     commitee: false,
-//     user: false,
-//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
-//     deleted: false,
-//   },
-//   {
-//     accessId: "Committee",
-//     name: "Committee User",
-//     email: "committee@gmail.com",
-//     password: "committee@123",
-//     phoneNumber: "8787878787",
-//     president: false,
-//     accountant: false,
-//     commitee: true,
-//     user: false,
-//     dateOfAssignedPosition: "2024-08-13T06:56:56.882",
-//     deleted: false,
-//   },
-//   {
-//     accessId: "user",
-//     name: "user",
-//     email: "user@gmail.com",
-//     password: "user123",
-//     phoneNumber: "76767676",
-//     president: true,
-//     accountant: false,
-//     commitee: false,
-//     user: false,
-//     dateOfAssignedPosition: "2024-08-13T13:43:45.98",
-//     deleted: false,
-//   },
-// ];

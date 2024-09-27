@@ -13,6 +13,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useFormik } from "formik";
+import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import { postRequest } from "../HTTP_POST/api";
 
@@ -130,7 +131,32 @@ function RegistrationThree() {
   }, [isPartOfCommunity]);
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.6)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          visible
+        />
+      </Box>
+    );
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -154,14 +180,23 @@ function RegistrationThree() {
           Preview Application
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography>Full Name</Typography>
-          </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
+            <Typography>First Name</Typography>
             <TextField
               size="small"
               disabled
-              value={data.fullName}
+              value={data.firstName}
+              aria-readonly
+              fullWidth
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography>SurName</Typography>
+            <TextField
+              size="small"
+              disabled
+              value={data.lastName}
               aria-readonly
               fullWidth
               sx={{ backgroundColor: "white", borderRadius: "5px" }}

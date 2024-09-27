@@ -50,7 +50,7 @@ function ViewAnnouncements() {
     }
   };
 
-  const display = 4;
+  const display = 5;
 
   const handleBack = () => {
     navigate("/president-view", { state: { token, display } });
@@ -84,8 +84,8 @@ function ViewAnnouncements() {
           <TableBody>
             {data?.map((announcement) => (
               <TableRow key={announcement.id}>
-                <TableCell>{announcement.announcementTitle}</TableCell>
-                <TableCell>{announcement.announcementDescription}</TableCell>
+                <TableCell>{announcement.title}</TableCell>
+                <TableCell>{announcement.description}</TableCell>
                 <TableCell>
                   <IconButton
                     sx={{ color: "#199071" }}

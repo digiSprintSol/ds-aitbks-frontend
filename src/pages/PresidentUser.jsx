@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Pagination from "@mui/material/Pagination";
+import {
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import PresidentModal from "../components/Modal/presidentModal";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 const useStyles = makeStyles({
   committeetable: {
@@ -96,10 +100,21 @@ function PresidentUser() {
     }
   }, [currentpage, data]);
 
+  function displayDate(mydate) {
+    const d = new Date(mydate);
+    let month = d.getMonth() + 1;
+    let date = d.getDate();
+    if (String(month).length === 1) {
+      month = "0".concat(month);
+    }
+    if (String(date).length === 1) {
+      date = "0".concat(date);
+    }
+    return `${date}-${month}-${d.getFullYear()}`;
+  }
+
   if (error) return <h1>No data found...</h1>;
-  if (loading) return <h1>loading...</h1>;
-  // eslint-disable-next-line no-console
-  console.log(data.length, rowsperpage, "aaaaaaaaaa");
+  if (loading) return <LoadingComponent />;
 
   return (
     <Box
@@ -110,6 +125,15 @@ function PresidentUser() {
       }}
     >
       <div>
+        <Typography
+          style={{
+            fontFamily: "ProximaBold",
+            fontSize: "3vw",
+            marginLeft: "37vw",
+          }}
+        >
+          Applicant Details
+        </Typography>
         <TableContainer sx={{ width: "95%", margin: "auto" }} component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -170,7 +194,9 @@ function PresidentUser() {
                   <TableCell component="th" scope="row">
                     {`${row.firstName} ${row.lastName}`}
                   </TableCell>
-                  <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                  <TableCell align="middle">
+                    {displayDate(row.dateOfBirth)}
+                  </TableCell>
                   <TableCell align="middle">{row.phoneNumber}</TableCell>
                   <TableCell align="middle">{row.emailAddress}</TableCell>
                   {row.status ? (
@@ -199,9 +225,9 @@ function PresidentUser() {
                     <PresidentModal
                       row={row}
                       token={token}
-                      name1={data1 ? data1.name : ""}
-                      name2={data2 ? data2.name : ""}
-                      name3={data3 ? data3.name : ""}
+                      name1={data1 ? data1.data.name : ""}
+                      name2={data2 ? data2.data.name : ""}
+                      name3={data3 ? data3.data.name : ""}
                     />
                   </TableCell>
                 </TableRow>

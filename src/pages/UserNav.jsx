@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -13,6 +13,8 @@ import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 // import useCustomFetch from "../Hooks/useCustomFetch";
+import { Button, Box } from "@mui/material";
+import { Circles } from "react-loader-spinner";
 import Displayone from "./UserNav/Displayone";
 import Displaytwo from "./UserNav/Displaytwo";
 import Displaythree from "./UserNav/Displaythree";
@@ -123,6 +125,7 @@ const steps = [
 
 function App() {
   const [activecount, setActivecount] = React.useState(-1);
+  const navigate = useNavigate();
   const location = useLocation();
   const token = `${location.state.token}`;
   // eslint-disable-next-line no-unused-vars
@@ -202,7 +205,32 @@ function App() {
   }, [data, activecount]);
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.6)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+          backdropFilter: "blur(5px)",
+        }}
+      >
+        <Circles
+          height="90"
+          width="90"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          visible
+        />
+      </Box>
+    );
 
   return (
     <Stack sx={{ width: "100%" }}>
@@ -218,7 +246,15 @@ function App() {
           </Step>
         ))}
       </Stepper>
-
+      <Button
+        variant="contained"
+        sx={{ marginX: "550px", marginTop: "20px" }}
+        onClick={() => {
+          navigate("/user-edit-details", { state: { token } });
+        }}
+      >
+        Edit Profile
+      </Button>
       {display(activecount)}
     </Stack>
   );

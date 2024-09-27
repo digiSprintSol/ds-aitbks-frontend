@@ -93,6 +93,9 @@ function Home() {
     if (key === 1) {
       navigate("/getscholar");
     }
+    if (key === 2) {
+      navigate("/awards");
+    }
   };
 
   if (error) return <h1>Error..</h1>;

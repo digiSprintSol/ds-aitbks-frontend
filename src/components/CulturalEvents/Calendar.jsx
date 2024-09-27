@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import "./Calendar.css";
 import useCustomFetch from "../../Hooks/useCustomFetch";
+import LoadingComponent from "../Loading/loadingComponent";
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthsData = [
@@ -265,7 +266,7 @@ function Calendar() {
     </div>
   ));
 
-  if (loading) return <h1>Loading....</h1>;
+  if (loading) return <LoadingComponent />;
   if (error) return <h1>error...</h1>;
 
   return (

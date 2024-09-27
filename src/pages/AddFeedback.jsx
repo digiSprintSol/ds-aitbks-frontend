@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { postRequest } from "../HTTP_POST/api";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -37,6 +38,7 @@ function AddFeedback() {
   const { REACT_APP_FAKE_API } = process.env;
   const [file, setFile] = useState(null);
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -45,6 +47,7 @@ function AddFeedback() {
 
   const imageApi = async () => {
     if (file) {
+      setLoading(true);
       const formData = new FormData();
       formData.append("file", file);
       try {
@@ -64,6 +67,8 @@ function AddFeedback() {
         // console.log(err);
         // eslint-disable-next-line no-alert
         alert("Maximum upload size reached...");
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -105,42 +110,44 @@ function AddFeedback() {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          padding: "20px 50px",
-          backgroundColor: "#D4E9DA",
-          margin: "20px 0px",
-        }}
-      >
-        <Grid item xs={12}>
-          <Typography
-            variant="h4"
-            sx={{ fontFamily: "ProximaBold", textAlign: "center" }}
-          >
-            Add Feedback
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sx={{ textAlign: "center" }}>
-          <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-            sx={{ backgroundColor: "#23A380" }}
-          >
-            Upload Image
-            <VisuallyHiddenInput
-              type="file"
-              // eslint-disable-next-line no-console
-              onChange={handleFileChange}
-              multiple
-            />
-          </Button>
-          {/* <UploadIcon
+    <>
+      {loading && <LoadingComponent />}
+      <form onSubmit={formik.handleSubmit}>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            padding: "20px 50px",
+            backgroundColor: "#D4E9DA",
+            margin: "20px 0px",
+          }}
+        >
+          <Grid item xs={12}>
+            <Typography
+              variant="h4"
+              sx={{ fontFamily: "ProximaBold", textAlign: "center" }}
+            >
+              Add Feedback
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              sx={{ backgroundColor: "#23A380" }}
+            >
+              Upload Image
+              <VisuallyHiddenInput
+                type="file"
+                // eslint-disable-next-line no-console
+                onChange={handleFileChange}
+                multiple
+              />
+            </Button>
+            {/* <UploadIcon
             sx={{
               border: "2px solid black",
               borderRadius: "50%",
@@ -149,73 +156,76 @@ function AddFeedback() {
             }}
             onClick={imageApi}
           /> */}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography sx={{ fontFamily: "ProximaBold" }}>Name:</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#ffffff" }}
+              id="name"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ fontFamily: "ProximaBold" }}>
+              Profession:
+            </Typography>
+            <TextField
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#ffffff" }}
+              id="profession"
+              name="profession"
+              value={formik.values.profession}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.profession && Boolean(formik.errors.profession)
+              }
+              helperText={formik.touched.profession && formik.errors.profession}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography sx={{ fontFamily: "ProximaBold" }}>
+              Description:
+            </Typography>
+            <TextField
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "#ffffff" }}
+              id="description"
+              name="description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.description && Boolean(formik.errors.description)
+              }
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ backgroundColor: "#23A380" }}
+            >
+              Submit
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography sx={{ fontFamily: "ProximaBold" }}>Name:</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            size="small"
-            sx={{ backgroundColor: "#ffffff" }}
-            id="name"
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography sx={{ fontFamily: "ProximaBold" }}>
-            Profession:
-          </Typography>
-          <TextField
-            fullWidth
-            size="small"
-            sx={{ backgroundColor: "#ffffff" }}
-            id="profession"
-            name="profession"
-            value={formik.values.profession}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.profession && Boolean(formik.errors.profession)
-            }
-            helperText={formik.touched.profession && formik.errors.profession}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Typography sx={{ fontFamily: "ProximaBold" }}>
-            Description:
-          </Typography>
-          <TextField
-            fullWidth
-            size="small"
-            sx={{ backgroundColor: "#ffffff" }}
-            id="description"
-            name="description"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.description && Boolean(formik.errors.description)
-            }
-            helperText={formik.touched.description && formik.errors.description}
-          />
-        </Grid>
-        <Grid item xs={12} sx={{ textAlign: "center" }}>
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{ backgroundColor: "#23A380" }}
-          >
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </>
   );
 }
 

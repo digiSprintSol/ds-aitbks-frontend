@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "@mui/material";
 import UploadEvent from "./UploadEvent";
 import UploadGallery from "./UploadGallery";
 import UploadAwards from "./UploadAwards";
@@ -44,16 +45,25 @@ function AdminNav() {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <button
-        type="button"
-        style={{
-          padding: "10px 15px",
-          borderRadius: "17px",
-          border: "none",
-          backgroundImage: "linear-gradient(148deg, #ffdead, #ffa04c)",
-          fontWeight: "bold",
-          marginLeft: "90vw",
+    <div
+      style={{
+        paddingTop: "2vw",
+        backgroundColor: "#D4E9DA",
+        paddingBottom: "2vw",
+      }}
+    >
+      <Button
+        className="btn"
+        sx={{
+          fontFamily: "ProximaBold",
+          color: "white",
+          backgroundColor: "#23A380",
+          marginLeft: "89.7vw",
+          "&:hover": {
+            backgroundColor: "#1F735B",
+          },
+          boxShadow:
+            "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
         }}
         onClick={() =>
           navigate("/admin-animation-page", {
@@ -62,7 +72,7 @@ function AdminNav() {
         }
       >
         Menu
-      </button>
+      </Button>
       {displayfunction(activecount)}
     </div>
   );

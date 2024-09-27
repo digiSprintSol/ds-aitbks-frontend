@@ -46,6 +46,10 @@ function Displayfive({ token }) {
             color: "white",
             width: "22vw",
             borderRadius: "10vw",
+            "&:hover": {
+              backgroundColor: "#1B7DA6",
+              opacity: "0.9",
+            },
           }}
         >
           Upload Payment Receipt

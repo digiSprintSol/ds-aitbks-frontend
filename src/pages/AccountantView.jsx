@@ -9,9 +9,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from "@mui/styles";
-import { Circles } from "react-loader-spinner";
 import useCustomFetch from "../Hooks/useCustomFetch";
 import Acknowledge from "./Acknowledge";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 // const useStyles = makeStyles({
 //   committeetable: {
@@ -28,6 +28,12 @@ const useStyles = makeStyles({
     textTransform: "uppercase",
   },
 });
+
+function displayDate(mydate) {
+  const d = new Date(mydate);
+  const month = d.getMonth() + 1;
+  return `${d.getDate()} - ${month} - ${d.getFullYear()}`;
+}
 
 function PresidentView() {
   // const { data, loading, error } = useCustomFetch(
@@ -85,26 +91,7 @@ function PresidentView() {
 
   if (error) return <h1>No users to display</h1>;
   if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: "55vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Circles
-          height="90"
-          width="90"
-          color="#4fa94d"
-          ariaLabel="circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible
-        />
-      </div>
-    );
+    return <LoadingComponent />;
   }
 
   // const handleViewDonations = () => {
@@ -155,10 +142,14 @@ function PresidentView() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.fullName}
+                  {`${row.firstName} ${row.lastName}`}
                 </TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
-                <TableCell align="middle">{row.dateOfBirth}</TableCell>
+                <TableCell align="middle">
+                  {displayDate(row.createdDate)}
+                </TableCell>
+                <TableCell align="middle">
+                  {displayDate(row.dateOfBirth)}
+                </TableCell>
                 <TableCell align="middle">{row.phoneNumber}</TableCell>
                 <TableCell align="middle">{row.emailAddress}</TableCell>
                 <TableCell align="middle">
