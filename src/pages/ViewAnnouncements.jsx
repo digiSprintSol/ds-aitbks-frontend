@@ -78,7 +78,7 @@ function ViewAnnouncements() {
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Delete Announcements</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -88,7 +88,7 @@ function ViewAnnouncements() {
                 <TableCell>{announcement.description}</TableCell>
                 <TableCell>
                   <IconButton
-                    sx={{ color: "#199071" }}
+                    sx={{ color: "#ff5a52" }}
                     onClick={() => handleDelete(announcement.id)}
                   >
                     <DeleteIcon />

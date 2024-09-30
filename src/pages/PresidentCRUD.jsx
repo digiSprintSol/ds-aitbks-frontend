@@ -19,6 +19,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { Circles } from "react-loader-spinner";
@@ -192,7 +193,7 @@ function PresidentCRUD() {
       sx={{
         backgroundColor: "#D4E9DA",
         padding: 5,
-        margin: "10px auto",
+        margin: "-63px 0px 20px 0px",
       }}
     >
       <Grid
@@ -201,25 +202,37 @@ function PresidentCRUD() {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
           padding: "10px",
-          marginLeft: "100px",
         }}
       >
-        <Grid item xs={7}>
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "ProximaBold",
+              textAlign: "center",
+              marginBottom: "2vw",
+            }}
+          >
+            Role Management
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
           <TextField
             type="text"
             // value={searchTerm}
             onChange={handleInputChange}
             placeholder="Search by full name"
-            style={{ width: "20vw" }}
+            style={{ width: "20vw", marginLeft: "7vw" }}
             size="small"
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Button
             variant="contained"
             onClick={() => navigate("/add-members", { state: { token } })}
+            sx={{ marginLeft: "20vw" }}
           >
             Add Members
           </Button>

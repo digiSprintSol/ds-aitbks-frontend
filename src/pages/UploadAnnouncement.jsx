@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import upload2 from "./images/upload2.png";
@@ -60,17 +60,23 @@ function UploadAnnouncement() {
             sx={{ width: "auto" }}
           >
             <Grid item xs={12}>
-              <h1 style={{ fontFamily: "ProximaBold" }}>
+              <Typography
+                variant="h4"
+                style={{
+                  fontFamily: "ProximaBold",
+                  margin: "-55px 0px 20px 0px",
+                }}
+              >
                 Make an Announcement
-              </h1>
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Button
                 onClick={handleViewClick}
                 style={{
-                  marginLeft: "68vw",
-                  transform: "Translate(0,-5vw)",
+                  marginLeft: "43vw",
                   position: "absolute",
+                  marginBottom: "4vw",
                 }}
               >
                 View all
