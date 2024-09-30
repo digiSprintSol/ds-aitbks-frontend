@@ -83,7 +83,11 @@ function EmailComponent() {
         }),
       }}
     >
-      <div style={{ filter: loading ? "blur(5px)" : "none" }}>
+      <div
+        style={{
+          filter: loading ? "blur(5px)" : "none",
+        }}
+      >
         <form onSubmit={formik.handleSubmit}>
           <Box
             sx={{

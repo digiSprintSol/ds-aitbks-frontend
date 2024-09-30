@@ -192,7 +192,7 @@ function UploadGallery() {
           sx={{
             backgroundColor: "#D4E9DA",
             padding: 5,
-            margin: "10px auto",
+            margin: "-63px 0px 20px 0px",
           }}
         >
           <Grid container spacing={1}>
@@ -206,7 +206,7 @@ function UploadGallery() {
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "ProximaBold", mb: 1, mt: "-10px" }}
+                  sx={{ fontFamily: "ProximaBold", marginBottom: "2vw" }}
                   variant="h4"
                 >
                   Upload Gallery
