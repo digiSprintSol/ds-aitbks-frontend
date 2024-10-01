@@ -7,6 +7,7 @@ import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
 import { postRequest } from "../HTTP_POST/api";
 import LoadingComponent from "../components/Loading/loadingComponent";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function UploadGallery() {
   const [file, setFile] = useState(null);
@@ -18,6 +19,14 @@ function UploadGallery() {
   const navigate = useNavigate();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
+
+  const info = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/user/getSpecificUserDetails`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${location.state.token}`,
+    },
+  });
 
   const imageApi = async () => {
     if (file) {
@@ -277,7 +286,11 @@ function UploadGallery() {
                 id="fullName"
                 name="fullName"
                 type="string"
-                // value={formik.values.fullName}
+                value={
+                  info.data
+                    ? `${info.data.firstName} ${info.data.lastName}`
+                    : ""
+                }
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={formik.touched.fullName && Boolean(formik.errors.fullName)}
@@ -309,7 +322,7 @@ function UploadGallery() {
                 id="phoneNumber"
                 name="phoneNumber"
                 type="number"
-                // value={formik.values.phoneNumber}
+                value={info.data ? info.data.phoneNumber : ""}
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={
@@ -326,7 +339,7 @@ function UploadGallery() {
                 id="emailAddress"
                 name="emailAddress"
                 type="email"
-                // value={formik.values.emailAddress}
+                value={info.data ? info.data.emailAddress : ""}
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={
