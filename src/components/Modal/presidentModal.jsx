@@ -440,7 +440,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={7}>
+              <Grid item xs={6}>
                 <Typography id="modal-modal-description">Community</Typography>
                 <TextField
                   fullWidth
@@ -452,6 +452,18 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
               </Grid>
               <Grid item xs={6}>
                 <Typography id="modal-modal-description">
+                  Caste Status
+                </Typography>
+                <TextField
+                  fullWidth
+                  sx={{ backgroundColor: "#ffffff" }}
+                  value={row.casteStatus}
+                  aria-readonly
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography id="modal-modal-description">
                   Reference 01 (existing members)
                 </Typography>
                 <TextField
@@ -462,7 +474,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <Typography id="modal-modal-description">
                   Reference 02 (referred by)
                 </Typography>
@@ -473,7 +485,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                   aria-readonly
                   size="small"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Typography id="modal-modal-description">
                   Tell us about yourself
@@ -616,7 +628,11 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
               )}
 
               {row.committeeOneApproval === "waiting" && (
-                <Stack direction="row" spacing={30}>
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
                   <Grid item xs={4}>
                     <FormControlLabel
                       value="accepted"
@@ -749,8 +765,12 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                 </Stack>
               )}
 
-              {row.committeeThreeApproval === "waiting" && (
-                <Stack direction="row" spacing={30}>
+              {row.committeeTwoApproval === "waiting" && (
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
                   <Grid item xs={4}>
                     <FormControlLabel
                       value="accepted"
@@ -884,7 +904,11 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
               )}
 
               {row.committeeThreeApproval === "waiting" && (
-                <Stack direction="row" spacing={30}>
+                <Stack
+                  direction="row"
+                  spacing={30}
+                  sx={{ marginLeft: "5.5vw" }}
+                >
                   <Grid item xs={4}>
                     <FormControlLabel
                       value="accepted"
@@ -1002,7 +1026,7 @@ export default function PresidentModal({ row, token, name1, name2, name3 }) {
                     />
                   </Grid> */}
 
-              {/* ---------------------------------------------- display president status */}
+              {/* --------------------------------------- display president status */}
               {row.presidentApproval === "accepted" && (
                 <Stack
                   direction="row"

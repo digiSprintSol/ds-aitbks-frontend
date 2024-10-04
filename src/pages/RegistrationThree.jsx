@@ -441,7 +441,7 @@ function RegistrationThree() {
               sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <Typography>Present Occupation</Typography>
             <TextField
               size="small"
@@ -463,7 +463,7 @@ function RegistrationThree() {
               sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <Typography>Reference 02 (referred by)</Typography>
             <TextField
               size="small"
@@ -473,7 +473,7 @@ function RegistrationThree() {
               fullWidth
               sx={{ backgroundColor: "white", borderRadius: "5px" }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <Typography>Tell us about yourself</Typography>
             <TextField

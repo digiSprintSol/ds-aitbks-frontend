@@ -20,9 +20,6 @@ import CommitteePopup from "./CommitteePopup";
 import LoadingComponent from "../components/Loading/loadingComponent";
 
 const useStyles = makeStyles({
-  committeetable: {
-    fontSize: "1vw",
-  },
   accepted: {
     backgroundColor: "white",
     color: "green",
@@ -145,32 +142,16 @@ function CommitteeView() {
               <TableCell align="middle">Date of Birth</TableCell>
               <TableCell align="middle">Phone number</TableCell>
               <TableCell align="middle">Email Id</TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
                 Status of Committee1
               </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
                 Status of Committee2
               </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
                 Status of Committee3
               </TableCell>
-              <TableCell
-                align="middle"
-                sx={{ fontFamily: "ProximaBold" }}
-                className={classes.committeetable}
-              >
+              <TableCell align="middle" sx={{ fontFamily: "ProximaBold" }}>
                 Details
               </TableCell>
             </TableRow>
@@ -259,6 +240,18 @@ function CommitteeView() {
                   >
                     Declined
                   </TableCell>
+                ) : row.committeeTwoChoosenMembershipForApplicant &&
+                  row.committeeTwoApproval === "waiting" ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.waiting}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Waiting
+                  </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>
                 )}
@@ -288,6 +281,18 @@ function CommitteeView() {
                     }}
                   >
                     Declined
+                  </TableCell>
+                ) : row.committeeThreeChoosenMembershipForApplicant &&
+                  row.committeeThreeApproval === "waiting" ? (
+                  <TableCell
+                    align="middle"
+                    className={classes.waiting}
+                    sx={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Waiting
                   </TableCell>
                 ) : (
                   <TableCell align="middle">Yet to be approved</TableCell>

@@ -61,7 +61,6 @@ function personalDetails({ setActiveStep }) {
     Karimnagar: "Telangana",
     Khammam: "Telangana",
     "Kona Seema": "Telangana",
-    // Add more district-state mappings here
   };
 
   const { REACT_APP_FAKE_API } = process.env;

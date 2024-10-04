@@ -31,6 +31,8 @@ function UploadEvent() {
   // const [preview, setPreview] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [result, setResult] = useState(null);
+  const [pageCount, setPageCount] = useState(1);
+  const [loadingTwo, setLoadingTwo] = useState(false);
   const location = useLocation();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
@@ -52,6 +54,7 @@ function UploadEvent() {
 
   const imageApi = async () => {
     if (file) {
+      setLoadingTwo(true);
       const formData = new FormData();
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < file.length; i++) {
@@ -81,6 +84,9 @@ function UploadEvent() {
         // alert("Maximum upload size crossed...");
         setFile(null);
         // setPreview(null);
+      } finally {
+        setLoadingTwo(false);
+        setPageCount(2);
       }
     }
   };
@@ -146,6 +152,7 @@ function UploadEvent() {
       description: "",
       sponsoredBy: "",
       eventDate: "",
+      place: "",
     },
     // validationSchema: postValidationSchema,
     onSubmit: async (values, { resetForm }) => {
@@ -160,6 +167,7 @@ function UploadEvent() {
             eventType: "events",
             eventDate: new Date(values.eventDate).toISOString(),
             sponsoredBy: values.sponsoredBy,
+            place: values.place,
             imageURLs: result,
           },
           {
@@ -182,6 +190,7 @@ function UploadEvent() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      {loadingTwo && <LoadingComponent />}
       <Box
         sx={{
           backgroundColor: "#D4E9DA",
@@ -190,85 +199,88 @@ function UploadEvent() {
         }}
       >
         <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Typography
-                sx={{ fontFamily: "ProximaBold", mb: 1, mt: "-10px" }}
-                variant="h4"
-              >
-                Upload Event
-              </Typography>
+          {pageCount === 1 && (
+            <Grid item xs={12}>
               <Box
                 sx={{
-                  backgroundColor: "white",
-                  padding: "10px",
-                  borderRadius: "30px",
-                  margin: "5px 0px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                  height: "180px",
-                  width: "35%",
-                  border: isDragOver ? "2px dashed #1976d2" : "2px dashed #ccc",
-                  textAlign: "center",
                   flexDirection: "column",
                 }}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
               >
                 <Typography
-                  variant="h6"
-                  sx={{
-                    fontFamily: "ProximaSemiBold",
-                    // fontWeight: "bold",
-                    // fontSize: "10px",
-                    color: isDragOver ? "#1976d2" : "#666",
-                    mb: 2,
-                  }}
+                  sx={{ fontFamily: "ProximaBold", mb: 1, mt: "-10px" }}
+                  variant="h4"
                 >
-                  Drag & Drop your image here
+                  Upload Event
                 </Typography>
-                <input
-                  type="file"
-                  id="fileInput"
-                  multiple
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
-                <label htmlFor="fileInput">
-                  <IconButton
-                    component="span"
+                <Box
+                  sx={{
+                    backgroundColor: "white",
+                    padding: "10px",
+                    borderRadius: "30px",
+                    margin: "5px 0px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                    height: "180px",
+                    width: "35%",
+                    border: isDragOver
+                      ? "2px dashed #1976d2"
+                      : "2px dashed #ccc",
+                    textAlign: "center",
+                    flexDirection: "column",
+                  }}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onDrop={handleDrop}
+                >
+                  <Typography
+                    variant="h6"
                     sx={{
-                      backgroundColor: "#1976d2",
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: "#1565c0",
-                      },
+                      fontFamily: "ProximaSemiBold",
+                      // fontWeight: "bold",
+                      // fontSize: "10px",
+                      color: isDragOver ? "#1976d2" : "#666",
+                      mb: 2,
                     }}
                   >
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    color: isDragOver ? "#1976d2" : "#666",
-                    mt: 2,
-                  }}
-                >
-                  or click to select
-                </Typography>
-                {/* {preview && (
+                    Drag & Drop your image here
+                  </Typography>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    multiple
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="fileInput">
+                    <IconButton
+                      component="span"
+                      sx={{
+                        backgroundColor: "#1976d2",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "#1565c0",
+                        },
+                      }}
+                    >
+                      <PhotoCamera />
+                    </IconButton>
+                  </label>
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      color: isDragOver ? "#1976d2" : "#666",
+                      mt: 2,
+                    }}
+                  >
+                    or click to select
+                  </Typography>
+                  {/* {preview && (
                   <Box
                     sx={{
                       position: "absolute",
@@ -284,178 +296,209 @@ function UploadEvent() {
                     }}
                   />
                 )} */}
-              </Box>
-              <Grid
-                container
-                spacing={2}
-                sx={{ width: "40vw", margin: "auto" }}
-              >
-                <Grid item xs={12} sx={{ margin: "auto" }}>
-                  <Typography sx={{ marginTop: "2vw", marginLeft: "2vw" }}>
-                    Do you want to uplaod the above images in the existing
-                    folder
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sx={{ marginLeft: "11vw" }}>
-                  <RadioGroup
-                    row
-                    name="value"
-                    onChange={radioHandleChange}
+                </Box>
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{ width: "40vw", margin: "auto" }}
+                >
+                  <Grid item xs={12} sx={{ margin: "auto" }}>
+                    <Typography sx={{ marginTop: "2vw", marginLeft: "2vw" }}>
+                      Do you want to uplaod the above images in the existing
+                      folder
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sx={{ marginLeft: "11vw" }}>
+                    <RadioGroup
+                      row
+                      name="value"
+                      onChange={radioHandleChange}
+                      sx={{
+                        margin: "1.5vw",
+                      }}
+                    >
+                      <FormControlLabel
+                        value="yes"
+                        control={<Radio />}
+                        label="Yes"
+                      />
+                      <FormControlLabel
+                        value="no"
+                        control={<Radio />}
+                        label="No"
+                        sx={{
+                          marginLeft: "20px",
+                        }}
+                      />
+                    </RadioGroup>
+                  </Grid>
+                  <Grid item xs={6} sx={{ margin: "auto" }}>
+                    {radioData === "yes" && (
+                      <FormControl fullWidth>
+                        <InputLabel>Select folder</InputLabel>
+                        <Select
+                          label="Select folder"
+                          onChange={pathDataChangeHandler}
+                        >
+                          {folderNames &&
+                            folderNames.map((item) =>
+                              item ? (
+                                <MenuItem key={item} value={item}>
+                                  {capitalChange(item)}
+                                </MenuItem>
+                              ) : null
+                            )}
+                        </Select>
+                      </FormControl>
+                    )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
                     sx={{
-                      margin: "1.5vw",
+                      textAlign: "center",
+                      transform: "translate(0.2vw ,-1.5vw)",
                     }}
                   >
-                    <FormControlLabel
-                      value="yes"
-                      control={<Radio />}
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      value="no"
-                      control={<Radio />}
-                      label="No"
-                      sx={{
-                        marginLeft: "20px",
+                    {radioData === "no" && (
+                      <div>
+                        <TextField
+                          label="Enter FolderName"
+                          onChange={pathDataChangeHandler}
+                          sx={{ width: "20vw" }}
+                          fullWidth
+                        />
+                      </div>
+                    )}
+                  </Grid>
+                  <Grid item xs={3} sx={{ marginLeft: "16vw" }}>
+                    <Button
+                      onClick={() => {
+                        imageApi();
                       }}
-                    />
-                  </RadioGroup>
+                    >
+                      Next
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6} sx={{ margin: "auto" }}>
-                  {radioData === "yes" && (
-                    <FormControl fullWidth>
-                      <InputLabel>Select folder</InputLabel>
-                      <Select
-                        label="Select folder"
-                        onChange={pathDataChangeHandler}
-                      >
-                        {folderNames &&
-                          folderNames.map((item) =>
-                            item ? (
-                              <MenuItem key={item} value={item}>
-                                {capitalChange(item)}
-                              </MenuItem>
-                            ) : null
-                          )}
-                      </Select>
-                    </FormControl>
-                  )}
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
+              </Box>
+            </Grid>
+          )}
+
+          {pageCount === 2 && (
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography sx={{ fontFamily: "ProximaBold" }} variant="h6">
+                  Event Details
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Title"
+                  id="title"
+                  name="title"
+                  type="string"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="description"
+                  name="description"
+                  label="Description"
+                  type="string"
+                  multiline
+                  rows={4}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1">Event Date</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  id="eventDate"
+                  name="eventDate"
+                  // label="DD/MM/YYYY"
+                  type="date"
+                  value={formik.values.eventDate}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.eventDate && Boolean(formik.errors.eventDate)
+                  }
+                  helperText={
+                    formik.touched.eventDate && formik.errors.eventDate
+                  }
+                  // sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  id="eventDate"
+                  name="place"
+                  label="Place"
+                  type="string"
+                  value={formik.values.place}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.place && Boolean(formik.errors.place)}
+                  helperText={formik.touched.place && formik.errors.place}
+                  // sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  id="sponsoredBy"
+                  name="sponsoredBy"
+                  label="SponsoredBy"
+                  type="string"
+                  rows={4}
+                  value={formik.values.sponsoredBy}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.sponsoredBy &&
+                    Boolean(formik.errors.sponsoredBy)
+                  }
+                  helperText={
+                    formik.touched.sponsoredBy && formik.errors.sponsoredBy
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Box
                   sx={{
-                    textAlign: "center",
-                    transform: "translate(0.2vw ,-1.5vw)",
+                    display: "flex",
+                    justifyContent: "center",
+                    mt: 3,
                   }}
                 >
-                  {radioData === "no" && (
-                    <div>
-                      <TextField
-                        label="Enter FolderName"
-                        onChange={pathDataChangeHandler}
-                        sx={{ width: "20vw" }}
-                        fullWidth
-                      />
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={3} sx={{ margin: "auto" }}>
-                  <Button onClick={imageApi}>Upload</Button>
-                </Grid>
+                  <Button variant="contained" type="submit">
+                    Submit
+                  </Button>
+                </Box>
               </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography sx={{ fontFamily: "ProximaBold" }} variant="h6">
-              Image Details
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Title"
-              id="title"
-              name="title"
-              type="string"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="description"
-              name="description"
-              label="Description"
-              type="string"
-              multiline
-              rows={4}
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.description && Boolean(formik.errors.description)
-              }
-              helperText={
-                formik.touched.description && formik.errors.description
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">Event Date</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              fullWidth
-              id="eventDate"
-              name="eventDate"
-              // label="DD/MM/YYYY"
-              type="date"
-              value={formik.values.eventDate}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.eventDate && Boolean(formik.errors.eventDate)
-              }
-              helperText={formik.touched.eventDate && formik.errors.eventDate}
-              // sx={{ backgroundColor: "white", borderRadius: "5px" }}
-            />
-          </Grid>
-          <Grid item xs={9}>
-            <TextField
-              fullWidth
-              id="sponsoredBy"
-              name="sponsoredBy"
-              label="SponsoredBy"
-              type="string"
-              rows={4}
-              value={formik.values.sponsoredBy}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.sponsoredBy && Boolean(formik.errors.sponsoredBy)
-              }
-              helperText={
-                formik.touched.sponsoredBy && formik.errors.sponsoredBy
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                mt: 3,
-              }}
-            >
-              <Button variant="contained" type="submit">
-                Submit
-              </Button>
-            </Box>
-          </Grid>
+            </Grid>
+          )}
         </Grid>
       </Box>
     </form>

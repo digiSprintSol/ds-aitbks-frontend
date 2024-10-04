@@ -24,7 +24,7 @@ function CulturalEventsImages() {
         <Typography variant="h3" sx={{ fontFamily: "ProximaBold" }}>
           {location.state.row.title}
         </Typography>
-        <Typography variant="h5" sx={{ fontFamily: "ProximaBold" }}>
+        <Typography variant="h6" sx={{ fontFamily: "ProximaSemiBold" }}>
           {location.state.row.description}
         </Typography>
       </Box>

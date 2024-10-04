@@ -202,7 +202,7 @@ export const education = [
   { label: "B.Tech" },
   { label: "B.Sc" },
   { label: "BBA" },
-  { label: "BComm" },
+  { label: "BCom" },
   { label: "BEd" },
   { label: "BE" },
   { label: "LLB" },
