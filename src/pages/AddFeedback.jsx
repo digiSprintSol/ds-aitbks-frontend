@@ -90,6 +90,7 @@ function AddFeedback() {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
+      setLoading(true);
       try {
         // eslint-disable-next-line no-unused-vars
         const res2 = await postRequest(
@@ -103,6 +104,10 @@ function AddFeedback() {
         resetForm();
       } catch (err) {
         // console.log(err);
+      } finally {
+        setLoading(false);
+        // eslint-disable-next-line no-alert
+        alert("Added successfully");
       }
       // finally {
       //   setSubmitting(false);
@@ -119,7 +124,7 @@ function AddFeedback() {
           sx={{
             padding: "20px 50px",
             backgroundColor: "#D4E9DA",
-            margin: "20px 0px",
+            margin: "-65px 0px 20px 0px",
           }}
         >
           <Grid item xs={12}>

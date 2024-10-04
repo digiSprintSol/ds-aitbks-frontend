@@ -27,6 +27,7 @@ function MainForm() {
         height: "auto",
         backgroundColor: "#D4E9DA",
         padding: 3,
+        marginTop: "-50px",
       }}
     >
       <Typography variant="h4" sx={{ fontFamily: "ProximaBold" }}>

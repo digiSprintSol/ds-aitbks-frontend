@@ -121,7 +121,7 @@ function PresidentUser() {
       sx={{
         backgroundColor: "#D4E9DA",
         padding: 5,
-        margin: "10px auto",
+        margin: "-63px 0px 20px 0px",
       }}
     >
       <div>
@@ -129,7 +129,8 @@ function PresidentUser() {
           style={{
             fontFamily: "ProximaBold",
             fontSize: "3vw",
-            marginLeft: "37vw",
+            marginLeft: "35vw",
+            marginBottom: "2vw",
           }}
         >
           Applicant Details

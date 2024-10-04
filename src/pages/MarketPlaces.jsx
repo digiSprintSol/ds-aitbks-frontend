@@ -106,7 +106,7 @@ function MarketPlaces() {
           sx={{
             padding: "20px 50px",
             backgroundColor: "#D4E9DA",
-            margin: "20px 0px",
+            margin: "-63px 0px 20px 0px",
           }}
         >
           <Grid item xs={12}>

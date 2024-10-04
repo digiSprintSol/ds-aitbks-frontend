@@ -10,16 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { Circles } from "react-loader-spinner";
 import { Box } from "@mui/system";
@@ -78,25 +69,6 @@ function PresidentCRUD() {
         exp["accountant"] = true;
       }
       setRoleData(exp);
-    }
-  };
-
-  const handlePut = async (id) => {
-    try {
-      const result = await updateData(
-        `${REACT_APP_FAKE_API}/updateInternalUser/${id}`,
-        roledata,
-        {
-          Token: `Bearer ${token}`,
-        }
-      );
-      // eslint-disable-next-line no-console
-      console.log("message:", result);
-      // eslint-disable-next-line no-alert
-      alert("Role updated..");
-    } catch (error2) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to update data", error2);
     }
   };
 
@@ -192,7 +164,7 @@ function PresidentCRUD() {
       sx={{
         backgroundColor: "#D4E9DA",
         padding: 5,
-        margin: "10px auto",
+        margin: "-63px 0px 20px 0px",
       }}
     >
       <Grid
@@ -201,25 +173,37 @@ function PresidentCRUD() {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
           padding: "10px",
-          marginLeft: "100px",
         }}
       >
-        <Grid item xs={7}>
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "ProximaBold",
+              textAlign: "center",
+              marginBottom: "2vw",
+            }}
+          >
+            Role Management
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
           <TextField
             type="text"
             // value={searchTerm}
             onChange={handleInputChange}
             placeholder="Search by full name"
-            style={{ width: "20vw" }}
+            style={{ width: "20vw", marginLeft: "7vw" }}
             size="small"
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Button
             variant="contained"
             onClick={() => navigate("/add-members", { state: { token } })}
+            sx={{ marginLeft: "20vw" }}
           >
             Add Members
           </Button>
@@ -235,8 +219,9 @@ function PresidentCRUD() {
               <TableCell align="center">Phone number</TableCell>
               <TableCell align="center">Email Id</TableCell>
               <TableCell align="center">Current Status</TableCell>
-              <TableCell align="center">Modify</TableCell>
-              <TableCell align="center">Confirm</TableCell>
+              {/* <TableCell align="center">Modify</TableCell>
+              <TableCell align="center">Confirm</TableCell> */}
+              <TableCell align="center">Edit</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -266,7 +251,7 @@ function PresidentCRUD() {
                     <TableCell align="center">Committee</TableCell>)
                   } */}
                   <TableCell align="center">{status(row)}</TableCell>
-                  <TableCell align="center">
+                  {/* <TableCell align="center">
                     <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">
                         Modify Role
@@ -295,6 +280,18 @@ function PresidentCRUD() {
                   </TableCell>
                   <TableCell align="center">
                     <CheckIcon onClick={() => handlePut(row.accessId)} />
+                  </TableCell> */}
+                  <TableCell align="center">
+                    <Button
+                      variant="contained"
+                      onClick={() =>
+                        navigate("/edit-role-management", {
+                          state: { token, row },
+                        })
+                      }
+                    >
+                      Edit
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

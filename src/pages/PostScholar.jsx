@@ -60,6 +60,7 @@ function PostScholar() {
   };
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       // eslint-disable-next-line no-unused-vars
@@ -70,6 +71,12 @@ function PostScholar() {
           Token: `Bearer ${token}`,
         }
       );
+
+      // console.log(result);
+    } catch (err) {
+      // console.log(err);
+    } finally {
+      setLoading(false);
       // eslint-disable-next-line no-alert
       alert("Data added");
       setData({
@@ -80,8 +87,6 @@ function PostScholar() {
       });
       setFile(null);
       // console.log(result);
-    } catch (err) {
-      // console.log(err);
     }
   };
 
@@ -101,13 +106,17 @@ function PostScholar() {
           sx={{
             padding: "20px 50px",
             backgroundColor: "#D4E9DA",
-            margin: "20px 0px",
+            margin: "-55px 0px 20px 0px",
           }}
         >
           <Grid item xs={12}>
             <Typography
               variant="h4"
-              sx={{ fontFamily: "ProximaBold", textAlign: "center" }}
+              sx={{
+                fontFamily: "ProximaBold",
+                textAlign: "center",
+                marginBottom: "3vw",
+              }}
             >
               Add Scholarship
             </Typography>

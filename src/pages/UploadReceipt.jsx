@@ -6,7 +6,9 @@ import { Box, Grid, TextField, Typography, IconButton } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import Button from "../components/Button";
 import { postRequest } from "../HTTP_POST/api";
+import UploadDonationValidation from "../validations/uploadDonationValidation";
 import LoadingComponent from "../components/Loading/loadingComponent";
+import useCustomFetch from "../Hooks/useCustomFetch";
 
 function UploadGallery() {
   const [file, setFile] = useState(null);
@@ -18,6 +20,14 @@ function UploadGallery() {
   const navigate = useNavigate();
   const token = `${location.state.token}`;
   const { REACT_APP_FAKE_API } = process.env;
+
+  const info = useCustomFetch({
+    url: `${REACT_APP_FAKE_API}/user/getSpecificUserDetails`,
+    method: "GET",
+    headers: {
+      Token: `Bearer ${location.state.token}`,
+    },
+  });
 
   const imageApi = async () => {
     if (file) {
@@ -86,12 +96,12 @@ function UploadGallery() {
 
   const formik = useFormik({
     initialValues: {
-      trasactionId: "",
+      transactionId: "",
       description: "",
       imagesForHomePage: null,
       amountPaid: "",
     },
-    // validationSchema: postValidationSchema,
+    validationSchema: UploadDonationValidation,
     onSubmit: async (values) => {
       try {
         setLoading(true);
@@ -99,7 +109,7 @@ function UploadGallery() {
         const response = await postRequest(
           `${REACT_APP_FAKE_API}/user/uploadTranscationReceipt`,
           {
-            trasactionId: values.trasactionId,
+            transactionId: values.transactionId,
             amountPaid: values.amountPaid,
             paymentImageUrl: result.url,
           },
@@ -277,11 +287,17 @@ function UploadGallery() {
                 id="fullName"
                 name="fullName"
                 type="string"
-                // value={formik.values.fullName}
+                value={
+                  info.data
+                    ? `${info.data.firstName} ${info.data.lastName}`
+                    : ""
+                }
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={formik.touched.fullName && Boolean(formik.errors.fullName)}
                 // helperText={formik.touched.fullName && formik.errors.fullName}
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid item xs={2}>
@@ -301,6 +317,8 @@ function UploadGallery() {
                 // helperText={
                 //   formik.touched.dateOfPayment && formik.errors.dateOfPayment
                 // }
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid item xs={3}>
@@ -309,7 +327,7 @@ function UploadGallery() {
                 id="phoneNumber"
                 name="phoneNumber"
                 type="number"
-                // value={formik.values.phoneNumber}
+                value={info.data ? info.data.phoneNumber : ""}
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={
@@ -318,6 +336,8 @@ function UploadGallery() {
                 // helperText={
                 //   formik.touched.phoneNumber && formik.errors.phoneNumber
                 // }
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid item xs={3}>
@@ -326,7 +346,7 @@ function UploadGallery() {
                 id="emailAddress"
                 name="emailAddress"
                 type="email"
-                // value={formik.values.emailAddress}
+                value={info.data ? info.data.emailAddress : ""}
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 // error={
@@ -336,6 +356,8 @@ function UploadGallery() {
                 // helperText={
                 //   formik.touched.emailAddress && formik.errors.emailAddress
                 // }
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid item xs={6}>
@@ -361,19 +383,21 @@ function UploadGallery() {
             >
               <TextField
                 fullWidth
-                id="trasactionId"
-                name="trasactionId"
-                type="string"
-                value={formik.values.trasactionId}
+                id="transactionId"
+                name="transactionId"
+                type="number"
+                value={formik.values.transactionId}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={
-                  formik.touched.trasactionId &&
-                  Boolean(formik.errors.trasactionId)
+                  formik.touched.transactionId &&
+                  Boolean(formik.errors.transactionId)
                 }
                 helperText={
-                  formik.touched.trasactionId && formik.errors.trasactionId
+                  formik.touched.transactionId && formik.errors.transactionId
                 }
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid
@@ -385,7 +409,7 @@ function UploadGallery() {
                 fullWidth
                 id="amountPaid"
                 name="amountPaid"
-                type="string"
+                type="number"
                 value={formik.values.amountPaid}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -395,6 +419,8 @@ function UploadGallery() {
                 helperText={
                   formik.touched.amountPaid && formik.errors.amountPaid
                 }
+                sx={{ backgroundColor: "white", borderRadius: "5px" }}
+                size="small"
               />
             </Grid>
             <Grid item xs={12}>
