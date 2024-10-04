@@ -9,7 +9,6 @@ import {
   Button,
   FormControl,
   InputLabel,
-  FormHelperText,
 } from "@mui/material";
 import {
   gender as genders,
@@ -33,9 +32,9 @@ function familyDetails({ setActiveStep }) {
       spouseProfession: data.spouseProfession || "",
       spouseEducation: data.spouseEducation || "",
       noOfChildren: data.noOfChildren || "",
-      name: data.name || "",
-      childAge: data.childAge || "",
-      gender: data.gender || "",
+      // name: data.name || "",
+      // childAge: data.childAge || "",
+      // gender: data.gender || "",
     },
     validationSchema: familyValidationSchema,
     onSubmit: (values) => {
@@ -49,7 +48,7 @@ function familyDetails({ setActiveStep }) {
           spouseAge: values.spouseAge,
           spouseGender: values.spouseGender,
           spouseEducation: values.spouseEducation,
-          noOfChildren: values.noOfChildren,
+          numberOfchildren: values.noOfChildren,
           children: info,
         },
       }));
@@ -146,10 +145,10 @@ function familyDetails({ setActiveStep }) {
             value={formik.values.spouseName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={
-              formik.touched.spouseName && Boolean(formik.errors.spouseName)
-            }
-            helperText={formik.touched.spouseName && formik.errors.spouseName}
+            // error={
+            //   formik.touched.spouseName && Boolean(formik.errors.spouseName)
+            // }
+            // helperText={formik.touched.spouseName && formik.errors.spouseName}
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
@@ -165,8 +164,8 @@ function familyDetails({ setActiveStep }) {
             value={formik.values.spouseAge}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.spouseAge && Boolean(formik.errors.spouseAge)}
-            helperText={formik.touched.spouseAge && formik.errors.spouseAge}
+            // error={formik.touched.spouseAge && Boolean(formik.errors.spouseAge)}
+            // helperText={formik.touched.spouseAge && formik.errors.spouseAge}
             sx={{ backgroundColor: "white", borderRadius: "5px" }}
           />
         </Grid>
@@ -191,11 +190,11 @@ function familyDetails({ setActiveStep }) {
                 </MenuItem>
               ))}
             </Select>
-            {formik.touched.spouseGender && formik.errors.spouseGender && (
+            {/* {formik.touched.spouseGender && formik.errors.spouseGender && (
               <FormHelperText sx={{ color: "red" }}>
                 {formik.errors.spouseGender}
               </FormHelperText>
-            )}
+            )} */}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -221,12 +220,12 @@ function familyDetails({ setActiveStep }) {
                 </MenuItem>
               ))}
             </Select>
-            {formik.touched.spouseProfession &&
+            {/* {formik.touched.spouseProfession &&
               formik.errors.spouseProfession && (
                 <FormHelperText sx={{ color: "red" }}>
                   {formik.errors.spouseProfession}
                 </FormHelperText>
-              )}
+              )} */}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -252,12 +251,12 @@ function familyDetails({ setActiveStep }) {
                 </MenuItem>
               ))}
             </Select>
-            {formik.touched.spouseEducation &&
+            {/* {formik.touched.spouseEducation &&
               formik.errors.spouseEducation && (
                 <FormHelperText sx={{ color: "red" }}>
                   {formik.errors.spouseEducation}
                 </FormHelperText>
-              )}
+              )} */}
           </FormControl>
         </Grid>
         {/* ----------------------------------------- */}
@@ -302,8 +301,8 @@ function familyDetails({ setActiveStep }) {
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 onChange={(e) => changeHandler(e, index)}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
+                // error={formik.touched.name && Boolean(formik.errors.name)}
+                // helperText={formik.touched.name && formik.errors.name}
                 sx={{ backgroundColor: "white", borderRadius: "5px" }}
               />
             </Grid>
@@ -319,10 +318,10 @@ function familyDetails({ setActiveStep }) {
                 // onChange={formik.handleChange}
                 // onBlur={formik.handleBlur}
                 onChange={(e) => changeHandler(e, index)}
-                error={
-                  formik.touched.childAge && Boolean(formik.errors.childAge)
-                }
-                helperText={formik.touched.childAge && formik.errors.childAge}
+                // error={
+                //   formik.touched.childAge && Boolean(formik.errors.childAge)
+                // }
+                // helperText={formik.touched.childAge && formik.errors.childAge}
                 sx={{ backgroundColor: "white", borderRadius: "5px" }}
               />
             </Grid>
@@ -346,11 +345,11 @@ function familyDetails({ setActiveStep }) {
                     </MenuItem>
                   ))}
                 </Select>
-                {formik.touched.gender && formik.errors.gender && (
+                {/* {formik.touched.gender && formik.errors.gender && (
                   <FormHelperText sx={{ color: "red" }}>
                     {formik.errors.gender}
                   </FormHelperText>
-                )}
+                )} */}
               </FormControl>
             </Grid>
           </>

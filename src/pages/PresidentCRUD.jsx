@@ -10,17 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { Circles } from "react-loader-spinner";
 import { Box } from "@mui/system";
@@ -79,25 +69,6 @@ function PresidentCRUD() {
         exp["accountant"] = true;
       }
       setRoleData(exp);
-    }
-  };
-
-  const handlePut = async (id) => {
-    try {
-      const result = await updateData(
-        `${REACT_APP_FAKE_API}/updateInternalUser/${id}`,
-        roledata,
-        {
-          Token: `Bearer ${token}`,
-        }
-      );
-      // eslint-disable-next-line no-console
-      console.log("message:", result);
-      // eslint-disable-next-line no-alert
-      alert("Role updated..");
-    } catch (error2) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to update data", error2);
     }
   };
 
@@ -248,8 +219,9 @@ function PresidentCRUD() {
               <TableCell align="center">Phone number</TableCell>
               <TableCell align="center">Email Id</TableCell>
               <TableCell align="center">Current Status</TableCell>
-              <TableCell align="center">Modify</TableCell>
-              <TableCell align="center">Confirm</TableCell>
+              {/* <TableCell align="center">Modify</TableCell>
+              <TableCell align="center">Confirm</TableCell> */}
+              <TableCell align="center">Edit</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -279,7 +251,7 @@ function PresidentCRUD() {
                     <TableCell align="center">Committee</TableCell>)
                   } */}
                   <TableCell align="center">{status(row)}</TableCell>
-                  <TableCell align="center">
+                  {/* <TableCell align="center">
                     <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">
                         Modify Role
@@ -308,6 +280,18 @@ function PresidentCRUD() {
                   </TableCell>
                   <TableCell align="center">
                     <CheckIcon onClick={() => handlePut(row.accessId)} />
+                  </TableCell> */}
+                  <TableCell align="center">
+                    <Button
+                      variant="contained"
+                      onClick={() =>
+                        navigate("/edit-role-management", {
+                          state: { token, row },
+                        })
+                      }
+                    >
+                      Edit
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

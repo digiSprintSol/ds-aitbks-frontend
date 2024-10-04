@@ -6,6 +6,7 @@ import quoteIcon from "./images/quoteIcon.png";
 import feedbackhands from "./images/feedbackhands.png";
 import "../App.css";
 import useCustomFetch from "../Hooks/useCustomFetch";
+import LoadingComponent from "../components/Loading/loadingComponent";
 
 function Feedback() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Feedback() {
   });
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>loading...</h1>;
+  if (loading) return <LoadingComponent />;
   return (
     <Box sx={{ padding: "2vw" }}>
       <Box>
@@ -47,7 +48,13 @@ function Feedback() {
           {data.map((item) => (
             <Grid item xs={6}>
               <div className="feedback">
-                <img src={item.url} alt="user_icon" height="60%" width="19%" />
+                <img
+                  src={item.url}
+                  alt="user_icon"
+                  height="60%"
+                  width="19%"
+                  style={{ objectFit: "contain" }}
+                />
                 <div>
                   <h1 style={{ fontFamily: "ProximaBold" }}>{item.name}</h1>
                   <p style={{ fontFamily: "ProximaRegular" }}>

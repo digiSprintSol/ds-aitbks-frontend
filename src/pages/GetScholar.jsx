@@ -87,6 +87,7 @@ function GetScholar() {
                     alt="profilepic"
                     height="100"
                     width="90"
+                    style={{ objectFit: "contain" }}
                   />
                 </TableCell>
                 <TableCell align="center">{row.firstName}</TableCell>

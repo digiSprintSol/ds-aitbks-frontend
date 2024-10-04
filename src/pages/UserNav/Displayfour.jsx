@@ -49,6 +49,10 @@ function Displayfour({ token }) {
             color: "white",
             width: "10vw",
             borderRadius: "10vw",
+            "&:hover": {
+              backgroundColor: "#1B7DA6",
+              opacity: "0.9",
+            },
           }}
         >
           Go to R3

@@ -54,6 +54,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import LoadingComponent from "../components/Loading/loadingComponent";
 import useCustomFetch from "../Hooks/useCustomFetch";
 
 function Awards() {
@@ -74,7 +75,7 @@ function Awards() {
       setInfo(data.filter((row) => row.eventType === "awards"));
     }
   }, [data]);
-  if (loading) return <h1>Loading....</h1>;
+  if (loading) return <LoadingComponent />;
   if (error) return <h1>error...</h1>;
   return (
     <div>

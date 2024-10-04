@@ -39,6 +39,7 @@ const PresidentView = loadable(() => import("./pages/PresidentView"));
 const PresidentAnimationNav = loadable(() =>
   import("./pages/PresidentAnimationNav")
 );
+const EditRoleManagement = loadable(() => import("./pages/EditRoleManagement"));
 const AdminAnimationNav = loadable(() => import("./pages/AdminAnimationNav"));
 const AdminNav = loadable(() => import("./pages/AdminNav"));
 // const PresidentUser = loadable(() => import("./pages/PresidentUser"));
@@ -51,10 +52,7 @@ const Display = loadable(() => import("./components/MarketPlace/Display"));
 const RegistrationOne = loadable(() => import("./pages/RegistrationOne"));
 const RegistrationTwo = loadable(() => import("./pages/RegistrationTwo"));
 const RegistrationThree = loadable(() => import("./pages/RegistrationThree"));
-const UploadAnnouncement = loadable(() => import("./pages/UploadAnnouncement"));
 const ViewAnnouncements = loadable(() => import("./pages/ViewAnnouncements"));
-const UploadEvent = loadable(() => import("./pages/UploadEvent"));
-const UploadGallery = loadable(() => import("./pages/UploadGallery"));
 const UserView = loadable(() => import("./pages/UserView"));
 const UserID = loadable(() => import("./pages/UserID"));
 const GetScholar = loadable(() => import("./pages/GetScholar"));
@@ -235,6 +233,10 @@ export const router = createBrowserRouter([
         element: <PresidentAnimationNav />,
       },
       {
+        path: "/edit-role-management",
+        element: <EditRoleManagement />,
+      },
+      {
         path: "/admin-animation-page",
         element: <AdminAnimationNav />,
       },
@@ -259,20 +261,8 @@ export const router = createBrowserRouter([
         element: <UserEditDetails />,
       },
       {
-        path: "/upload-announcement",
-        element: <UploadAnnouncement />,
-      },
-      {
         path: "/view-announcement",
         element: <ViewAnnouncements />,
-      },
-      {
-        path: "/upload-event",
-        element: <UploadEvent />,
-      },
-      {
-        path: "/upload-gallery",
-        element: <UploadGallery />,
       },
       {
         path: "/user-view",

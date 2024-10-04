@@ -480,7 +480,7 @@ export default function CommitteePopup({
                   size="small"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Typography id="modal-modal-description">
                   Reference 01 (existing members)
                 </Typography>
@@ -492,7 +492,7 @@ export default function CommitteePopup({
                   size="small"
                 />
               </Grid>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <Typography id="modal-modal-description">
                   Reference 02 (referred by)
                 </Typography>
@@ -503,7 +503,7 @@ export default function CommitteePopup({
                   aria-readonly
                   size="small"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Typography id="modal-modal-description">
                   Tell us about yourself

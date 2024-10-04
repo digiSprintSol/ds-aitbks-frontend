@@ -60,6 +60,7 @@ function PostScholar() {
   };
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       // eslint-disable-next-line no-unused-vars
@@ -70,6 +71,12 @@ function PostScholar() {
           Token: `Bearer ${token}`,
         }
       );
+
+      // console.log(result);
+    } catch (err) {
+      // console.log(err);
+    } finally {
+      setLoading(false);
       // eslint-disable-next-line no-alert
       alert("Data added");
       setData({
@@ -80,8 +87,6 @@ function PostScholar() {
       });
       setFile(null);
       // console.log(result);
-    } catch (err) {
-      // console.log(err);
     }
   };
 

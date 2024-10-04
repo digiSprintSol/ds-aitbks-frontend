@@ -267,6 +267,8 @@ function UploadDonationReceipt() {
               onBlur={formik.handleBlur}
               error={formik.touched.fullName && Boolean(formik.errors.fullName)}
               helperText={formik.touched.fullName && formik.errors.fullName}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={2}>
@@ -281,6 +283,8 @@ function UploadDonationReceipt() {
               onBlur={formik.handleBlur}
               error={formik.touched.dob && Boolean(formik.errors.dob)}
               helperText={formik.touched.dob && formik.errors.dob}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={3}>
@@ -288,7 +292,7 @@ function UploadDonationReceipt() {
               fullWidth
               id="phoneNumber"
               name="phoneNumber"
-              type="string"
+              type="number"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -298,6 +302,8 @@ function UploadDonationReceipt() {
               helperText={
                 formik.touched.phoneNumber && formik.errors.phoneNumber
               }
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={3}>
@@ -311,6 +317,8 @@ function UploadDonationReceipt() {
               onBlur={formik.handleBlur}
               error={formik.touched.emailId && Boolean(formik.errors.emailId)}
               helperText={formik.touched.emailId && formik.errors.emailId}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={4}>
@@ -333,7 +341,7 @@ function UploadDonationReceipt() {
               fullWidth
               id="transactionId"
               name="transactionId"
-              type="string"
+              type="number"
               value={formik.values.transactionId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -344,6 +352,8 @@ function UploadDonationReceipt() {
               helperText={
                 formik.touched.transactionId && formik.errors.transactionId
               }
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={2}>
@@ -363,6 +373,8 @@ function UploadDonationReceipt() {
               helperText={
                 formik.touched.transactionDate && formik.errors.transactionDate
               }
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "center" }}>
@@ -370,7 +382,7 @@ function UploadDonationReceipt() {
               fullWidth
               id="amountPaid"
               name="amountPaid"
-              type="string"
+              type="number"
               value={formik.values.amountPaid}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -378,6 +390,8 @@ function UploadDonationReceipt() {
                 formik.touched.amountPaid && Boolean(formik.errors.amountPaid)
               }
               helperText={formik.touched.amountPaid && formik.errors.amountPaid}
+              sx={{ backgroundColor: "white", borderRadius: "5px" }}
+              size="small"
             />
           </Grid>
           <Grid item xs={12}>
