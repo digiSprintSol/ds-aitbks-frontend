@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import useCustomFetch from "../../Hooks/useCustomFetch";
+import LoadingComponent from "../Loading/loadingComponent";
 
 export default function Search() {
   const { REACT_APP_FAKE_API } = process.env;
@@ -91,7 +92,7 @@ export default function Search() {
   }, [data]);
 
   if (error) return <h1>Error..</h1>;
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <LoadingComponent />;
 
   return (
     <Stack sx={{ backgroundColor: "#D4E9DA" }}>
