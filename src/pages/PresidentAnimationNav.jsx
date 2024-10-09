@@ -31,7 +31,7 @@ function PresidentAnimationNav() {
       >
         Close
       </Button>
-      <div className="presidentviewhead">
+      <div className="presidentviewhead" style={{ marginLeft: "20vw" }}>
         <div className="presidentviewheadone">
           <button
             type="button"
